@@ -4,7 +4,7 @@
         "TIMEZONE"  :   "Europe/Paris"
     },
 	"ROUTING"   :	{
-        "BASE_URL"	:	"/returns/",
+        "BASE_URL"	:	"/ShyComicsReturns/",
         "RULES"     		:   {
 
         }
