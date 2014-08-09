@@ -5,10 +5,9 @@
 	//Init core
 	//\Eliya\Core::init();
 
-	define('PROJECT_ROOT', __DIR__.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR);
+	define('PROJECT_ROOT', __DIR__.DIRECTORY_SEPARATOR);
 
-	echo PROJECT_ROOT,'<br />';
-	$system_path	=	PROJECT_ROOT.DIRECTORY_SEPARATOR.'system';
+	$system_path	=	PROJECT_ROOT.'system';
 
 	foreach(new \DirectoryIterator($system_path) as $file)
 	{
