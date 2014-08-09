@@ -1,0 +1,1 @@
+<p>Hello <b><?= $view->name; ?></b>!</p>

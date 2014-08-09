@@ -1,0 +1,18 @@
+{
+	"DEFAULT"   :   {
+        "LOCAL"     :   "fr_FR.utf8",
+        "TIMEZONE"  :   "Europe/Paris"
+    },
+	"ROUTING"   :	{
+        "BASE_URL"	:	"/",
+        "RULES"     		:   {
+            "sample-([0-9]+)\\.html"	:	["sample", "index", "page"]
+        }
+	},
+    "SQL"       :   {
+        "HOST"      :   "localhost",
+        "USER"      :   "root",
+        "PASSWORD"  :   "p@$$w0rD",
+        "DATABASE"  :   "my_database"
+    }
+}
