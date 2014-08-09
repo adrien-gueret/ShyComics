@@ -2,4 +2,4 @@ Options +FollowSymlinks -MultiViews -Indexes
 RewriteEngine on
 
 RewriteRule public/(.+) public/$1  [L]
-RewriteRule . index.php [L]
+RewriteRule ^(.*)$ index.php [L]
