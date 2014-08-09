@@ -14,3 +14,5 @@ nbproject/
 Thumbs.db
 desktop.ini
 
+# config file
+/application/configs/*
