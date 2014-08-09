@@ -4,9 +4,9 @@
         "TIMEZONE"  :   "Europe/Paris"
     },
 	"ROUTING"   :	{
-        "BASE_URL"	:	"/",
+        "BASE_URL"	:	"/returns/",
         "RULES"     		:   {
-            "sample-([0-9]+)\\.html"	:	["sample", "index", "page"]
+
         }
 	},
     "SQL"       :   {
