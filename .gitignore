@@ -16,3 +16,5 @@ desktop.ini
 
 # config file
 /application/configs/*
+
+.htaccess
