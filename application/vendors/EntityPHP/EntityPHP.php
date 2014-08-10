@@ -38,9 +38,7 @@ abstract class Core
 	final public static function connectToDB($host, $user, $password, $database, $utf8 = true)
 	{
 		//TODO: make this connection more customisable and allow other drivers and not only MySQL
-		echo 'before';
 		$newDb	=	new \PDO('mysql:host='.$host.';dbname='.$database, $user, $password);
-		echo 'after';
 
 		if($utf8)
 			$newDb->exec('SET NAMES UTF8');
