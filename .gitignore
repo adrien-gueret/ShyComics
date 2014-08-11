@@ -18,3 +18,5 @@ desktop.ini
 /application/configs/*
 
 .htaccess
+application/configs/main.json
+.htaccess
