@@ -1,6 +1,6 @@
 Options +FollowSymlinks -MultiViews -Indexes
 RewriteEngine on
-RewriteBase /ShyComicsReturns/
+RewriteBase /ShyComics/
 
 RewriteRule public/(.+) public/$1  [L]
 RewriteRule ^(.*)$ index.php [L]
