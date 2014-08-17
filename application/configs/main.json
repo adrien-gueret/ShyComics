@@ -1,18 +1,17 @@
 {
-	"DEFAULT"   :   {
-        "LOCAL"     :   "fr_FR.utf8",
-        "TIMEZONE"  :   "Europe/Paris"
-    },
-	"ROUTING"   :	{
-        "BASE_URL"	:	"/ShyComicsReturns/",
-        "RULES"     		:   {
-
-        }
-	},
-    "SQL"       :   {
-        "HOST"      :   "localhost",
-        "USER"      :   "root",
-        "PASSWORD"  :   "p@$$w0rD",
-        "DATABASE"  :   "my_database"
-    }
+"DEFAULT" : {
+"LOCAL" : "fr_FR.utf8",
+"TIMEZONE" : "Europe/Paris"
+},
+"ROUTING" :	{
+"BASE_URL"	:	"/ShyComicsReturns/",
+"RULES" : {
+}
+},
+"SQL" : {
+"HOST" : "localhost",
+"USER" : "root",
+"PASSWORD" : "p@$$w0rD",
+"DATABASE" : "my_database"
+}
 }

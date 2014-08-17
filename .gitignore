@@ -9,12 +9,9 @@
 build
 .idea
 nbproject/
-
 # hidden files created by Windows
 Thumbs.db
 desktop.ini
-
 # config file
 /application/configs/*
-
 .htaccess
