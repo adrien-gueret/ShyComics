@@ -9,11 +9,11 @@
 		<link rel="shortcut icon" type="image/x-icon" href="./public/favicon.ico" />
 	</head>
 	<body>
-		<nav id="horizontalTop">
+		<nav>
 			<img src="" alt="Accueil" title="Retour à l'accueil" />
 			<ul>
 				<li>Inscription | Connexion <!-- ou message de bienvenue si connecté --></li>
-				<li><input type="search" name="search" id="search"/></li>
+				<li><input type="search" name="search" id="nav-search"/></li>
 				<li>Sprites Comics</li>
 				<li>Jeux</li>
 				<li>Tutoriaux</li>
@@ -23,7 +23,7 @@
 				<li><img src="" alt="Tweeter" title="Suivez-nous sur Tweeter !" /></li>
 			</ul>
 		</nav>
-		<nav id="verticalLeft">
+		<nav>
 			<ul>
 				<li></li>
 			</ul>
