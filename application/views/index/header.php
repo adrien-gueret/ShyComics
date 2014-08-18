@@ -13,7 +13,7 @@
 			<img src="" alt="Accueil" title="Retour à l'accueil" />
 			<ul>
 				<li>Inscription | Connexion <!-- ou message de bienvenue si connecté --></li>
-				<li><input type="text" name="search" id="search"/></li>
+				<li><input type="search" name="search" id="search"/></li>
 				<li>Sprites Comics</li>
 				<li>Jeux</li>
 				<li>Tutoriaux</li>
