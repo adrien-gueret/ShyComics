@@ -82,12 +82,12 @@
 					$security = \Eliya\Config('main')->SECURITY;
 					$salt = $security['SALT'];
 					
-					$hashVerif = sha1($results->getEmail() . $results->getUsername() . $salt);
+					$hashVerif = Library_String::hash($results->getEmail() . $results->getUsername());
 					
 					if($hashVerif == $h)
 					{
 						Model_Users::emailVerified($id);
-						$this->response->set('Vous avez validé votre compte avec succès. Vous pouvez profiter pleinement et dés à présent du site !');
+						$this->response->set('Vous avez validé votre compte avec succès. Vous pouvez profiter pleinement et dès à présent du site !');
 					}
 				}
 			}
