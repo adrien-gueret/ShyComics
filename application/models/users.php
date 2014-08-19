@@ -29,16 +29,6 @@
 			];
 		}
 		
-		public function getEmail()
-		{
-			return $this->email;
-		}
-		
-		public function getUsername()
-		{
-			return $this->username;
-		}
-		
 		public static function getByEmail($email)
 		{
 			$request = Model_Users::createRequest();

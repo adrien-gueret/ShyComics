@@ -82,7 +82,7 @@
 					$security = \Eliya\Config('main')->SECURITY;
 					$salt = $security['SALT'];
 					
-					$hashVerif = Library_String::hash($results->getEmail() . $results->getUsername());
+					$hashVerif = Library_String::hash($results->prop('email') . $results->prop('username'));
 					
 					if($hashVerif == $h)
 					{
