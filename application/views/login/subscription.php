@@ -5,5 +5,5 @@ Formulaire pour s'inscrire :
 	Votre adresse email : <input type="mail" name="email" /><br />
 	<br />
 	<input type="submit" value="M'inscrire !" />
-</form><br />
+</form>
 <a href="login">Se connecter</a>
