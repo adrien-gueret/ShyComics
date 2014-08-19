@@ -20,15 +20,14 @@
 			\Eliya\Tpl::set([
 				'page_title'		=>	'S\'inscire',
 			]);
-			$view	=	\Eliya\Tpl::get('login/subscription');
-			$this->response->set($view);
+			$this->response->set(\Eliya\Tpl::get('login/subscription'));
 		}
 		
 		public function post_subscription($username = null, $password = null, $email = null)
 		{
-			$username = htmlspecialchars($username);
-			$email = htmlspecialchars($email);
-			$password = htmlspecialchars($password);
+			$username = htmlspecialchars($username, ENT_QUOTES, 'utf-8');
+			$email = htmlspecialchars($email, ENT_QUOTES, 'utf-8');
+			$password = htmlspecialchars($password, ENT_QUOTES, 'utf-8');
 			
 			if(!empty($username) AND !empty($password) AND !empty($email))
 			{
@@ -69,8 +68,8 @@
 		{
 			if(!empty($m) AND !empty($h))
 			{
-				$m = htmlspecialchars($m);
-				$h = htmlspecialchars($h);
+				$m = htmlspecialchars($m, ENT_QUOTES, 'utf-8');
+				$h = htmlspecialchars($h, ENT_QUOTES, 'utf-8');
 				
 				$results = Model_Users::getByEmail($m);
 				if($results != null)
