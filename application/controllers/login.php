@@ -1,11 +1,6 @@
 <?php
-	class Controller_Login extends Controller_index
+	class Controller_login extends Controller_index
 	{
-		public function __init()
-		{
-			parent::__init();
-		}
-		
 		public function get_index()
 		{
 			\Eliya\Tpl::set([
