@@ -31,7 +31,7 @@
 			
 			if(!empty($username) AND !empty($password) AND !empty($email))
 			{
-				if(preg_match('#^[a-zA-Z0-9._-]+@[a-z0-9._-]{2,}\.[a-z]{2,4}$#', $email))
+				if(filter_var($email, FILTER_VALIDATE_EMAIL))
 				{
 					$results = Model_Users::getByEmail($email);
 					if($results === null)
@@ -51,16 +51,19 @@
 					else
 					{
 						$this->response->set('Cette adresse email est déjà utilisée.');
+						$this->response->set(\Eliya\Tpl::get('login/subscription'));
 					}
 				}
 				else
 				{
 					$this->response->set('Veuillez rentrer une adresse email valide.');
+					$this->response->set(\Eliya\Tpl::get('login/subscription'));
 				}
 			}
 			else
 			{
 				$this->response->set('Merci de renseigner tous les champs du formulaire !');
+				$this->response->set(\Eliya\Tpl::get('login/subscription'));
 			}
 		}
 		
