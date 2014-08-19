@@ -60,7 +60,7 @@
 			}
 			else
 			{
-				$this->response->set('Vous n\'avez pas renseigné de pseudo et/ou de mot de passe et/ou d\'adresse email !');
+				$this->response->set('Merci de renseigner tous les champs du formulaire !');
 			}
 		}
 		
