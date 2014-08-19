@@ -17,5 +17,6 @@
 		public function get_index()
 		{
 			$this->response->set('<p>Hello world!</p>');
+			Model_Users::createTable();
 		}
 	}
