@@ -1,29 +1,15 @@
 <?php
-	class Controller_login extends Controller_index
+	class Controller_login_register extends Controller_index
 	{
 		public function get_index()
 		{
 			\Eliya\Tpl::set([
-				'page_title'		=>	'Se connecter',
-			]);
-			
-			if(isset($_SESSION['id']))
-				$view	=	\Eliya\Tpl::get('login/alreadyLogged');
-			else
-				$view	=	\Eliya\Tpl::get('login/index');
-			
-			$this->response->set($view);
-		}
-		
-		public function get_subscription()
-		{
-			\Eliya\Tpl::set([
 				'page_title'		=>	'S\'inscire',
 			]);
-			$this->response->set(\Eliya\Tpl::get('login/subscription'));
+			$this->response->set(\Eliya\Tpl::get('login/register'));
 		}
 		
-		public function post_subscription($username = null, $password = null, $email = null)
+		public function post_index($username = null, $password = null, $email = null)
 		{
 			$username = htmlspecialchars($username, ENT_QUOTES, 'utf-8');
 			$email = htmlspecialchars($email, ENT_QUOTES, 'utf-8');
@@ -51,45 +37,19 @@
 					else
 					{
 						$this->response->set('Cette adresse email est déjà utilisée.');
-						$this->response->append(\Eliya\Tpl::get('login/subscription'));
+						$this->response->append(\Eliya\Tpl::get('login/register'));
 					}
 				}
 				else
 				{
 					$this->response->set('Veuillez rentrer une adresse email valide.');
-					$this->response->append(\Eliya\Tpl::get('login/subscription'));
+					$this->response->append(\Eliya\Tpl::get('login/register'));
 				}
 			}
 			else
 			{
 				$this->response->set('Merci de renseigner tous les champs du formulaire !');
-				$this->response->append(\Eliya\Tpl::get('login/subscription'));
-			}
-		}
-		
-		public function get_verifyAccount($m = null, $h = null)
-		{
-			if(!empty($m) AND !empty($h))
-			{
-				$m = htmlspecialchars($m, ENT_QUOTES, 'utf-8');
-				$h = htmlspecialchars($h, ENT_QUOTES, 'utf-8');
-				
-				$results = Model_Users::getByEmail($m);
-				if(!empty($results))
-				{
-					$id = $results->getId();
-					
-					$security = \Eliya\Config('main')->SECURITY;
-					$salt = $security['SALT'];
-					
-					$hashVerif = Library_String::hash($results->prop('email') . $results->prop('username'));
-					
-					if($hashVerif === $h)
-					{
-						Model_Users::emailVerified($id);
-						$this->response->set('Vous avez validé votre compte avec succès. Vous pouvez profiter pleinement et dès à présent du site !');
-					}
-				}
+				$this->response->append(\Eliya\Tpl::get('login/register'));
 			}
 		}
 	}
