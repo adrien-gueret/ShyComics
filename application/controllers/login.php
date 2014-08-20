@@ -51,19 +51,19 @@
 					else
 					{
 						$this->response->set('Cette adresse email est déjà utilisée.');
-						$this->response->set(\Eliya\Tpl::get('login/subscription'));
+						$this->response->append(\Eliya\Tpl::get('login/subscription'));
 					}
 				}
 				else
 				{
 					$this->response->set('Veuillez rentrer une adresse email valide.');
-					$this->response->set(\Eliya\Tpl::get('login/subscription'));
+					$this->response->append(\Eliya\Tpl::get('login/subscription'));
 				}
 			}
 			else
 			{
 				$this->response->set('Merci de renseigner tous les champs du formulaire !');
-				$this->response->set(\Eliya\Tpl::get('login/subscription'));
+				$this->response->append(\Eliya\Tpl::get('login/subscription'));
 			}
 		}
 		
@@ -75,7 +75,7 @@
 				$h = htmlspecialchars($h, ENT_QUOTES, 'utf-8');
 				
 				$results = Model_Users::getByEmail($m);
-				if($results != null)
+				if(!empty($results))
 				{
 					$id = $results->getId();
 					
@@ -84,7 +84,7 @@
 					
 					$hashVerif = Library_String::hash($results->prop('email') . $results->prop('username'));
 					
-					if($hashVerif == $h)
+					if($hashVerif === $h)
 					{
 						Model_Users::emailVerified($id);
 						$this->response->set('Vous avez validé votre compte avec succès. Vous pouvez profiter pleinement et dès à présent du site !');
