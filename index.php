@@ -4,6 +4,9 @@
 	
 	//Init core
 	\Eliya\Core::init();
+	
+	//Activate the session
+	session_start();
 
 	//Init DB
 	require_once 'application/vendors/EntityPHP/EntityPHP.php';
