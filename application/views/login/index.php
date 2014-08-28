@@ -1,6 +1,6 @@
 Formulaire pour se connecter :
-<form action="index" method="post">
+<form action="<?= $view->base_url; ?>login" method="post">
 	Votre pseudo : <input type="text" name="pseudo" /><br />
 	Votre mot de passe : <input type="password" name="password" />
 </form>
-<a href="register">S'inscrire</a>
+<a href="<?= $view->base_url; ?>login/register">S'inscrire</a>

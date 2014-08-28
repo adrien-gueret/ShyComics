@@ -1,2 +1,2 @@
-Vous êtes déjà connecté <?= echo $_SESSION['pseudo']; ?> !
-<a href="login/deconnexion">Se déconnecter</a>
+Vous êtes déjà connecté <?= $_SESSION['pseudo']; ?> !
+<a href="<?= $view->base_url; ?>logout">Se déconnecter</a>

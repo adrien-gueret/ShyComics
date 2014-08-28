@@ -5,14 +5,14 @@
 		<title><?= $view->page_title; ?></title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta name="description" content="<?= $view->page_description; ?>" />
-		<link rel="stylesheet" type="text/css" href="./public/css/style.css" />
-		<link rel="shortcut icon" type="image/x-icon" href="./public/favicon.ico" />
+		<link rel="stylesheet" type="text/css" href="<?= $view->base_url; ?>public/css/style.css" />
+		<link rel="shortcut icon" type="image/x-icon" href="<?= $view->base_url; ?>public/favicon.ico" />
 	</head>
 	<body>
 		<nav>
 			<img src="" alt="Accueil" title="Retour à l'accueil" />
 			<ul>
-				<li>Inscription | Connexion <!-- ou message de bienvenue si connecté --></li>
+				<li><a href="<?= $view->base_url; ?>login/register">Inscription</a> | <a href="<?= $view->base_url; ?>login">Connexion</a> <!-- ou message de bienvenue si connecté --></li>
 				<li><input type="search" name="search" id="nav-search"/></li>
 				<li>Sprites Comics</li>
 				<li>Jeux</li>
@@ -29,6 +29,6 @@
 			</ul>
 		</nav>
 		<header>
-			<div>Inscrivez-vous !</div>
+			<div><a href="<?= $view->base_url; ?>login/register">Inscrivez-vous !</a></div>
 		</header>
 		<section>

@@ -30,4 +30,5 @@
 
 	//Handle received request
 	$request	=	new \Eliya\Request($_SERVER['REQUEST_URI']);
+
 	$request->exec()->response()->render();

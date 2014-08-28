@@ -20,4 +20,3 @@
 			//Code pour connecter le membre
 		}
 	}
-?>

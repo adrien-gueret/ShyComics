@@ -8,7 +8,7 @@
 		<meta charset="utf-8" />
 		<title>Erreur <?= $view->error_number; ?></title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<link rel="shortcut icon" type="image/x-icon" href="./public/img/favicon.ico" />
+		<link rel="shortcut icon" type="image/x-icon" href="<?= $view->base_url; ?>public/favicon.ico" />
 	</head>
 	<body>
         <h1>Erreur #<?= $view->error_number; ?> !</h1>
