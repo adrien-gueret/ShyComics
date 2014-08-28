@@ -21,7 +21,10 @@
 					if($hashVerif === $h)
 					{
 						Model_Users::emailVerified($id);
-						$this->response->set('Vous avez validé votre compte avec succès. Vous pouvez profiter pleinement et dès à présent du site !');
+						$this->response->set('Vous avez validé votre compte avec succès et êtes automatiquement connecté. Vous pouvez profiter pleinement et dès à présent du site !');
+						
+						$_SESSION['connected_user_id'] = $results->prop('id');
+						$_SESSION['connected_user_username'] = $results->prop('username');
 					}
 				}
 			}
