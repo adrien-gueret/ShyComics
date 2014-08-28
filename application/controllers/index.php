@@ -15,11 +15,22 @@
 				$this->_current_url	.=	'/';
 
 			\Eliya\Tpl::set([
-				'page_title'		=>	'Page title',
-				'page_description'	=>	'Page description',
-				'base_url'			=>	$this->request->getBaseURL(),
-				'current_url'		=>	$this->_current_url,
+				'page_title'				=>	'Page title',
+				'page_description'			=>	'Page description',
+				'base_url'					=>	$this->request->getBaseURL(),
+				'current_url'				=>	$this->_current_url,
 			]);
+			
+			if(isset($_SESSION['connected_user_id']))
+			{
+				\Eliya\Tpl::set([
+					'connected_user_id' 		=> 	$_SESSION['connected_user_id'],
+					'connected_user_username'	=> 	$_SESSION['connected_user_username'],
+				]);
+			}
+			
+			if(!isset($_SESSION['token_logout']))
+				$_SESSION['token_logout'] = uniqid(rand(), true); //Protection contre les failles CSRF
 		}
 		
 		//action index with GET request (corresponding to path "./")

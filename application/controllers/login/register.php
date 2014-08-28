@@ -13,7 +13,6 @@
 		{
 			$username = htmlspecialchars($username, ENT_QUOTES, 'utf-8');
 			$email = htmlspecialchars($email, ENT_QUOTES, 'utf-8');
-			$password = htmlspecialchars($password, ENT_QUOTES, 'utf-8');
 			
 			if(!empty($username) AND !empty($password) AND !empty($email))
 			{

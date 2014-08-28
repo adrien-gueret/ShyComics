@@ -12,7 +12,14 @@
 		<nav>
 			<img src="" alt="Accueil" title="Retour à l'accueil" />
 			<ul>
-				<li><a href="<?= $view->base_url; ?>login/register">Inscription</a> | <a href="<?= $view->base_url; ?>login">Connexion</a> <!-- ou message de bienvenue si connecté --></li>
+				<li>
+					<?php
+						if(!isset($view->connected_user_username))
+							echo '<a href="' . $view->base_url . 'login/register">Inscription</a> | <a href="' . $view->base_url . 'login">Connexion</a>';
+						else
+							echo 'Bienvenue ' . $view->connected_user_username;
+					?>
+				</li>
 				<li><input type="search" name="search" id="nav-search"/></li>
 				<li>Sprites Comics</li>
 				<li>Jeux</li>

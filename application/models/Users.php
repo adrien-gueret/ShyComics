@@ -45,5 +45,14 @@
 			
 			Model_Users::update($user);
 		}
+		
+		public static function getForLogin($username, $password)
+		{
+			$user = Model_Users::createRequest();
+			$results = $user->where('username=? AND password=?', [$username, $password])
+							   ->getOnly(1)
+							   ->exec();
+			return $results;
+		}
 	}
 ?>
