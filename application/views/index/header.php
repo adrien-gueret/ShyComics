@@ -14,10 +14,10 @@
 			<ul>
 				<li>
 					<?php
-						if(!isset($_SESSION['connected_user_id']))
+						if(!isset($view->connected_user_username))
 							echo '<a href="' . $view->base_url . 'login/register">Inscription</a> | <a href="' . $view->base_url . 'login">Connexion</a>';
 						else
-							echo 'Bienvenue ' . $_SESSION['connected_user_username'];
+							echo 'Bienvenue ' . $view->connected_user_username;
 					?>
 				</li>
 				<li><input type="search" name="search" id="nav-search"/></li>

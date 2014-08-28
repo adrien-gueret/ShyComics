@@ -8,7 +8,7 @@
 			]);
 			
 			if(isset($_SESSION['connected_user_id']))
-				$view	=	\Eliya\Tpl::get('login/alreadyLogged');
+				$view	=	\Eliya\Tpl::get('login/alreadyLogged', $_SESSION);
 			else
 				$view	=	\Eliya\Tpl::get('login/index');
 			
@@ -20,17 +20,16 @@
 			if(!empty($username) && !empty($password))
 			{
 				$username = htmlspecialchars($username, ENT_QUOTES, 'utf-8');
-				$password = htmlspecialchars($password, ENT_QUOTES, 'utf-8');
 				$password = Library_String::hash($password);
 				
 				$resultMembre = Model_Users::getForLogin($username, $password);
 				
-				if($resultMembre !== null)
+				if(!empty($resultMembre))
 				{
 					$_SESSION['connected_user_id'] = $resultMembre->prop('id');
 					$_SESSION['connected_user_username'] = $resultMembre->prop('username');
 					
-					$view	=	\Eliya\Tpl::get('login/alreadyLogged');
+					$view	=	\Eliya\Tpl::get('login/alreadyLogged', $_SESSION);
 				}
 				else
 				{
