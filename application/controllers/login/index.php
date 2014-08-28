@@ -7,7 +7,7 @@
 				'page_title'		=>	'Se connecter',
 			]);
 			
-			if(isset($_SESSION['id']))
+			if(isset($_SESSION['connected_user_id']))
 				$view	=	\Eliya\Tpl::get('login/alreadyLogged');
 			else
 				$view	=	\Eliya\Tpl::get('login/index');
@@ -15,8 +15,24 @@
 			$this->response->set($view);
 		}
 		
-		public function post_index()
+		public function post_index($username = null, $password = null)
 		{
-			//Code pour connecter le membre
+			if(!empty($username) && !empty($password))
+			{
+				$username = htmlspecialchars($username, ENT_QUOTES, 'utf-8');
+				$password = htmlspecialchars($password, ENT_QUOTES, 'utf-8');
+				$password = Library_String::hash($password);
+				
+				$resultMembre = Model_Users::getForLogin($username, $password);
+				
+				if($resultMembre !== null)
+				{
+					$_SESSION['connected_user_id'] = $resultMembre->prop('id');
+					$_SESSION['connected_user_username'] = $resultMembre->prop('username');
+					
+					$view	=	\Eliya\Tpl::get('login/alreadyLogged');
+					$this->response->set($view);
+				}
+			}
 		}
 	}
