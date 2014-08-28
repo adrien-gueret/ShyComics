@@ -20,6 +20,9 @@
 				'base_url'			=>	$this->request->getBaseURL(),
 				'current_url'		=>	$this->_current_url,
 			]);
+			
+			if(!isset($_SESSION['token_logout']))
+				$_SESSION['token_logout'] = uniqid(rand(), true); //Protection contre les failles CSRF
 		}
 		
 		//action index with GET request (corresponding to path "./")
