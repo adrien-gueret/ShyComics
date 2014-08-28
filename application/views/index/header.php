@@ -14,7 +14,7 @@
 			<ul>
 				<li>
 					<?php
-						if(!isset($view->connected_user_username))
+						if(!isset($view->connected_user_username) || empty($view->connected_user_username))
 							echo '<a href="' . $view->base_url . 'login/register">Inscription</a> | <a href="' . $view->base_url . 'login">Connexion</a>';
 						else
 							echo 'Bienvenue ' . $view->connected_user_username;
