@@ -31,8 +31,17 @@
 					$_SESSION['connected_user_username'] = $resultMembre->prop('username');
 					
 					$view	=	\Eliya\Tpl::get('login/alreadyLogged');
-					$this->response->set($view);
+				}
+				else
+				{
+					$view = \Eliya\Tpl::get('login/index');
 				}
 			}
+			else
+			{
+				$view = 'Erreur';
+			}
+			
+			$this->response->set($view);
 		}
 	}
