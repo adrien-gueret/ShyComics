@@ -36,6 +36,11 @@
 			</ul>
 		</nav>
 		<header>
-			<div><a href="<?= $view->base_url; ?>login/register">Inscrivez-vous !</a></div>
+			<div>
+				<?php
+					if(!isset($view->connected_user_username) || empty($view->connected_user_username))
+						echo '<a href="' . $view->base_url . 'login/register">Inscrivez-vous !</a>';
+				?>
+			</div>
 		</header>
 		<section>
