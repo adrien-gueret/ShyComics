@@ -12,6 +12,11 @@
 				$_SESSION = array();
 				session_destroy();
 				
+				\Eliya\Tpl::set([
+					'connected_user_id' 		=> 	'',
+					'connected_user_username'	=> 	'',
+				]);
+				
 				$view	=	\Eliya\Tpl::get('login/index');
 			}
 			else

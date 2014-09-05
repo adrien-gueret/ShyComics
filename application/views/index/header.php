@@ -13,12 +13,11 @@
 			<img src="" alt="Accueil" title="Retour à l'accueil" />
 			<ul>
 				<li>
-					<?php
-						if(!isset($view->connected_user_username))
-							echo '<a href="' . $view->base_url . 'login/register">Inscription</a> | <a href="' . $view->base_url . 'login">Connexion</a>';
-						else
-							echo 'Bienvenue ' . $view->connected_user_username;
-					?>
+					<?php if(empty($view->connected_user_username)): ?>
+						<a href="<?= $view->base_url; ?>login/register">Inscription</a> | <a href="<?= $view->base_url; ?>login">Connexion</a>
+					<?php else: ?>
+						Bienvenue <?= $view->connected_user_username; ?>
+					<?php endif; ?>
 				</li>
 				<li><input type="search" name="search" id="nav-search"/></li>
 				<li>Sprites Comics</li>
@@ -36,6 +35,10 @@
 			</ul>
 		</nav>
 		<header>
-			<div><a href="<?= $view->base_url; ?>login/register">Inscrivez-vous !</a></div>
+			<div>
+				<?php if(empty($view->connected_user_username)): ?>
+					<a href="<?= $view->base_url; ?>login/register">Inscrivez-vous !</a>
+				<?php endif; ?>
+			</div>
 		</header>
 		<section>
