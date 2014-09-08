@@ -20,7 +20,7 @@
 					<?php endif; ?>
 				</li>
 				<li><input type="search" name="search" id="nav-search"/></li>
-				<li>Sprites Comics</li>
+				<li><a href="<?= $view->base_url; ?>spritecomics">Sprites Comics</a></li>
 				<li>Jeux</li>
 				<li>Tutoriaux</li>
 				<li>Forums</li>
