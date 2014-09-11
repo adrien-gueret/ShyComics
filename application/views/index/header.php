@@ -10,7 +10,7 @@
 	</head>
 	<body>
 		<nav>
-			<img src="" alt="Accueil" title="Retour à l'accueil" />
+			<a href="<?= $view->base_url; ?>"><img src="<?= $view->base_url; ?>public/images/logo_menu.png" alt="Accueil" title="Shy'Comics" /></a>
 			<ul>
 				<li>
 					<?php if(empty($view->connected_user_username)): ?>
@@ -21,20 +21,21 @@
 				</li>
 				<li><input type="search" name="search" id="nav-search"/></li>
 				<li><a href="<?= $view->base_url; ?>spritecomics">Sprites Comics</a></li>
-				<li>Jeux</li>
-				<li>Tutoriaux</li>
-				<li>Forums</li>
-				<li>Shy'Ressources</li>
-				<li><img src="" alt="Facebook" title="Suivez-nous sur Facebook !" /></li>
-				<li><img src="" alt="Tweeter" title="Suivez-nous sur Tweeter !" /></li>
+				<li><del>Jeux</del></li>
+				<li><del>Tutoriaux</del></li>
+				<li><del>Forums</del></li>
+				<li><del>Shy'Ressources</del></li>
+				<li><a href="#" class="social_button facebook" title="Devenez fans sur Facebook !"></a></li>
+				<li><a href="#" class="social_button twitter" title="Suivez-nous sur Twitter !"></a></li>
 			</ul>
 		</nav>
 		<nav>
 			<ul>
-				<li></li>
+				<li>\o/</li>
 			</ul>
 		</nav>
 		<header>
+			<img src="<?= $view->base_url; ?>public/images/logo_header.png" alt="Shy'Comics" />
 			<div>
 				<?php if(empty($view->connected_user_username)): ?>
 					<a href="<?= $view->base_url; ?>login/register">Inscrivez-vous !</a>
@@ -42,3 +43,4 @@
 			</div>
 		</header>
 		<section>
+			<div>
