@@ -3,6 +3,9 @@
 	{
 		protected $name;
 		protected $description;
+		protected $is_dir;
+		protected $user;
+		protected $parent_file;
 		
 		protected static $table_name = 'files';
 		
