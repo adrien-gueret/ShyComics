@@ -46,8 +46,10 @@ final class EntityRequest
 	{
 		if(!in_array($table, $this->joinedTables))
 		{
+			$table_alias	=	$table === $this->tableName ? $table.'_2' : $table;
+
 			$originTable	=	empty($originTable) ? $this->tableName : $originTable;
-			$this->join		.=	' JOIN '.$table.' ON '.$table.'.'.$table_id_name.'='.$originTable.'.id_'.$property;
+			$this->join		.=	' JOIN '.$table.' AS '.$table_alias.' ON '.$table_alias.'.'.$table_id_name.'='.$originTable.'.id_'.$property;
 			$this->joinedTables[]	=	$table;
 		}
 		return $this;
@@ -69,13 +71,14 @@ final class EntityRequest
 
 		if( ! in_array($newTable, $this->joinedTables))
 		{
-			$this->join	.=	' JOIN '.$newTable.' ON '.$newTable.'.id_'.$originTable.'='.$originTable.'.'.$idOriginTableName;
+			$table_alias	=	$newTable === $this->tableName ? $newTable.'_2' : $newTable;
+
+			$this->join	.=	' JOIN '.$newTable.' AS '.$table_alias.' ON '.$table_alias.'.id_'.$originTable.'='.$originTable.'.'.$idOriginTableName;
 			$this->joinedTables[]	=	$newTable;
 		}
 		if( ! in_array($table, $this->joinedTables))
 		{
-			$this->join	.=	' JOIN '.$table.' ON '.$table.'.'.$idTableName.'='.$newTable.'.id_'.$property;
-			$this->joinedTables[]	=	$table;
+			$this->join($table, $idTableName, $property, $newTable);
 		}
 		return $this;
 	}
@@ -258,7 +261,7 @@ final class EntityRequest
 		{
 			if(substr_count($props,'?') == count($values))
 			{
-				$keywords	=	array('AND','OR','BETWEEN','IN','\(','\)','!=','<=','>=','<','>','=','\*','\+','-','/',',');
+				$keywords	=	array('IS', 'NULL', 'AND','OR','BETWEEN','IN','\(','\)','!=','<=','>=','<','>','=','\*','\+','-','/',',');
 
 				$props		=	str_replace(' ','',trim($props));
 				$props		=	preg_replace('#('.implode('|',$keywords).')#sU',' $1 ',$props);
@@ -273,7 +276,7 @@ final class EntityRequest
 					{
 						if($elem == '?')
 						{
-							$value=$values[$indexData++];
+							$value	=	$values[$indexData++];
 							if(!is_numeric($value))
 								$value	=	'"'.htmlspecialchars($value,ENT_QUOTES,Core::$current_db_is_utf8 ? 'UTF-8' : 'ISO-8859-1').'"';
 
