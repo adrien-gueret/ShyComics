@@ -26,5 +26,17 @@
 				'user' => 'Model_Users',
 			];
 		}
+		
+		public static function getPath($id_user, $id_file)
+		{
+			$request = Model_Files::createRequest();
+			$file = $request->where('id=? AND user.id=?', [$id_file, $id_user])
+							->getOnly(1)
+							->exec();
+			if(empty($file))
+				return $path = NULL;
+			else
+				return $path = $view->base_url . '/public/users_files/galeries/' . $id_user . '/' . $id_file . '.png';
+		}
 	}
 ?>

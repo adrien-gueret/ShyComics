@@ -54,5 +54,29 @@
 							   ->exec();
 			return $results;
 		}
+		
+		public function getFiles($id_folder = null)
+		{
+			$request = Model_Files::createRequest();
+			if(empty($id_folder))
+			{
+				$files = $request->where('user.id=? AND parent_file.id IS NULL', [$this->getId()])
+								 ->exec();
+			}
+			else
+			{
+				$files = $request->where('user.id=? AND parent_file.id=?', [$this->getId(), $id_folder])
+								 ->exec();
+			}
+			
+			if(empty($file))
+			{
+				return false;
+			}
+			else
+			{
+				return $files;
+			}
+		}
 	}
 ?>
