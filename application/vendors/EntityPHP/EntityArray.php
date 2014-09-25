@@ -304,6 +304,16 @@ final class EntityArray implements \SeekableIterator, \ArrayAccess, \Countable
 	}
 
 	/**
+	 * Check if EntityArray is empty or not
+	 * @access public
+	 * @return EntityArray The calling EntityArray.
+	 */
+	public function isEmpty()
+	{
+		return empty($this->array);
+	}
+
+	/**
 	 * Allow to echo an EntityArray
 	 * @access public
 	 * @return string The string representation of the Entity

@@ -576,11 +576,12 @@ abstract class Entity implements iEntity
 	 * Create an EntityRequest for the called class
 	 * @static
 	 * @access public
+	 * @param bool $useLeftJoins In case of joins, indicate if we want to use LEFT JOIN or simple JOIN
 	 * @return EntityRequest The EntityRequest corresponding to this Entity class
 	 */
-	final public static function createRequest()
+	final public static function createRequest($useLeftJoins = false)
 	{
-		return new EntityRequest(get_called_class());
+		return new EntityRequest(get_called_class(), $useLeftJoins);
 	}
 
 	/**

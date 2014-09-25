@@ -17,8 +17,10 @@ final class EntityRequest
 	private $tableName					=	'';
 	private $idName						=	'';
 	private $totalToGet					=	999;
+	private $useLeftJoins				=	false;
+	private $propertiesAsTableAlias		=	[];
 
-	public function __construct($className = '')
+	public function __construct($className = '', $useLeftJoins = false)
 	{
 		if(is_string($className) && !empty($className))
 		{
@@ -26,6 +28,7 @@ final class EntityRequest
 			$this->idName			=	$className::getIdName();
 			$this->fetchClassName	=	$className;
 			$this->originClassName	=	$className;
+			$this->useLeftJoins		=	$useLeftJoins;
 		}
 		else
 		{
@@ -46,10 +49,19 @@ final class EntityRequest
 	{
 		if(!in_array($table, $this->joinedTables))
 		{
-			$table_alias	=	$table === $this->tableName ? $table.'_2' : $table;
+			if($table === $this->tableName)
+			{
+				$this->propertiesAsTableAlias[]	=	$property;
+				$table_alias					=	$property;
+			}
+			else
+				$table_alias	=	$table;
 
 			$originTable	=	empty($originTable) ? $this->tableName : $originTable;
-			$this->join		.=	' JOIN '.$table.' AS '.$table_alias.' ON '.$table_alias.'.'.$table_id_name.'='.$originTable.'.id_'.$property;
+
+			$this->join		.=	($this->useLeftJoins ? ' LEFT' : '').' JOIN '.$table.' AS '.$table_alias;
+			$this->join		.=	' ON '.$table_alias.'.'.$table_id_name.'='.$originTable.'.id_'.$property;
+
 			$this->joinedTables[]	=	$table;
 		}
 		return $this;
@@ -71,11 +83,20 @@ final class EntityRequest
 
 		if( ! in_array($newTable, $this->joinedTables))
 		{
-			$table_alias	=	$newTable === $this->tableName ? $newTable.'_2' : $newTable;
+			if($newTable === $this->tableName)
+			{
+				$this->propertiesAsTableAlias[]	=	$property;
+				$table_alias					=	$property;
+			}
+			else
+				$table_alias	=	$newTable;
 
-			$this->join	.=	' JOIN '.$newTable.' AS '.$table_alias.' ON '.$table_alias.'.id_'.$originTable.'='.$originTable.'.'.$idOriginTableName;
+			$this->join	.=	($this->useLeftJoins ? ' LEFT' : '').' JOIN '.$newTable.' AS '.$table_alias;
+			$this->join	.=	' ON '.$table_alias.'.id_'.$originTable.'='.$originTable.'.'.$idOriginTableName;
+
 			$this->joinedTables[]	=	$newTable;
 		}
+
 		if( ! in_array($table, $this->joinedTables))
 		{
 			$this->join($table, $idTableName, $property, $newTable);
@@ -161,7 +182,12 @@ final class EntityRequest
 					break;
 
 				default:
-					$tableName	=	empty($parentProp) ? $originTableName : $targetTableName;
+					if(empty($parentProp))
+						$tableName	=	$originTableName;
+					else if(in_array($parentProp, $this->propertiesAsTableAlias))
+						$tableName	=	$parentProp;
+					else
+						$tableName	=	$targetTableName;
 
 					switch($type)
 					{
