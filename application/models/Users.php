@@ -49,15 +49,9 @@
 		public static function getForLogin($username, $password)
 		{
 			$user = Model_Users::createRequest();
-			$results = EntityRequest::executeSQL('SELECT files.name,files.description,files.is_dir,files.id_parent_file,files.id_user,files.id FROM files
-JOIN users AS users ON users.id=files.id_user
-LEFT JOIN files AS files_2 ON files_2.id=files.id_parent_file
-WHERE users.id = 9 AND files_2.id IS NULL
-ORDER BY files.id‏');
-			/*$results = $user->where('username=? AND password=?', [$username, $password])
+			$results = $user->where('username=? AND password=?', [$username, $password])
 							   ->getOnly(1)
-							   ->exec();*/
-			return $results;
+							   ->exec();
 		}
 		
 		public function getFiles($id_folder = null)
