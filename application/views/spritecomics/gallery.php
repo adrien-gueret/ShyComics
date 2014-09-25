@@ -3,10 +3,11 @@ Bienvenue sur la galerie de <b><?= $view->user_name ?></b>.
 	<?php if(!empty($view->connected_user_id) && $view->connected_user_id == $view->user_id): ?>
 	<br />Vous êtes de plus sur votre galerie !
 	<?php endif; ?>
+	<?php var_dump($view->user_files); ?>
 	<?php if(!empty($view->user_files)): ?>
-		<? foreach($view->user_files as $key => $file) : ?>
+		<?php foreach($view->user_files as $key => $file) : ?>
 		<br /><?= Model_Files::getPath($view->user_id, $file->prop('id')); ?>
-		<? endforeach; ?>
+		<?php endforeach; ?>
 	<?php else: ?>
 	<br />Cette galerie est vide.
 	<?php endif; ?>
