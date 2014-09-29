@@ -5,7 +5,7 @@ Bienvenue sur la galerie de <b><?= $view->user_name ?></b>.
 	<?php endif; ?>
 	<?php if(!empty($view->user_files)): ?>
 		<?php foreach($view->user_files as $key => $file) : ?>
-		<br /><?= Model_Files::getPath($view->user_id, $file->prop('id')); ?>
+		<br /><?= $view->base_url . Model_Files::getPath($view->user_id, $file->prop('id')); ?>
 		<?php endforeach; ?>
 	<?php else: ?>
 	<br />Cette galerie est vide.

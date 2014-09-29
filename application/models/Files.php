@@ -29,7 +29,8 @@
 		
 		public static function getPath($id_user, $id_file)
 		{
-			return $path = $view->base_url . '/public/users_files/galeries/' . $id_user . '/' . $id_file . '.png';
+			$path = 'public/users_files/galeries/' . $id_user . '/' . $id_file . '.png';
+			return $path;
 		}
 	}
 ?>

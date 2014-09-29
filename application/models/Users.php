@@ -56,7 +56,7 @@
 		
 		public function getFiles($id_folder = null)
 		{
-			$request = Model_Files::createRequest();
+			$request = Model_Files::createRequest(true);
 			if(empty($id_folder))
 			{
 				$files = $request->where('user.id=? AND parent_file.id IS NULL', [$this->getId()])
