@@ -49,9 +49,10 @@
 		public static function getForLogin($username, $password)
 		{
 			$user = Model_Users::createRequest();
-			$results = $user->where('username=? AND password=?', [$username, $password])
-							   ->getOnly(1)
-							   ->exec();
+			$results = $user->where('username=? AND password=? AND is_email_verified=?', [$username, $password, 1])
+							->getOnly(1)
+							->exec();
+			return $results;
 		}
 		
 		public function getFiles($id_folder = null)

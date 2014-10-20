@@ -23,7 +23,6 @@
 				$password = Library_String::hash($password);
 				
 				$resultMembre = Model_Users::getForLogin($username, $password);
-				
 				if(!empty($resultMembre))
 				{
 					$_SESSION['connected_user_id'] = $resultMembre->prop('id');
@@ -43,7 +42,7 @@
 			}
 			else
 			{
-				$view = 'Erreur';
+				$view = 'Erreur &bull; Le formulaire de connexion n\'a pas, ou a mal, été envoyé et/ou rempli. Veuillez réessayer.';
 			}
 			
 			$this->response->set($view);

@@ -21,7 +21,7 @@
 			}
 			else
 			{
-				$view	=	'Erreur';
+				$view	=	'Erreur &bull; Jeton de sécurité manquant ou incorrect.';
 			}
 			
 			$this->response->set($view);
