@@ -99,7 +99,7 @@ abstract class Entity implements iEntity
 
 					if( ! $update && ! ($this->$field instanceof $className))
 						$this->load($field);
-
+					
 					if(empty($this->$field))
 					{
 						$fieldsSQL[]	=	'id_'.$field;

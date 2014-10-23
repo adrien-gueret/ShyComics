@@ -9,11 +9,13 @@
 		
 		protected static $table_name = 'files';
 		
-		public function __construct($name = null, $description = null, $is_dir = null)
+		public function __construct($name = null, $description = null, $is_dir = null, $user = null, $parent_file = null)
 		{
 			$this->name = $name;
 			$this->description = $description;
 			$this->is_dir = $is_dir;
+			$this->user = $user;
+			$this->parent_file = $parent_file;
 		}
 		
 		public static function __structure()
@@ -29,7 +31,12 @@
 		
 		public static function getPath($id_user, $id_file)
 		{
-			$path = 'public/users_files/galeries/' . $id_user . '/' . $id_file . '.png';
+			//On renvoit le chemin correspond à si l'image est un .jpg, un .jpeg, un .png ou un .gif
+			$pathPNG = 'public/users_files/galleries/' . $id_user . '/' . $id_file . '.png';
+			$pathJPG = 'public/users_files/galleries/' . $id_user . '/' . $id_file . '.jpg';
+			$pathJPEG = 'public/users_files/galleries/' . $id_user . '/' . $id_file . '.jpeg';
+			$pathGIF = 'public/users_files/galleries/' . $id_user . '/' . $id_file . '.gif';
+			$path = (is_file($pathPNG)) ? $pathPNG : ((is_file($pathJPG)) ? $pathJPG : ((is_file($pathJPEG)) ? $pathJPEG : ((is_file($pathGIF)) ? $pathGIF : null)));
 			return $path;
 		}
 	}
