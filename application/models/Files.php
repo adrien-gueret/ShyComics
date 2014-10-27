@@ -39,5 +39,52 @@
 			$path = (is_file($pathPNG)) ? $pathPNG : ((is_file($pathJPG)) ? $pathJPG : ((is_file($pathJPEG)) ? $pathJPEG : ((is_file($pathGIF)) ? $pathGIF : null)));
 			return $path;
 		}
+		
+		public static function addFile($name = null, $description = null, $parent_file = null)
+		{
+			if(isset($_FILES['file']) AND $_FILES['file']['error'] == 0 AND isset($_SESSION['connected_user_id']) AND !empty($_SESSION['connected_user_id']))
+			{
+				if($_FILES['file']['size'] <= 100000000)
+				{
+					$name = htmlspecialchars($name, ENT_QUOTES, 'utf-8');
+					$description = htmlspecialchars($description, ENT_QUOTES, 'utf-8');
+					$is_dir = 0;
+					$user = Model_Users::getById($_SESSION['connected_user_id']);
+					$parent_file = empty($parent_file) ? null : Model_Files::getById(intval($parent_file));
+					
+					$file = new Model_Files($name, $description, $is_dir, $user, $parent_file);
+					$file = Model_Files::add($file);
+					$fileID = $file->getId();
+					
+					$infosfile = pathinfo($_FILES['file']['name']);
+					$extension_upload = $infosfile['extension'];
+					$extensions_granted = array('jpg', 'jpeg', 'gif', 'png');
+					
+					$urldir = 'public/users_files/galleries/' . $_SESSION['connected_user_id'];
+					$urlfile = 'public/users_files/galleries/' . $_SESSION['connected_user_id'] . '/' . $fileID . '.' . $extension_upload;
+					if(!is_dir($urldir))
+					{
+						mkdir($urldir);
+						chmod($urldir,0777);
+					}
+					
+					if(in_array($extension_upload, $extensions_granted))
+					{
+						move_uploaded_file($_FILES['file']['tmp_name'], $urlfile);
+						echo "L'envoi a bien été effectué !";
+					}
+					
+					return 0;
+				}
+				else
+				{
+					return 1;
+				}
+			}
+			else
+			{
+				return 2;
+			}
+		}
 	}
 ?>

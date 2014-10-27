@@ -13,68 +13,39 @@
 		
 		public function post_index($name = null, $description = null, $parent_file = null)
 		{
-			if(isset($_FILES['file']) AND $_FILES['file']['error'] == 0 AND isset($_SESSION['connected_user_id']) AND !empty($_SESSION['connected_user_id']))
+			$return = Model_Files::addFile($name, $description, $parent_file);
+			
+			if($return == 0)
 			{
-				if($_FILES['file']['size'] <= 100000000)
+				$member = Model_Users::getById($_SESSION['connected_user_id']);
+				
+				\Eliya\Tpl::set([
+					'page_title'		=>	'Sprites Comics &bull; Galerie',
+				]);
+				
+				if(!empty($member))
 				{
-						$name = htmlspecialchars($name, ENT_QUOTES, 'utf-8');
-						$description = htmlspecialchars($description, ENT_QUOTES, 'utf-8');
-						$is_dir = 0;
-						$user = Model_Users::getById($_SESSION['connected_user_id']);
-						$parent_file = empty($parent_file) ? null : Model_Files::getById(intval($parent_file));
-						
-						$file = new Model_Files($name, $description, $is_dir, $user, $parent_file);
-						$file = Model_Files::add($file);
-						$fileID = $file->getId();
-						
-						$infosfile = pathinfo($_FILES['file']['name']);
-						$extension_upload = $infosfile['extension'];
-						$extensions_granted = array('jpg', 'jpeg', 'gif', 'png');
-						
-						$urldir = 'public/users_files/galleries/' . $_SESSION['connected_user_id'];
-						$urlfile = 'public/users_files/galleries/' . $_SESSION['connected_user_id'] . '/' . $fileID . '.' . $extension_upload;
-						if(!is_dir($urldir))
-						{
-							mkdir($urldir);
-							chmod($urldir,0777);
-						}
-						
-						if(in_array($extension_upload, $extensions_granted))
-						{
-							move_uploaded_file($_FILES['file']['tmp_name'], $urlfile);
-							echo "L'envoi a bien été effectué !";
-						}
-						
-						$member = Model_Users::getById($_SESSION['connected_user_id']);
-						
-						\Eliya\Tpl::set([
-							'page_title'		=>	'Sprites Comics &bull; Galerie',
-						]);
-						
-						if(!empty($member))
-						{
-							$data = [
-								'user_id'		=> $member->prop('id'),
-								'user_name'		=> $member->prop('username'),
-								'user_files'	=> $member->getFiles(),
-							];
-						}
-						else
-						{
-							$data = [
-								'user_id'		=> null,
-								'user_name'		=> null,
-								'user_files'	=> null,
-							];
-						}
-						
-						$view	=	\Eliya\Tpl::get('spritecomics/gallery', $data);
-						$this->response->set($view);
+					$data = [
+						'user_id'		=> $member->prop('id'),
+						'user_name'		=> $member->prop('username'),
+						'user_files'	=> $member->getFiles(),
+					];
 				}
 				else
 				{
-					echo "Erreur &bull; Le document dépasse la limite de taille/mémoire imposée.";
+					$data = [
+						'user_id'		=> null,
+						'user_name'		=> null,
+						'user_files'	=> null,
+					];
 				}
+				
+				$view	=	\Eliya\Tpl::get('spritecomics/gallery', $data);
+				$this->response->set($view);
+			}
+			elseif($return == 1)
+			{
+				echo "Erreur &bull; Le document dépasse la limite de taille/mémoire imposée.";
 			}
 			else
 			{
