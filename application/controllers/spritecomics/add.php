@@ -15,41 +15,40 @@
 		{
 			$return = Model_Files::addFile($name, $description, $parent_file);
 			
-			if($return == 0)
+			switch($return)
 			{
-				$member = Model_Users::getById($_SESSION['connected_user_id']);
-				
-				\Eliya\Tpl::set([
-					'page_title'		=>	'Sprites Comics &bull; Galerie',
-				]);
-				
-				if(!empty($member))
-				{
-					$data = [
-						'user_id'		=> $member->prop('id'),
-						'user_name'		=> $member->prop('username'),
-						'user_files'	=> $member->getFiles(),
-					];
-				}
-				else
-				{
-					$data = [
-						'user_id'		=> null,
-						'user_name'		=> null,
-						'user_files'	=> null,
-					];
-				}
-				
-				$view	=	\Eliya\Tpl::get('spritecomics/gallery', $data);
-				$this->response->set($view);
+				case Model_Files::ERROR_SIZE:
+					echo "Erreur &bull; Le document dépasse la limite de taille/mémoire imposée.";
+				break;
+				case Model_Files::ERROR_UPLOAD:
+					echo "Erreur &bull; Le document n'a pas, ou a mal, été envoyé. Une erreur est donc survenue. Veuillez réessayer.";
+				break;
 			}
-			elseif($return == 1)
+			
+			$member = Model_Users::getById($_SESSION['connected_user_id']);
+			
+			\Eliya\Tpl::set([
+				'page_title'		=>	'Sprites Comics &bull; Galerie',
+			]);
+			
+			if(!empty($member))
 			{
-				echo "Erreur &bull; Le document dépasse la limite de taille/mémoire imposée.";
+				$data = [
+					'user_id'		=> $member->prop('id'),
+					'user_name'		=> $member->prop('username'),
+					'user_files'	=> $member->getFiles(),
+				];
 			}
 			else
 			{
-				echo "Erreur &bull; Le document n'a pas, ou a mal, été envoyé. Une erreur est donc survenue. Veuillez réessayer.";
+				$data = [
+					'user_id'		=> null,
+					'user_name'		=> null,
+					'user_files'	=> null,
+				];
 			}
+			
+			$view	=	\Eliya\Tpl::get('spritecomics/gallery', $data);
+			$this->response->set($view);
 		}
 	}

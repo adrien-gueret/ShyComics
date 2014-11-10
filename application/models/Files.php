@@ -7,6 +7,10 @@
 		protected $user;
 		protected $parent_file;
 		
+		const PROCESS_OK = 0,
+			  ERROR_UPLOAD = 1,
+			  ERROR_SIZE = 2;
+		
 		protected static $table_name = 'files';
 		
 		public function __construct($name = null, $description = null, $is_dir = null, $user = null, $parent_file = null)
@@ -74,16 +78,16 @@
 						echo "L'envoi a bien été effectué !";
 					}
 					
-					return 0;
+					return self::PROCESS_OK;
 				}
 				else
 				{
-					return 1;
+					return self::ERROR_SIZE;
 				}
 			}
 			else
 			{
-				return 2;
+				return self::ERROR_UPLOAD;
 			}
 		}
 	}
