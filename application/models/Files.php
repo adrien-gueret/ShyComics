@@ -90,5 +90,29 @@
 				return self::ERROR_UPLOAD;
 			}
 		}
+		
+		public static function addDir($name = null, $description = null, $parent_file = null)
+		{
+			if(isset($_SESSION['connected_user_id']) AND !empty($_SESSION['connected_user_id']))
+			{
+				$name = htmlspecialchars($name, ENT_QUOTES, 'utf-8');
+				$description = htmlspecialchars($description, ENT_QUOTES, 'utf-8');
+				$is_dir = 1;
+				$user = Model_Users::getById($_SESSION['connected_user_id']);
+				$parent_file = empty($parent_file) ? null : Model_Files::getById(intval($parent_file));
+				
+				$file = new Model_Files($name, $description, $is_dir, $user, $parent_file);
+				$file = Model_Files::add($file);
+				$fileID = $file->getId();
+				
+				echo "L'envoi a bien été effectué !";
+				
+				return self::PROCESS_OK;
+			}
+			else
+			{
+				return self::ERROR_UPLOAD;
+			}
+		}
 	}
 ?>

@@ -1,9 +1,26 @@
 <?php
-	class Controller_spritecomics_gallery extends Controller_index
+	class Controller_spritecomics_addDir extends Controller_index
 	{
-		public function get_index($id_user = null)
+		public function get_index()
 		{
-			$member = Model_Users::getById($id_user);
+			\Eliya\Tpl::set([
+				'page_title'		=>	'Sprites Comics',
+			]);
+			
+			$view	=	\Eliya\Tpl::get('spritecomics/index');
+			$this->response->set($view);
+		}
+		
+		public function post_index($name = null, $description = null, $parent_file = null)
+		{
+			$return = Model_Files::addDir($name, $description, $parent_file);
+			
+			if($return == Model_Files::ERROR_UPLOAD)
+			{
+				echo "Erreur &bull; Le dossier n'a pas, ou a mal, été créé. Une erreur est donc survenue. Veuillez réessayer.";
+			}
+			
+			$member = Model_Users::getById($_SESSION['connected_user_id']);
 			
 			\Eliya\Tpl::set([
 				'page_title'		=>	'Sprites Comics &bull; Galerie',

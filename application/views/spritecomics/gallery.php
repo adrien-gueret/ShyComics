@@ -9,14 +9,39 @@ Bienvenue sur la galerie de <b><?= $view->user_name ?></b>.
 		<textarea name="description"></textarea> Description du document (facultatif)<br />
 		Sélectionnez le dossier parent :
 		<select name="parent_file">
-			<option value="">Aucun</option>
+			<option value="" selected>Aucun</option>
+			<?php if(!empty($view->user_dirs_all)): ?>
+				<?php foreach($view->user_dirs_all as $key => $dir) : ?>
+				<option value="<?= $dir->prop('id'); ?>"><?= $dir->prop('name'); ?></option>
+				<?php endforeach; ?>
+			<?php endif; ?>
 		</select>
 		<input type="submit" value="Envoyer le document" />
+	</form>
+	<br />
+	<form action="<?= $view->base_url; ?>spritecomics/addDir" method="post">
+		<input type="text" name="name" /> Nom du dossier<br />
+		<textarea name="description"></textarea> Description du dossier (facultatif)<br />
+		Sélectionnez le dossier parent :
+		<select name="parent_file">
+			<option value="" selected>Aucun</option>
+			<?php if(!empty($view->user_dirs_all)): ?>
+				<?php foreach($view->user_dirs_all as $key => $dir) : ?>
+				<option value="<?= $dir->prop('id'); ?>"><?= $dir->prop('name'); ?></option>
+				<?php endforeach; ?>
+			<?php endif; ?>
+		</select>
+		<input type="submit" value="Envoyer le dossier" />
 	</form>
 	<?php endif; ?>
 	<?php if(!empty($view->user_files)): ?>
 		<?php foreach($view->user_files as $key => $file) : ?>
-		<br /><img src="<?= $view->base_url . Model_Files::getPath($view->user_id, $file->prop('id')); ?>" alt="<?= $file->prop('name') ?>" title="<?= $file->prop('name') ?>" />
+			<?php if($file->prop('is_dir') == 1): ?>
+			<br /><img src="<?= $view->base_url; ?>public/images/file.png" style="width: 100px;" alt="Dossier" /><br />
+			<?= $file->prop('name'); ?>
+			<?php else: ?>
+			<br /><img src="<?= $view->base_url . Model_Files::getPath($view->user_id, $file->prop('id')); ?>" alt="<?= $file->prop('name'); ?>" title="<?= $file->prop('name'); ?>" />
+			<?php endif; ?>
 		<?php endforeach; ?>
 	<?php else: ?>
 	<br />Cette galerie est vide.

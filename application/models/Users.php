@@ -73,5 +73,34 @@
 			
 			return empty($files) ? [] : $files;
 		}
+		
+		public function getFilesDirs($id_folder = null)
+		{
+			$request = Model_Files::createRequest(true);
+			if(empty($id_folder))
+			{
+				$files = $request->where('user.id=? AND is_dir=? AND parent_file.id IS NULL', [$this->getId(), 1])
+								 ->exec();
+				$files = $files->getArray();
+			}
+			else
+			{
+				$files = $request->where('user.id=? AND is_dir=? AND parent_file.id=?', [$this->getId(), 1, $id_folder])
+								 ->exec();
+				$files = $files->getArray();
+			}
+			
+			return empty($files) ? [] : $files;
+		}
+		
+		public function getFilesDirsAll()
+		{
+			$request = Model_Files::createRequest(true);
+			$files = $request->where('user.id=? AND is_dir=?', [$this->getId(), 1])
+							 ->exec();
+			$files = $files->getArray();
+			
+			return empty($files) ? [] : $files;
+		}
 	}
 ?>
