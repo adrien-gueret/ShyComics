@@ -13,7 +13,14 @@
 		
 		public function post_index($name = null, $description = null, $parent_file = null)
 		{
-			$return = Model_Files::addDir($name, $description, $parent_file);
+			if(isset($_SESSION['connected_user_id']) AND !empty($_SESSION['connected_user_id']))
+			{
+				$return = Model_Files::addDir($name, $description, $parent_file);
+			}
+			else
+			{
+				$return = 0;
+			}
 			
 			if($return == Model_Files::ERROR_UPLOAD)
 			{
