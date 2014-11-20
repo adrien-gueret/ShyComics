@@ -9,7 +9,8 @@
 		
 		const PROCESS_OK = 0,
 			  ERROR_UPLOAD = 1,
-			  ERROR_SIZE = 2;
+			  ERROR_SIZE = 2,
+			  ERROR_NAME = 3;
 		
 		protected static $table_name = 'files';
 		
@@ -75,7 +76,6 @@
 					if(in_array($extension_upload, $extensions_granted))
 					{
 						move_uploaded_file($_FILES['file']['tmp_name'], $urlfile);
-						echo "L'envoi a bien été effectué !";
 					}
 					
 					return self::PROCESS_OK;
@@ -93,19 +93,24 @@
 		
 		public static function addDir($name = null, $description = null, $parent_file = null)
 		{
-			$name = htmlspecialchars($name, ENT_QUOTES, 'utf-8');
-			$description = htmlspecialchars($description, ENT_QUOTES, 'utf-8');
-			$is_dir = 1;
-			$user = Model_Users::getById($_SESSION['connected_user_id']);
-			$parent_file = empty($parent_file) ? null : Model_Files::getById(intval($parent_file));
-			
-			$file = new Model_Files($name, $description, $is_dir, $user, $parent_file);
-			$file = Model_Files::add($file);
-			$fileID = $file->getId();
-			
-			echo "L'envoi a bien été effectué !";
-			
-			return self::PROCESS_OK;
+			if(!empty($name))
+			{
+				$name = htmlspecialchars($name, ENT_QUOTES, 'utf-8');
+				$description = htmlspecialchars($description, ENT_QUOTES, 'utf-8');
+				$is_dir = 1;
+				$user = Model_Users::getById($_SESSION['connected_user_id']);
+				$parent_file = empty($parent_file) ? null : Model_Files::getById(intval($parent_file));
+				
+				$file = new Model_Files($name, $description, $is_dir, $user, $parent_file);
+				$file = Model_Files::add($file);
+				$fileID = $file->getId();
+				
+				return self::PROCESS_OK;
+			}
+			else
+			{
+				return self::ERROR_NAME;
+			}
 		}
 	}
 ?>

@@ -19,16 +19,22 @@
 			}
 			else
 			{
-				$return = 0;
+				$return = Model_Files::ERROR_UPLOAD;
 			}
 			
 			switch($return)
 			{
 				case Model_Files::ERROR_SIZE:
-					echo "Erreur &bull; Le document dépasse la limite de taille/mémoire imposée.";
+					$info = "Erreur &bull; Le document dépasse la limite de taille/mémoire imposée.";
+					$status = 'class="message infos error"';
 				break;
 				case Model_Files::ERROR_UPLOAD:
-					echo "Erreur &bull; Le document n'a pas, ou a mal, été envoyé. Une erreur est donc survenue. Veuillez réessayer.";
+					$info = "Erreur &bull; Le document n'a pas, ou a mal, été envoyé. Une erreur est donc survenue. Veuillez réessayer.";
+					$status = 'class="message infos error"';
+				break;
+				case Model_Files::PROCESS_OK:
+					$info = "L'envoi a bien été effectué !";
+					$status = 'class="message infos success"';
 				break;
 			}
 			
@@ -58,6 +64,13 @@
 					'user_dirs_all'	=> null,
 				];
 			}
+			
+			$arrayInfo = [
+				'infos_message' => $info,
+				'infos_message_status' => $status,
+			];
+			$infos_message = \Eliya\Tpl::get('infos_message', $arrayInfo);
+			$data['infos_message'] = $infos_message;
 			
 			$view	=	\Eliya\Tpl::get('spritecomics/gallery', $data);
 			$this->response->set($view);

@@ -1,0 +1,1 @@
+<p class="message infos <?= $view->infos_message_status; ?>"><?= $view->infos_message; ?></p>
