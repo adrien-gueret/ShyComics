@@ -126,3 +126,8 @@ body > section > div {
 	-ms-box-shadow:  0 0 4px #8d8d8d;
 	box-shadow:  0 0 4px #8d8d8d;
 }
+
+/*Gallery related*/
+body>.galleryFile {
+	width: 100px;
+}
