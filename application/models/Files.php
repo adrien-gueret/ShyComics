@@ -112,5 +112,10 @@
 				return self::ERROR_NAME;
 			}
 		}
+		
+		public function getUser()
+		{
+			return $this->load('user');
+		}
 	}
 ?>

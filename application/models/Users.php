@@ -6,16 +6,18 @@
 		protected $is_email_verified;
 		protected $password;
 		protected $date_subscription;
+		protected $id_group;
 		
 		protected static $table_name = 'users';
 		
-		public function __construct($username = null, $email = null, $password = null)
+		public function __construct($username = null, $email = null, $password = null, $id_group = 0)
 		{
 			$this->username = $username;
 			$this->email = $email;
 			$this->date_subscription = $_SERVER['REQUEST_TIME'];
 			$this->is_email_verified = 0;
 			$this->password = Library_String::hash($password);
+			$this->id_group = $id_group;
 		}
 		
 		public static function __structure()
@@ -25,7 +27,8 @@
 				'email' => 'VARCHAR(254)',
 				'is_email_verified' => 'TINYINT(1)',
 				'password' => 'CHAR(40)',
-				'date_subscription' => 'DATETIME'
+				'date_subscription' => 'DATETIME',
+				'user_group' => 'Model_UsersGroups'
 			];
 		}
 		
@@ -101,6 +104,12 @@
 			$files = $files->getArray();
 			
 			return empty($files) ? [] : $files;
+		}
+		
+		public static function removeFile($id = null)
+		{
+			$file = Model_Files::getById($id);
+			Model_Files::delete($file);
 		}
 	}
 ?>

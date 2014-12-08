@@ -44,7 +44,7 @@
 			
 			if(!empty($file))
 			{
-				$member = Model_Users::getById($file->prop('id_user'));
+				$member = $file->getUser();
 				if($file->prop('is_dir') == 0)
 				{
 					if(!empty($member))
