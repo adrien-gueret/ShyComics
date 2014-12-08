@@ -6,18 +6,18 @@
 		protected $is_email_verified;
 		protected $password;
 		protected $date_subscription;
-		protected $id_group;
+		protected $id_user_group;
 		
 		protected static $table_name = 'users';
 		
-		public function __construct($username = null, $email = null, $password = null, $id_group = 0)
+		public function __construct($username = null, $email = null, $password = null, $id_user_group = 1)
 		{
 			$this->username = $username;
 			$this->email = $email;
 			$this->date_subscription = $_SERVER['REQUEST_TIME'];
 			$this->is_email_verified = 0;
 			$this->password = Library_String::hash($password);
-			$this->id_group = $id_group;
+			$this->user_group = Model_UsersGroups::getById($id_user_group);
 		}
 		
 		public static function __structure()
