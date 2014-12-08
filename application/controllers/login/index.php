@@ -27,10 +27,12 @@
 				{
 					$_SESSION['connected_user_id'] = $resultMembre->prop('id');
 					$_SESSION['connected_user_username'] = $resultMembre->prop('username');
+					$_SESSION['connected_user_group'] = $resultMembre->prop('id_user_group');
 					
 					\Eliya\Tpl::set([
 						'connected_user_id' 		=> 	$_SESSION['connected_user_id'],
 						'connected_user_username'	=> 	$_SESSION['connected_user_username'],
+						'connected_user_group'		=> 	$_SESSION['connected_user_group'],
 					]);
 					
 					$view	=	\Eliya\Tpl::get('login/alreadyLogged', $_SESSION);

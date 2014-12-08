@@ -26,6 +26,7 @@
 				\Eliya\Tpl::set([
 					'connected_user_id' 		=> 	$_SESSION['connected_user_id'],
 					'connected_user_username'	=> 	$_SESSION['connected_user_username'],
+					'connected_user_group'		=> 	$_SESSION['connected_user_group'],
 				]);
 			}
 			
