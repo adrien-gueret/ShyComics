@@ -16,7 +16,7 @@
 					<?php if(empty($view->connected_user_username)): ?>
 						<a href="<?= $view->base_url; ?>login/register">Inscription</a> | <a href="<?= $view->base_url; ?>login">Connexion</a>
 					<?php else: ?>
-						Bienvenue <?= $view->connected_user_username; ?>
+						Bienvenue <?= $view->connected_user_username; ?> &bull; <a href="<?= $view->base_url; ?>logout?token=<?= $_SESSION['token_logout']; ?>">Me déconnecter</a>
 					<?php endif; ?>
 				</li>
 				<li><input type="search" name="search" id="nav-search"/></li>
