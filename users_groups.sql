@@ -23,30 +23,23 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Structure de la table `users`
+-- Structure de la table `users_groups`
 --
 
-CREATE TABLE IF NOT EXISTS `users` (
+CREATE TABLE IF NOT EXISTS `users_groups` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `username` varchar(255) DEFAULT NULL,
-  `email` varchar(254) DEFAULT NULL,
-  `is_email_verified` tinyint(1) DEFAULT NULL,
-  `password` char(40) DEFAULT NULL,
-  `date_subscription` datetime DEFAULT NULL,
-  `id_user_group` int(11) unsigned DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `fk_users_id_user_group` (`id_user_group`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=11 ;
+  `name` varchar(255) DEFAULT NULL,
+  `can_remove` tinyint(1) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
 --
--- Contraintes pour les tables exportées
+-- Contenu de la table `users_groups`
 --
 
---
--- Contraintes pour la table `users`
---
-ALTER TABLE `users`
-  ADD CONSTRAINT `fk_users_id_user_group` FOREIGN KEY (`id_user_group`) REFERENCES `users_groups` (`id`);
+INSERT INTO `users_groups` (`id`, `name`, `can_remove`) VALUES
+(1, 'Membre simple', 0),
+(2, 'Admin', 1);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
