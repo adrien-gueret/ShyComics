@@ -27,11 +27,11 @@
 						
 						$hashVerif = Library_String::hash($email . $username);
 						$subject = 'Votre inscription sur Shy\'Comics !';
-						$message = 'Vous vous êtes inscrit avec succès sur Shy\'Comics ! Veuillez cliquer sur le lien ci-dessous pour valider votre inscription :<br /><a href="http://shycomics.fr/login/verifyAccount?m=' . $email . '&h=' . $hashVerif . '">http://shycomics.fr/login/verifyAccount?m=' . $email . '&h=' . $hashVerif . '</a>';
+						$message = 'Vous vous êtes inscrit avec succès sur Shy\'Comics ! Veuillez cliquer sur le lien ci-dessous pour valider votre inscription :<br /><a href="' . $this->request->getBaseURL() . 'login/verifyAccount?m=' . $email . '&h=' . $hashVerif . '">http://shycomics.fr/login/verifyAccount?m=' . $email . '&h=' . $hashVerif . '</a>';
 						
 						Library_Email::send($email, $subject, $message);
 						
-						$this->response->set('Vous vous êtes inscrit avec succès. Cependant, rendez vous dans votre boîte mail fin de valider votre inscription une bonne fois pour toutes.');
+						$this->response->set('Vous vous êtes inscrit avec succès. Cependant, rendez vous dans votre boîte mail afin de valider votre inscription une bonne fois pour toutes.');
 					}
 					else
 					{
