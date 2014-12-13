@@ -27,7 +27,11 @@
 						
 						$hashVerif = Library_String::hash($email . $username);
 						$subject = 'Votre inscription sur Shy\'Comics !';
-						$message = 'Vous vous êtes inscrit avec succès sur Shy\'Comics ! Veuillez cliquer sur le lien ci-dessous pour valider votre inscription :<br /><a href="' . $this->request->getBaseURL() . 'login/verifyAccount?m=' . $email . '&h=' . $hashVerif . '">http://shycomics.fr/login/verifyAccount?m=' . $email . '&h=' . $hashVerif . '</a>';
+						$data = [
+							'email' => $email,
+							'hashVerif' => $hashVerif
+						];
+						$message = Eliya\Tpl::get('login/mail_confirm', $data);
 						
 						Library_Email::send($email, $subject, $message);
 						
