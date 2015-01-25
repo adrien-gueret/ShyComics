@@ -3,17 +3,13 @@
 	{
 		protected $username;
 		protected $email;
-		protected $is_email_verified;
 		protected $password;
-		protected $date_subscription;
-		protected $user_group;
-		protected $friends;
 		
 		const DEFAULT_USERS_GROUP_ID = 1;
 		
 		protected static $table_name = 'users';
 		
-		public function __construct($username = null, $email = null, $password = null, $user_group = null, $friends = null)
+		public function __construct($username = null, $email = null, $password = null)
 		{
 			$this->username = $username;
 			$this->email = $email;
