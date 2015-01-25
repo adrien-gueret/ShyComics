@@ -6,18 +6,22 @@
 		protected $is_email_verified;
 		protected $password;
 		protected $date_subscription;
-		protected $id_user_group;
+		protected $user_group;
+		protected $friends;
+		
+		const DEFAULT_USERS_GROUP_ID = 1;
 		
 		protected static $table_name = 'users';
 		
-		public function __construct($username = null, $email = null, $password = null, $id_user_group = 1)
+		public function __construct($username = null, $email = null, $password = null, $user_group = null, $friends = null)
 		{
 			$this->username = $username;
 			$this->email = $email;
 			$this->date_subscription = $_SERVER['REQUEST_TIME'];
 			$this->is_email_verified = 0;
 			$this->password = Library_String::hash($password);
-			$this->user_group = Model_UsersGroups::getById($id_user_group);
+			$this->user_group = $user_group ?: Model_UsersGroups::getById(self::DEFAULT_USERS_GROUP_ID);
+			$this->friends = [];
 		}
 		
 		public static function __structure()
@@ -28,7 +32,8 @@
 				'is_email_verified' => 'TINYINT(1)',
 				'password' => 'CHAR(40)',
 				'date_subscription' => 'DATETIME',
-				'user_group' => 'Model_UsersGroups'
+				'user_group' => 'Model_UsersGroups',
+				'friends' => array('Model_Users'),
 			];
 		}
 		
