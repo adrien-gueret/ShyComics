@@ -4,12 +4,13 @@
 		protected $username;
 		protected $email;
 		protected $password;
+		protected $user_group;
 		
 		const DEFAULT_USERS_GROUP_ID = 1;
 		
 		protected static $table_name = 'users';
 		
-		public function __construct($username = null, $email = null, $password = null)
+		public function __construct($username = null, $email = null, $password = null, $user_group = null)
 		{
 			$this->username = $username;
 			$this->email = $email;
