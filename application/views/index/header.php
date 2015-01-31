@@ -31,7 +31,7 @@
 		</nav>
 		<nav>
 			<ul>
-				<li>\o/</li>
+				<li><a href="#" class="leftnav_button friends" title="Gérer votre liste d'amis"></a></li>
 			</ul>
 		</nav>
 		<header>

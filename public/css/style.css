@@ -69,6 +69,20 @@ body > nav a.social_button {
 	background-repeat: no-repeat;
 }
 
+body > nav a.leftnav_button {
+	display: inline-block;
+	width: 35px;
+	height: 25px;
+	margin: auto;
+	background-repeat: no-repeat;
+}
+
+body > nav a.leftnav_button.friends {
+	background-image: url(../images/style/friends_button.png);
+	background-position: top;
+}
+body > nav a.leftnav_button.friends:hover {background-position: bottom;}
+
 body > nav a.social_button.facebook {background-position: left top;}
 body > nav a.social_button.facebook:hover {background-position: left bottom;}
 body > nav a.social_button.twitter {background-position: right top;}
