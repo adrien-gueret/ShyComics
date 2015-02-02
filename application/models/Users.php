@@ -3,8 +3,11 @@
 	{
 		protected $username;
 		protected $email;
+		protected $date_subscription;
+		protected $is_email_verified;
 		protected $password;
 		protected $user_group;
+		protected $friends;
 		
 		const DEFAULT_USERS_GROUP_ID = 1;
 		
@@ -15,7 +18,7 @@
 			$this->username = $username;
 			$this->email = $email;
 			$this->date_subscription = $_SERVER['REQUEST_TIME'];
-			$this->is_email_verified = 0;
+			$this->is_email_verified = false;
 			$this->password = Library_String::hash($password);
 			$this->user_group = $user_group ?: Model_UsersGroups::getById(self::DEFAULT_USERS_GROUP_ID);
 			$this->friends = [];
@@ -26,7 +29,7 @@
 			return [
 				'username' => 'VARCHAR(255)',
 				'email' => 'VARCHAR(254)',
-				'is_email_verified' => 'TINYINT(1)',
+				'is_email_verified' => 'BOOLEAN',
 				'password' => 'CHAR(40)',
 				'date_subscription' => 'DATETIME',
 				'user_group' => 'Model_UsersGroups',

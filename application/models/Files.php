@@ -28,7 +28,7 @@
 			return [
 				'name' => 'VARCHAR(255)',
 				'description' => 'TEXT',
-				'is_dir' => 'TINYINT',
+				'is_dir' => 'BOOLEAN',
 				'parent_file' => 'Model_Files',
 				'user' => 'Model_Users',
 			];
