@@ -1,15 +1,15 @@
 <?php
 	class Model_FriendsRequests extends EntityPHP\Entity
 	{
-		protected $id_emitter;
-		protected $id_receiver;
+		protected $emitter;
+		protected $receiver;
 		
 		protected static $table_name = 'friends_requests';
 		
-		public function __construct($id_emitter = null, $id_receiver = null)
+		public function __construct($emitter = null, $receiver = null)
 		{
-			$this->emitter = $id_emitter;
-			$this->receiver = $id_receiver;
+			$this->emitter = $emitter;
+			$this->receiver = $receiver;
 			$this->date_sending = $_SERVER['REQUEST_TIME'];
 		}
 		
