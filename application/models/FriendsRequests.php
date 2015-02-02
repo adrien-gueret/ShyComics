@@ -3,15 +3,14 @@
 	{
 		protected $id_emitter;
 		protected $id_receiver;
-		protected $date_sending;
 		
 		protected static $table_name = 'friends_requests';
 		
-		public function __construct($id_emitter = null, $id_receiver = null, $date_sending = null)
+		public function __construct($id_emitter = null, $id_receiver = null)
 		{
 			$this->emitter = $id_emitter;
 			$this->receiver = $id_receiver;
-			$this->date_sending = $date_sending;
+			$this->date_sending = $_SERVER['REQUEST_TIME'];
 		}
 		
 		public static function __structure()
