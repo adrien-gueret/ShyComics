@@ -20,6 +20,7 @@
 						'infos_message' => 'Vous n\'avez aucun ami !',
 						'infos_message_status' => 'class="message infos"',
 					];
+
 					$infos_message = \Eliya\Tpl::get('infos_message', $arrayInfo);
 					$data['infos_message'] = $infos_message;
 					
@@ -36,6 +37,7 @@
 					'infos_message' => \Eliya\Config('messages')->MESSAGE_ERROR_LOGIN['CONTENT'],
 					'infos_message_status' => \Eliya\Config('messages')->MESSAGE_ERROR_LOGIN['CLASS'],
 				];
+
 				$infos_message = \Eliya\Tpl::get('infos_message', $arrayInfo);
 				$data['infos_message'] = $infos_message;
 				

@@ -47,7 +47,7 @@ final class EntityRequest
 	 */
 	private function join($table, $table_id_name, $property, $originTable = '')
 	{
-		if(!in_array($table, $this->joinedTables))
+		if( ! in_array($table, $this->joinedTables))
 		{
 			if($table === $this->tableName)
 			{
@@ -163,6 +163,7 @@ final class EntityRequest
 
 					$otherTableName	=	$className::getTableName();
 					$otherIdName	=	$className::getIdName();
+					$tableAlias		=	null;
 
 					if($is_many_2_many)
 						$this->joinMany2Many($otherTableName, $originTableName, $otherIdName, $originIdName, $prop);
@@ -173,8 +174,9 @@ final class EntityRequest
 						return $this->analyzeProperty($className, implode('.', $fields), $type, (!empty($parentProp) ? $parentProp.'.' : '').$prop);
 					else //We want to select ALL properties of the contained Entity
 					{
-						if($type == 'select')
-							$this->generateSelectAll($className, $prop);
+						if($type == 'select') {
+							$this->generateSelectAll($className, $prop, true);
+						}
 						else
 							throw new \Exception('EntityRequest::'.$errorMethod.' : "'.$targetClassName.'.'.$prop.'" can\'t be used for this method.');
 					}
@@ -258,6 +260,8 @@ final class EntityRequest
 			$this->canFetchClass	=	false;
 
 			$props	=	explode(',', $props);
+
+
 
 			foreach($props as $prop)
 			{
@@ -369,16 +373,17 @@ final class EntityRequest
 	 * @access private
 	 * @param String $className Entity classname we want to make a SELECT * request
 	 * @param String $prop The property name of the Entity in case of JOIN request (default: '')
+	 * @param Bool $propIsTableName Indicates that given $prop should be used as table name (default: false)
 	 * @return EntityRequest The calling EntityRequest
 	 */
-	private function generateSelectAll($className, $prop = '')
+	private function generateSelectAll($className, $prop = '', $propIsTableName = false)
 	{
 		$vars		=	$className::__structure();
 		$setAlias	=	! $this->canFetchClass && ! empty($prop) && $this->totalPropertiesToSelect > 1;
-		$tableName	=	$className::getTableName();
+		$tableName	=	($propIsTableName && ! empty($prop)) ? $prop : $className::getTableName();
 		$idName		=	$className::getIdName();
 
-		if($this->totalPropertiesToSelect == 1)
+		if($this->totalPropertiesToSelect === 1)
 		{
 			$this->canFetchClass	=	true;
 			$this->fetchClassName	=	$className;
@@ -398,14 +403,14 @@ final class EntityRequest
 
 				case Core::TYPE_ARRAY:
 					//In case on many 2 many, we should not fetch property
-					break;
+					continue 2;
 
 				default:
 					$this->select	.=	','.$tableName.'.'.$name;
 					break;
 			}
 
-			$this->select	.=	($setAlias?' AS "'.$prop.'_'.$name.'"':'');
+			$this->select	.=	($setAlias ? ' AS "'.$prop.'_'.$name.'"' : '');
 		}
 
 		return $this;
