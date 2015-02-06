@@ -13,27 +13,35 @@
 				$data = [
 					'user_friends'		=> $member->prop('friends'),
 				];
-				if(empty($data['user_friends']->getArray()))
+				
+				if($data['user_friends']->isEmpty())
 				{
 					$arrayInfo = [
 						'infos_message' => 'Vous n\'avez aucun ami !',
 						'infos_message_status' => 'class="message infos"',
 					];
 					$infos_message = \Eliya\Tpl::get('infos_message', $arrayInfo);
-					$data['infos_message_lack_friends'] = $infos_message;
+					$data['infos_message'] = $infos_message;
+					
+					$view = \Eliya\Tpl::get('friends/error', $data);
+				}
+				else
+				{
+					$view = \Eliya\Tpl::get('friends/index', $data);
 				}
 			}
 			else
 			{
 				$arrayInfo = [
-					'infos_message' => \Eliya\Config('messages')->MESSAGE_ERROR_LOGIN['MESSAGE'],
+					'infos_message' => \Eliya\Config('messages')->MESSAGE_ERROR_LOGIN['CONTENT'],
 					'infos_message_status' => \Eliya\Config('messages')->MESSAGE_ERROR_LOGIN['CLASS'],
 				];
 				$infos_message = \Eliya\Tpl::get('infos_message', $arrayInfo);
-				$data['infos_message_login'] = $infos_message;
+				$data['infos_message'] = $infos_message;
+				
+				$view = \Eliya\Tpl::get('friends/error', $data);
 			}
 			
-			$view	=	\Eliya\Tpl::get('friends/index', $data);
 			$this->response->set($view);
 		}
 	}
