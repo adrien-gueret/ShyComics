@@ -3,7 +3,7 @@
 		<?= $view->infos_message; ?>
 	<?php endif; ?>
 	Bienvenue sur la galerie de <b><?= $view->user_name; ?></b>.
-	<?php if(!empty($view->connected_user_id) && $view->connected_user_id == $view->user_id): ?>
+	<?php if(!empty($view->current_member) && $view->current_member->prop('id') == $view->user_id): ?>
 		<br />Vous êtes de plus sur votre galerie !<br />
 		Utilisez le formulaire ci dessous pour rajouter un document à votre galerie :
 		<form action="<?= $view->base_url; ?>spritecomics/add" method="post" enctype="multipart/form-data">

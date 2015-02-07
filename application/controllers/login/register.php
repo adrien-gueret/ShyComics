@@ -33,7 +33,7 @@
 						];
 						$message = Eliya\Tpl::get('login/mail_confirm', $data);
 						
-						$echo = 'login/verifyAccount?m=' . $data['email'] . '&h=' . $data['hashVerif'] . '';
+						echo 'login/verifyAccount?m=' . $data['email'] . '&h=' . $data['hashVerif'] . '';
 						
 						Library_Email::send($email, $subject, $message);
 						

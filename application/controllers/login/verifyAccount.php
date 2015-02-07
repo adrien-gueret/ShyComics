@@ -20,8 +20,8 @@
 						Model_Users::emailVerified($id);
 						
 						$_SESSION['connected_user_id'] = $results->prop('id');
-						$_SESSION['connected_user_username'] = $results->prop('username');
-						$_SESSION['connected_user_group'] = $results->prop('id_user_group');
+						$this->_current_member = Model_Users::getById($_SESSION['connected_user_id']);
+						\Eliya\Tpl::set(['current_member' => $this->_current_member]);
 						
 						$arrayInfo = [
 							'infos_message' => 'Vous avez validé votre compte avec succès et êtes automatiquement connecté. Vous pouvez profiter pleinement et dès à présent du site !',

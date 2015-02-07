@@ -9,12 +9,7 @@
 			
 			if(isset($_SESSION['connected_user_id']) AND !empty($_SESSION['connected_user_id']))
 			{
-				$member = Model_Users::getById($_SESSION['connected_user_id']);
-				$data = [
-					'user_friends'		=> $member->prop('friends'),
-				];
-				
-				if($data['user_friends']->isEmpty())
+				if($this->_current_member->prop('friends')->isEmpty())
 				{
 					$arrayInfo = [
 						'infos_message' => 'Vous n\'avez aucun ami !',
@@ -26,7 +21,7 @@
 				}
 				else
 				{
-					$view = \Eliya\Tpl::get('friends/index', $data);
+					$view = \Eliya\Tpl::get('friends/index');
 				}
 			}
 			else
