@@ -11,12 +11,7 @@
 			{
 				$_SESSION = array();
 				session_destroy();
-				
-				\Eliya\Tpl::set([
-					'connected_user_id' 		=> 	'',
-					'connected_user_username'	=> 	'',
-					'connected_user_group'	=> 	'',
-				]);
+				\Eliya\Tpl::set(['current_member' => null]);
 				
 				$view	=	\Eliya\Tpl::get('login/index');
 			}

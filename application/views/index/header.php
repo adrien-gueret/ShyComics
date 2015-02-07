@@ -13,10 +13,10 @@
 			<a href="<?= $view->base_url; ?>"><img src="<?= $view->base_url; ?>public/images/logo_menu.png" alt="Accueil" title="Shy'Comics" /></a>
 			<ul>
 				<li>
-					<?php if(empty($view->connected_user_username)): ?>
+					<?php if(empty($view->current_member)): ?>
 						<a href="<?= $view->base_url; ?>login/register">Inscription</a> | <a href="<?= $view->base_url; ?>login">Connexion</a>
 					<?php else: ?>
-						Bienvenue <?= $view->connected_user_username; ?> &bull; <a href="<?= $view->base_url; ?>logout?token=<?= $_SESSION['token_logout']; ?>">Me déconnecter</a>
+						Bienvenue <?= $view->current_member->prop('username'); ?> &bull; <a href="<?= $view->base_url; ?>logout?token=<?= $_SESSION['token_logout']; ?>">Me déconnecter</a>
 					<?php endif; ?>
 				</li>
 				<li><input type="search" name="search" id="nav-search"/></li>
@@ -37,7 +37,7 @@
 		<header>
 			<img src="<?= $view->base_url; ?>public/images/logo_header.png" alt="Shy'Comics" />
 			<div>
-				<?php if(empty($view->connected_user_username)): ?>
+				<?php if(empty($view->current_member)): ?>
 					<a href="<?= $view->base_url; ?>login/register">Inscrivez-vous !</a>
 				<?php endif; ?>
 			</div>

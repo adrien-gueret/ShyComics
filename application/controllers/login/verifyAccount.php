@@ -18,10 +18,20 @@
 					if($hashVerif === $h)
 					{
 						Model_Users::emailVerified($id);
-						$this->response->set('Vous avez validé votre compte avec succès et êtes automatiquement connecté. Vous pouvez profiter pleinement et dès à présent du site !');
 						
 						$_SESSION['connected_user_id'] = $results->prop('id');
-						$_SESSION['connected_user_username'] = $results->prop('username');
+						$this->_current_member = Model_Users::getById($_SESSION['connected_user_id']);
+						\Eliya\Tpl::set(['current_member' => $this->_current_member]);
+						
+						$arrayInfo = [
+							'infos_message' => 'Vous avez validé votre compte avec succès et êtes automatiquement connecté. Vous pouvez profiter pleinement et dès à présent du site !',
+							'infos_message_status' => 'class="message infos sucess"',
+						];
+
+						$infos_message = \Eliya\Tpl::get('infos_message', $arrayInfo);
+						$data['infos_message'] = $infos_message;
+						
+						$this->response->set($data['infos_message']);
 					}
 				}
 			}

@@ -33,9 +33,19 @@
 						];
 						$message = Eliya\Tpl::get('login/mail_confirm', $data);
 						
+						echo 'login/verifyAccount?m=' . $data['email'] . '&h=' . $data['hashVerif'] . '';
+						
 						Library_Email::send($email, $subject, $message);
 						
-						$this->response->set('Vous vous êtes inscrit avec succès. Cependant, rendez vous dans votre boîte mail afin de valider votre inscription une bonne fois pour toutes.');
+						$arrayInfo = [
+							'infos_message' => 'Vous vous êtes inscrit avec succès. Cependant, rendez vous dans votre boîte mail afin de valider votre inscription une bonne fois pour toutes.',
+							'infos_message_status' => 'class="message infos sucess"',
+						];
+
+						$infos_message = \Eliya\Tpl::get('infos_message', $arrayInfo);
+						$data['infos_message'] = $infos_message;
+						
+						$this->response->set($data['infos_message']);
 					}
 					else
 					{
