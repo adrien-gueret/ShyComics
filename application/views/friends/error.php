@@ -1,1 +1,0 @@
-<?= $view->infos_message; ?>

@@ -21,8 +21,17 @@
 						
 						$_SESSION['connected_user_id'] = $results->prop('id');
 						$_SESSION['connected_user_username'] = $results->prop('username');
+						$_SESSION['connected_user_group'] = $results->prop('id_user_group');
 						
-						$this->response->set('Vous avez validé votre compte avec succès et êtes automatiquement connecté. Vous pouvez profiter pleinement et dès à présent du site !');
+						$arrayInfo = [
+							'infos_message' => 'Vous avez validé votre compte avec succès et êtes automatiquement connecté. Vous pouvez profiter pleinement et dès à présent du site !',
+							'infos_message_status' => 'class="message infos sucess"',
+						];
+
+						$infos_message = \Eliya\Tpl::get('infos_message', $arrayInfo);
+						$data['infos_message'] = $infos_message;
+						
+						$this->response->set($data['infos_message']);
 					}
 				}
 			}

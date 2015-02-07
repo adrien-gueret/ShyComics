@@ -22,9 +22,7 @@
 					];
 
 					$infos_message = \Eliya\Tpl::get('infos_message', $arrayInfo);
-					$data['infos_message'] = $infos_message;
-					
-					$view = \Eliya\Tpl::get('friends/error', $data);
+					$view = $infos_message;
 				}
 				else
 				{
@@ -39,9 +37,7 @@
 				];
 
 				$infos_message = \Eliya\Tpl::get('infos_message', $arrayInfo);
-				$data['infos_message'] = $infos_message;
-				
-				$view = \Eliya\Tpl::get('friends/error', $data);
+				$view = $infos_message;
 			}
 			
 			$this->response->set($view);
