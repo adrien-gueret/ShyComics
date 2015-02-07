@@ -29,6 +29,17 @@
 	}
 
 	//Handle received request
-	$request	=	new \Eliya\Request($_SERVER['REQUEST_URI']);
+	$request		=	new \Eliya\Request($_SERVER['REQUEST_URI']);
+	$current_url	=	$request->getProtocol().'://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
+
+	if(substr($current_url, -1) !== '/')
+		$current_url	.=	'/';
+
+	\Eliya\Tpl::set([
+		'page_title'				=>	'Page title',
+		'page_description'			=>	'Page description',
+		'base_url'					=>	$request->getBaseURL(),
+		'current_url'				=>	$current_url,
+	]);
 
 	$request->exec()->response()->render();

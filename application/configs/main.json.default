@@ -5,7 +5,9 @@
 	},
 	"ROUTING" :	{
 		"BASE_URL"	:	"/ShyComicsReturns/",
-		"RULES" : {}
+		"RULES"     		:   {
+			"spritecomics/gallery/([0-9]+)" : ["spritecomics_gallery", "index", "id_user"]
+		}
 	},
 	"SQL" : {
 		"HOST" : "localhost",

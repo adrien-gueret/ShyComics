@@ -1,0 +1,121 @@
+@import url(http://fonts.googleapis.com/css?family=Press+Start+2P);
+
+html, body {
+	position: fixed;
+	left: 0;
+	top: 0;
+	bottom: 0;
+	right: 0;
+	background-color: #f8f8f8;
+	min-width: 955px;
+	font-family: 'Press Start 2P';
+}
+
+figure {
+	display: block;
+	margin: auto;
+	position: relative;
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center bottom;
+	width: 50%;
+	max-width: 632px;
+}
+
+figure img {
+	width: 100%;
+}
+
+figure figcaption {
+	display: block;
+	position: absolute;
+	bottom: 0;
+	height: 20%;
+	padding: 5%;
+	font-size: 1.3em;
+	line-height: 1.6em;
+	cursor: pointer;
+}
+
+figure figcaption div {
+	margin-top: -7px;
+}
+
+figure figcaption .arrow {
+	display: block;
+	background-image: url(../images/style/errors/dialog_arrow.png);
+	background-repeat: no-repeat;
+	background-size: contain;
+	position: absolute;
+	right: 0;
+	bottom: 15%;
+	width: 10%;
+	height: 10%;
+}
+
+figure figcaption a, figure figcaption:visited {
+	text-decoration: none;
+	color: inherit;
+	position: absolute;
+	right: 5%;
+	bottom: 15%;
+}
+
+figure figcaption a.firstLink {
+	right: auto;
+	left: 8%;
+}
+
+figure figcaption.active {
+	width: 90%;
+	cursor: default;
+}
+
+figure figcaption.active a:hover::before {
+	background-image: url(../images/style/errors/action_arrow.png);
+	display: block;
+	width: 14px;
+	content: '';
+	height: 100%;
+	background-repeat: no-repeat;
+	background-size: contain;
+	position: absolute;
+	left: -20%;
+	margin-top: 5%;
+}
+
+/* Oak */
+.oak_container .bubble {
+	width: 20%;
+	margin: 20px auto;
+	padding: 5px;
+	border: 1px solid #000;
+	border-radius: 2px;
+	position: relative;
+	background-color: inherit;
+	text-align: center;
+}
+
+.oak_container .bubble::after {
+	background-image: url(../images/style/errors/oak.png);
+	position: fixed;
+	width: 20%;
+	height: 20%;
+	left: 20%;
+	margin-top: -20px;
+	content: '';
+	display: block;
+	background-position: right;
+	background-repeat: no-repeat;
+	background-size: contain;
+}
+
+.oak_container .bubble span {
+	width: 13px;
+	height: 14px;
+	display: block;
+	position: absolute;
+	left: -13px;
+	bottom: 3px;
+	background-image: url(../images/style/errors/bubble_arrow.png);
+}

@@ -3,30 +3,40 @@
 	{
 		public function get_index($id_user = null)
 		{
-			$member = Model_Users::getById($id_user);
-			
-			\Eliya\Tpl::set([
-				'page_title'		=>	'Sprites Comics &bull; Galerie',
-			]);
-			
-			if(!empty($member))
+			//If users is on /spritecomics/gallery (no id member)
+			if(empty($id_user))
 			{
+				//We redirect him!
+				$baseUrl	=	$this->request->getBaseURL() . 'spritecomics/';
+
+				if( ! empty($this->_current_member))
+					$this->response->redirect($baseUrl . 'gallery/' . $this->_current_member->getId());
+				else
+					$this->response->redirect($baseUrl);
+
+				exit;
+			}
+
+			$member = Model_Users::getById($id_user);
+
+			if(empty($member))
+			{
+				$this->response->error('Le membre souhaité ne semble pas exister.', 404);
+				return;
+			}
+
+			if( ! empty($member))
+			{
+				\Eliya\Tpl::set([
+					'page_title'		=>	'Galerie de ' . $member->prop('username'),
+				]);
+
 				$data = [
 					'user_id'		=> $member->prop('id'),
 					'user_name'		=> $member->prop('username'),
 					'user_files'	=> $member->getFiles(),
 					'user_dirs'	    => $member->getFilesDirs(),
 					'user_dirs_all'	=> $member->getFilesDirsAll(),
-				];
-			}
-			else
-			{
-				$data = [
-					'user_id'		=> null,
-					'user_name'		=> null,
-					'user_files'	=> null,
-					'user_dirs'	    => null,
-					'user_dirs_all'	=> null,
 				];
 			}
 			
