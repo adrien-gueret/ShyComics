@@ -1,0 +1,6 @@
+{
+	"MESSAGE_ERROR_LOGIN" : {
+		"CONTENT" : "Vous devez vous connecter au site pour pouvoir accéder à cette fonctionnalité",
+		"CLASS" : "class=\"message infos error\""
+	}
+}
