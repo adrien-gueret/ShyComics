@@ -16,7 +16,7 @@
 					<?php if(empty($view->current_member)): ?>
 						<a href="<?= $view->base_url; ?>login/register">Inscription</a> | <a href="<?= $view->base_url; ?>login">Connexion</a>
 					<?php else: ?>
-						Bienvenue <?= $view->current_member->prop('username'); ?> &bull; <a href="<?= $view->base_url; ?>logout?token=<?= $_SESSION['token_logout']; ?>">Me déconnecter</a>
+						Bienvenue <?= $view->current_member->prop('username'); ?> &bull; <a href="<?= $view->base_url; ?>profil" title="Mon profil">Mon profil</a> &bull; <a href="<?= $view->base_url; ?>logout?token=<?= $_SESSION['token_logout']; ?>">Me déconnecter</a>
 					<?php endif; ?>
 				</li>
 				<li><input type="search" name="search" id="nav-search"/></li>
