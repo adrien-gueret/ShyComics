@@ -117,5 +117,10 @@
 		{
 			return $this->load('user');
 		}
+		
+		public function getParentFile()
+		{
+			return $this->load('parent_file');
+		}
 	}
 ?>

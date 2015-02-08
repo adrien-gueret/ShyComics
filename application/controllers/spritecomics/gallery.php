@@ -55,12 +55,25 @@
 			if(!empty($file))
 			{
 				$member = $file->getUser();
+				
+				if( ! empty($file->getParentFile()))
+				{
+					// If parent file exist, we stock its direction into a variable
+					$parent_file = 'file/' . $file->getParentFile()->prop('id');
+				}
+				else
+				{
+					// Else, we stock direction to the user's gallery
+					$parent_file = $member->prop('id');
+				}
+				
 				if($file->prop('is_dir') == 0)
 				{
 					$data = [
 						'user_id'		=> $member->prop('id'),
 						'user_name'		=> $member->prop('username'),
 						'file'			=> $file,
+						'parent_file'	=> $parent_file,
 					];
 					
 					$view	=	\Eliya\Tpl::get('spritecomics/gallery/file', $data);
@@ -73,6 +86,7 @@
 							'user_id'		=> $member->prop('id'),
 							'user_name'		=> $member->prop('username'),
 							'user_files'	=> $member->getFiles($file->prop('id')),
+							'parent_file'	=> $parent_file,
 						];
 						
 						$view	=	\Eliya\Tpl::get('spritecomics/gallery/document', $data);
