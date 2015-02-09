@@ -9,7 +9,7 @@
 					'page_title'		=>	'Gestion de votre profil',
 				]);
 			
-				$view	=	\Eliya\Tpl::get('profil/gestion');
+				$view	=	\Eliya\Tpl::get('profile/gestion');
 			}
 			else
 			{

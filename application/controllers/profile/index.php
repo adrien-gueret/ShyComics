@@ -7,7 +7,7 @@
 			if(empty($id_user))
 			{
 				//We redirect him!
-				$baseUrl	=	$this->request->getBaseURL() . 'profil/';
+				$baseUrl	=	$this->request->getBaseURL() . 'profile/';
 
 				if( ! empty($this->_current_member))
 					$this->response->redirect($baseUrl . $this->_current_member->getId());
@@ -37,7 +37,7 @@
 				];
 			}
 			
-			$view	=	\Eliya\Tpl::get('profil/index', $data);
+			$view	=	\Eliya\Tpl::get('profile/index', $data);
 			$this->response->set($view);
 		}
 	}
