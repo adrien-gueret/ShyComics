@@ -1,5 +1,5 @@
 <?php
-	class Controller_profil_gestion extends Controller_index
+	class Controller_profile_gestion extends Controller_index
 	{
 		public function get_index()
 		{

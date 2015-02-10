@@ -122,5 +122,18 @@
 		{
 			return $this->load('parent_file');
 		}
+		
+		public function getParentFileId()
+		{
+			$request = Model_Files::createRequest();
+			$results = $request->select('parent_file.id')
+							   ->where('id=?', [$this->getId()])
+							   ->getOnly(1)
+							   ->exec();
+			if($results)
+				return $results->parent_file_id;
+			else
+				return null;
+		}
 	}
 ?>

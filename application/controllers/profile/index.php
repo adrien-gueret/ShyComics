@@ -1,9 +1,9 @@
 <?php
-	class Controller_profil_index extends Controller_index
+	class Controller_profile_index extends Controller_index
 	{
 		public function get_index($id_user = null)
 		{
-			//If users is on /spritecomics/gallery (no id member)
+			//If users is on /profile (no id member)
 			if(empty($id_user))
 			{
 				//We redirect him!
@@ -32,7 +32,7 @@
 				]);
 
 				$data = [
-					'user_id'		=> $member->prop('id'),
+					'user_id'		=> $member->getId(),
 					'user_name'		=> $member->prop('username'),
 				];
 			}

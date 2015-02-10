@@ -1,4 +1,4 @@
-<a href="<?= $view->base_url . 'spritecomics/gallery/' . $view->parent_file ?>">Remonter la galerie</a><br />
+<a href="<?= $view->base_url . 'spritecomics/gallery/' . $view->parent_url ?>">Remonter la galerie</a><br />
 <?php foreach($view->user_files as $key => $file) : ?>
 	<?php if($file->prop('is_dir') == 1): ?>
 	<br /><a href="<?= $view->base_url . 'spritecomics/gallery/file/' . $file->prop('id') ?>"><img src="<?= $view->base_url; ?>public/images/file.png" class="galleryFile" alt="Dossier" /></a>

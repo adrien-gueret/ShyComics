@@ -56,15 +56,15 @@
 			{
 				$member = $file->getUser();
 				
-				if( ! empty($file->getParentFile()))
+				if( ! empty($file->getParentFileId()))
 				{
 					// If parent file exist, we stock its direction into a variable
-					$parent_file = 'file/' . $file->getParentFile()->prop('id');
+					$parent_url = 'file/' . $file->getParentFileId();
 				}
 				else
 				{
 					// Else, we stock direction to the user's gallery
-					$parent_file = $member->prop('id');
+					$parent_url = $member->getId();
 				}
 				
 				if($file->prop('is_dir') == 0)
@@ -73,20 +73,21 @@
 						'user_id'		=> $member->prop('id'),
 						'user_name'		=> $member->prop('username'),
 						'file'			=> $file,
-						'parent_file'	=> $parent_file,
+						'parent_url'	=> $parent_url,
 					];
 					
 					$view	=	\Eliya\Tpl::get('spritecomics/gallery/file', $data);
 				}
 				else
 				{
-					if( ! empty($member->getFiles($file->prop('id'))))
+					$memberFiles = $member->getFiles($file->prop('id'));
+					if( ! empty($memberFiles))
 					{
 						$data = [
-							'user_id'		=> $member->prop('id'),
+							'user_id'		=> $member->getId(),
 							'user_name'		=> $member->prop('username'),
-							'user_files'	=> $member->getFiles($file->prop('id')),
-							'parent_file'	=> $parent_file,
+							'user_files'	=> $member->getFiles($file->getId()),
+							'parent_url'	=> $parent_url,
 						];
 						
 						$view	=	\Eliya\Tpl::get('spritecomics/gallery/document', $data);
@@ -94,7 +95,7 @@
 					else
 					{
 						$arrayInfo = [
-							'infos_message' => 'Ce dossier ne contient aucun fichier.',
+							'infos_message' => 'Ce dossier ne contient aucun fichier.<br /><a href="' . $this->request->getBaseURL() . 'spritecomics/gallery/' . $parent_url . '">Remonter la galerie</a>',
 							'infos_message_status' => 'class="message infos"',
 						];
 
