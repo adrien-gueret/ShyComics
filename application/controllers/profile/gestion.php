@@ -17,9 +17,8 @@
 					'infos_message' => \Eliya\Config('messages')->MESSAGE_ERROR_LOGIN['CONTENT'],
 					'infos_message_status' => \Eliya\Config('messages')->MESSAGE_ERROR_LOGIN['CLASS'],
 				];
-
-				$infos_message = \Eliya\Tpl::get('infos_message', $arrayInfo);
-				$view = $infos_message;
+				
+				$view = \Eliya\Tpl::get('infos_message', $arrayInfo);
 			}
 			$this->response->set($view);
 		}

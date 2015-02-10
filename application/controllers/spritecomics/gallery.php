@@ -55,11 +55,11 @@
 			if(!empty($file))
 			{
 				$member = $file->getUser();
-				
-				if( ! empty($file->getParentFileId()))
+				$parentFileId = $file->getParentFileId();
+				if( ! empty($parentFileId))
 				{
 					// If parent file exist, we stock its direction into a variable
-					$parent_url = 'file/' . $file->getParentFileId();
+					$parent_url = 'file/' . $parentFileId;
 				}
 				else
 				{

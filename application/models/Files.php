@@ -130,10 +130,7 @@
 							   ->where('id=?', [$this->getId()])
 							   ->getOnly(1)
 							   ->exec();
-			if($results)
-				return $results->parent_file_id;
-			else
-				return null;
+			return empty($results->parent_file_id) ? null : $results->parent_file_id;
 		}
 	}
 ?>
