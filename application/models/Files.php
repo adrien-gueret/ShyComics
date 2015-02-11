@@ -42,7 +42,7 @@
 
 			foreach($extensions as $extension)
 			{
-				$path = $base_path.$extension
+				$path = $base_path.$extension;
 
 				if(is_file($path))
 					return $path;
