@@ -98,9 +98,8 @@
 							'infos_message' => 'Ce dossier ne contient aucun fichier.<br /><a href="' . $this->request->getBaseURL() . 'spritecomics/gallery/' . $parent_url . '">Remonter la galerie</a>',
 							'infos_message_status' => 'class="message infos"',
 						];
-
-						$infos_message = \Eliya\Tpl::get('infos_message', $arrayInfo);
-						$view = $infos_message;
+						
+						$view = \Eliya\Tpl::get('infos_message', $arrayInfo);
 					}
 				}
 			}

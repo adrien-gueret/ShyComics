@@ -25,17 +25,14 @@
 				return;
 			}
 
-			if( ! empty($member))
-			{
-				\Eliya\Tpl::set([
-					'page_title'		=>	'Profil de ' . $member->prop('username'),
-				]);
+			\Eliya\Tpl::set([
+				'page_title'		=>	'Profil de ' . $member->prop('username'),
+			]);
 
-				$data = [
-					'user_id'		=> $member->getId(),
-					'user_name'		=> $member->prop('username'),
-				];
-			}
+			$data = [
+				'user_id'		=> $member->getId(),
+				'user_name'		=> $member->prop('username'),
+			];
 			
 			$view	=	\Eliya\Tpl::get('profile/index', $data);
 			$this->response->set($view);
