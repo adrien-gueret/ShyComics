@@ -12,12 +12,10 @@ function requestRemoveFile(callback, fileId, dir) {
 }
 
 function readDataRemoveFile(data) {
-	var divInfos = document.getElementById('infos_message'),
-	divMain = document.getElementById('gallery_main'),
+	var divMain = document.getElementById('gallery_main'),
 	dataJSON = JSON.parse(data);
 	
-	divInfos.innerHTML = dataJSON.infosMessage;
-	divMain.innerText = '';
+	divMain.innerHTML = dataJSON.infosMessage;
 }
 
 function removeFile(fileId, dir) {

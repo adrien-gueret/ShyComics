@@ -34,13 +34,13 @@
 			];
 		}
 		
-		public static function getPath($id_user, $id_file)
+		public function getPath()
 		{
 			//On renvoit le chemin correspond à si l'image est un .jpg, un .jpeg, un .png ou un .gif
-			$pathPNG = 'public/users_files/galleries/' . $id_user . '/' . $id_file . '.png';
-			$pathJPG = 'public/users_files/galleries/' . $id_user . '/' . $id_file . '.jpg';
-			$pathJPEG = 'public/users_files/galleries/' . $id_user . '/' . $id_file . '.jpeg';
-			$pathGIF = 'public/users_files/galleries/' . $id_user . '/' . $id_file . '.gif';
+			$pathPNG = 'public/users_files/galleries/' . $this->prop('user')->getId() . '/' . $this->getId() . '.png';
+			$pathJPG = 'public/users_files/galleries/' . $this->prop('user')->getId() . '/' . $this->getId() . '.jpg';
+			$pathJPEG = 'public/users_files/galleries/' . $this->prop('user')->getId() . '/' . $this->getId() . '.jpeg';
+			$pathGIF = 'public/users_files/galleries/' . $this->prop('user')->getId() . '/' . $this->getId() . '.gif';
 			$path = (is_file($pathPNG)) ? $pathPNG : ((is_file($pathJPG)) ? $pathJPG : ((is_file($pathJPEG)) ? $pathJPEG : ((is_file($pathGIF)) ? $pathGIF : null)));
 			return $path;
 		}

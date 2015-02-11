@@ -7,6 +7,8 @@
 			$user = $file->getUser();
 			if(!empty($file) && !empty($_SESSION['connected_user_id']) && ($_SESSION['connected_user_id'] == $user->prop('id') || $_SESSION['connected_user_group'] === 2))
 			{
+				$path = $file->getPath();
+				unlink($path);
 				Model_Users::removeFile($id);
 				
 				$arrayInfo = [

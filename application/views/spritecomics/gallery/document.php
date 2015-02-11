@@ -6,7 +6,7 @@
 		<img src="<?= $view->base_url; ?>public/images/file.png" class="galleryFile" alt="Dossier" />
 		<?= $file->prop('name'); ?>
 		<?php else: ?>
-		<img src="<?= $view->base_url . Model_Files::getPath($view->user_id, $file->prop('id')); ?>" alt="<?= $file->prop('name'); ?>" title="<?= $file->prop('name'); ?>" />
+		<img src="<?= $view->base_url . $file->getPath(); ?>" alt="<?= $file->prop('name'); ?>" title="<?= $file->prop('name'); ?>" />
 		<?php endif; ?>
 	</a>
 <?php endforeach; ?>
