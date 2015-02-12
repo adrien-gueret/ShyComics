@@ -120,9 +120,9 @@
 		public function getPermission($permission = null)
 		{
 			$permission = htmlspecialchars($permission);
-			$stringRequest = 'SELECT ' . $permission . ' FROM user_groups WHERE user_groups.id=' . $this->prop('user_group');
-			$request = EntityRequest::executeSQL($stringRequest);
-			return $request;
+			$stringRequest = 'SELECT ' . $permission . ' FROM users_groups WHERE id=' . $this->prop('user_group')->getId();
+			$request = EntityPHP\EntityRequest::executeSQL($stringRequest);
+			return current($request)->$permission;
 		}
 	}
 ?>
