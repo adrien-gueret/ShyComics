@@ -1,5 +1,5 @@
 <?php
-	class Controller_ajax_admin_removeFile extends Eliya\Controller_Ajax
+	class Controller_ajax_admin_removeFile extends Controller_ajax
 	{
 		public function get_index($id = null)
 		{
