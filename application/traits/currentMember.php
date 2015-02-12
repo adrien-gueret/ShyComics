@@ -1,6 +1,6 @@
 <?php
 
-trait Trait_CurrentMember
+trait Trait_currentMember
 {
 	protected $_current_member	=	null;
 
