@@ -116,5 +116,13 @@
 			$file = Model_Files::getById($id);
 			Model_Files::delete($file);
 		}
+		
+		public function getPermission($permission = null)
+		{
+			$permission = htmlspecialchars($permission);
+			$stringRequest = 'SELECT ' . $permission . ' FROM users_groups WHERE id=' . $this->prop('user_group')->getId();
+			$request = EntityPHP\EntityRequest::executeSQL($stringRequest);
+			return current($request)->$permission;
+		}
 	}
 ?>

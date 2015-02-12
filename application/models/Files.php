@@ -34,15 +34,21 @@
 			];
 		}
 		
-		public static function getPath($id_user, $id_file)
+		public function getPath()
 		{
 			//On renvoit le chemin correspond à si l'image est un .jpg, un .jpeg, un .png ou un .gif
-			$pathPNG = 'public/users_files/galleries/' . $id_user . '/' . $id_file . '.png';
-			$pathJPG = 'public/users_files/galleries/' . $id_user . '/' . $id_file . '.jpg';
-			$pathJPEG = 'public/users_files/galleries/' . $id_user . '/' . $id_file . '.jpeg';
-			$pathGIF = 'public/users_files/galleries/' . $id_user . '/' . $id_file . '.gif';
-			$path = (is_file($pathPNG)) ? $pathPNG : ((is_file($pathJPG)) ? $pathJPG : ((is_file($pathJPEG)) ? $pathJPEG : ((is_file($pathGIF)) ? $pathGIF : null)));
-			return $path;
+			$extensions = ['png', 'jpg', 'jpeg', 'gif'];
+			$base_path = 'public/users_files/galleries/' . $this->prop('user')->getId() . '/' . $this->getId() . '.';
+
+			foreach($extensions as $extension)
+			{
+				$path = $base_path.$extension;
+
+				if(is_file($path))
+					return $path;
+			}
+
+			return null;
 		}
 		
 		public static function addFile($name = null, $description = null, $parent_file = null)
@@ -116,6 +122,21 @@
 		public function getUser()
 		{
 			return $this->load('user');
+		}
+		
+		public function getParentFile()
+		{
+			return $this->load('parent_file');
+		}
+		
+		public function getParentFileId()
+		{
+			$request = Model_Files::createRequest();
+			$results = $request->select('parent_file.id')
+							   ->where('id=?', [$this->getId()])
+							   ->getOnly(1)
+							   ->exec();
+			return empty($results->parent_file_id) ? null : $results->parent_file_id;
 		}
 	}
 ?>
