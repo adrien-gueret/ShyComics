@@ -1,8 +1,6 @@
 <?php
-	/*
-		Controller_index is the default controller called on the website root
-	*/
-	class Controller_index extends Controller_main
+	//Main controller class of the site: all controllers should inherit from it
+	abstract class Controller_main extends Eliya\Controller
 	{
 		protected $_current_member	=	null;
 
@@ -21,10 +19,5 @@
 			
 			if(!isset($_SESSION['token_logout']))
 				$_SESSION['token_logout'] = uniqid(rand(), true); //Protection contre les failles CSRF
-		}
-
-		public function get_index()
-		{
-			$this->response->set('Hello world!');
 		}
 	}

@@ -1,5 +1,5 @@
 <?php
-	class Controller_spritecomics_gallery extends Controller_index
+	class Controller_spritecomics_gallery extends Controller_main
 	{
 		public function get_index($id_user = null)
 		{
@@ -25,21 +25,18 @@
 				return;
 			}
 
-			if( ! empty($member))
-			{
-				\Eliya\Tpl::set([
-					'page_title'		=>	'Galerie de ' . $member->prop('username'),
-				]);
+			\Eliya\Tpl::set([
+				'page_title'		=>	'Galerie de ' . $member->prop('username'),
+			]);
 
-				$data = [
-					'user_id'		=> $member->prop('id'),
-					'user_name'		=> $member->prop('username'),
-					'user_files'	=> $member->getFiles(),
-					'user_dirs'	    => $member->getFilesDirs(),
-					'user_dirs_all'	=> $member->getFilesDirsAll(),
-				];
-			}
-			
+			$data = [
+				'user_id'		=> $member->prop('id'),
+				'user_name'		=> $member->prop('username'),
+				'user_files'	=> $member->getFiles(),
+				'user_dirs'	    => $member->getFilesDirs(),
+				'user_dirs_all'	=> $member->getFilesDirsAll(),
+			];
+
 			$view	=	\Eliya\Tpl::get('spritecomics/gallery', $data);
 			$this->response->set($view);
 		}

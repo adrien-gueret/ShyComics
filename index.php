@@ -36,8 +36,8 @@
 		$current_url	.=	'/';
 
 	\Eliya\Tpl::set([
-		'page_title'				=>	'Page title',
-		'page_description'			=>	'Page description',
+		'page_title'				=>	'Shy\'Comics',
+		'page_description'			=>	'La référence en Sprites Comics !',
 		'base_url'					=>	$request->getBaseURL(),
 		'current_url'				=>	$current_url,
 	]);

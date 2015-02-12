@@ -1,5 +1,5 @@
 <?php
-	class Controller_spritecomics_index extends Controller_index
+	class Controller_spritecomics_index extends Controller_main
 	{
 		public function get_index()
 		{

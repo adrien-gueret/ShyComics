@@ -9,7 +9,7 @@
 	</head>
 	<body class="error_<?= $view->error_number; ?>">
 		<figure class="main">
-			<img src="<?= $view->base_url; ?>public/images/style/errors/<?= $view->error_number; ?>.png" alt="" />
+			<img src="<?= $view->base_url; ?>public/images/style/errors/error_screen.png" alt="" />
 			<figcaption id="caption">
 				<div id="firstStep">
 					Une <b>erreur <?= $view->error_number; ?></b> sauvage apparait !

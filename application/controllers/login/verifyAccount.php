@@ -1,5 +1,5 @@
 <?php
-	class Controller_login_verifyAccount extends Controller_index
+	class Controller_login_verifyAccount extends Controller_main
 	{
 		public function get_index($m = null, $h = null)
 		{

@@ -1,16 +1,6 @@
 <?php
-	class Controller_spritecomics_addDir extends Controller_index
+	class Controller_spritecomics_addDir extends Controller_main
 	{
-		public function get_index()
-		{
-			\Eliya\Tpl::set([
-				'page_title'		=>	'Sprites Comics',
-			]);
-			
-			$view	=	\Eliya\Tpl::get('spritecomics/index');
-			$this->response->set($view);
-		}
-		
 		public function post_index($name = null, $description = null, $parent_file = null)
 		{
 			if(isset($_SESSION['connected_user_id']) AND !empty($_SESSION['connected_user_id']))

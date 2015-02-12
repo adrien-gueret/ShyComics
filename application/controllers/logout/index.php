@@ -1,5 +1,5 @@
 <?php
-	class Controller_logout_index extends Controller_index
+	class Controller_logout_index extends Controller_main
 	{
 		public function get_index($token = null)
 		{

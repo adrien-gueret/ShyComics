@@ -1,5 +1,5 @@
 <?php
-	class Controller_login_register extends Controller_index
+	class Controller_login_register extends Controller_main
 	{
 		public function get_index()
 		{

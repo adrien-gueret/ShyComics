@@ -1,5 +1,5 @@
 <?php
-	class Controller_friends_index extends Controller_index
+	class Controller_friends_index extends Controller_main
 	{
 		public function get_index()
 		{
@@ -27,8 +27,8 @@
 			else
 			{
 				$arrayInfo = [
-					'infos_message' => \Eliya\Config('messages')->MESSAGE_ERROR_LOGIN['CONTENT'],
-					'infos_message_status' => \Eliya\Config('messages')->MESSAGE_ERROR_LOGIN['CLASS'],
+					'infos_message' => \Eliya\Config('messages')->ERRORS['LOGIN']['CONTENT'],
+					'infos_message_status' => \Eliya\Config('messages')->ERRORS['LOGIN']['CLASS'],
 				];
 
 				$infos_message = \Eliya\Tpl::get('infos_message', $arrayInfo);

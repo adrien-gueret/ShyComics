@@ -1,7 +1,10 @@
 {
-	"MESSAGE_ERROR_LOGIN" : {
+	"ERRORS": {
+	  "LOGIN": {
 		"CONTENT" : "Vous devez vous connecter au site pour pouvoir accéder à cette fonctionnalité",
 		"CLASS" : "class=\"message infos error\""
-	},
-  	"PAGE_NOT_FOUND": "La page demandée est introuvable."
+	  },
+	  "HTTP_404": "La page demandée est introuvable.",
+	  "HTTP_405": "Vous avez accédé à cette page d'une manière non autorisée."
+	}
 }
