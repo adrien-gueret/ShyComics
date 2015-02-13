@@ -1,29 +1,14 @@
 <?php
 	class Controller_spritecomics_gallery extends Controller_main
 	{
+		use Trait_checkIdUser;
+
 		public function get_index($id_user = null)
 		{
-			//If users is on /spritecomics/gallery (no id member)
-			if(empty($id_user))
-			{
-				//We redirect him!
-				$baseUrl	=	$this->request->getBaseURL() . 'spritecomics/';
-
-				if( ! empty($this->_current_member))
-					$this->response->redirect($baseUrl . 'gallery/' . $this->_current_member->getId());
-				else
-					$this->response->redirect($baseUrl);
-
-				exit;
-			}
-
-			$member = Model_Users::getById($id_user);
+			$member	=	$this->_getMemberFromId($id_user, 'spritecomics/gallery/');
 
 			if(empty($member))
-			{
-				$this->response->error('Le membre souhaité ne semble pas exister.', 404);
 				return;
-			}
 
 			\Eliya\Tpl::set([
 				'page_title'		=>	'Galerie de ' . $member->prop('username'),
