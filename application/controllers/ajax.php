@@ -4,8 +4,9 @@
 	{
 		use Trait_currentMember;
 
-		public function __init()
+		public function __init($type = \Eliya\Mime::JSON)
 		{
+			parent::__init($type);
 			$this->_checkCurrentMember();
 		}
 	}
