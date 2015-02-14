@@ -6,6 +6,6 @@
 	{
 		public function get_index()
 		{
-			$this->response->set('Hello world!');
+			$this->response->set(\Eliya\Tpl::get('index/index'));
 		}
 	}

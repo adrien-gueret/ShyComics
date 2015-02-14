@@ -1,9 +1,12 @@
+@import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro&subset=latin-ext);
+
 html, body {
 	margin: 0;
 	padding: 0;
 	position: relative;
 	height: 100%;
 	min-width: 1090px;
+	font-family: 'Source Sans Pro', sans-serif;
 }
 
 html {
@@ -30,6 +33,7 @@ body > nav + nav {
 	width: 40px;
 	min-width: 40px;
 	height: auto;
+	text-align: center;
 }
 
 /*Top left logo*/
@@ -59,34 +63,16 @@ body > nav a, body > nav a:visited {
 	color: inherit;
 	text-decoration: none;
 	vertical-align: middle;
+	transition: color 200ms;
 }
 
-body > nav a.social_button {
-	display: inline-block;
-	width: 19px;
-	height: 19px;
-	background-image: url(../images/style/social_buttons.png);
-	background-repeat: no-repeat;
+body > nav a:hover {
+	color: #D78B27;
 }
 
-body > nav a.leftnav_button {
-	display: inline-block;
-	width: 35px;
-	height: 25px;
-	margin: auto;
-	background-repeat: no-repeat;
+.leftnav_button {
+	font-size: 1.5em;
 }
-
-body > nav a.leftnav_button.friends {
-	background-image: url(../images/style/friends_button.png);
-	background-position: top;
-}
-body > nav a.leftnav_button.friends:hover {background-position: bottom;}
-
-body > nav a.social_button.facebook {background-position: left top;}
-body > nav a.social_button.facebook:hover {background-position: left bottom;}
-body > nav a.social_button.twitter {background-position: right top;}
-body > nav a.social_button.twitter:hover {background-position: right bottom;}
 
 body > nav input {
 	background-color: #c8c8c8;
@@ -127,7 +113,7 @@ body > section {
 	position: relative;
 	top: -15px;
 }
-body > section > div {
+.main-container {
 	background-color: #fff;
 	padding: 10px;
 	min-width: 780px;
@@ -141,7 +127,126 @@ body > section > div {
 	box-shadow:  0 0 4px #8d8d8d;
 }
 
+/*Links*/
+.main-container a, .main-container a:visited {
+	text-decoration: none;
+	font-weight: bold;
+	color: #D78B27;
+	border-bottom: 1px solid;
+	border-color: rgba(215, 139, 39, 0);
+	transition: border-color 200ms;
+}
+
+.main-container a:hover {
+	border-color: rgba(215, 139, 39, 1);
+}
+
+/*Forms*/
+
+/*Remove ugly yellow background on auto-fill fields*/
+form input:-webkit-autofill {
+	-webkit-box-shadow: 0 0 0 1000px white inset;
+}
+
+.main-container form {
+	text-align: center;
+}
+
+.main-container form fieldset {
+	width: 500px;
+	margin: auto;
+	background-color: #f5f5f5;
+	padding: 10px 10px 20px 10px;
+	border-radius: 10px;
+	border: 0;
+	text-align: left;
+}
+
+.main-container form legend {
+	font-size: 2em;
+	margin-bottom: -10px;
+}
+
+.main-container form input {
+	outline: none;
+	width: 80%;
+	height: 32px;
+	font-size: 1.3em;
+	display: block;
+	padding: 5px 10px 5px 10px;
+	margin: auto;
+	border: 0;
+}
+
+.main-container form input.hidden {
+	display: none;
+}
+
+.main-container form button {
+	margin-top: -10px;
+}
+
+form .group-buttons input:first-of-type {
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
+}
+
+form .group-buttons input:last-of-type {
+	border-bottom-left-radius: 10px;
+	border-bottom-right-radius: 10px;
+}
+
+form .group-buttons .separator {
+	display: block;
+	height: 0;
+	background-color: #fff;
+	width: 80%;
+	margin: 0 auto 0 auto;
+}
+
+form .group-buttons .separator:before {
+	content: '';
+	display: block;
+	position: relative;
+	height: 1px;
+	width: 70%;
+	background-color: #F5f5f5;
+	margin: 0 auto 0 auto;
+}
+
+/* Buttons */
+button, input[type="button"], .button {
+	position: relative;
+	vertical-align: top;
+	display: inline-block;
+	font-size: 1.4em;
+	color: #333;
+	text-align: center;
+	padding: 10px;
+	border: 0;
+	text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+	border-radius: 3px;
+	cursor: pointer;
+	background-color: #d1d1ca;
+	border-bottom: 2px solid #7d7d7d;
+	box-shadow: inset 0 -2px #7d7d7d;
+}
+
+button:active, input[type="button"]:active, .button:active {
+	top: 1px;
+	outline: none;
+	box-shadow: none !important;
+}
+
+button.orange, input[type="button"].orange, .button.orange {
+	color: #fff;
+	background-color: #ffb127;
+	border-bottom: 2px solid #D78B27;
+	box-shadow: inset 0 -2px #D78B27;
+}
+
+
 /*Gallery related*/
-body .galleryFile {
+.galleryFile {
 	width: 100px;
 }

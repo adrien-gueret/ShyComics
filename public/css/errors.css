@@ -8,7 +8,7 @@ html, body {
 	right: 0;
 	background-color: #f8f8f8;
 	min-width: 955px;
-	font-family: 'Press Start 2P';
+	font-family: 'Press Start 2P', sans-serif;
 }
 
 figure {
