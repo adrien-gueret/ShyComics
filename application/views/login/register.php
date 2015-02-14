@@ -10,33 +10,32 @@
 		<legend>
 			<i class="fa fa-user-plus"></i>
 		</legend>
-		<!--
-			Fix Chrome issue
-			Add hidden pass input in order force auto-completion on this one.
-			This dumb browser pre-fill fields in a bad way!
-		-->
-		<input type="password" name="fake" class="hidden" />
 
 		<div class="group-buttons">
-			<input autofocus
-				   placeholder="Quel est votre pseudo ?"
-				   type="text"
+			<input placeholder="Quel est votre e-mail ?"
+				   type="email"
 				   required
-				   name="username" />
+				   id="form-email"
+				   name="email" />
+			<label for="form-email"><i class="fa fa-envelope"></i></label>
 
 			<span class="separator"></span>
 
-			<input placeholder="Et votre e-mail ?"
-				   type="email"
+			<input placeholder="Et votre pseudo ?"
+				   type="text"
 				   required
-				   name="email" />
+				   id="form-username"
+				   name="username" />
+			<label for="form-username"><i class="fa fa-user"></i></label>
 
 			<span class="separator"></span>
 
 			<input placeholder="Choisissez un mot de passe"
 				   type="password"
 				   required
+				   id="form-pass"
 				   name="password" />
+			<label for="form-pass"><i class="fa fa-lock"></i></label>
 		</div>
 	</fieldset>
 

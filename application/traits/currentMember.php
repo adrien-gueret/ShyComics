@@ -19,4 +19,10 @@ trait Trait_currentMember
 		if(!isset($_SESSION['token_logout']))
 			$_SESSION['token_logout'] = uniqid(rand(), true); //Protection contre les failles CSRF
 	}
+
+	protected function _redirectToCurrentMemberProfile()
+	{
+		$this->response->redirect($this->request->getBaseUrl().'profile/'.$this->_current_member->getId());
+		exit;
+	}
 }

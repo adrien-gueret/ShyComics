@@ -62,7 +62,6 @@ body > nav ul li {
 body > nav a, body > nav a:visited {
 	color: inherit;
 	text-decoration: none;
-	vertical-align: middle;
 	transition: color 200ms;
 }
 
@@ -172,7 +171,7 @@ form input:-webkit-autofill {
 	width: 80%;
 	height: 32px;
 	font-size: 1.3em;
-	display: block;
+	display: inline-block;
 	padding: 5px 10px 5px 10px;
 	margin: auto;
 	border: 0;
@@ -212,6 +211,20 @@ form .group-buttons .separator:before {
 	width: 70%;
 	background-color: #F5f5f5;
 	margin: 0 auto 0 auto;
+}
+
+form .group-buttons label {
+	color: #333;
+	cursor: pointer;
+	float: left;
+	width: 10%;
+	height: 42px;
+	line-height: 42px;
+	text-align: center;
+}
+
+form .group-buttons input:focus + label {
+	color: #D78B27;
 }
 
 /* Buttons */

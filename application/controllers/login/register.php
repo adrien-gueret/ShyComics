@@ -6,7 +6,11 @@
 			\Eliya\Tpl::set([
 				'page_title'		=>	'S\'inscire',
 			]);
-			$this->response->set(\Eliya\Tpl::get('login/register'));
+
+			if(!empty($this->_current_member))
+				$this->_redirectToCurrentMemberProfile();
+			else
+				$this->response->set(\Eliya\Tpl::get('login/register'));
 		}
 		
 		public function post_index($username = null, $password = null, $email = null)

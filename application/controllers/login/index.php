@@ -6,9 +6,9 @@
 			\Eliya\Tpl::set([
 				'page_title'		=>	'Se connecter',
 			]);
-			
-			if(isset($_SESSION['connected_user_id']))
-				$view	=	\Eliya\Tpl::get('login/alreadyLogged', $_SESSION);
+
+			if(!empty($this->_current_member))
+				$this->_redirectToCurrentMemberProfile();
 			else
 				$view	=	\Eliya\Tpl::get('login/index');
 			
@@ -27,9 +27,7 @@
 				{
 					$_SESSION['connected_user_id'] = $resultMembre->prop('id');
 					$this->_current_member = Model_Users::getById($_SESSION['connected_user_id']);
-					\Eliya\Tpl::set(['current_member' => $this->_current_member]);
-					
-					$view	=	\Eliya\Tpl::get('login/alreadyLogged', $_SESSION);
+					$this->_redirectToCurrentMemberProfile();
 				}
 				else
 				{

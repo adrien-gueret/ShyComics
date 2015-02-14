@@ -11,18 +11,21 @@
 		</legend>
 
 		<div class="group-buttons">
-			<input autofocus
-				   placeholder="Quel est votre pseudo ?"
+			<input placeholder="Quel est votre pseudo ?"
 				   type="text"
 				   required
+				   id="form-username"
 				   name="username" />
+			<label for="form-username"><i class="fa fa-user"></i></label>
 
 			<span class="separator"></span>
 
 			<input placeholder="Et votre mot de passe ?"
 				   type="password"
 				   required
+				   id="form-pass"
 				   name="password" />
+			<label for="form-pass"><i class="fa fa-lock"></i></label>
 		</div>
 	</fieldset>
 
