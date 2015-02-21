@@ -3,23 +3,17 @@
 	{
 		public function get_index($token = null)
 		{
-			\Eliya\Tpl::set([
-				'page_title'		=>	'Déconnexion',
-			]);
-			
 			if(isset($_SESSION['connected_user_id']) && !empty($token) && $token == $_SESSION['token_logout'])
 			{
-				$_SESSION = array();
 				session_destroy();
-				\Eliya\Tpl::set(['current_member' => null]);
-				
-				$view	=	\Eliya\Tpl::get('login/index');
+
+				Library_Messages::store('Vous vous êtes correctement déconnecté. A très bientôt !', Library_Messages::TYPE_SUCCESS);
 			}
 			else
 			{
-				$view	=	'Erreur &bull; Jeton de sécurité manquant ou incorrect.';
+				Library_Messages::store('Il n\'a pas été possible de vous déconnecter...', Library_Messages::TYPE_WARNING);
 			}
 			
-			$this->response->set($view);
+			$this->response->redirect('login/index');
 		}
 	}

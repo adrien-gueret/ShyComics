@@ -3,7 +3,7 @@
 	{
 		use Trait_checkIdUser;
 
-		public function get_index($id_user = null)
+		public function get_index($id_user = null, $fromPage = null)
 		{
 			$member	=	$this->_getMemberFromId($id_user, 'profile/');
 

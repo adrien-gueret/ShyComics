@@ -3,38 +3,25 @@
 	{
 		public function get_index()
 		{
-			\Eliya\Tpl::set([
-				'page_title'		=>	'Gestion des amis',
-			]);
-			
-			if(isset($_SESSION['connected_user_id']) AND !empty($_SESSION['connected_user_id']))
-			{
-				if($this->_current_member->prop('friends')->isEmpty())
-				{
-					$arrayInfo = [
-						'infos_message' => 'Vous n\'avez aucun ami !',
-						'infos_message_status' => 'class="message infos"',
-					];
+			if(empty($this->_current_member)) {
+				$this->response->error('Vous devez être connecté pour accéder à cette partie du site.', 401);
+				return;
+			}
 
-					$infos_message = \Eliya\Tpl::get('infos_message', $arrayInfo);
-					$view = $infos_message;
-				}
-				else
-				{
-					$view = \Eliya\Tpl::get('friends/index');
-				}
+			\Eliya\Tpl::set([
+				'page_title'	=>	'Gestion des amis',
+			]);
+
+			if($this->_current_member->prop('friends')->isEmpty())
+			{
+				Library_Messages::add('Vous n\'avez aucun ami !', Library_Messages::TYPE_WARNING);
+				$view	=	\Eliya\Tpl::get('friends/no_friends');
 			}
 			else
 			{
-				$arrayInfo = [
-					'infos_message' => \Eliya\Config('messages')->ERRORS['LOGIN']['CONTENT'],
-					'infos_message_status' => \Eliya\Config('messages')->ERRORS['LOGIN']['CLASS'],
-				];
-
-				$infos_message = \Eliya\Tpl::get('infos_message', $arrayInfo);
-				$view = $infos_message;
+				$view = \Eliya\Tpl::get('friends/index');
 			}
-			
+
 			$this->response->set($view);
 		}
 	}

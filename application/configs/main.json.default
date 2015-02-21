@@ -7,7 +7,7 @@
 		"BASE_URL"	:	"/ShyComicsReturns/",
 		"RULES"     		:   {
 			"spritecomics/gallery/([0-9]+)" : ["spritecomics_gallery", "index", "id_user"],
-			"spritecomics/gallery/file/([0-9]+)" : ["spritecomics_gallery", "file", "id_file"],
+		  	"spritecomics/gallery/details/([0-9]+)" : ["spritecomics_gallery", "details", "id_document"],
 			"profile/([0-9]+)" : ["profile_index", "index", "id_user"]
 		}
 	},

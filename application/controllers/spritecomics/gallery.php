@@ -10,86 +10,146 @@
 			if(empty($member))
 				return;
 
+			$is_own_gallery	=	false;
+
+			if( ! empty($this->_current_member))
+				$is_own_gallery	=	$this->_current_member->equals($member);
+
 			\Eliya\Tpl::set([
 				'page_title'		=>	'Galerie de ' . $member->prop('username'),
 			]);
 
-			$data = [
-				'user_id'		=> $member->prop('id'),
-				'user_name'		=> $member->prop('username'),
-				'user_files'	=> $member->getFiles(),
-				'user_dirs'	    => $member->getFilesDirs(),
-				'user_dirs_all'	=> $member->getFilesDirsAll(),
-			];
-
-			$view	=	\Eliya\Tpl::get('spritecomics/gallery', $data);
-			$this->response->set($view);
+			$this->response->set(Library_Gallery::getFolderTemplate($member, null, $is_own_gallery));
 		}
-		
-		public function get_file($id_file = null)
+
+		public function post_index($name = null, $description = null, $parent_file_id = null, $is_dir = 1)
 		{
-			$file = Model_Files::getById($id_file);
-			
-			\Eliya\Tpl::set([
-				'page_title'		=>	'Sprites Comics &bull; Galerie',
-			]);
-			
-			if(!empty($file))
+			if(empty($this->_current_member))
 			{
-				$member = $file->getUser();
-				$parentFileId = $file->getParentFileId();
-				if( ! empty($parentFileId))
+				$this->response->error('Vous devez être connecté pour effectuer cette action.', 401);
+				return;
+			}
+
+			$parent	=	null;
+
+			if( ! empty($parent_file_id))
+			{
+				$parent	=	Model_Files::getById($parent_file_id);
+
+				if(empty($parent))
 				{
-					// If parent file exist, we stock its direction into a variable
-					$parent_url = 'file/' . $parentFileId;
+					$this->response->error('Le dossier où créer le nouveau document ne semble pas exister.', 404);
+					return;
+				}
+
+				$parent_owner	=	$parent->getUser();
+
+				if( ! $this->_current_member->equals($parent_owner))
+				{
+					$this->response->error('Vous ne pouvez pas ajouter du contenu dans ce dossier.', 403);
+					return;
+				}
+			}
+
+			$success	=	false;
+
+			if(empty($name))
+				Library_Messages::add('Veuillez indiquer un nom à votre document.');
+			else
+			{
+				if($is_dir)
+				{
+					Model_Files::addFolder($this->_current_member, $name, $description, $parent);
+					$success	=	true;
 				}
 				else
-				{
-					// Else, we stock direction to the user's gallery
-					$parent_url = $member->getId();
-				}
-				
-				if($file->prop('is_dir') == 0)
-				{
-					$data = [
-						'user_id'		=> $member->prop('id'),
-						'user_name'		=> $member->prop('username'),
-						'file'			=> $file,
-						'parent_url'	=> $parent_url,
-					];
-					
-					$view	=	\Eliya\Tpl::get('spritecomics/gallery/file', $data);
-				}
+					$success	=	$this->_newFile($name, $description, $parent);
+			}
+
+			if( ! $success)
+			{
+				if(empty($parent_file_id))
+					$this->get_index();
 				else
-				{
-					$memberFiles = $member->getFiles($file->prop('id'));
-					if( ! empty($memberFiles))
-					{
-						$data = [
-							'user_id'		=> $member->getId(),
-							'user_name'		=> $member->prop('username'),
-							'user_files'	=> $member->getFiles($file->getId()),
-							'parent_url'	=> $parent_url,
-						];
-						
-						$view	=	\Eliya\Tpl::get('spritecomics/gallery/document', $data);
-					}
-					else
-					{
-						$arrayInfo = [
-							'infos_message' => 'Ce dossier ne contient aucun fichier.<br /><a href="' . $this->request->getBaseURL() . 'spritecomics/gallery/' . $parent_url . '">Remonter la galerie</a>',
-							'infos_message_status' => 'class="message infos"',
-						];
-						
-						$view = \Eliya\Tpl::get('infos_message', $arrayInfo);
-					}
-				}
+					$this->get_details($parent_file_id);
 			}
 			else
 			{
-				$this->response->error('Cette image/ce dossier n\'existe pas.', 404);
+				$url	=	$this->request->getBaseURL().'spritecomics/gallery/';
+
+				if( ! empty($parent_file_id))
+					$url	.=	'details/'.$parent_file_id;
+
+				$this->response->redirect($url);
+			}
+		}
+
+		public function get_details($id_document = null)
+		{
+			$document = Model_Files::getById($id_document);
+
+			if(empty($document))
+			{
+				$this->response->error('Ce document n\'existe pas.', 404);
 				return;
 			}
-			$this->response->set($view);
+
+			\Eliya\Tpl::set([
+				'page_title'	=>	$document->prop('name') ?: 'Galerie',
+			]);
+
+			$owner	=	$document->getUser();
+
+			$is_own_gallery	=	false;
+
+			if( ! empty($this->_current_member))
+				$is_own_gallery	=	$this->_current_member->equals($owner);
+
+			if($document->prop('is_dir') == 1)
+				$template	=	Library_Gallery::getFolderTemplate($owner, $document->getId(), $is_own_gallery);
+			else
+			{
+				// @TODO : display a better view for SCs
+				$data = [
+					'file'				=>	$document,
+					'is_own_gallery'	=>	$is_own_gallery,
+				];
+
+				$template	=	\Eliya\Tpl::get('spritecomics/gallery/details/file', $data);
+			}
+
+
+			$this->response->set($template);
+		}
+
+		protected function _newFile($name, $description = null, Model_Files $parent = null)
+		{
+			$upload_error	=	true;
+
+			switch(Model_Files::addFile($this->_current_member, $name, $description, $parent))
+			{
+				case Model_Files::ERROR_SIZE:
+					Library_Messages::add('Le fichier est trop gros : il dépasse la limite de taille imposée.');
+				break;
+
+				case Model_Files::ERROR_UPLOAD:
+					Library_Messages::add('Le fichier n\'a pas été uploadé correctement sur notre serveur.');
+				break;
+
+				case Model_Files::ERROR_TYPE:
+					Library_Messages::add('Le fichier n\'a pas été enregistré car son type n\'est pas autorisé.');
+					break;
+
+				case Model_Files::ERROR_SAVE:
+					Library_Messages::add('Une erreur inconnue est survenue lors de la sauvegarde du fichier.');
+					break;
+
+				case Model_Files::PROCESS_OK:
+					Library_Messages::store('Le fichier a bien été enregistré !', Library_Messages::TYPE_SUCCESS);
+					$upload_error	=	false;
+				break;
+			}
+
+			return ! $upload_error;
 		}
 	}

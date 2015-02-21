@@ -63,42 +63,41 @@
 			return $results;
 		}
 		
-		public function getFiles($id_folder = null)
+		public function getDocuments($id_parent = null)
 		{
-			$request = Model_Files::createRequest(true);
-			if(empty($id_folder))
-			{
-				$files = $request->where('user.id=? AND parent_file.id IS NULL', [$this->getId()])
-								 ->exec();
-				$files = $files->getArray();
-			}
+			$request	=	Model_Files::createRequest(true);
+			$where		=	'user.id=? AND parent_file.id';
+			$params		=	[$this->getId()];
+
+			if(empty($id_parent))
+				$where	.=	' IS NULL';
 			else
 			{
-				$files = $request->where('user.id=? AND parent_file.id=?', [$this->getId(), $id_folder])
-								 ->exec();
-				$files = $files->getArray();
+				$where		.=	'=?';
+				$params[]	=	$id_parent;
 			}
-			
-			return empty($files) ? [] : $files;
+
+			return $request
+						->where($where, $params)
+						->orderBy('is_dir DESC')
+						->exec();
 		}
 		
-		public function getFilesDirs($id_folder = null)
+		public function getFolders($id_parent = null)
 		{
-			$request = Model_Files::createRequest(true);
-			if(empty($id_folder))
-			{
-				$files = $request->where('user.id=? AND is_dir=? AND parent_file.id IS NULL', [$this->getId(), 1])
-								 ->exec();
-				$files = $files->getArray();
-			}
+			$request	=	Model_Files::createRequest(true);
+			$where		=	'user.id=? AND parent_file.is_dir=? AND parent_file.id';
+			$params		=	[$this->getId(), 1];
+
+			if(empty($id_parent))
+				$where	.=	' IS NULL';
 			else
 			{
-				$files = $request->where('user.id=? AND is_dir=? AND parent_file.id=?', [$this->getId(), 1, $id_folder])
-								 ->exec();
-				$files = $files->getArray();
+				$where		.=	'=?';
+				$params[]	=	$id_parent;
 			}
-			
-			return empty($files) ? [] : $files;
+
+			return $request->where($where, $params)->exec();
 		}
 		
 		public function getFilesDirsAll()

@@ -15,57 +15,43 @@
 		
 		public function post_index($username = null, $password = null, $email = null)
 		{
-			$username = htmlspecialchars($username, ENT_QUOTES, 'utf-8');
-			$email = htmlspecialchars($email, ENT_QUOTES, 'utf-8');
-			
-			if(!empty($username) AND !empty($password) AND !empty($email))
+			try
 			{
-				if(filter_var($email, FILTER_VALIDATE_EMAIL))
-				{
-					$results = Model_Users::getByEmail($email);
-					if($results === null)
-					{
-						$user = new Model_Users($username, $email, $password);
-						
-						Model_Users::add($user);
-						
-						$hashVerif = Library_String::hash($email . $username);
-						$subject = 'Votre inscription sur Shy\'Comics !';
-						$data = [
-							'email' => $email,
-							'hashVerif' => $hashVerif
-						];
-						$message = Eliya\Tpl::get('login/mail_confirm', $data);
-						
-						echo 'login/verifyAccount?m=' . $data['email'] . '&h=' . $data['hashVerif'] . '';
-						
-						Library_Email::send($email, $subject, $message);
-						
-						$arrayInfo = [
-							'infos_message' => 'Vous vous êtes inscrit avec succès. Cependant, rendez vous dans votre boîte mail afin de valider votre inscription une bonne fois pour toutes.',
-							'infos_message_status' => 'class="message infos sucess"',
-						];
+				if(empty($username) || empty($password) || empty($email))
+					throw new Exception('Merci de renseigner tous les champs du formulaire.');
 
-						$infos_message = \Eliya\Tpl::get('infos_message', $arrayInfo);
-						$data['infos_message'] = $infos_message;
-						
-						$this->response->set($data['infos_message']);
-					}
-					else
-					{
-						$this->response->set('Cette adresse email est déjà utilisée.');
-						$this->response->append(\Eliya\Tpl::get('login/register'));
-					}
-				}
-				else
-				{
-					$this->response->set('Veuillez rentrer une adresse email valide.');
-					$this->response->append(\Eliya\Tpl::get('login/register'));
-				}
+				$username = htmlspecialchars($username, ENT_QUOTES, 'utf-8');
+				$email = htmlspecialchars($email, ENT_QUOTES, 'utf-8');
+
+				if( ! filter_var($email, FILTER_VALIDATE_EMAIL))
+					throw new Exception('Veuillez rentrer une adresse email valide.');
+
+				$existingMember = Model_Users::getByEmail($email);
+
+				if( ! empty($existingMember))
+					throw new Exception('L\'adresse email <em>'.$email.'</em> est déjà utilisée.');
+
+				// Date filtered: we can now save new user in database
+				$user = new Model_Users($username, $email, $password);
+				Model_Users::add($user);
+
+				// Send verification email
+				$hashVerif = Library_String::hash($email.$username);
+				$subject = 'Votre inscription sur Shy\'Comics !';
+
+				$mail_content = Eliya\Tpl::get('login/mail_confirm', [
+					'email' => $email,
+					'hashVerif' => $hashVerif
+				]);
+				Library_Email::send($email, $subject, $mail_content);
+
+				// Display page confirmation
+				Library_Messages::add('Inscription réussie !', Library_Messages::TYPE_SUCCESS);
+				$this->response->set(\Eliya\Tpl::get('login/register_success', ['email' => $email]));
 			}
-			else
+			catch(Exception $e)
 			{
-				$this->response->set('Merci de renseigner tous les champs du formulaire !');
+				Library_Messages::add($e->getMessage());
 				$this->response->append(\Eliya\Tpl::get('login/register'));
 			}
 		}

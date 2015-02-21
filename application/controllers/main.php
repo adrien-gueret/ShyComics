@@ -6,6 +6,12 @@
 
 		public function __init()
 		{
+			Library_Messages::fetchStoredMessages();
 			$this->_checkCurrentMember();
+		}
+
+		public function __destruct()
+		{
+			Library_Messages::registerStoredMessages();
 		}
 	}

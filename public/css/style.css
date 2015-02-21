@@ -3,8 +3,11 @@
 html, body {
 	margin: 0;
 	padding: 0;
-	position: relative;
-	height: 100%;
+	left: 0;
+	right: 0;
+	top: 0;
+	position: absolute;
+	min-height: 100%;
 	min-width: 1090px;
 	font-family: 'Source Sans Pro', sans-serif;
 }
@@ -161,12 +164,19 @@ form input:-webkit-autofill {
 	text-align: left;
 }
 
+form.form-line fieldset {
+	display: inline-block;
+	width: 300px;
+	margin: 5px;
+	vertical-align: middle;
+}
+
 .main-container form legend {
 	font-size: 2em;
 	margin-bottom: -10px;
 }
 
-.main-container form input {
+.main-container form input, .main-container form textarea {
 	outline: none;
 	width: 80%;
 	height: 32px;
@@ -177,25 +187,26 @@ form input:-webkit-autofill {
 	border: 0;
 }
 
-.main-container form input.hidden {
-	display: none;
+.main-container form textarea {
+	height: 64px;
+	resize: none;
 }
 
 .main-container form button {
 	margin-top: -10px;
 }
 
-form .group-buttons input:first-of-type {
+form .group-inputs input:first-child, form .group-inputs textarea:first-child {
 	border-top-left-radius: 10px;
 	border-top-right-radius: 10px;
 }
 
-form .group-buttons input:last-of-type {
+form .group-inputs input:last-child, form .group-inputs textarea:last-of-type {
 	border-bottom-left-radius: 10px;
 	border-bottom-right-radius: 10px;
 }
 
-form .group-buttons .separator {
+form .group-inputs .separator {
 	display: block;
 	height: 0;
 	background-color: #fff;
@@ -203,7 +214,7 @@ form .group-buttons .separator {
 	margin: 0 auto 0 auto;
 }
 
-form .group-buttons .separator:before {
+form .group-inputs .separator:before {
 	content: '';
 	display: block;
 	position: relative;
@@ -213,7 +224,7 @@ form .group-buttons .separator:before {
 	margin: 0 auto 0 auto;
 }
 
-form .group-buttons label {
+form .group-inputs label {
 	color: #333;
 	cursor: pointer;
 	float: left;
@@ -223,7 +234,7 @@ form .group-buttons label {
 	text-align: center;
 }
 
-form .group-buttons input:focus + label {
+form .group-inputs input:focus + label, form .group-inputs textarea:focus + label {
 	color: #D78B27;
 }
 
@@ -258,8 +269,137 @@ button.orange, input[type="button"].orange, .button.orange {
 	box-shadow: inset 0 -2px #D78B27;
 }
 
+/* Infos messages */
+.info_messages {
+	width: 50%;
+	margin: 10px auto 10px auto;
+	text-align: center;
+	padding: 10px;
+	display: block;
+	position: relative;
+	color: #333;
+	border: 2px solid #333;
+	background-color: #fff;
+	font-weight: bold;
+	border-top-width: 20px;
+	border-radius: 0px;
+	box-shadow: 0 0 4px #8d8d8d;
+}
 
-/*Gallery related*/
-.galleryFile {
-	width: 100px;
+.info_messages .fa-stack {
+	position: absolute;
+	left: -15px;
+	top: -25px;
+	background-color: #fff;
+	border-radius: 50%;
+}
+
+.info_messages .fa-stack-1x {
+	display: none;
+}
+
+.info_messages.error {
+	color: #AD0F0F;
+	border-color: #AD0F0F;
+	background-color: #f4e2e2;
+}
+
+.info_messages.error .fa-stack {
+	background-color: #f4e2e2;
+}
+
+.info_messages.error .fa-exclamation {
+	display: inline;
+}
+
+.info_messages.warning {
+	color: #D78B27;
+	border-color: #D78B27;
+	background-color: #FAECD2;
+}
+
+.info_messages.warning .fa-stack {
+	background-color: #FAECD2;
+}
+
+.info_messages.warning .fa-flash {
+	display: inline;
+}
+
+.info_messages.success {
+	color: #0a8c2d;
+	border-color: #0a8c2d;
+	background-color: #e8ffd5;
+}
+
+.info_messages.success .fa-stack {
+	background-color: #e8ffd5;
+}
+
+.info_messages.success .fa-check {
+	display: inline;
+}
+
+/*Gallery*/
+.gallery {
+	text-align: center;
+	padding: 10px;
+}
+
+.gallery .gallery-link, .gallery .gallery-link:visited {
+	display: inline-block;
+	margin: 5px;
+	border: 5px solid #333;
+	vertical-align: top;
+	background-image: url(../images/style/loader.gif);
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
+.gallery .gallery-link:hover {
+	border-color: #D78B27;
+}
+
+.gallery .gallery-link.folder {
+	background-image: url(../images/style/folder.png);
+	border: 0;
+	color: inherit;
+}
+
+.gallery-document {
+	display: inline-block;
+	width: 150px;
+	height: 200px;
+	margin: 0;
+	border: 3px solid #fff;
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: center;
+}
+
+.gallery-document figcaption {
+	color: #000;
+	background-color: #fff;
+	width: 80%;
+	margin: auto;
+	border-bottom-left-radius: 20px;
+	border-bottom-right-radius: 20px;
+	max-height: 50%;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	padding: 0 5px 5px 5px;
+	opacity: .8;
+	transition: opacity 300ms;
+}
+
+.folder .gallery-document figcaption {
+	margin-top: 75px;
+	border-radius: 20px;
+	padding: 3px;
+	width: 70%;
+	transform: rotate(-5deg);
+}
+
+.gallery-link:hover figcaption {
+	opacity: 1;
 }

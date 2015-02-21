@@ -11,7 +11,7 @@
 			<i class="fa fa-user-plus"></i>
 		</legend>
 
-		<div class="group-buttons">
+		<div class="group-inputs">
 			<input placeholder="Quel est votre e-mail ?"
 				   type="email"
 				   required

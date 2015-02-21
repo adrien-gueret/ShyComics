@@ -10,7 +10,7 @@
 			<i class="fa fa-key"></i>
 		</legend>
 
-		<div class="group-buttons">
+		<div class="group-inputs">
 			<input placeholder="Quel est votre pseudo ?"
 				   type="text"
 				   required

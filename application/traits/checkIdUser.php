@@ -15,7 +15,7 @@ trait Trait_checkIdUser
 				exit;
 			}
 
-			$this->response->error('Vous devez être connecté pour accéder à cette partie du site.', 403);
+			$this->response->error('Vous devez être connecté pour accéder à cette partie du site.', 401);
 			return null;
 		}
 

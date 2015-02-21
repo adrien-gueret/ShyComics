@@ -22,23 +22,26 @@
 				$username = htmlspecialchars($username, ENT_QUOTES, 'utf-8');
 				$password = Library_String::hash($password);
 				
-				$resultMembre = Model_Users::getForLogin($username, $password);
-				if(!empty($resultMembre))
+				$resultMember = Model_Users::getForLogin($username, $password);
+
+				if(!empty($resultMember))
 				{
-					$_SESSION['connected_user_id'] = $resultMembre->prop('id');
+					$_SESSION['connected_user_id'] = $resultMember->prop('id');
 					$this->_current_member = Model_Users::getById($_SESSION['connected_user_id']);
-					$this->_redirectToCurrentMemberProfile();
+
+					Library_Messages::store('Bon retour parmi nous '.$resultMember->prop('username').' !', Library_Messages::TYPE_SUCCESS);
+
+					$this->_redirectToCurrentMemberProfile('login');
+					exit;
 				}
-				else
-				{
-					$view = \Eliya\Tpl::get('login/index');
-				}
+
+				Library_Messages::add('Vos informations de connexion sont incorrectes.');
 			}
 			else
 			{
-				$view = 'Erreur &bull; Le formulaire de connexion n\'a pas, ou a mal, été envoyé et/ou rempli. Veuillez réessayer.';
+				Library_Messages::add('Veuillez renseigner tous les champs du formulaire.');
 			}
-			
-			$this->response->set($view);
+
+			$this->response->set(\Eliya\Tpl::get('login/index'));
 		}
 	}

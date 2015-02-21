@@ -3,37 +3,44 @@
 	{
 		public function get_index($m = null, $h = null)
 		{
-			if(!empty($m) AND !empty($h))
-			{
-				$m = htmlspecialchars($m, ENT_QUOTES, 'utf-8');
-				$h = htmlspecialchars($h, ENT_QUOTES, 'utf-8');
-				
-				$results = Model_Users::getByEmail($m);
-				if(!empty($results))
-				{
-					$id = $results->getId();
-					
-					$hashVerif = Library_String::hash($results->prop('email') . $results->prop('username'));
-					
-					if($hashVerif === $h)
-					{
-						Model_Users::emailVerified($id);
-						
-						$_SESSION['connected_user_id'] = $results->prop('id');
-						$this->_current_member = Model_Users::getById($_SESSION['connected_user_id']);
-						\Eliya\Tpl::set(['current_member' => $this->_current_member]);
-						
-						$arrayInfo = [
-							'infos_message' => 'Vous avez validé votre compte avec succès et êtes automatiquement connecté. Vous pouvez profiter pleinement et dès à présent du site !',
-							'infos_message_status' => 'class="message infos sucess"',
-						];
+			if(!empty($this->_current_member))
+				$this->_redirectToCurrentMemberProfile();
 
-						$infos_message = \Eliya\Tpl::get('infos_message', $arrayInfo);
-						$data['infos_message'] = $infos_message;
-						
-						$this->response->set($data['infos_message']);
-					}
-				}
+			if(empty($m) || empty($h))
+			{
+				$this->response->error('Des informations sont manquantes pour accéder à cette page.', 400);
+				return;
 			}
+
+			if( ! filter_var($m, FILTER_VALIDATE_EMAIL))
+			{
+				$this->response->error('Les données reçues sont incorrectes.', 400);
+				return;
+			}
+
+			$member = Model_Users::getByEmail($m);
+
+			if(empty($member)) {
+				$this->response->error('Le membre à valider n\'a pas été trouvé.', 404);
+				return;
+			}
+
+			$hashVerif = Library_String::hash($member->prop('email').$member->prop('username'));
+
+			if($hashVerif !== $h) {
+				$this->response->error('Impossible de valider le compte.', 400);
+				return;
+			}
+
+			// All is OK, we can mark user as verified
+			$id = $member->getId();
+			Model_Users::emailVerified($id);
+
+			// And we auto-connect him :)
+			$_SESSION['connected_user_id'] = $member->prop('id');
+			$this->_current_member = $member;
+
+			Library_Messages::store('Votre compte a été validé avec succès !<br />Notez que cela vous a connecté automatiquement.', Library_Messages::TYPE_SUCCESS);
+			$this->_redirectToCurrentMemberProfile();
 		}
 	}

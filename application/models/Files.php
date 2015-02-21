@@ -7,10 +7,13 @@
 		protected $user;
 		protected $parent_file;
 		
-		const PROCESS_OK = 0,
-			  ERROR_UPLOAD = 1,
-			  ERROR_SIZE = 2,
-			  ERROR_NAME = 3;
+		const 	SIZE_LIMIT		=	100000000,
+
+				PROCESS_OK		=	0,
+			  	ERROR_UPLOAD	=	1,
+			  	ERROR_SIZE		=	2,
+				ERROR_TYPE		=	3,
+				ERROR_SAVE		=	4;
 		
 		protected static $table_name = 'files';
 		
@@ -51,72 +54,56 @@
 			return null;
 		}
 		
-		public static function addFile($name = null, $description = null, $parent_file = null)
+		public static function addFile(Model_Users $user, $name = null, $description = null, Model_Files $parent = null)
 		{
-			if(isset($_FILES['file']) AND $_FILES['file']['error'] == 0)
-			{
-				if($_FILES['file']['size'] <= 100000000)
-				{
-					$name = htmlspecialchars($name, ENT_QUOTES, 'utf-8');
-					$description = htmlspecialchars($description, ENT_QUOTES, 'utf-8');
-					$is_dir = 0;
-					$user = Model_Users::getById($_SESSION['connected_user_id']);
-					$parent_file = empty($parent_file) ? null : Model_Files::getById(intval($parent_file));
-					
-					$file = new Model_Files($name, $description, $is_dir, $user, $parent_file);
-					$file = Model_Files::add($file);
-					$fileID = $file->getId();
-					
-					$infosfile = pathinfo($_FILES['file']['name']);
-					$extension_upload = $infosfile['extension'];
-					$extensions_granted = array('jpg', 'jpeg', 'gif', 'png');
-					
-					$urldir = 'public/users_files/galleries/' . $_SESSION['connected_user_id'];
-					$urlfile = 'public/users_files/galleries/' . $_SESSION['connected_user_id'] . '/' . $fileID . '.' . $extension_upload;
-					if(!is_dir($urldir))
-					{
-						mkdir($urldir);
-						chmod($urldir,0777);
-					}
-					
-					if(in_array($extension_upload, $extensions_granted))
-					{
-						move_uploaded_file($_FILES['file']['tmp_name'], $urlfile);
-					}
-					
-					return self::PROCESS_OK;
-				}
-				else
-				{
-					return self::ERROR_SIZE;
-				}
-			}
-			else
-			{
+			if( ! isset($_FILES['file']) || $_FILES['file']['error'] != 0)
 				return self::ERROR_UPLOAD;
+
+			if($_FILES['file']['size'] > self::SIZE_LIMIT)
+				return self::ERROR_SIZE;
+
+			$user_id		=	$user->getId();
+			$is_dir			=	0;
+
+			$file 		=	new Model_Files($name, $description, $is_dir, $user, $parent);
+
+			$file 		=	Model_Files::add($file);
+			$file_id	=	$file->getId();
+
+			$infosfile			=	pathinfo($_FILES['file']['name']);
+			$extension_upload	=	strtolower($infosfile['extension']);
+			$extensions_granted	=	['jpg', 'jpeg', 'gif', 'png'];
+
+			if( ! in_array($extension_upload, $extensions_granted))
+			{
+				Model_Files::delete($file);
+				return self::ERROR_TYPE;
 			}
+
+			$url_dir	=	'public/users_files/galleries/' . $user_id;
+			$url_file	=	'public/users_files/galleries/' . $user_id . '/' . $file_id . '.' . $extension_upload;
+
+			if( ! is_dir($url_dir))
+			{
+				mkdir($url_dir);
+				chmod($url_dir, 0777);
+			}
+
+			if( ! move_uploaded_file($_FILES['file']['tmp_name'], $url_file))
+			{
+				Model_Files::delete($file);
+				return self::ERROR_SAVE;
+			}
+
+			return self::PROCESS_OK;
 		}
 		
-		public static function addDir($name = null, $description = null, $parent_file = null)
+		public static function addFolder(Model_Users $user, $name = null, $description = null, Model_Files $parent = null)
 		{
-			if(!empty($name))
-			{
-				$name = htmlspecialchars($name, ENT_QUOTES, 'utf-8');
-				$description = htmlspecialchars($description, ENT_QUOTES, 'utf-8');
-				$is_dir = 1;
-				$user = Model_Users::getById($_SESSION['connected_user_id']);
-				$parent_file = empty($parent_file) ? null : Model_Files::getById(intval($parent_file));
-				
-				$file = new Model_Files($name, $description, $is_dir, $user, $parent_file);
-				$file = Model_Files::add($file);
-				$fileID = $file->getId();
-				
-				return self::PROCESS_OK;
-			}
-			else
-			{
-				return self::ERROR_NAME;
-			}
+			$folder	=	new Model_Files($name, $description, 1, $user, $parent);
+			Model_Files::add($folder);
+
+			return self::PROCESS_OK;
 		}
 		
 		public function getUser()

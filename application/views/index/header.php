@@ -22,10 +22,8 @@
 				</li>
 				<li><input type="search" name="search" id="nav-search"/></li>
 				<li><a href="<?= $view->base_url; ?>spritecomics">Sprites Comics</a></li>
-				<li><del>Jeux</del></li>
-				<li><del>Tutoriaux</del></li>
-				<li><del>Forums</del></li>
-				<li><del>Shy'Ressources</del></li>
+				<li><a href="http://shycomics-forum.fr">Forum</a></li>
+				<li><a href="http://shyressources.shycomics.fr/">Shy'Ressources</a></li>
 				<li>
 					<a href="https://www.facebook.com/pages/ShyComics/81657339196" class="fa-stack" title="Devenez fans sur Facebook !">
 						<i class="fa fa-square-o fa-stack-2x"></i>
@@ -42,11 +40,13 @@
 		</nav>
 		<nav>
 			<ul>
-				<li>
-					<a href="<?= $view->base_url; ?>friends" class="leftnav_button" title="Gérer votre liste d'amis">
-						<i class="fa fa-users"></i>
-					</a>
-				</li>
+				<?php if( ! empty($view->current_member)): ?>
+					<li>
+						<a href="<?= $view->base_url; ?>friends" class="leftnav_button" title="Gérer votre liste d'amis">
+							<i class="fa fa-users"></i>
+						</a>
+					</li>
+				<?php endif; ?>
 				<li>
 					<a href="<?= $view->base_url; ?>about" class="leftnav_button" title="A propos">
 						<i class="fa fa-question"></i>
@@ -63,3 +63,4 @@
 		</header>
 		<section>
 			<div class="main-container">
+				<?= Library_Messages::display(); ?>
