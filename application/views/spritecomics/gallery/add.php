@@ -1,7 +1,6 @@
 <h2>Ajoutez un document dans ce dossier !</h2>
 <p>
-	Avec l'aide du formulaire ci-dessous, vous pouvez modifier ce dossier en créant un sous-dossier
-	ou en y ajoutant une planche de <em>Sprite Comic</em>.
+	Utilisez le formulaire ci-dessous pour ajouter du contenu à ce dossier.
 </p>
 
 <form id="form_add_content"
@@ -11,11 +10,12 @@
 	  enctype="multipart/form-data">
 	<fieldset>
 		<legend><i class="fa fa-question"></i></legend>
-		<p>Que souhaitez-vous faire ?</p>
+		<p>Que souhaitez-vous ajouter ?</p>
 
-		<label for="form_type_file">Mettre en ligne planche de SC</label>
+		<label for="form_type_file" class="label-text">Une planche de SC</label>
 		<input id="form_type_file" type="radio" name="is_dir" checked value="0" />
-		<label for="form_type_folder">Créer un sous-dossier</label>
+		<br />
+		<label for="form_type_folder" class="label-text">Un sous-dossier</label>
 		<input id="form_type_folder" type="radio" name="is_dir" value="1" />
 	</fieldset>
 
@@ -38,7 +38,7 @@
 			<label for="form-description"><i class="fa fa-quote-left"></i></label>
 		</div>
 	</fieldset>
-
+	<br />
 	<fieldset id="form_file_part">
 		<legend><i class="fa fa-file-image-o"></i></legend>
 		<label for="form_file">Sélectionnez votre fichier</label>
@@ -66,7 +66,7 @@
 
 		function toggleFilePart()
 		{
-			form_file_part.style.display	=	this.value == 1 ? 'none' : 'inline-block';
+			form_file_part.className	=	this.value == 1 ? 'inactive' : '';
 		}
 	})(document);
 </script>
