@@ -123,7 +123,7 @@
 							   ->where('id=?', [$this->getId()])
 							   ->getOnly(1)
 							   ->exec();
+
 			return empty($results->parent_file_id) ? null : $results->parent_file_id;
 		}
 	}
-?>

@@ -29,7 +29,7 @@ SET time_zone = "+00:00";
 CREATE TABLE IF NOT EXISTS `users_groups` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(255) DEFAULT NULL,
-  `can_remove` tinyint(1) DEFAULT NULL,
+  `can_remove_other_files` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
@@ -37,7 +37,7 @@ CREATE TABLE IF NOT EXISTS `users_groups` (
 -- Contenu de la table `users_groups`
 --
 
-INSERT INTO `users_groups` (`id`, `name`, `can_remove`) VALUES
+INSERT INTO `users_groups` (`id`, `name`, `can_remove_other_files`) VALUES
 (1, 'Membre simple', 0),
 (2, 'Admin', 1);
 

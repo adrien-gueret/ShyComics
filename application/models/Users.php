@@ -1,6 +1,8 @@
 <?php
 	class Model_Users extends EntityPHP\Entity
 	{
+		protected static $table_name = 'users';
+
 		protected $username;
 		protected $email;
 		protected $date_subscription;
@@ -9,10 +11,8 @@
 		protected $user_group;
 		protected $friends;
 		
-		const DEFAULT_USERS_GROUP_ID = 1;
-		
-		protected static $table_name = 'users';
-		
+		const	DEFAULT_USERS_GROUP_ID = 1;
+
 		public function __construct($username = null, $email = null, $password = null, $user_group = null)
 		{
 			$this->username = $username;
@@ -109,19 +109,13 @@
 			
 			return empty($files) ? [] : $files;
 		}
-		
-		public static function removeFile($id = null)
+
+		public function can($permission)
 		{
-			$file = Model_Files::getById($id);
-			Model_Files::delete($file);
-		}
-		
-		public function getPermission($permission = null)
-		{
-			$permission = htmlspecialchars($permission);
-			$stringRequest = 'SELECT ' . $permission . ' FROM users_groups WHERE id=' . $this->prop('user_group')->getId();
-			$request = EntityPHP\EntityRequest::executeSQL($stringRequest);
-			return current($request)->$permission;
+			if(empty($permission)) {
+				return false;
+			}
+
+			return $this->user_group->getPermission($permission);
 		}
 	}
-?>
