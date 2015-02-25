@@ -101,9 +101,13 @@
 			$owner	=	$document->getUser();
 
 			$is_own_gallery	=	false;
+			$has_liked = false;
 
 			if( ! empty($this->_current_member))
+			{
 				$is_own_gallery	=	$this->_current_member->equals($owner);
+				$has_liked = Model_Likes::hasLiked($this->_current_member, $document);
+			}
 
 			if($document->prop('is_dir') == 1)
 				$template	=	Library_Gallery::getFolderTemplate($owner, $document->getId(), $is_own_gallery);
@@ -113,6 +117,7 @@
 				$data = [
 					'file'				=>	$document,
 					'is_own_gallery'	=>	$is_own_gallery,
+					'has_liked'			=>	$has_liked,
 				];
 
 				$template	=	\Eliya\Tpl::get('spritecomics/gallery/details/file', $data);
