@@ -105,10 +105,57 @@
 
 			return self::PROCESS_OK;
 		}
+
+		public function unlink()
+		{
+			if($this->is_dir == 0)
+			{
+				$path	=	$this->getPath();
+
+				if( ! is_file($path))
+					throw new Exception('L\'image n\'a pas pu être trouvée. Veuillez réessayer ou prévenir un administrateur.', 404);
+
+				if( ! unlink($path))
+					throw new Exception('Erreur lors de la suppresion du fichier. Veuillez réessayer ou prévenir un administrateur.', 500);
+
+			}
+			else
+			{
+				$children	=	$this->getChildren();
+
+				foreach($children as $child)
+					$child->unlink();
+			}
+
+			self::delete($this);
+		}
+
+		public function deletePhysicalFile()
+		{
+			$path	=	$this->getPath();
+
+			if( ! is_file($path))
+				throw new Exception('L\'image n\'a pas pu être trouvée. Veuillez réessayer ou prévenir un administrateur.', 404);
+
+			if( ! unlink($path))
+				throw new Exception('Erreur lors de la suppresion du fichier. Veuillez réessayer ou prévenir un administrateur.', 500);
+
+			return $this;
+		}
 		
 		public function getUser()
 		{
 			return $this->load('user');
+		}
+
+		public function getChildren()
+		{
+			if( ! $this->is_dir)
+				return [];
+
+			return self::createRequest()
+					->where('parent_file.id=?', [$this->getId()])
+					->exec();
 		}
 		
 		public function getParentFile()

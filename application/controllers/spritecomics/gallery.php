@@ -80,6 +80,8 @@
 				if( ! empty($parent_file_id))
 					$url	.=	'details/'.$parent_file_id;
 
+				Library_Messages::store('Le document a bien été ajouté !', Library_Messages::TYPE_SUCCESS);
+
 				$this->response->redirect($url);
 			}
 		}
@@ -109,10 +111,17 @@
 				$template	=	Library_Gallery::getFolderTemplate($owner, $document->getId(), $is_own_gallery);
 			else
 			{
+				$tpl_delete	=	null;
+				$can_remove_other_files	=	! empty($this->_current_member) &&
+											$this->_current_member->can(Model_UsersGroups::PERM_REMOVE_OTHERS_FILES);
+
+				if($is_own_gallery || $can_remove_other_files)
+					$tpl_delete	=	\Eliya\Tpl::get('spritecomics/gallery/delete', ['id_to_delete' => $document->getId()]);
+
 				// @TODO : display a better view for SCs
 				$data = [
-					'file'				=>	$document,
-					'is_own_gallery'	=>	$is_own_gallery,
+					'file'			=>	$document,
+					'tpl_delete'	=>	$tpl_delete,
 				];
 
 				$template	=	\Eliya\Tpl::get('spritecomics/gallery/details/file', $data);
@@ -145,7 +154,6 @@
 					break;
 
 				case Model_Files::PROCESS_OK:
-					Library_Messages::store('Le fichier a bien été enregistré !', Library_Messages::TYPE_SUCCESS);
 					$upload_error	=	false;
 				break;
 			}
