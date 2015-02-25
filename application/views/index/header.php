@@ -15,9 +15,20 @@
 			<ul>
 				<li>
 					<?php if(empty($view->current_member)): ?>
-						<a href="<?= $view->base_url; ?>login/register">Inscription</a> | <a href="<?= $view->base_url; ?>login">Connexion</a>
+						<a href="<?= $view->base_url; ?>login/register">
+							<?= Library_i18n::get('index.header.register'); ?>
+						</a> |
+						<a href="<?= $view->base_url; ?>login">
+							<?= Library_i18n::get('index.header.connect'); ?>
+						</a>
 					<?php else: ?>
-						Bienvenue <?= $view->current_member->prop('username'); ?> &bull; <a href="<?= $view->base_url; ?>profile" title="Mon profil">Mon profil</a> &bull; <a href="<?= $view->base_url; ?>logout?token=<?= $_SESSION['token_logout']; ?>">Me déconnecter</a>
+						<?= Library_i18n::get('index.header.welcome_name', $view->current_member->prop('username')); ?> &bull;
+						<a href="<?= $view->base_url; ?>profile" title="Mon profil">
+							<?= Library_i18n::get('index.header.my_profile'); ?>
+						</a> &bull;
+						<a href="<?= $view->base_url; ?>logout?token=<?= $_SESSION['token_logout']; ?>">
+							<?= Library_i18n::get('index.header.logout'); ?>
+						</a>
 					<?php endif; ?>
 				</li>
 				<li><input type="search" name="search" id="nav-search"/></li>
@@ -58,7 +69,11 @@
 		<header>
 			<img src="<?= $view->base_url; ?>public/images/logo_header.png" alt="Shy'Comics" />
 			<?php if(empty($view->current_member)): ?>
-				<div><a href="<?= $view->base_url; ?>login/register">Inscrivez-vous !</a></div>
+				<div>
+					<a href="<?= $view->base_url; ?>login/register">
+						<?= Library_i18n::get('index.header.register_yourself') ;?>
+					</a>
+				</div>
 			<?php endif; ?>
 		</header>
 		<section>
