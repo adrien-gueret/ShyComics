@@ -13,21 +13,6 @@
 
 	$sql	=	\Eliya\Config('main')->SQL;
 
-	try
-	{
-		if( ! empty($sql))
-			\EntityPHP\Core::connectToDB($sql['HOST'], $sql['USER'], $sql['PASSWORD'], $sql['DATABASE']);
-		else
-			throw new Exception('Impossible de se connecter à la base de données : informations introuvables.');
-	}
-	catch(Exception $e)
-	{
-		$response	=	new \Eliya\Response();
-		new Error_500($response->error($e->getMessage()));
-		$response->render();
-		exit;
-	}
-
 	//Handle received request
 	$request		=	new \Eliya\Request($_SERVER['REQUEST_URI']);
 	$current_url	=	$request->getProtocol().'://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
@@ -36,10 +21,27 @@
 		$current_url	.=	'/';
 
 	\Eliya\Tpl::set([
-		'page_title'				=>	'Shy\'Comics',
-		'page_description'			=>	'La référence en Sprites Comics !',
+		'page_title'				=>	Library_i18n::get('global.default_page_title'),
+		'page_description'			=>	Library_i18n::get('global.default_page_description'),
 		'base_url'					=>	$request->getBaseURL(),
 		'current_url'				=>	$current_url,
 	]);
 
-	$request->exec()->response()->render();
+	$response	=	$request->response();
+
+	try
+	{
+		if( ! empty($sql))
+			\EntityPHP\Core::connectToDB($sql['HOST'], $sql['USER'], $sql['PASSWORD'], $sql['DATABASE']);
+		else
+			throw new Exception('Impossible de se connecter à la base de données : informations introuvables.');
+
+		$request->exec();
+	}
+	catch(Exception $e)
+	{
+		ob_clean();
+		$response->set(null)->error($e->getMessage(), 500);
+	}
+
+	$response->render();

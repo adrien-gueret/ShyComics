@@ -17,4 +17,5 @@
 -->
 
 <div class="gallery"><?= $view->tpl_gallery; ?></div>
+<?= $view->tpl_delete; ?>
 <?= $view->tpl_adding_form; ?>

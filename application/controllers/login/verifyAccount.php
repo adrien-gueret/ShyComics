@@ -3,7 +3,7 @@
 	{
 		public function get_index($m = null, $h = null)
 		{
-			if(!empty($this->_current_member))
+			if($this->_current_member->isConnected())
 				$this->_redirectToCurrentMemberProfile();
 
 			if(empty($m) || empty($h))

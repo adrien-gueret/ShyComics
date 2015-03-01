@@ -12,7 +12,7 @@
 
 			$is_own_gallery	=	false;
 
-			if( ! empty($this->_current_member))
+			if($this->_current_member->isConnected())
 				$is_own_gallery	=	$this->_current_member->equals($member);
 
 			\Eliya\Tpl::set([
@@ -24,7 +24,7 @@
 
 		public function post_index($name = null, $description = null, $parent_file_id = null, $is_dir = 1)
 		{
-			if(empty($this->_current_member))
+			if( ! $this->_current_member->isConnected())
 			{
 				$this->response->error('Vous devez être connecté pour effectuer cette action.', 401);
 				return;
@@ -80,6 +80,8 @@
 				if( ! empty($parent_file_id))
 					$url	.=	'details/'.$parent_file_id;
 
+				Library_Messages::store('Le document a bien été ajouté !', Library_Messages::TYPE_SUCCESS);
+
 				$this->response->redirect($url);
 			}
 		}
@@ -102,9 +104,8 @@
 
 			$is_own_gallery	=	false;
 			$has_liked = false;
-
-			if( ! empty($this->_current_member))
-			{
+			
+			if($this->_current_member->isConnected())
 				$is_own_gallery	=	$this->_current_member->equals($owner);
 				$has_liked = Model_Likes::hasLiked($this->_current_member, $document);
 			}
@@ -113,19 +114,27 @@
 				$template	=	Library_Gallery::getFolderTemplate($owner, $document->getId(), $is_own_gallery);
 			else
 			{
+				$tpl_delete	=	null;
+				$tpl_like	=	null;
+				$can_remove_other_files	=	$this->_current_member->isConnected() &&
+											$this->_current_member->can(Model_UsersGroups::PERM_REMOVE_OTHERS_FILES);
+
+				if($is_own_gallery || $can_remove_other_files)
+					$tpl_delete	=	\Eliya\Tpl::get('spritecomics/gallery/delete', ['id_to_delete' => $document->getId()]);
+				if($this->_current_member->isConnected() AND !$this->_current_member->equals($owner))
+					$tpl_like = \Eliya\Tpl::get('spritecomics/gallery/details/like', $data);
+
 				// @TODO : display a better view for SCs
 				$data = [
 					'file'				=>	$document,
 					'is_own_gallery'	=>	$is_own_gallery,
 					'has_liked'			=>	$has_liked,
+					'file'			=>	$document,
+					'tpl_delete'	=>	$tpl_delete,
+					'tpl_like'	=>	$tpl_like,
 				];
 				
 				$template	=	\Eliya\Tpl::get('spritecomics/gallery/details/file', $data);
-				if(!empty($this->_current_member))
-				{
-					$template .= \Eliya\Tpl::get('spritecomics/gallery/details/like', $data);
-				}
-				$template .= '</dir>';
 			}
 			
 			$this->response->set($template);
@@ -154,7 +163,6 @@
 					break;
 
 				case Model_Files::PROCESS_OK:
-					Library_Messages::store('Le fichier a bien été enregistré !', Library_Messages::TYPE_SUCCESS);
 					$upload_error	=	false;
 				break;
 			}

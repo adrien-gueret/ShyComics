@@ -9,7 +9,7 @@ trait Trait_checkIdUser
 			$url	=	$this->request->getBaseURL() . $path_to_redirect_if_empty_id;
 
 			// We can redirect only if users is connected
-			if( ! empty($this->_current_member))
+			if($this->_current_member->isConnected())
 			{
 				$this->response->redirect($url . $this->_current_member->getId());
 				exit;

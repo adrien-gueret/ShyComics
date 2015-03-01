@@ -7,14 +7,14 @@ trait Trait_currentMember
 	protected function _checkCurrentMember()
 	{
 		if(isset($_SESSION['connected_user_id']))
-		{
 			$this->_current_member = Model_Users::getById($_SESSION['connected_user_id']);
-			\Eliya\Tpl::set(['current_member' => $this->_current_member]);
-		}
 		else
-		{
-			\Eliya\Tpl::set(['current_member' => null]);
-		}
+			$this->_current_member = new Model_Users();
+
+		if(empty($this->_current_member))
+			$this->_current_member = new Model_Users();
+
+		\Eliya\Tpl::set(['current_member' => $this->_current_member]);
 
 		if(!isset($_SESSION['token_logout']))
 			$_SESSION['token_logout'] = uniqid(rand(), true); //Protection contre les failles CSRF
