@@ -8,7 +8,7 @@
 
 			try
 			{
-				if(empty($this->_current_member))
+				if( ! $this->_current_member->isConnected())
 					throw new RedirectException('Vous devez être connecté pour effectuer cette action.', 401);
 
 				$file	=	Model_Files::getById($id);

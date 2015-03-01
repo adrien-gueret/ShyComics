@@ -12,7 +12,7 @@
 
 			$is_own_gallery	=	false;
 
-			if( ! empty($this->_current_member))
+			if($this->_current_member->isConnected())
 				$is_own_gallery	=	$this->_current_member->equals($member);
 
 			\Eliya\Tpl::set([
@@ -24,7 +24,7 @@
 
 		public function post_index($name = null, $description = null, $parent_file_id = null, $is_dir = 1)
 		{
-			if(empty($this->_current_member))
+			if( ! $this->_current_member->isConnected())
 			{
 				$this->response->error('Vous devez être connecté pour effectuer cette action.', 401);
 				return;
@@ -104,7 +104,7 @@
 
 			$is_own_gallery	=	false;
 
-			if( ! empty($this->_current_member))
+			if($this->_current_member->isConnected())
 				$is_own_gallery	=	$this->_current_member->equals($owner);
 
 			if($document->prop('is_dir') == 1)
@@ -112,7 +112,7 @@
 			else
 			{
 				$tpl_delete	=	null;
-				$can_remove_other_files	=	! empty($this->_current_member) &&
+				$can_remove_other_files	=	$this->_current_member->isConnected() &&
 											$this->_current_member->can(Model_UsersGroups::PERM_REMOVE_OTHERS_FILES);
 
 				if($is_own_gallery || $can_remove_other_files)

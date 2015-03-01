@@ -7,7 +7,7 @@
 				'page_title'		=>	'S\'inscire',
 			]);
 
-			if(!empty($this->_current_member))
+			if($this->_current_member->isConnected())
 				$this->_redirectToCurrentMemberProfile();
 			else
 				$this->response->set(\Eliya\Tpl::get('login/register'));

@@ -7,7 +7,7 @@
 				'page_title'		=>	'Se connecter',
 			]);
 
-			if(!empty($this->_current_member))
+			if($this->_current_member->isConnected())
 				$this->_redirectToCurrentMemberProfile();
 			else
 				$view	=	\Eliya\Tpl::get('login/index');

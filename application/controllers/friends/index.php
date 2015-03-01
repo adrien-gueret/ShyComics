@@ -3,7 +3,7 @@
 	{
 		public function get_index()
 		{
-			if(empty($this->_current_member)) {
+			if( ! $this->_current_member->isConnected()) {
 				$this->response->error('Vous devez être connecté pour accéder à cette partie du site.', 401);
 				return;
 			}

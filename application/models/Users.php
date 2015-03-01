@@ -8,20 +8,28 @@
 		protected $date_subscription;
 		protected $is_email_verified;
 		protected $password;
+		protected $locale_website;
 		protected $user_group;
 		protected $friends;
+		protected $locales_comics;
 		
-		const	DEFAULT_USERS_GROUP_ID = 1;
+		const	DEFAULT_USERS_GROUP_ID = 1,
+				DEFAULT_LOCALE_WEBSITE_ID = 1;
 
-		public function __construct($username = null, $email = null, $password = null, $user_group = null)
-		{
+		public function __construct(
+			$username = null, $email = null, $password = null,
+			Model_UsersGroups $user_group = null,
+			Model_Locales $locale_website = null
+		) {
 			$this->username = $username;
 			$this->email = $email;
 			$this->date_subscription = $_SERVER['REQUEST_TIME'];
 			$this->is_email_verified = false;
 			$this->password = Library_String::hash($password);
 			$this->user_group = $user_group ?: Model_UsersGroups::getById(self::DEFAULT_USERS_GROUP_ID);
+			$this->locale_website = $locale_website ?: Model_Locales::getById(self::DEFAULT_LOCALE_WEBSITE_ID);
 			$this->friends = [];
+			$this->locales_comics = [];
 		}
 		
 		public static function __structure()
@@ -33,10 +41,12 @@
 				'password' => 'CHAR(40)',
 				'date_subscription' => 'DATETIME',
 				'user_group' => 'Model_UsersGroups',
+				'locale_website' => 'Model_Locales',
 				'friends' => array('Model_Users'),
+				'locales_comics' => array('Model_Locales'),
 			];
 		}
-		
+
 		public static function getByEmail($email)
 		{
 			$request = Model_Users::createRequest();
@@ -61,6 +71,11 @@
 							->getOnly(1)
 							->exec();
 			return $results;
+		}
+
+		public function isConnected()
+		{
+			return $this->getId() > 0;
 		}
 		
 		public function getDocuments($id_parent = null)
