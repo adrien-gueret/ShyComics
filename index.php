@@ -42,4 +42,16 @@
 		'current_url'				=>	$current_url,
 	]);
 
-	$request->exec()->response()->render();
+	$response	=	$request->response();
+
+	try
+	{
+		$request->exec();
+	}
+	catch(Exception $e)
+	{
+		ob_clean();
+		$response->set(null)->error($e->getMessage(), 500);
+	}
+
+	$response->render();
