@@ -119,11 +119,15 @@
 					'is_own_gallery'	=>	$is_own_gallery,
 					'has_liked'			=>	$has_liked,
 				];
-
+				
 				$template	=	\Eliya\Tpl::get('spritecomics/gallery/details/file', $data);
+				if(!empty($this->_current_member))
+				{
+					$template .= \Eliya\Tpl::get('spritecomics/gallery/details/like', $data);
+				}
+				$template .= '</dir>';
 			}
-
-
+			
 			$this->response->set($template);
 		}
 
