@@ -11,6 +11,9 @@ trait Trait_currentMember
 		else
 			$this->_current_member = new Model_Users();
 
+		if(empty($this->_current_member))
+			$this->_current_member = new Model_Users();
+
 		\Eliya\Tpl::set(['current_member' => $this->_current_member]);
 
 		if(!isset($_SESSION['token_logout']))
