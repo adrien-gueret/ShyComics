@@ -32,7 +32,7 @@
 							   ->getOnly(1)
 							   ->exec();
 
-			return empty($results) ? false : true;
+			return ! empty($results);
 		}
 		
 		public static function addLike(Model_Users $user, Model_Files $file)
@@ -43,8 +43,7 @@
 			if(empty($file))
 				return self::ERROR_FILE;
 			
-			$alreadyLiked = Model_Likes::hasLiked($user, $file);
-			if($alreadyLiked)
+			if(Model_Likes::hasLiked($user, $file))
 				return self::ERROR_ALREADY;
 			
 			$like = new Model_Likes($user, $file);

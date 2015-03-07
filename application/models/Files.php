@@ -31,7 +31,7 @@
 			$this->is_dir = $is_dir;
 			$this->user = $user;
 			$this->parent_file = $parent_file;
-			$this->liked_users = array();
+			$this->liked_users = [];
 		}
 		
 		public static function __structure()
@@ -42,7 +42,7 @@
 				'is_dir' => 'BOOLEAN',
 				'parent_file' => 'Model_Files',
 				'user' => 'Model_Users',
-				'liked_users' => array('Model_Users'),
+				'liked_users' => ['Model_Users'],
 			];
 		}
 		
@@ -191,7 +191,7 @@
 			if(empty($file))
 				return self::ERROR_FILE;
 			
-			$already_liked = $file->load('liked_users')->liked_users->hasEntity($user);
+			$already_liked = $file->load('liked_users')->hasEntity($user);
 			if($alreadyLiked)
 				return self::ERROR_ALREADY;
 			
