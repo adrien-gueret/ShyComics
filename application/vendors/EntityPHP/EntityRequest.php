@@ -49,13 +49,8 @@ final class EntityRequest
 	{
 		if( ! in_array($table, $this->joinedTables))
 		{
-			if($table === $this->tableName)
-			{
-				$this->propertiesAsTableAlias[]	=	$property;
-				$table_alias					=	$property;
-			}
-			else
-				$table_alias	=	$table;
+			$this->propertiesAsTableAlias[]	=	$property;
+			$table_alias					=	$property;
 
 			$originTable	=	empty($originTable) ? $this->tableName : $originTable;
 

@@ -103,11 +103,12 @@
 			$owner	=	$document->getUser();
 
 			$is_own_gallery	=	false;
-			$has_liked = false;
+			$has_liked		=	false;
 			
 			if($this->_current_member->isConnected())
+			{
 				$is_own_gallery	=	$this->_current_member->equals($owner);
-				$has_liked = Model_Likes::hasLiked($this->_current_member, $document);
+				$has_liked 		=	$document->isLikedByUser($this->_current_member);
 			}
 
 			if($document->prop('is_dir') == 1)
@@ -121,20 +122,19 @@
 
 				if($is_own_gallery || $can_remove_other_files)
 					$tpl_delete	=	\Eliya\Tpl::get('spritecomics/gallery/delete', ['id_to_delete' => $document->getId()]);
-				if($this->_current_member->isConnected() AND !$this->_current_member->equals($owner))
-					$tpl_like = \Eliya\Tpl::get('spritecomics/gallery/details/like', $data);
+				if($this->_current_member->isConnected() && ! $this->_current_member->equals($owner))
+				{
+					$tpl_like = \Eliya\Tpl::get('spritecomics/gallery/details/like', [
+						'has_liked'	=>	$has_liked,
+						'id_file'	=>	$document->prop('id')
+					]);
+				}
 
-				// @TODO : display a better view for SCs
-				$data = [
-					'file'				=>	$document,
-					'is_own_gallery'	=>	$is_own_gallery,
-					'has_liked'			=>	$has_liked,
+				$template	=	\Eliya\Tpl::get('spritecomics/gallery/details/file', [
 					'file'			=>	$document,
 					'tpl_delete'	=>	$tpl_delete,
-					'tpl_like'	=>	$tpl_like,
-				];
-				
-				$template	=	\Eliya\Tpl::get('spritecomics/gallery/details/file', $data);
+					'tpl_like'		=>	$tpl_like,
+				]);
 			}
 			
 			$this->response->set($template);
