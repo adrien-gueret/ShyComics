@@ -1,0 +1,53 @@
+{
+    "global": {
+      "default_page_title": "Shy'Comics",
+      "default_page_description": "La référence en Sprites Comics !"
+    },
+    "about": {
+      "page_title": "A propos",
+      "page_description": "Vous êtes perdu sur Shy'Comics ? Vous ne savez pas ce qu'est un Sprite Comics ? Apprenez tout ce que vous devez savoir !",
+      "title_what_is_shycomics": "Qu'est-ce que Shy'Comics ?",
+      "title_what_is_spritecomic": "Qu'est-ce qu'un <em>Sprite Comic</em> ?",
+      "title_lets_go": "A vous de jouer !",
+      "desc_lets_go_1": "Vous pouvez dès à présent consulter <a href=\"{{base_url}}spritecomics\">les galeries de nos membres</a> afin de lire leurs <em>sprite comics</em>.",
+      "desc_lets_go_2": "Vous avez l'âme d'un artiste ? Ou vous souhaitez simplement participer à notre communauté ? N'hésitez pas à <a href=\"{{base_url}}login/register\">vous incrire</a> et à publier vos propres créations !"
+    },
+    "friends": {
+
+    },
+    "index": {
+      "header": {
+        "register": "Inscription",
+        "connect": "Connexion",
+        "welcome_name": "Bienvenue %s",
+        "my_profile": "Mon profil",
+        "logout": "Me déconnecter",
+        "register_yourself": "Inscrivez-vous !",
+        "navigation": {
+          "spritecomics": "Sprite Comics",
+          "forum": "Forum",
+          "shyresources": "Shy'Ressources",
+          "helpers": {
+            "facebook": "Devenez fans sur Facebook !",
+            "twitter": "Suivez-nous sur Twitter !",
+            "friends": "Gérer votre liste d'amis",
+            "about": "A propos",
+            "home": "Retour à l'accueil"
+          }
+        }
+      }
+    },
+    "login": {
+
+    },
+    "profile": {
+
+    },
+    "spritecomics": {
+      "total_sc": {
+        "one": "Il n'y a qu'une planche ici.",
+        "none": "Cette galerie est vide !",
+        "several": "Cette galerie contient %d planches."
+      }
+    }
+}
