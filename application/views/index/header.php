@@ -11,7 +11,7 @@
 	</head>
 	<body>
 		<nav>
-			<a href="<?= $view->base_url; ?>"><img src="<?= $view->base_url; ?>public/images/logo_menu.png" alt="Accueil" title="Shy'Comics" /></a>
+			<a href="<?= $view->base_url; ?>"><img src="<?= $view->base_url; ?>public/images/logo_menu.png" title="<?= Library_i18n::get('index.header.navigation.helpers.home'); ?>" /></a>
 			<ul>
 				<li>
 					<?php if($view->current_member->isConnected()): ?>
@@ -32,17 +32,29 @@
 					<?php endif; ?>
 				</li>
 				<li><input type="search" name="search" id="nav-search"/></li>
-				<li><a href="<?= $view->base_url; ?>spritecomics">Sprites Comics</a></li>
-				<li><a href="http://shycomics-forum.fr">Forum</a></li>
-				<li><a href="http://shyressources.shycomics.fr/">Shy'Ressources</a></li>
 				<li>
-					<a href="https://www.facebook.com/pages/ShyComics/81657339196" class="fa-stack" title="Devenez fans sur Facebook !">
+					<a href="<?= $view->base_url; ?>spritecomics">
+						<?= Library_i18n::get('index.header.navigation.spritecomics'); ?>
+					</a>
+				</li>
+				<li>
+					<a href="http://shycomics-forum.fr">
+						<?= Library_i18n::get('index.header.navigation.forum'); ?>
+					</a>
+				</li>
+				<li>
+					<a href="http://shyressources.shycomics.fr/">
+						<?= Library_i18n::get('index.header.navigation.shyresources'); ?>
+					</a>
+				</li>
+				<li>
+					<a href="https://www.facebook.com/pages/ShyComics/81657339196" class="fa-stack" title="<?= Library_i18n::get('index.header.navigation.helpers.facebook'); ?>">
 						<i class="fa fa-square-o fa-stack-2x"></i>
 						<i class="fa fa-facebook fa-stack-1x"></i>
 					</a>
 				</li>
 				<li>
-					<a href="https://twitter.com/ShyCoOfficiel" class="fa-stack" title="Suivez-nous sur Twitter !">
+					<a href="https://twitter.com/ShyCoOfficiel" class="fa-stack" title="<?= Library_i18n::get('index.header.navigation.helpers.twitter'); ?>">
 						<i class="fa fa-square-o fa-stack-2x"></i>
 						<i class="fa fa-twitter fa-stack-1x"></i>
 					</a>
@@ -53,13 +65,13 @@
 			<ul>
 				<?php if($view->current_member->isConnected()): ?>
 					<li>
-						<a href="<?= $view->base_url; ?>friends" class="leftnav_button" title="Gérer votre liste d'amis">
+						<a href="<?= $view->base_url; ?>friends" class="leftnav_button" title="<?= Library_i18n::get('index.header.navigation.helpers.friends'); ?>">
 							<i class="fa fa-users"></i>
 						</a>
 					</li>
 				<?php endif; ?>
 				<li>
-					<a href="<?= $view->base_url; ?>about" class="leftnav_button" title="A propos">
+					<a href="<?= $view->base_url; ?>about" class="leftnav_button" title="<?= Library_i18n::get('index.header.navigation.helpers.about'); ?>">
 						<i class="fa fa-question"></i>
 					</a>
 				</li>
