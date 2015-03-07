@@ -14,13 +14,7 @@
 			  	ERROR_UPLOAD	=	1,
 			  	ERROR_SIZE		=	2,
 				ERROR_TYPE		=	3,
-				ERROR_SAVE		=	4,
-
-				LIKE_PROCESS_OK		=	5,
-				LIKE_ERROR_CONNECTED_USER = 6,
-				LIKE_ERROR_SAME_USER = 7,
-				LIKE_ERROR_FILE = 8,
-				LIKE_ERROR_ALREADY = 9;
+				ERROR_SAVE		=	4;
 		
 		protected static $table_name = 'files';
 		
@@ -31,7 +25,7 @@
 			$this->is_dir = $is_dir;
 			$this->user = $user;
 			$this->parent_file = $parent_file;
-			$this->liked_users = array();
+			$this->liked_users = [];
 		}
 		
 		public static function __structure()
@@ -42,7 +36,7 @@
 				'is_dir' => 'BOOLEAN',
 				'parent_file' => 'Model_Files',
 				'user' => 'Model_Users',
-				'liked_users' => array('Model_Users'),
+				'liked_users' => ['Model_Users'],
 			];
 		}
 		
@@ -182,22 +176,11 @@
 
 			return empty($results->parent_file_id) ? null : $results->parent_file_id;
 		}
-		
-		public static function addLike(Model_Users $user, Model_Files $file)
+
+		public function isLikedByUser(Model_Users $user)
 		{
-			if(empty($user))
-				return self::ERROR_USER;
-			
-			if(empty($file))
-				return self::ERROR_FILE;
-			
-			$already_liked = $file->load('liked_users')->liked_users->hasEntity($user);
-			if($alreadyLiked)
-				return self::ERROR_ALREADY;
-			
-			$file->prop('liked_users')[] = $user;
-			Model_Files::update($file);
-			
-			return self::PROCESS_OK;
+			$liked_users	=	$this->load('liked_users');
+
+			return $liked_users->hasEntity($user);
 		}
 	}

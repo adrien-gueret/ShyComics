@@ -13,8 +13,12 @@
 		protected $friends;
 		protected $locales_comics;
 		
-		const	DEFAULT_USERS_GROUP_ID = 1,
-				DEFAULT_LOCALE_WEBSITE_ID = 1;
+		const	DEFAULT_USERS_GROUP_ID		=	1,
+				DEFAULT_LOCALE_WEBSITE_ID	=	1,
+
+				LIKE_SUCCESS				=	1,
+				ERROR_LIKE_ALREADY_LIKE		=	2,
+				ERROR_LIKE_USER_IS_OWNER	=	3;
 
 		public function __construct(
 			$username = null, $email = null, $password = null,
@@ -132,5 +136,20 @@
 			}
 
 			return $this->user_group->getPermission($permission);
+		}
+
+		public function like(Model_Files $file)
+		{
+			if($file->isLikedByUser($this))
+				return self::ERROR_LIKE_ALREADY_LIKE;
+
+			if($this->equals($file->getUser()))
+				return self::ERROR_LIKE_USER_IS_OWNER;
+
+			$file->load('liked_users')->push($this);
+
+			Model_Files::update($file);
+
+			return self::LIKE_SUCCESS;
 		}
 	}
