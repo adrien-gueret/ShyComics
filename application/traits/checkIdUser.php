@@ -15,7 +15,7 @@ trait Trait_checkIdUser
 				exit;
 			}
 
-			$this->response->error('Vous devez être connecté pour accéder à cette partie du site.', 401);
+			$this->response->error(Library_i18n::get('errors.global.need_connection'), 401);
 			return null;
 		}
 
@@ -23,7 +23,7 @@ trait Trait_checkIdUser
 
 		if(empty($member))
 		{
-			$this->response->error('Le membre souhaité ne semble pas exister.', 404);
+			$this->response->error(Library_i18n::get('errors.global.member_not_found'), 404);
 			return null;
 		}
 

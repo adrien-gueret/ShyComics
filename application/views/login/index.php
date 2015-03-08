@@ -1,7 +1,5 @@
-<h2>Connectez-vous !</h2>
-<p>
-	Vous possédez un compte Shy'Comics ? Alors connectez-vous et publiez vos <em>sprite comics</em> !
-</p>
+<h2><?= Library_i18n::get('login.index.title'); ?></h2>
+<p><?= Library_i18n::get('login.index.desc'); ?></p>
 
 <form action="<?= $view->base_url; ?>login" method="post">
 
@@ -11,7 +9,7 @@
 		</legend>
 
 		<div class="group-inputs">
-			<input placeholder="Quel est votre pseudo ?"
+			<input placeholder="<?= Library_i18n::get('login.index.helpers.username'); ?>"
 				   type="text"
 				   required
 				   id="form-username"
@@ -20,7 +18,7 @@
 
 			<span class="separator"></span>
 
-			<input placeholder="Et votre mot de passe ?"
+			<input placeholder="<?= Library_i18n::get('login.index.helpers.password'); ?>"
 				   type="password"
 				   required
 				   id="form-pass"
@@ -29,9 +27,7 @@
 		</div>
 	</fieldset>
 
-	<button class="orange" type="submit">Me connecter !</button>
+	<button class="orange" type="submit"><?= Library_i18n::get('login.index.submit'); ?></button>
 </form>
 
-<p>
-	Pas de compte ? <a href="<?= $view->base_url; ?>login/register">Inscrivez-vous !</a>
-</p>
+<p><?= Library_i18n::get('login.index.no_account', ['base_url' => $view->base_url]); ?></p>

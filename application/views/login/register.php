@@ -1,8 +1,5 @@
-<h2>Rejoignez-nous !</h2>
-<p>
-	Pour vous inscrire sur Shy'Comics, c'est <strong>simple et rapide</strong> :
-	remplissez simplement le formulaire ci-dessous et le tour est joué !
-</p>
+<h2><?= Library_i18n::get('login.register.title'); ?></h2>
+<p><?= Library_i18n::get('login.register.desc'); ?></p>
 
 <form action="<?= $view->base_url; ?>login/register" method="post" autocomplete="off">
 
@@ -12,7 +9,7 @@
 		</legend>
 
 		<div class="group-inputs">
-			<input placeholder="Quel est votre e-mail ?"
+			<input placeholder="<?= Library_i18n::get('login.register.helpers.email'); ?>"
 				   type="email"
 				   required
 				   id="form-email"
@@ -21,7 +18,7 @@
 
 			<span class="separator"></span>
 
-			<input placeholder="Et votre pseudo ?"
+			<input placeholder="<?= Library_i18n::get('login.register.helpers.username'); ?>"
 				   type="text"
 				   required
 				   id="form-username"
@@ -30,7 +27,7 @@
 
 			<span class="separator"></span>
 
-			<input placeholder="Choisissez un mot de passe"
+			<input placeholder="<?= Library_i18n::get('login.register.helpers.password'); ?>"
 				   type="password"
 				   required
 				   id="form-pass"
@@ -39,9 +36,7 @@
 		</div>
 	</fieldset>
 
-	<button class="orange" type="submit">M'inscrire !</button>
+	<button class="orange" type="submit"><?= Library_i18n::get('login.register.submit'); ?></button>
 </form>
 
-<p>
-	Déjà inscrit ? <a href="<?= $view->base_url; ?>login">Connectez-vous !</a>
-</p>
+<p><?= Library_i18n::get('login.register.has_account', ['base_url' => $view->base_url]); ?></p>

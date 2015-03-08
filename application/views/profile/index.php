@@ -1,2 +1,6 @@
-Bienvenue sur le profil de <?= $view->user_name ?>.<br />
-<a href="<?= $view->base_url; ?>spritecomics/gallery/<?= $view->user_id ?>">Accéder à sa galerie</a>
+<h2><?= Library_i18n::get('profile.index.title', $view->user_name); ?></h2>
+<p>
+	<a href="<?= $view->base_url; ?>spritecomics/gallery/<?= $view->user_id ?>">
+		<?= Library_i18n::get('profile.index.go_to_gallery'); ?>
+	</a>
+</p>

@@ -1,5 +1,6 @@
-Bienvenue sur la page regroupant tous les SC.
-Vous pouvez aussi rechercher des SC depuis cette page.
+<h2><?= Library_i18n::get('spritecomics.index.title'); ?></h2>
+<p><?= Library_i18n::get('spritecomics.index.desc'); ?></p>
 <form action="<?= $view->base_url; ?>search" method="post">
-	<input type="search" name="search" id="nav-search"/>   <input type="submit" value="Rechercher" />
+	<input type="search" name="search" id="nav-search"/>
+	<input disabled type="submit" value="<?= Library_i18n::get('spritecomics.index.submit'); ?>" />
 </form>

@@ -1,1 +1,0 @@
-Bienvenue sur la page pour gérer votre profil.

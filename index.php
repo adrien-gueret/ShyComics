@@ -34,7 +34,7 @@
 		if( ! empty($sql))
 			\EntityPHP\Core::connectToDB($sql['HOST'], $sql['USER'], $sql['PASSWORD'], $sql['DATABASE']);
 		else
-			throw new Exception('Impossible de se connecter à la base de données : informations introuvables.');
+			throw new Exception(Library_i18n::get('global.db_connection_error'));
 
 		$request->exec();
 	}

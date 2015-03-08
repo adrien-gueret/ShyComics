@@ -8,27 +8,27 @@
 
 			if(empty($m) || empty($h))
 			{
-				$this->response->error('Des informations sont manquantes pour accéder à cette page.', 400);
+				$this->response->error(Library_i18n::get('login.verify_account.errors.empty_data'), 400);
 				return;
 			}
 
 			if( ! filter_var($m, FILTER_VALIDATE_EMAIL))
 			{
-				$this->response->error('Les données reçues sont incorrectes.', 400);
+				$this->response->error(Library_i18n::get('login.verify_account.errors.bad_data'), 400);
 				return;
 			}
 
 			$member = Model_Users::getByEmail($m);
 
 			if(empty($member)) {
-				$this->response->error('Le membre à valider n\'a pas été trouvé.', 404);
+				$this->response->error(Library_i18n::get('login.verify_account.errors.not_found'), 404);
 				return;
 			}
 
 			$hashVerif = Library_String::hash($member->prop('email').$member->prop('username'));
 
 			if($hashVerif !== $h) {
-				$this->response->error('Impossible de valider le compte.', 400);
+				$this->response->error(Library_i18n::get('login.verify_account.errors.cant_valid'), 400);
 				return;
 			}
 
@@ -40,7 +40,7 @@
 			$_SESSION['connected_user_id'] = $member->prop('id');
 			$this->_current_member = $member;
 
-			Library_Messages::store('Votre compte a été validé avec succès !<br />Notez que cela vous a connecté automatiquement.', Library_Messages::TYPE_SUCCESS);
+			Library_Messages::store(Library_i18n::get('login.verify_account.success'), Library_Messages::TYPE_SUCCESS);
 			$this->_redirectToCurrentMemberProfile();
 		}
 	}

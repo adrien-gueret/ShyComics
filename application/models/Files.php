@@ -116,10 +116,10 @@
 				$path	=	$this->getPath();
 
 				if( ! is_file($path))
-					throw new Exception('L\'image n\'a pas pu être trouvée. Veuillez réessayer ou prévenir un administrateur.', 404);
+					throw new Exception(Library_i18n::get('spritecomics.delete.errors.not_found'), 404);
 
 				if( ! unlink($path))
-					throw new Exception('Erreur lors de la suppresion du fichier. Veuillez réessayer ou prévenir un administrateur.', 500);
+					throw new Exception(Library_i18n::get('spritecomics.delete.errors.unlink_failed'), 500);
 
 			}
 			else
@@ -133,19 +133,6 @@
 			self::delete($this);
 		}
 
-		public function deletePhysicalFile()
-		{
-			$path	=	$this->getPath();
-
-			if( ! is_file($path))
-				throw new Exception('L\'image n\'a pas pu être trouvée. Veuillez réessayer ou prévenir un administrateur.', 404);
-
-			if( ! unlink($path))
-				throw new Exception('Erreur lors de la suppresion du fichier. Veuillez réessayer ou prévenir un administrateur.', 500);
-
-			return $this;
-		}
-		
 		public function getUser()
 		{
 			return $this->load('user');

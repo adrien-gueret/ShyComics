@@ -11,7 +11,8 @@
 				return;
 
 			\Eliya\Tpl::set([
-				'page_title'		=>	'Profil de ' . $member->prop('username'),
+				'page_title'		=>	Library_i18n::get('profile.index.page_title', $member->prop('username')),
+				'page_description'	=>	Library_i18n::get('profile.index.page_description', $member->prop('username')),
 			]);
 
 			$data = [

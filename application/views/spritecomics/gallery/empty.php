@@ -1,3 +1,1 @@
-<p>
-	Ce dossier est vide.
-</p>
+<p><?= Library_i18n::get('spritecomics.gallery.empty'); ?></p>

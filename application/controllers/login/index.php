@@ -4,7 +4,8 @@
 		public function get_index()
 		{
 			\Eliya\Tpl::set([
-				'page_title'		=>	'Se connecter',
+				'page_title'		=>	Library_i18n::get('login.index.page_title'),
+				'page_description'	=>	Library_i18n::get('login.index.page_description'),
 			]);
 
 			if($this->_current_member->isConnected())
@@ -29,17 +30,17 @@
 					$_SESSION['connected_user_id'] = $resultMember->prop('id');
 					$this->_current_member = Model_Users::getById($_SESSION['connected_user_id']);
 
-					Library_Messages::store('Bon retour parmi nous '.$resultMember->prop('username').' !', Library_Messages::TYPE_SUCCESS);
+					Library_Messages::store(Library_i18n::get('login.success', $resultMember->prop('username')), Library_Messages::TYPE_SUCCESS);
 
 					$this->_redirectToCurrentMemberProfile('login');
 					exit;
 				}
 
-				Library_Messages::add('Vos informations de connexion sont incorrectes.');
+				Library_Messages::add(Library_i18n::get('login.errors.bad_credentials'));
 			}
 			else
 			{
-				Library_Messages::add('Veuillez renseigner tous les champs du formulaire.');
+				Library_Messages::add(Library_i18n::get('login.errors.empty_fields'));
 			}
 
 			$this->response->set(\Eliya\Tpl::get('login/index'));
