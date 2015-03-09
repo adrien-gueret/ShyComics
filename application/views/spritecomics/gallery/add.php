@@ -39,8 +39,11 @@
 	<br />
 	<fieldset id="form_file_part">
 		<legend><i class="fa fa-file-image-o"></i></legend>
-		<label for="form_file"><?= Library_i18n::get('spritecomics.gallery.add.file_selection'); ?></label>
-		<input id="form_file" type="file" name="file" />
+		<label for="form-file"><?= Library_i18n::get('spritecomics.gallery.add.file_selection'); ?></label>
+		<input id="form-file" type="file" name="file" />
+		<p class="preview-container">
+			<canvas id="preview-thumbnail"></canvas>
+		</p>
 	</fieldset>
 	<p>
 		<?php if( ! empty($view->parent_file_id)) :?>
@@ -49,22 +52,4 @@
 		<button class="orange"><?= Library_i18n::get('spritecomics.gallery.add.submit'); ?></button>
 	</p>
 </form>
-<script>
-	(function(document) {
-		'use strict';
-
-		var form_file_part	=	document.getElementById('form_file_part'),
-			form			=	document.getElementById('form_add_content');
-
-		for(var i = 0, l = form.elements.length; i < l; i++)
-		{
-			if(form.elements[i].name === 'is_dir')
-				form.elements[i].addEventListener('click', toggleFilePart);
-		}
-
-		function toggleFilePart()
-		{
-			form_file_part.className	=	this.value == 1 ? 'inactive' : '';
-		}
-	})(document);
-</script>
+<script src="<?= $view->base_url; ?>public/javascript/spritecomics/gallery/add.js"></script>
