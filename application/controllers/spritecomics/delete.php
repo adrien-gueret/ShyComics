@@ -16,6 +16,8 @@
 				if(empty($file))
 					throw new RedirectException(Library_i18n::get('spritecomics.delete.errors.not_found_in_db'), 404);
 
+				$parent_id	=	$file->getParentFileId();
+
 				$owner						=	$file->getUser();
 				$can_remove_others_files	=	$this->_current_member->can(Model_UsersGroups::PERM_REMOVE_OTHERS_FILES);
 
@@ -23,8 +25,6 @@
 					throw new RedirectException(Library_i18n::get('spritecomics.delete.errors.forbidden'), 403);
 
 				$file->unlink();
-
-				$parent_id	=	$file->getParentFileId();
 
 				if(empty($parent_id))
 					$redirect_url	.=	''.$owner->getId();

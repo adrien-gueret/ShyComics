@@ -17,10 +17,11 @@
 	}
 
 	// Generate thumbnail of the file
-	var	form_file	=	document.getElementById('form-file'),
-		canvas		=	document.getElementById('preview-thumbnail'),
-		ctx			=	canvas.getContext('2d'),
-		ratio;
+	var	form_file			=	document.getElementById('form-file'),
+		canvas				=	document.getElementById('preview-thumbnail'),
+		previewContainer	=	document.getElementById('preview-container'),
+		thumbnailDataUrl	=	document.getElementById('thumbnail-data-url'),
+		ctx					=	canvas.getContext('2d');
 
 	canvas.width	=	150;
 	canvas.height	=	250;
@@ -65,5 +66,26 @@
 
 		ctx.fillRect(0, 0, canvas.width, canvas.height);
 		ctx.drawImage(img, coverX, 0, coverWidth, coverHeight, 0, 0, canvas.width, canvas.height);
+
+		thumbnailDataUrl.value	=	canvas.toDataURL();
+
+		if( ! slideDown.launched)
+			slideDown();
 	}
+
+	function slideDown()
+	{
+		var height	=	0;
+		var clock	=	window.setInterval(function interval() {
+			previewContainer.style.height	=	(++height) + 'px';
+			++document.body.scrollTop;
+
+			if(height >= 257)
+				window.clearInterval(clock);
+		}, 1);
+
+		slideDown.launched	=	true;
+	}
+
+	slideDown.launched	=	false;
 })(document);

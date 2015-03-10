@@ -10,11 +10,11 @@
 		
 		const 	SIZE_LIMIT		=	100000000,
 
-				PROCESS_OK		=	0,
-			  	ERROR_UPLOAD	=	1,
+				PROCESS_OK		=	1,
 			  	ERROR_SIZE		=	2,
 				ERROR_TYPE		=	3,
-				ERROR_SAVE		=	4;
+				ERROR_SAVE		=	4,
+				ERROR_THUMB		=	5;
 		
 		protected static $table_name = 'files';
 		
@@ -42,7 +42,7 @@
 		
 		public function getPath()
 		{
-			//On renvoit le chemin correspond à si l'image est un .jpg, un .jpeg, un .png ou un .gif
+			//On renvoit le chemin correspond si l'image est un .jpg, un .jpeg, un .png ou un .gif
 			$extensions = ['png', 'jpg', 'jpeg', 'gif'];
 			$base_path = 'public/users_files/galleries/' . $this->prop('user')->getId() . '/' . $this->getId() . '.';
 
@@ -56,13 +56,20 @@
 
 			return null;
 		}
-		
-		public static function addFile(Model_Users $user, $name = null, $description = null, Model_Files $parent = null)
-		{
-			if( ! isset($_FILES['file']) || $_FILES['file']['error'] != 0)
-				return self::ERROR_UPLOAD;
 
-			if($_FILES['file']['size'] > self::SIZE_LIMIT)
+		public function getThumbPath()
+		{
+			$path = 'public/users_files/galleries/' . $this->prop('user')->getId() . '/' . $this->getId() . '.thumb.png';
+
+			if(is_file($path))
+				return $path;
+
+			return null;
+		}
+		
+		public static function addFile(Model_Users $user, Array $fileData, $thumbnail_data_url, $name, $description = null, Model_Files $parent = null)
+		{
+			if($fileData['size'] > self::SIZE_LIMIT)
 				return self::ERROR_SIZE;
 
 			$user_id		=	$user->getId();
@@ -73,7 +80,7 @@
 			$file 		=	Model_Files::add($file);
 			$file_id	=	$file->getId();
 
-			$infosfile			=	pathinfo($_FILES['file']['name']);
+			$infosfile			=	pathinfo($fileData['name']);
 			$extension_upload	=	strtolower($infosfile['extension']);
 			$extensions_granted	=	['jpg', 'jpeg', 'gif', 'png'];
 
@@ -85,6 +92,7 @@
 
 			$url_dir	=	'public/users_files/galleries/' . $user_id;
 			$url_file	=	'public/users_files/galleries/' . $user_id . '/' . $file_id . '.' . $extension_upload;
+			$url_thumb	=	'public/users_files/galleries/' . $user_id . '/' . $file_id . '.thumb.png';
 
 			if( ! is_dir($url_dir))
 			{
@@ -92,11 +100,18 @@
 				chmod($url_dir, 0777);
 			}
 
-			if( ! move_uploaded_file($_FILES['file']['tmp_name'], $url_file))
+			if( ! move_uploaded_file($fileData['tmp_name'], $url_file))
 			{
 				Model_Files::delete($file);
 				return self::ERROR_SAVE;
 			}
+
+			//Now we can generate the thumbnail !
+			$image_data	=	substr($thumbnail_data_url, strpos($thumbnail_data_url, ',') + 1);
+			$resource	=	imagecreatefromstring(base64_decode($image_data));
+
+			if( ! imagepng($resource, $url_thumb))
+				return self::ERROR_THUMB;
 
 			return self::PROCESS_OK;
 		}
@@ -113,6 +128,7 @@
 		{
 			if($this->is_dir == 0)
 			{
+				//Unlink physical file
 				$path	=	$this->getPath();
 
 				if( ! is_file($path))
@@ -120,6 +136,15 @@
 
 				if( ! unlink($path))
 					throw new Exception(Library_i18n::get('spritecomics.delete.errors.unlink_failed'), 500);
+
+				//And remove its thumbnail
+				$path	=	$this->getThumbPath();
+
+				if( ! is_file($path))
+					throw new Exception(Library_i18n::get('spritecomics.delete.errors.thumb_not_found'), 404);
+
+				if( ! unlink($path))
+					throw new Exception(Library_i18n::get('spritecomics.delete.errors.thumb_unlink_failed'), 500);
 
 			}
 			else

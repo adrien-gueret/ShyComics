@@ -41,8 +41,9 @@
 		<legend><i class="fa fa-file-image-o"></i></legend>
 		<label for="form-file"><?= Library_i18n::get('spritecomics.gallery.add.file_selection'); ?></label>
 		<input id="form-file" type="file" name="file" />
-		<p class="preview-container">
+		<p id="preview-container" class="preview-container" style="height: 0;">
 			<canvas id="preview-thumbnail"></canvas>
+			<input type="hidden" name="thumbnail_data_url" id="thumbnail-data-url" value="" />
 		</p>
 	</fieldset>
 	<p>
@@ -52,4 +53,5 @@
 		<button class="orange"><?= Library_i18n::get('spritecomics.gallery.add.submit'); ?></button>
 	</p>
 </form>
+<script src="<?= $view->base_url; ?>public/javascript/vendors/promise.min.js"></script>
 <script src="<?= $view->base_url; ?>public/javascript/spritecomics/gallery/add.js"></script>

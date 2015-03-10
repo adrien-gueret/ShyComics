@@ -270,6 +270,7 @@ form .group-inputs input:focus + label, form .group-inputs textarea:focus + labe
 
 .preview-container {
 	text-align: center;
+	overflow: hidden;
 }
 
 .preview-container canvas {

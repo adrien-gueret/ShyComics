@@ -23,7 +23,7 @@
 			$this->response->set(Library_Gallery::getFolderTemplate($member, null, $is_own_gallery));
 		}
 
-		public function post_index($name = null, $description = null, $parent_file_id = null, $is_dir = 1)
+		public function post_index($name = null, $description = null, $parent_file_id = null, $is_dir = 1, $thumbnail_data_url = null)
 		{
 			if( ! $this->_current_member->isConnected())
 			{
@@ -56,6 +56,8 @@
 
 			if(empty($name))
 				Library_Messages::add(Library_i18n::get('spritecomics.gallery.add.errors.empty_name'));
+			else if(empty($thumbnail_data_url))
+				Library_Messages::add(Library_i18n::get('spritecomics.gallery.add.errors.empty_thumbnail'));
 			else
 			{
 				if($is_dir)
@@ -64,7 +66,7 @@
 					$success	=	true;
 				}
 				else
-					$success	=	$this->_newFile($name, $description, $parent);
+					$success	=	$this->_newFile($thumbnail_data_url, $name, $description, $parent);
 			}
 
 			if( ! $success)
@@ -142,27 +144,33 @@
 			$this->response->set($template);
 		}
 
-		protected function _newFile($name, $description = null, Model_Files $parent = null)
+		protected function _newFile($thumbnail_data_url, $name, $description = null, Model_Files $parent = null)
 		{
+			if( ! isset($_FILES['file']) || $_FILES['file']['error'] != 0)
+			{
+				Library_Messages::add(Library_i18n::get('spritecomics.gallery.add.errors.bad_upload'));
+				return false;
+			}
+
 			$upload_error	=	true;
 
-			switch(Model_Files::addFile($this->_current_member, $name, $description, $parent))
+			switch(Model_Files::addFile($this->_current_member, $_FILES['file'], $thumbnail_data_url, $name, $description, $parent))
 			{
 				case Model_Files::ERROR_SIZE:
 					Library_Messages::add(Library_i18n::get('spritecomics.gallery.add.errors.file_too_big'));
 				break;
 
-				case Model_Files::ERROR_UPLOAD:
-					Library_Messages::add(Library_i18n::get('spritecomics.gallery.add.errors.bad_upload'));
-				break;
-
 				case Model_Files::ERROR_TYPE:
 					Library_Messages::add(Library_i18n::get('spritecomics.gallery.add.errors.bad_type'));
-					break;
+				break;
 
 				case Model_Files::ERROR_SAVE:
 					Library_Messages::add(Library_i18n::get('spritecomics.gallery.add.errors.unknown'));
-					break;
+				break;
+
+				case Model_Files::ERROR_THUMB:
+					Library_Messages::add(Library_i18n::get('spritecomics.gallery.add.errors.thumb'), Library_Messages::TYPE_WARNING);
+				break;
 
 				case Model_Files::PROCESS_OK:
 					$upload_error	=	false;
