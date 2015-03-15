@@ -15,7 +15,12 @@
 	// Include all models files
 	\Eliya\Core::requireDirContent('models');
 
-	\EntityPHP\Core::generateDatabase();
+	// Can't use \EntityPHP\Core::generateDatabase() because of foreign keys constrains...
+	Model_Locales::createTable();
+	Model_UsersGroups::createTable();
+	Model_Users::createTable();
+	Model_Files::createTable();
+	Model_FriendsRequests::createTable();
 
 	/*== Create data ==*/
 
