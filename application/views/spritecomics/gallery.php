@@ -1,8 +1,8 @@
 <h2>
 	<?php if($view->on_own_gallery) :?>
-		Votre galerie
+		<?= Library_i18n::get('spritecomics.gallery.own_gallery_title'); ?>
 	<?php else: ?>
-		Galerie de <?= $view->owner->prop('username'); ?>
+		<?= Library_i18n::get('spritecomics.gallery.other_gallery_title', $view->owner->prop('username')); ?>
 	<?php endif; ?>
 </h2>
 

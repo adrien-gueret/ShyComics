@@ -14,6 +14,8 @@ trait Trait_currentMember
 		if(empty($this->_current_member))
 			$this->_current_member = new Model_Users();
 
+		Library_i18n::defineLang($this->_current_member);
+
 		\Eliya\Tpl::set(['current_member' => $this->_current_member]);
 
 		if(!isset($_SESSION['token_logout']))

@@ -5,7 +5,7 @@
 		{
 			if( ! $this->_current_member->isConnected())
 			{
-				$this->response->error('Vous devez être connecté pour accéder à cette partie du site.', 401);
+				$this->response->error(Library_i18n::get('errors.global.need_connection'), 401);
 				return;
 			}
 
@@ -13,22 +13,22 @@
 			
 			if(empty($file))
 			{
-				$this->response->error('La planche que vous cherchez à aimer est introuvable.', 404);
+				$this->response->error(Library_i18n::get('spritecomics.like.errors.not_found'), 404);
 				return;
 			}
 
 			switch($this->_current_member->like($file))
 			{
 				case Model_Users::ERROR_LIKE_ALREADY_LIKE:
-					Library_Messages::store('Vous avez déjà aimé cette planche.');
+					Library_Messages::store(Library_i18n::get('spritecomics.like.errors.already_like'));
 				break;
 
 				case Model_Users::ERROR_LIKE_USER_IS_OWNER:
-					Library_Messages::store('Vous ne pouvez pas aimer vos propres planches.');
+					Library_Messages::store(Library_i18n::get('spritecomics.like.errors.own_file'));
 				break;
 
 				case Model_Users::LIKE_SUCCESS:
-					Library_Messages::store('Le like a bien été envoyé.', Library_Messages::TYPE_SUCCESS);
+					Library_Messages::store(Library_i18n::get('spritecomics.like.success'), Library_Messages::TYPE_SUCCESS);
 				break;
 			}
 

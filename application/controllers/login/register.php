@@ -4,7 +4,8 @@
 		public function get_index()
 		{
 			\Eliya\Tpl::set([
-				'page_title'		=>	'S\'inscire',
+				'page_title'		=>	Library_i18n::get('login.register.page_title'),
+				'page_description'	=>	Library_i18n::get('login.register.page_description'),
 			]);
 
 			if($this->_current_member->isConnected())
@@ -18,18 +19,18 @@
 			try
 			{
 				if(empty($username) || empty($password) || empty($email))
-					throw new Exception('Merci de renseigner tous les champs du formulaire.');
+					throw new Exception(Library_i18n::get('login.register.errors.empty_fields'));
 
 				$username = htmlspecialchars($username, ENT_QUOTES, 'utf-8');
 				$email = htmlspecialchars($email, ENT_QUOTES, 'utf-8');
 
 				if( ! filter_var($email, FILTER_VALIDATE_EMAIL))
-					throw new Exception('Veuillez rentrer une adresse email valide.');
+					throw new Exception(Library_i18n::get('login.register.errors.bad_email'));
 
 				$existingMember = Model_Users::getByEmail($email);
 
 				if( ! empty($existingMember))
-					throw new Exception('L\'adresse email <em>'.$email.'</em> est déjà utilisée.');
+					throw new Exception(Library_i18n::get('login.register.errors.email_used', $email));
 
 				// Date filtered: we can now save new user in database
 				$user = new Model_Users($username, $email, $password);
@@ -37,16 +38,16 @@
 
 				// Send verification email
 				$hashVerif = Library_String::hash($email.$username);
-				$subject = 'Votre inscription sur Shy\'Comics !';
+				$subject = Library_i18n::get('login.mail_confirm.subject');
 
-				$mail_content = Eliya\Tpl::get('login/mail_confirm', [
-					'email' => $email,
-					'hashVerif' => $hashVerif
-				]);
+				$url	=	$this->$request->getBaseURL();
+				$url	.=	'login/verifyAccount?m='.$email.'&h='.$hashVerif;
+
+				$mail_content = Eliya\Tpl::get('login/mail_confirm', ['url_confirm' => $url]);
 				Library_Email::send($email, $subject, $mail_content);
 
 				// Display page confirmation
-				Library_Messages::add('Inscription réussie !', Library_Messages::TYPE_SUCCESS);
+				Library_Messages::add(Library_i18n::get('login.register_success.flash_message'), Library_Messages::TYPE_SUCCESS);
 				$this->response->set(\Eliya\Tpl::get('login/register_success', ['email' => $email]));
 			}
 			catch(Exception $e)

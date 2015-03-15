@@ -7,11 +7,11 @@
 			{
 				session_destroy();
 
-				Library_Messages::store('Vous vous êtes correctement déconnecté. A très bientôt !', Library_Messages::TYPE_SUCCESS);
+				Library_Messages::store(Library_i18n::get('logout.success'), Library_Messages::TYPE_SUCCESS);
 			}
 			else
 			{
-				Library_Messages::store('Il n\'a pas été possible de vous déconnecter...', Library_Messages::TYPE_WARNING);
+				Library_Messages::store(Library_i18n::get('logout.error'), Library_Messages::TYPE_WARNING);
 			}
 			
 			$this->response->redirect('login/index');

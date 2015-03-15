@@ -1,13 +1,20 @@
 <?php
 	class Library_i18n
 	{
-		protected static $_cached_fields	=	[];
-		protected static $_lang				=	'fr_FR';
+		const	DEFAULT_LANG	=	'fr_FR',
 
-		const	LABEL_NONE		=	'none',
+				LABEL_NONE		=	'none',
 				LABEL_ONE		=	'one',
 				LABEL_SEVERAL	=	'several',
 				VARIABLE_TOTAL	=	'total';
+
+		protected static $_SUPPORTED_LANGUAGES	=	[
+			'fr'	=>	'fr_FR',
+			'en'	=>	'en_US'
+		];
+
+		protected static $_cached_fields	=	[];
+		protected static $_lang				=	self::DEFAULT_LANG;
 
 		protected static function _getPluralizationValue(Array $i18n_value, $total_variable)
 		{
@@ -45,9 +52,26 @@
 			}
 		}
 
-		public static function setLang($lang)
+		protected static function _getLangFromBrowser()
 		{
-			self::$_lang	=	$lang;
+			$main_lang	=	strtolower(substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2));
+
+			return isset(self::$_SUPPORTED_LANGUAGES[$main_lang]) ? self::$_SUPPORTED_LANGUAGES[$main_lang] : null;
+		}
+
+		public static function defineLang(Model_Users $user)
+		{
+			$lang	=	null;
+
+			if($user->isConnected())
+				$lang	=	$user->prop('locale_website')->prop('name');
+			else
+				$lang	=	self::_getLangFromBrowser();
+
+			if( ! in_array($lang, self::$_SUPPORTED_LANGUAGES))
+				$lang	=	null;
+
+			self::$_lang	=	$lang ?: self::DEFAULT_LANG;
 		}
 
 		public static function get($field, $variables = null)

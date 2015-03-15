@@ -1,3 +1,2 @@
-<p>
-	Parcourez la liste de nos membres et ajoutez-les en tant qu'amis pour les voir ici !
-</p>
+<h2><?= Library_i18n::get('friends.title'); ?></h2>
+<p><?= Library_i18n::get('friends.no_friends.go_add_friends'); ?></p>

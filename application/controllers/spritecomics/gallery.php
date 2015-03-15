@@ -16,17 +16,18 @@
 				$is_own_gallery	=	$this->_current_member->equals($member);
 
 			\Eliya\Tpl::set([
-				'page_title'		=>	'Galerie de ' . $member->prop('username'),
+				'page_title'		=>	Library_i18n::get('spritecomics.gallery.page_title', $member->prop('username')),
+				'page_description'	=>	Library_i18n::get('spritecomics.gallery.page_description', $member->prop('username')),
 			]);
 
 			$this->response->set(Library_Gallery::getFolderTemplate($member, null, $is_own_gallery));
 		}
 
-		public function post_index($name = null, $description = null, $parent_file_id = null, $is_dir = 1)
+		public function post_index($name = null, $description = null, $parent_file_id = null, $is_dir = 1, $thumbnail_data_url = null)
 		{
 			if( ! $this->_current_member->isConnected())
 			{
-				$this->response->error('Vous devez être connecté pour effectuer cette action.', 401);
+				$this->response->error(Library_i18n::get('errors.global.need_connection'), 401);
 				return;
 			}
 
@@ -38,7 +39,7 @@
 
 				if(empty($parent))
 				{
-					$this->response->error('Le dossier où créer le nouveau document ne semble pas exister.', 404);
+					$this->response->error(Library_i18n::get('spritecomics.gallery.add.errors.parent_not_found'), 404);
 					return;
 				}
 
@@ -46,7 +47,7 @@
 
 				if( ! $this->_current_member->equals($parent_owner))
 				{
-					$this->response->error('Vous ne pouvez pas ajouter du contenu dans ce dossier.', 403);
+					$this->response->error(Library_i18n::get('spritecomics.gallery.add.errors.forbidden'), 403);
 					return;
 				}
 			}
@@ -54,7 +55,9 @@
 			$success	=	false;
 
 			if(empty($name))
-				Library_Messages::add('Veuillez indiquer un nom à votre document.');
+				Library_Messages::add(Library_i18n::get('spritecomics.gallery.add.errors.empty_name'));
+			else if(empty($thumbnail_data_url))
+				Library_Messages::add(Library_i18n::get('spritecomics.gallery.add.errors.empty_thumbnail'));
 			else
 			{
 				if($is_dir)
@@ -63,7 +66,7 @@
 					$success	=	true;
 				}
 				else
-					$success	=	$this->_newFile($name, $description, $parent);
+					$success	=	$this->_newFile($thumbnail_data_url, $name, $description, $parent);
 			}
 
 			if( ! $success)
@@ -80,7 +83,7 @@
 				if( ! empty($parent_file_id))
 					$url	.=	'details/'.$parent_file_id;
 
-				Library_Messages::store('Le document a bien été ajouté !', Library_Messages::TYPE_SUCCESS);
+				Library_Messages::store(Library_i18n::get('spritecomics.gallery.add.success'), Library_Messages::TYPE_SUCCESS);
 
 				$this->response->redirect($url);
 			}
@@ -92,12 +95,13 @@
 
 			if(empty($document))
 			{
-				$this->response->error('Ce document n\'existe pas.', 404);
+				$this->response->error(Library_i18n::get('spritecomics.gallery.details.not_found'), 404);
 				return;
 			}
 
 			\Eliya\Tpl::set([
-				'page_title'	=>	$document->prop('name') ?: 'Galerie',
+				'page_title'	=>	$document->prop('name') ?: Library_i18n::get('spritecomics.gallery.details.default_page_title'),
+				'page_description'	=>	$document->prop('description') ?: null,
 			]);
 
 			$owner	=	$document->getUser();
@@ -140,27 +144,33 @@
 			$this->response->set($template);
 		}
 
-		protected function _newFile($name, $description = null, Model_Files $parent = null)
+		protected function _newFile($thumbnail_data_url, $name, $description = null, Model_Files $parent = null)
 		{
+			if( ! isset($_FILES['file']) || $_FILES['file']['error'] != 0)
+			{
+				Library_Messages::add(Library_i18n::get('spritecomics.gallery.add.errors.bad_upload'));
+				return false;
+			}
+
 			$upload_error	=	true;
 
-			switch(Model_Files::addFile($this->_current_member, $name, $description, $parent))
+			switch(Model_Files::addFile($this->_current_member, $_FILES['file'], $thumbnail_data_url, $name, $description, $parent))
 			{
 				case Model_Files::ERROR_SIZE:
-					Library_Messages::add('Le fichier est trop gros : il dépasse la limite de taille imposée.');
-				break;
-
-				case Model_Files::ERROR_UPLOAD:
-					Library_Messages::add('Le fichier n\'a pas été uploadé correctement sur notre serveur.');
+					Library_Messages::add(Library_i18n::get('spritecomics.gallery.add.errors.file_too_big'));
 				break;
 
 				case Model_Files::ERROR_TYPE:
-					Library_Messages::add('Le fichier n\'a pas été enregistré car son type n\'est pas autorisé.');
-					break;
+					Library_Messages::add(Library_i18n::get('spritecomics.gallery.add.errors.bad_type'));
+				break;
 
 				case Model_Files::ERROR_SAVE:
-					Library_Messages::add('Une erreur inconnue est survenue lors de la sauvegarde du fichier.');
-					break;
+					Library_Messages::add(Library_i18n::get('spritecomics.gallery.add.errors.unknown'));
+				break;
+
+				case Model_Files::ERROR_THUMB:
+					Library_Messages::add(Library_i18n::get('spritecomics.gallery.add.errors.thumb'), Library_Messages::TYPE_WARNING);
+				break;
 
 				case Model_Files::PROCESS_OK:
 					$upload_error	=	false;

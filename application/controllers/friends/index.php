@@ -4,17 +4,18 @@
 		public function get_index()
 		{
 			if( ! $this->_current_member->isConnected()) {
-				$this->response->error('Vous devez être connecté pour accéder à cette partie du site.', 401);
+				$this->response->error(Library_i18n::get('errors.global.need_connection'), 401);
 				return;
 			}
 
 			\Eliya\Tpl::set([
-				'page_title'	=>	'Gestion des amis',
+				'page_title'		=>	Library_i18n::get('friends.page_title'),
+				'page_description'	=>	Library_i18n::get('friends.page_description'),
 			]);
 
 			if($this->_current_member->prop('friends')->isEmpty())
 			{
-				Library_Messages::add('Vous n\'avez aucun ami !', Library_Messages::TYPE_WARNING);
+				Library_Messages::add(Library_i18n::get('friends.no_friends.flash_message'), Library_Messages::TYPE_WARNING);
 				$view	=	\Eliya\Tpl::get('friends/no_friends');
 			}
 			else
