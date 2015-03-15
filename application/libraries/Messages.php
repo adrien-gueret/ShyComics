@@ -7,7 +7,7 @@
 				TYPE_WARNING	=	'warning',
 				TYPE_ERROR		=	'error';
 
-		protected static $_messages = [];
+		public static $_messages = [];
 		protected static $_stored_messages = [];
 
 		protected static function _constructArray($content, $type = self::TYPE_ERROR)
