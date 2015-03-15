@@ -2,7 +2,11 @@
     "global": {
       "default_page_title": "Shy'Comics",
       "default_page_description": "La référence en Sprites Comics !",
-      "db_connection_error": "Impossible de se connecter à la base de données : informations introuvables."
+      "db_connection_error": "Impossible de se connecter à la base de données : informations introuvables.",
+      "langs": {
+        "fr_FR": "Français",
+        "en_US": "Anglais"
+      }
     },
     "about": {
       "page_title": "A propos",
@@ -79,7 +83,8 @@
         "helpers": {
           "email": "Quel est votre e-mail ?",
           "username": "Et votre pseudo ?",
-          "password": "Choisissez un mot de passe"
+          "password": "Choisissez un mot de passe",
+          "lang": "En quelle langue voulez-vous voir le site ?"
         },
         "submit": "M'inscrire !",
         "has_account": "Déjà inscrit ? <a href=\"{{base_url}}login\">Connectez-vous !</a>",

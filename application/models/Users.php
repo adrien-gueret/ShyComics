@@ -22,16 +22,16 @@
 
 		public function __construct(
 			$username = null, $email = null, $password = null,
-			Model_UsersGroups $user_group = null,
-			Model_Locales $locale_website = null
+			Model_Locales $locale_website = null,
+			Model_UsersGroups $user_group = null
 		) {
 			$this->username = $username;
 			$this->email = $email;
 			$this->date_subscription = $_SERVER['REQUEST_TIME'];
 			$this->is_email_verified = false;
 			$this->password = Library_String::hash($password);
-			$this->user_group = $user_group ?: Model_UsersGroups::getById(self::DEFAULT_USERS_GROUP_ID);
 			$this->locale_website = $locale_website ?: Model_Locales::getById(self::DEFAULT_LOCALE_WEBSITE_ID);
+			$this->user_group = $user_group ?: Model_UsersGroups::getById(self::DEFAULT_USERS_GROUP_ID);
 			$this->friends = [];
 			$this->locales_comics = [];
 		}

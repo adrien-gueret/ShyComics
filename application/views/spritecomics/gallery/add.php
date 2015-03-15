@@ -25,14 +25,16 @@
 				   type="text"
 				   required
 				   id="form-name"
-				   name="name" />
+				   name="name"
+				   class="first" />
 			<label for="form-name"><i class="fa fa-pencil"></i></label>
 
 			<span class="separator"></span>
 
 			<textarea	placeholder="<?= Library_i18n::get('spritecomics.gallery.add.helpers.description'); ?>"
 						id="form-description"
-						name="description"></textarea>
+						name="description"
+						class="last"></textarea>
 			<label for="form-description"><i class="fa fa-quote-left"></i></label>
 		</div>
 	</fieldset>

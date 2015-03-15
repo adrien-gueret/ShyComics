@@ -1,0 +1,208 @@
+{
+  "global": {
+    "default_page_title": "Shy'Comics",
+    "default_page_description": "The reference for Sprite Comics!",
+    "db_connection_error": "Cannot connect to the database: information not found.",
+    "langs": {
+      "fr_FR": "French",
+      "en_US": "English"
+    }
+  },
+  "about": {
+    "page_title": "About",
+    "page_description": "You're lost on Shy'Comics? You don't know what a Sprite Comic is? Learn everything you need to know!",
+    "title_what_is_shycomics": "What is Shy'Comics?",
+    "desc_what_is_shycomics": "TODO: Lorem ipsum dolor sit amet, consectetur adipisicing elit",
+    "title_what_is_spritecomic": "What is a <em>Sprite Comic</em>?",
+    "desc_what_is_spritecomic": "TODO: Lorem ipsum dolor sit amet, consectetur adipisicing elit",
+    "title_lets_go": "Your turn now!",
+    "desc_lets_go_1": "You can now visit <a href=\"{{base_url}}spritecomics\">our members galleries</a> to read their<em>Sprite Comics</em>.",
+    "desc_lets_go_2": "Are you the creative kind? Or do you only want to be a part of our community? Don't be afraid to <a href=\"{{base_url}}login/register\">sign up</a> and share your creations!"
+  },
+
+  "friends": {
+    "page_title": "Friends Management",
+    "page_description": "Organize your friends list and follow their activity on Shy'Comics.",
+    "title": "Friends list",
+    "no_friends": {
+      "flash_message": "You have no friends!",
+      "go_add_friends": "Browse our memberlist and add them as friends to see them here!"
+    }
+  },
+  "index": {
+    "header": {
+      "register": "Sign Up",
+      "connect": "Log In",
+      "welcome_name": "Welcome %s",
+      "my_profile": "My profile",
+      "logout": "Log Out",
+      "register_yourself": "Sign up!",
+      "navigation": {
+        "spritecomics": "Sprite Comics",
+        "forum": "Forum",
+        "shyresources": "Shy'Resources",
+        "helpers": {
+          "facebook": "Become a fan on Facebook!",
+          "twitter": "Follow us on Twitter!",
+          "friends": "Manage your friends list",
+          "about": "About",
+          "home": "Home"
+        }
+      }
+    },
+    "index": {
+      "title_last_uploads": "Last uploads",
+      "desc_last_uploads": "TODO: Lorem ipsum dolor sit amet, consectetur adipisicing elit",
+      "title_lost": "You're lost?",
+      "desc_lost_1": "You don't know where to go? You don't even know what a <em>Sprite Comic</em> is?",
+      "desc_lost_2": "We invite you to visit <a href=\"{{base_url}}about\">the page \"About\"</a> to learn everything you need to know about <em>Sprite Comics</em> and Shy'Comics. You can also visit <a href=\"{{base_url}}spritecomics\">the galleries of our members</a> to read their creations <strong>for free</strong>!"
+    }
+  },
+  "login": {
+    "index": {
+      "page_title": "Log In",
+      "page_description": "Log in to participate in the life of our community!",
+      "title": "Log in!",
+      "desc": "You have a Shy’Comics account? Log in and share your <em>Sprite Comics</em>!",
+      "helpers": {
+        "username": "What is your username?",
+        "password": "And your password?"
+      },
+      "submit": "Log in!",
+      "no_account": "No account? <a href=\"{{base_url}}login/register\">Sign up!</a>"
+    },
+    "success": "Welcome back %s!",
+    "errors": {
+      "bad_credentials": "Your login information is incorrect.",
+      "empty_fields": "Please fill in all the information boxes."
+    },
+    "register": {
+      "page_title": "Sign Up",
+      "page_description": "Sign up to participate in the life of our community!",
+      "title": "Join us!",
+      "desc": "To sign up on Shy'Comics, it’s <strong>fast and easy</strong>: remplissez simplement le formulaire ci-dessous et le tour est joué !",
+      "helpers": {
+        "email": "What is your e-mail address?",
+        "username": "And your username?",
+        "password": "Choose a password.",
+        "lang": "Which language do you want to use?"
+      },
+      "submit": "Sign up!",
+      "has_account": "Already a member? <a href=\"{{base_url}}login\">Log in!</a>",
+      "errors": {
+        "empty_fields": "Please fill in all the information boxes.",
+        "bad_email": "Please enter a valid e-mail.",
+        "email_used": "The e-mail address <em>%s</em> is already in use."
+      }
+    },
+    "register_success": {
+      "flash_message": "Registration successful! !",
+      "desc_1": "Votre inscription a bien été prise en compte. Your registration has been confirmed.",
+      "desc_2": "For security purposes, we have sent a confirmation e-mail to the address you’ve given.(<b>{{email}}</b>).",
+      "desc_3": "Please click the validation link found in this e-mail to finalize your registration!",
+      "desc_4": "Si vous n'avez pas reçu d'e-mails, merci de vérifier votre boite de spams, il s'y trouve sûrement ;)"
+    },
+    "mail_confirm": {
+      "subject": "Your registration on Shy’Comics!",
+      "message": "Vous vous êtes inscrit avec succès sur <b>Shy'Comics</b> !<br />Veuillez cliquer sur le lien ci-dessous pour valider votre inscription :"
+    },
+    "verify_account": {
+      "success": "Your account is now validated!<br />Note that you’ve been automatically logged in.",
+      "errors": {
+        "empty_data": "Some information is missing, you may not access this page.",
+        "bad_data": "Incorrect information entered.",
+        "not_found": "The account to validate has not been found.",
+        "cant_valid": "It seems your account has already been validated."
+      }
+    }
+  },
+  "logout": {
+    "success": "Vous vous êtes correctement déconnecté. A très bientôt ! You have successfully logged out. See you later!",
+    "error": "Your attempt to log out has failed."
+  },
+  "profile": {
+    "index": {
+      "page_title": "Profil de %s",
+      "page_description": "Consult this profile and read this member’s sprite comics!",
+      "title": "Profile of %s",
+      "go_to_gallery": "Go to his or her gallery."
+    }
+  },
+  "spritecomics": {
+    "index": {
+      "page_title": "Sprite Comics",
+      "page_description": "Search for and read our member’s wide range of Sprite Comics!",
+      "title": "Sprite Comics",
+      "desc": "Search for <em>Sprite Comics</em> to read based on your own tastes.",
+      "submit": "Search"
+    },
+    "gallery": {
+      "page_title": "Gallery of %s",
+      "page_description": "Discover the gallery of %s and read all of his or her Sprite Comics!",
+      "own_gallery_title": "Your gallery",
+      "other_gallery_title": "Gallery of %s",
+      "add": {
+        "title": "Add a document to this file",
+        "desc": "Utilisez le formulaire ci-dessous pour ajouter du contenu à ce dossier.",
+        "type_of_doc": {
+          "title": "What do you want to add?",
+          "image": "A SC page",
+          "folder": "Un sous-dossier"
+        },
+        "helpers": {
+          "doc_name": "Nom du document",
+          "description": "Une petite description ? (facultatif)"
+        },
+        "file_selection": "Sélectionnez votre fichier",
+        "submit": "Confirmer l'ajout",
+        "success": "Le document a bien été ajouté !",
+        "errors": {
+          "empty_name": "Veuillez indiquer un nom à votre document.",
+          "empty_thumbnail": "La miniature de votre planche n'a pas pu être récupérée.",
+          "file_too_big": "Le fichier est trop gros : il dépasse la limite de taille imposée.",
+          "bad_upload": "Le fichier n'a pas été uploadé correctement sur notre serveur.",
+          "bad_type": "Le fichier n'a pas été enregistré car son type n'est pas autorisé.",
+          "unknown": "Une erreur inconnue est survenue lors de la sauvegarde du fichier.",
+          "thumb": "Une erreur est survenue lors de l'enregistrement de la miniature.",
+          "parent_not_found": "Le dossier où créer le nouveau document ne semble pas exister.",
+          "forbidden": "Vous ne pouvez pas ajouter de contenu dans ce dossier."
+        }
+      },
+      "empty": "Ce dossier est vide.",
+      "details": {
+        "default_page_title": "Document sans nom",
+        "not_found": "Ce document n'existe pas."
+      }
+    },
+    "delete": {
+      "success": "Le document a été correctement supprimé.",
+      "errors": {
+        "not_found_in_db": "Le document à supprimer n'existe pas.",
+        "forbidden": "Vous n'avez pas les permissions nécessaires pour supprimer ce document.",
+        "not_found": "Le document n'a pas pu être trouvé. Veuillez réessayer ou prévenir un administrateur.",
+        "unlink_failed": "Erreur lors de la suppresion du document. Veuillez réessayer ou prévenir un administrateur.",
+        "thumb_not_found": "La miniature de la planche n'a pas été trouvée. Veuillez réessayer ou prévenir un administrateur.",
+        "thumb_unlink_failed": "Erreur lors de la suppresion de la miniature de la planche. Veuillez réessayer ou prévenir un administrateur."
+      }
+    },
+    "like": {
+      "success": "Your <em>like</em> has been saved.",
+      "errors": {
+        "not_found": "La planche que vous cherchez à aimer est introuvable.",
+        "already_like": "Vous aimé déjà cette planche.",
+        "own_file": "Vous ne pouvez pas aimer vos propres planches."
+      }
+    }
+  },
+  "errors": {
+    "title": "Erreur %d",
+    "wild_error_desc": "A wild <b>error %d</b> appears!",
+    "escape": "You’re trying to flee! But where to?",
+    "forum": "FORUM",
+    "site": "SITE",
+    "global": {
+      "need_connection": "You have to be logged in to perform this action.",
+      "member_not_found": "This member does not seem to exist."
+    }
+  }
+}

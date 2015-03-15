@@ -1,7 +1,7 @@
 <?php
 	class Library_i18n
 	{
-		const	DEFAULT_LANG	=	'fr_FR',
+		const	DEFAULT_LOCALE	=	'fr_FR',
 
 				LABEL_NONE		=	'none',
 				LABEL_ONE		=	'one',
@@ -14,7 +14,7 @@
 		];
 
 		protected static $_cached_fields	=	[];
-		protected static $_lang				=	self::DEFAULT_LANG;
+		protected static $_locale			=	self::DEFAULT_LOCALE;
 
 		protected static function _getPluralizationValue(Array $i18n_value, $total_variable)
 		{
@@ -59,7 +59,7 @@
 			return isset(self::$_SUPPORTED_LANGUAGES[$main_lang]) ? self::$_SUPPORTED_LANGUAGES[$main_lang] : null;
 		}
 
-		public static function defineLang(Model_Users $user)
+		public static function defineLocale(Model_Users $user)
 		{
 			$lang	=	null;
 
@@ -71,7 +71,17 @@
 			if( ! in_array($lang, self::$_SUPPORTED_LANGUAGES))
 				$lang	=	null;
 
-			self::$_lang	=	$lang ?: self::DEFAULT_LANG;
+			self::$_locale	=	$lang ?: self::DEFAULT_LOCALE;
+		}
+
+		public static function getLocale()
+		{
+			return self::$_locale;
+		}
+
+		public static function setLocale($locale)
+		{
+			self::$_locale	=	$locale;
 		}
 
 		public static function get($field, $variables = null)
@@ -80,13 +90,15 @@
 			$main_field		=	array_shift($segments);
 			$is_complete	=	true;
 
-			if( ! isset(self::$_cached_fields[$main_field]))
+			$cache_key		=	self::$_locale.':'.$main_field;
+
+			if( ! isset(self::$_cached_fields[$cache_key]))
 			{
-				$config	=	\Eliya\Config('i18n/'.self::$_lang);
-				self::$_cached_fields[$main_field]	=	$config->$main_field;
+				$config	=	\Eliya\Config('i18n/'.self::$_locale);
+				self::$_cached_fields[$cache_key]	=	$config->$main_field;
 			}
 
-			$value	=	self::$_cached_fields[$main_field];
+			$value	=	self::$_cached_fields[$cache_key];
 
 			if(empty($value))
 				return $field;
