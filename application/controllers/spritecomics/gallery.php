@@ -126,11 +126,20 @@
 
 				if($is_own_gallery || $can_remove_other_files)
 					$tpl_delete	=	\Eliya\Tpl::get('spritecomics/gallery/delete', ['id_to_delete' => $document->getId()]);
-				if($this->_current_member->isConnected() && ! $this->_current_member->equals($owner))
+				if($this->_current_member->isConnected())
 				{
-					$tpl_like = \Eliya\Tpl::get('spritecomics/gallery/details/like', [
-						'has_liked'	=>	$has_liked,
-						'id_file'	=>	$document->prop('id')
+					if(! $this->_current_member->equals($owner))
+					{
+						$tpl_like = \Eliya\Tpl::get('spritecomics/gallery/details/like', [
+							'has_liked'	=>	$has_liked,
+							'id_file'	=>	$document->prop('id')
+						]);
+					}
+					
+					$comments = $document->getComments();
+					$tpl_comment = \Eliya\Tpl::get('spritecomics/gallery/details/comment', [
+						'id_file'	=>	$document->prop('id'),
+					'comments'		=>	$comments->getArray(),
 					]);
 				}
 
@@ -138,6 +147,7 @@
 					'file'			=>	$document,
 					'tpl_delete'	=>	$tpl_delete,
 					'tpl_like'		=>	$tpl_like,
+					'tpl_comment'	=>	$tpl_comment,
 				]);
 			}
 			
