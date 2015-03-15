@@ -56,8 +56,6 @@
 
 			if(empty($name))
 				Library_Messages::add(Library_i18n::get('spritecomics.gallery.add.errors.empty_name'));
-			else if(empty($thumbnail_data_url))
-				Library_Messages::add(Library_i18n::get('spritecomics.gallery.add.errors.empty_thumbnail'));
 			else
 			{
 				if($is_dir)
@@ -66,13 +64,18 @@
 					$success	=	true;
 				}
 				else
-					$success	=	$this->_newFile($thumbnail_data_url, $name, $description, $parent);
+				{
+					if(empty($thumbnail_data_url))
+						Library_Messages::add(Library_i18n::get('spritecomics.gallery.add.errors.empty_thumbnail'));
+					else
+						$success	=	$this->_newFile($thumbnail_data_url, $name, $description, $parent);
+				}
 			}
 
 			if( ! $success)
 			{
 				if(empty($parent_file_id))
-					$this->get_index();
+					$this->get_index($this->_current_member->getId());
 				else
 					$this->get_details($parent_file_id);
 			}
