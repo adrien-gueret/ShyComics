@@ -135,13 +135,13 @@
 					{
 						$tpl_like = \Eliya\Tpl::get('spritecomics/gallery/details/like', [
 							'has_liked'	=>	$has_liked,
-							'id_file'	=>	$document->prop('id')
+							'id_file'	=>	$document->getId(),
 						]);
 					}
 					
 					$comments = $document->getComments();
 					$tpl_comment = \Eliya\Tpl::get('spritecomics/gallery/details/comment', [
-						'id_file'	=>	$document->prop('id'),
+						'id_file'	=>	$document->getId(),
 					'comments'		=>	$comments->getArray(),
 					]);
 				}

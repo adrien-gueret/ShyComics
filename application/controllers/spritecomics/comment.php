@@ -9,7 +9,7 @@
 				return;
 			}
 
-			$file = Model_Files::getById(intval($id_file));
+			$file = Model_Files::getById($id_file);
 			
 			if(empty($file))
 			{
@@ -17,9 +17,11 @@
 				return;
 			}
 
-			$comment = new Model_Comments($this->_current_member, htmlspecialchars($content), $file);
+			$comment = new Model_Comments($this->_current_member, $content, $file);
 			Model_Comments::add($comment);
-
+			
+			Library_Messages::store(Library_i18n::get('spritecomics.gallery.comments.success'), Library_Messages::TYPE_SUCCESS);
+			
 			$redirect_url	=	$this->request->getBaseURL().'spritecomics/gallery/details/' . $file->getId();
 			$this->response->redirect($redirect_url);
 		}

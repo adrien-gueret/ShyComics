@@ -9,7 +9,7 @@
 		
 		const	COMMENT_SUCCESS = 1;
 
-		public function __construct($user = null, $content = null, $file = null)
+		public function __construct(Model_Users $user = null, $content = null, Model_Files $file = null)
 		{
 			$this->user = $user;
 			$this->content = $content;

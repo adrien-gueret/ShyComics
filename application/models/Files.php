@@ -199,8 +199,7 @@
 		public function getComments()
 		{
 			$request = Model_Comments::createRequest();
-			$results = $request->select('*')
-							   ->where('file.id=?', [$this->getId()])
+			$results = $request->where('file.id=?', [$this->getId()])
 							   ->exec();
 			return $results;
 		}

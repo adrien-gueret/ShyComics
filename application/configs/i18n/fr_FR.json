@@ -3,7 +3,6 @@
       "default_page_title": "Shy'Comics",
       "default_page_description": "La référence en Sprites Comics !",
       "db_connection_error": "Impossible de se connecter à la base de données : informations introuvables.",
-	  "send": "Envoyer",
       "langs": {
         "fr_FR": "Français",
         "en_US": "Anglais"
@@ -172,6 +171,17 @@
         "details": {
           "default_page_title": "Document sans nom",
           "not_found": "Ce document n'existe pas."
+        },
+        "comments": {
+		  "send": "Envoyer le commentaire",
+		  "none" : "Cette planche n'a reçu aucun commentaire. Soyez le premier à la commenter !",
+          "success": "Le commentaire a bien été envoyé !",
+		  "helpers" : {
+		    "description": "Commenter cette planche :"
+		  },
+		  "errors": {
+		    "not_found": "La planche que vous cherchez à commenter est introuvable."
+          }
         }
       },
       "delete": {
@@ -192,16 +202,7 @@
           "already_like": "Vous aimé déjà cette planche.",
           "own_file": "Vous ne pouvez pas aimer vos propres planches."
         }
-      },
-	  "comment": {
-		"helpers" : {
-			"presentation": "Commenter cette planche :"
-		},
-        "errors": {
-          "not_found": "La planche que vous cherchez à commenter est introuvable.",
-		  "none" : "Cette planche n'a reçu aucun commentaire. Soyez le premier à la commenter !"
-        }
-	  }
+      }
     },
     "errors": {
       "title": "Erreur %d",
