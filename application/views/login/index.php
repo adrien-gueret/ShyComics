@@ -13,7 +13,8 @@
 				   type="text"
 				   required
 				   id="form-username"
-				   name="username" />
+				   name="username"
+				   class="first"/>
 			<label for="form-username"><i class="fa fa-user"></i></label>
 
 			<span class="separator"></span>
@@ -22,7 +23,8 @@
 				   type="password"
 				   required
 				   id="form-pass"
-				   name="password" />
+				   name="password"
+				   class="last"/>
 			<label for="form-pass"><i class="fa fa-lock"></i></label>
 		</div>
 	</fieldset>

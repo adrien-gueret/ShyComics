@@ -13,7 +13,8 @@
 				   type="email"
 				   required
 				   id="form-email"
-				   name="email" />
+				   name="email"
+				   class="first" />
 			<label for="form-email"><i class="fa fa-envelope"></i></label>
 
 			<span class="separator"></span>
@@ -31,8 +32,19 @@
 				   type="password"
 				   required
 				   id="form-pass"
-				   name="password" />
+				   name="password"
+				   class="last" />
 			<label for="form-pass"><i class="fa fa-lock"></i></label>
+
+			<label class="label-full-line" for="form-locale"><?= Library_i18n::get('login.register.helpers.lang'); ?></label>
+			<p>
+				<select id="form-locale"
+						name="id_locale"
+						class="first last">
+					<?= $view->tpl_locales_options; ?>
+				</select>
+				<label for="form-locale"><i class="fa fa-flag"></i></label>
+			</p>
 		</div>
 	</fieldset>
 
