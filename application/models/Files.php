@@ -139,6 +139,16 @@
 
 				//And remove its thumbnail
 				$path	=	$this->getThumbPath();
+				
+				//Remove likes
+				$this->liked_users = [];
+				Model_Files::update($this);
+				
+				//And remove comments
+				$comments	=	$this->getComments();
+
+				foreach($comments as $comment)
+					Model_Comments::delete($comment);
 
 				if( ! is_file($path))
 					throw new Exception(Library_i18n::get('spritecomics.delete.errors.thumb_not_found'), 404);
@@ -198,6 +208,9 @@
 		
 		public function getComments()
 		{
+			if($this->is_dir)
+				return [];
+
 			$request = Model_Comments::createRequest();
 			$results = $request->where('file.id=?', [$this->getId()])
 							   ->exec();

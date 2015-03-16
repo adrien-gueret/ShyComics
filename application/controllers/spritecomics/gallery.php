@@ -142,7 +142,7 @@
 					$comments = $document->getComments();
 					$tpl_comment = \Eliya\Tpl::get('spritecomics/gallery/details/comment', [
 						'id_file'	=>	$document->getId(),
-					'comments'		=>	$comments->getArray(),
+						'comments'	=>	$comments->getArray(),
 					]);
 				}
 
