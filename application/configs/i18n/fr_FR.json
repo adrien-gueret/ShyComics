@@ -44,6 +44,7 @@
             "facebook": "Devenez fans sur Facebook !",
             "twitter": "Suivez-nous sur Twitter !",
             "friends": "Gérer votre liste d'amis",
+            "modify": "Gérer votre profil",
             "about": "A propos",
             "home": "Retour à l'accueil"
           }
@@ -125,7 +126,24 @@
         "page_description": "Consultez le profil de %s et lisez ses sprite comics !",
         "title": "Profil de %s",
         "go_to_gallery": "Accéder à sa galerie"
-      }
+      },
+      "modify": {
+        "page_title": "Modifer mon profil",
+        "page_description": "Modifiez votre profil.",
+        "title": "Modifier mon profil",
+        "avatar_actual": "Votre avatar actuel :",
+		"avatar_change": "Changer d'avatar :",
+		"avatar": {
+			"errors": {
+            "file_too_big": "Le fichier est trop gros : il dépasse la limite de taille imposée.",
+            "bad_upload": "Le fichier n'a pas été uploadé correctement sur notre serveur.",
+            "bad_type": "Le fichier n'a pas été enregistré car son type n'est pas autorisé.",
+            "unknown": "Une erreur inconnue est survenue lors de la sauvegarde du fichier."
+          },
+		  "success": "Votre avatar a bien été modifié"
+		}
+      },
+	  "submit": "Enregistrer les modifications"
     },
     "spritecomics": {
       "index": {
