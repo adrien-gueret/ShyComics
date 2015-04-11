@@ -20,6 +20,7 @@
 	Model_UsersGroups::createTable();
 	Model_Users::createTable();
 	Model_Files::createTable();
+	Model_Comments::createTable();
 	Model_FriendsRequests::createTable();
 
 	/*== Create data ==*/

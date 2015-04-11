@@ -18,7 +18,15 @@
 
 				LIKE_SUCCESS				=	1,
 				ERROR_LIKE_ALREADY_LIKE		=	2,
-				ERROR_LIKE_USER_IS_OWNER	=	3;
+				ERROR_LIKE_USER_IS_OWNER	=	3,
+				
+				WIDTH_LIMIT		=	130,
+				HEIGHT_LIMIT		=	150,
+
+				PROCESS_OK		=	1,
+			  	ERROR_SIZE		=	2,
+				ERROR_TYPE		=	3,
+				ERROR_SAVE		=	4;
 
 		public function __construct(
 			$username = null, $email = null, $password = null,
@@ -128,6 +136,23 @@
 			
 			return empty($files) ? [] : $files;
 		}
+		
+		public function getAvatarURL()
+		{
+			//On renvoit le chemin correspond si l'image est un .jpg, un .jpeg, un .png ou un .gif
+			$extensions = ['png', 'jpg', 'jpeg', 'gif'];
+			$base_path = 'public/users_files/avatars/' . $this->getId() . '.';
+
+			foreach($extensions as $extension)
+			{
+				$path = $base_path.$extension;
+
+				if(is_file($path))
+					return $path;
+			}
+
+			return 'public/users_files/avatars/default.png';
+		}
 
 		public function can($permission)
 		{
@@ -151,5 +176,31 @@
 			Model_Files::update($file);
 
 			return self::LIKE_SUCCESS;
+		}
+		
+		public function changeAvatar(Array $fileData)
+		{
+			list($width, $height) = getimagesize($fileData['tmp_name']);
+			
+			if($width > self::WIDTH_LIMIT || $height > self::HEIGHT_LIMIT)
+				return self::ERROR_SIZE;
+
+			$infosfile			=	pathinfo($fileData['name']);
+			$extension_upload	=	strtolower($infosfile['extension']);
+			$extensions_granted	=	['jpg', 'jpeg', 'gif', 'png'];
+
+			if( ! in_array($extension_upload, $extensions_granted))
+			{
+				return self::ERROR_TYPE;
+			}
+
+			$url_file	=	'public/users_files/avatars/' . $this->getId() . '.' . $extension_upload;
+
+			if( ! move_uploaded_file($fileData['tmp_name'], $url_file))
+			{
+				return self::ERROR_SAVE;
+			}
+
+			return self::PROCESS_OK;
 		}
 	}
