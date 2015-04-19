@@ -65,7 +65,7 @@
 			<ul>
 				<?php if($view->current_member->isConnected()): ?>
 					<li>
-						<a href="<?= $view->base_url; ?>friends" class="leftnav_button" title="<?= Library_i18n::get('index.header.navigation.helpers.friends'); ?>">
+						<a href="<?= $view->base_url; ?>follows" class="leftnav_button" title="<?= Library_i18n::get('index.header.navigation.helpers.follows'); ?>">
 							<i class="fa fa-users"></i>
 						</a>
 					</li>

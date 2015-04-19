@@ -7,5 +7,6 @@
 		public function get_index()
 		{
 			$this->response->set(\Eliya\Tpl::get('index/index'));
+			Model_Users::updateTable();
 		}
 	}
