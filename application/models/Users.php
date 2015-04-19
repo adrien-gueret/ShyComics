@@ -40,7 +40,7 @@
 			$this->password = Library_String::hash($password);
 			$this->locale_website = $locale_website ?: Model_Locales::getById(self::DEFAULT_LOCALE_WEBSITE_ID);
 			$this->user_group = $user_group ?: Model_UsersGroups::getById(self::DEFAULT_USERS_GROUP_ID);
-			$this->friends = [];
+			$this->follows = [];
 			$this->locales_comics = [];
 		}
 		
@@ -54,7 +54,7 @@
 				'date_subscription' => 'DATETIME',
 				'user_group' => 'Model_UsersGroups',
 				'locale_website' => 'Model_Locales',
-				'friends' => array('Model_Users'),
+				'follows' => array('Model_Users'),
 				'locales_comics' => array('Model_Locales'),
 			];
 		}

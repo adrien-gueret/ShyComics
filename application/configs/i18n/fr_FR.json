@@ -19,13 +19,13 @@
       "desc_lets_go_1": "Vous pouvez dès à présent consulter <a href=\"{{base_url}}spritecomics\">les galeries de nos membres</a> afin de lire leurs <em>sprite comics</em>.",
       "desc_lets_go_2": "Vous avez l'âme d'un artiste ? Ou vous souhaitez simplement participer à notre communauté ? N'hésitez pas à <a href=\"{{base_url}}login/register\">vous incrire</a> et à publier vos propres créations !"
     },
-    "friends": {
-      "page_title": "Gestion des amis",
-      "page_description": "Gérez votre liste d'amis et découvrez leurs activités sur Shy'Comics.",
-      "title": "Liste de vos amis",
-      "no_friends": {
-        "flash_message": "Vous n'avez aucun ami !",
-        "go_add_friends": "Parcourez la liste de nos membres et ajoutez-les en tant qu'amis pour les voir ici !"
+    "follows": {
+      "page_title": "Gestion des membres suivis",
+      "page_description": "Gérez la liste des membres que vous suivez et soyez informé de leurs activités sur Shy'Comics.",
+      "title": "Liste des membres que vous suivez",
+      "no_follows": {
+        "flash_message": "Vous n'avez aucun mebre à suivre !",
+        "go_add_follows": "Parcourez la liste de nos membres et ajoutez-les en tant que membres à suivre pour les voir ici !"
       }
     },
     "index": {
@@ -43,7 +43,7 @@
           "helpers": {
             "facebook": "Devenez fans sur Facebook !",
             "twitter": "Suivez-nous sur Twitter !",
-            "friends": "Gérer votre liste d'amis",
+            "follows": "Gérer votre liste de membres suivis",
             "modify": "Gérer votre profil",
             "about": "A propos",
             "home": "Retour à l'accueil"
