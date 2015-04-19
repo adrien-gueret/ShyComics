@@ -24,7 +24,7 @@
       "page_description": "Gérez la liste des membres que vous suivez et soyez informé de leurs activités sur Shy'Comics.",
       "title": "Liste des membres que vous suivez",
       "no_follows": {
-        "flash_message": "Vous n'avez aucun mebre à suivre !",
+        "flash_message": "Vous n'avez aucun membre à suivre !",
         "go_add_follows": "Parcourez la liste de nos membres et ajoutez-les en tant que membres à suivre pour les voir ici !"
       }
     },
