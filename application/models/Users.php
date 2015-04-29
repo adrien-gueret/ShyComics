@@ -27,6 +27,7 @@
 			  	ERROR_SIZE		=	2,
 				ERROR_TYPE		=	3,
 				ERROR_SAVE		=	4;
+				
 
 		public function __construct(
 			$username = null, $email = null, $password = null,
@@ -202,5 +203,32 @@
 			}
 
 			return self::PROCESS_OK;
+		}
+
+		public function isFollowedByUser(Model_Users $user)
+		{
+			$follows	=	$user->load('follows');
+
+			return $follows->hasEntity($this);
+		}
+		
+		public function follow(Model_Users $user)
+		{
+			if( ! $user->isFollowedByUser($this) && ! $this->equals($user))
+			{
+				$this->load('follows')->push($user);
+				
+				Model_Users::update($this);
+			}
+		}
+		
+		public function unfollow(Model_Users $user)
+		{
+			if($user->isFollowedByUser($this))
+			{
+				$this->load('follows')->remove($user);
+				
+				Model_Users::update($this);
+			}
 		}
 	}

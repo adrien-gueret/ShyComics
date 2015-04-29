@@ -2,5 +2,6 @@
 <p>
 	<a href="<?= $view->base_url; ?>spritecomics/gallery/<?= $view->user_id ?>">
 		<?= Library_i18n::get('profile.index.go_to_gallery'); ?>
-	</a>
+	</a><br />
+	<?= $view->tpl_follow; ?>
 </p>
