@@ -145,8 +145,8 @@
       },
 	  "submit": "Enregistrer les modifications",
 	  "follow": {
-        "buttonFollow": "Suivre ce membre",
-        "buttonUnfollow": "Ne plus suivre ce membre"
+        "buttonFollow": "Suivre cet auteur",
+        "buttonUnfollow": "Ne plus suivre cet auteur"
 	  }
     },
     "spritecomics": {

@@ -3,7 +3,7 @@
 	{
 		use Trait_checkIdUser;
 
-		public function get_index($id_user = null)
+		public function post_index($id_user = null)
 		{
 			$member	=	Model_Users::getById($id_user);
 			$redirect_url	=	$this->request->getBaseURL().'profile/'.$member->getId();
@@ -16,7 +16,7 @@
 			$this->response->redirect($redirect_url, 200);
 		}
 
-		public function get_unfollow($id_user = null)
+		public function post_unfollow($id_user = null)
 		{
 			$member	=	Model_Users::getById($id_user);
 			$redirect_url	=	$this->request->getBaseURL().'profile/'.$member->getId();

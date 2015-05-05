@@ -10,7 +10,7 @@
 		  	"spritecomics/gallery/details/([0-9]+)" : ["spritecomics_gallery", "details", "id_document"],
 			"profile/([0-9]+)" : ["profile_index", "index", "id_user"],
 			"profile/follow/([0-9]+)" : ["profile_follow", "index", "id_user"],
-			"profile/follow/unfollow([0-9]+)" : ["profile_follow", "unfollow", "id_user"]
+			"profile/follow/unfollow/([0-9]+)" : ["profile_follow", "unfollow", "id_user"]
 		}
 	},
 	"SQL" : {

@@ -1,5 +1,5 @@
 <?php if( ! $view->has_followed): ?>
-	<a href="<?= $view->base_url; ?>profile/follow/<?= $view->user_id; ?>"><button class="orange"><?= Library_i18n::get('profile.follow.buttonFollow'); ?></button></a>
+	<form action="<?= $view->base_url; ?>profile/follow/<?= $view->user_id; ?>" method="post"><button type="submit" class="orange"><?= Library_i18n::get('profile.follow.buttonFollow'); ?></button></form>
 <?php else: ?>
-	<a href="<?= $view->base_url; ?>profile/follow/unfollow<?= $view->user_id; ?>"><button class="orange"><?= Library_i18n::get('profile.follow.buttonUnfollow'); ?></button></a>
+	<form action="<?= $view->base_url; ?>profile/follow/unfollow/<?= $view->user_id; ?>" method="post"><button type="submit" class="orange"><?= Library_i18n::get('profile.follow.buttonUnfollow'); ?></button></form>
 <?php endif; ?>
