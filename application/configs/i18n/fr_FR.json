@@ -143,7 +143,11 @@
 		  "success": "Votre avatar a bien été modifié"
 		}
       },
-	  "submit": "Enregistrer les modifications"
+	  "submit": "Enregistrer les modifications",
+	  "follow": {
+        "buttonFollow": "Suivre cet auteur",
+        "buttonUnfollow": "Ne plus suivre cet auteur"
+	  }
     },
     "spritecomics": {
       "index": {
