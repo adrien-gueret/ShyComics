@@ -10,5 +10,6 @@ Lancer le site en local
 * Renommer /application/configs/main.json.default en main.json
 * Modifier le main.json pour votre configuration
 * créer le dossier /public/users_files/avatars
+* créer le dossier /public/users_files/galleries
 * Activer le module Appache rewrite module
 * Allez sur http://localhost/ShyComicsReturns/ 
