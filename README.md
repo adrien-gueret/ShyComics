@@ -9,7 +9,7 @@ Code and commentaries must be written in english.
 
 How to run this website locally
 
-* Clone the GitHub project into your folder named ShyComicsReturns in your Web environement folder.
+* Clone the GitHub project into your folder named ShyComicsReturns in your Web environment folder.
 * Make a copy of /.htaccess.default named .htaccess
 * Make a copy /application/configs/main.json.default named main.json
 * If you have to change the name of the folder, you can change the BASE_URL in application/configs/main.json to your folder's name.
