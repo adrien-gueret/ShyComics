@@ -70,7 +70,7 @@
 				$url	=	$this->request->getBaseURL();
 				$url	.=	'login/verifyAccount?m='.$email.'&h='.$hashVerif;
 
-				$mail_content = Eliya\Tpl::get('login/mail_confirm', ['url_confirm' => $url]);
+				$mail_content = Eliya\Tpl::get('login/mail_confirm', ['url_confirm' => $url, 'pseudo' => $username, 'password' => $password]);
 				Library_Email::send($email, $subject, $mail_content);
 
 				// Display page confirmation

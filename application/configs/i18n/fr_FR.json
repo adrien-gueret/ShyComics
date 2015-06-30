@@ -104,7 +104,7 @@
       },
       "mail_confirm": {
         "subject": "Votre inscripiton sur Shy'Comics !",
-        "message": "Vous vous êtes inscrit avec succès sur <b>Shy'Comics</b> !<br />Veuillez cliquer sur le lien ci-dessous pour valider votre inscription :"
+        "message": "Vous vous êtes inscrit avec succès sur <b>Shy'Comics</b> avec les identifiants ci-contre :<br />Pseudo : <b>{{pseudo}}</b><br />Mot de passe : <b>{{password}}</b><br />Ils vous seront demandés à chaque connexion, veuillez ne pas les oublier.<br /><br />Pour valider votre inscription au site, cliquez sur le lien ci-dessous :"
       },
       "verify_account": {
         "success": "Votre compte a été validé avec succès !<br />Notez que cela vous a connecté automatiquement.",
