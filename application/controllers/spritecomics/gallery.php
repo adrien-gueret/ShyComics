@@ -23,7 +23,7 @@
 			$this->response->set(Library_Gallery::getFolderTemplate($member, null, $is_own_gallery));
 		}
 
-		public function post_index($name = null, $description = null, $parent_file_id = null, $is_dir = 1, $thumbnail_data_url = null)
+		public function post_index($name = null, $description = null, $parent_file_id = null, $is_dir = 1, $thumbnail_data_url = null, $universe_id = 0, $genre_id = 0)
 		{
 			if( ! $this->_current_member->isConnected())
 			{
@@ -51,16 +51,19 @@
 					return;
 				}
 			}
-
+			
 			$success	=	false;
-
+			
+			$universe = Model_Universes::getById(intval($universe_id));
+			$genre = Model_Genres::getById(intval($genre_id));
+			
 			if(empty($name))
 				Library_Messages::add(Library_i18n::get('spritecomics.gallery.add.errors.empty_name'));
 			else
 			{
 				if($is_dir)
 				{
-					Model_Files::addFolder($this->_current_member, $name, $description, $parent);
+					Model_Files::addFolder($this->_current_member, $name, $description, $parent, $universe, $genre);
 					$success	=	true;
 				}
 				else
@@ -68,7 +71,7 @@
 					if(empty($thumbnail_data_url))
 						Library_Messages::add(Library_i18n::get('spritecomics.gallery.add.errors.empty_thumbnail'));
 					else
-						$success	=	$this->_newFile($thumbnail_data_url, $name, $description, $parent);
+						$success	=	$this->_newFile($thumbnail_data_url, $name, $description, $parent, $universe, $genre);
 				}
 			}
 
@@ -95,6 +98,8 @@
 		public function get_details($id_document = null)
 		{
 			$document = Model_Files::getById($id_document);
+			$universe = $document->prop('universe')->prop('name');
+			$genre = $document->prop('genre')->prop('name');
 
 			if(empty($document))
 			{
@@ -151,13 +156,15 @@
 					'tpl_delete'	=>	$tpl_delete,
 					'tpl_like'		=>	$tpl_like,
 					'tpl_comment'	=>	$tpl_comment,
+					'universe'		=>	$universe,
+					'genre'			=>	$genre,
 				]);
 			}
 			
 			$this->response->set($template);
 		}
 
-		protected function _newFile($thumbnail_data_url, $name, $description = null, Model_Files $parent = null)
+		protected function _newFile($thumbnail_data_url, $name, $description = null, Model_Files $parent = null, Model_Universes $universe = null, Model_Genres $genre = null)
 		{
 			if( ! isset($_FILES['file']) || $_FILES['file']['error'] != 0)
 			{
@@ -167,7 +174,7 @@
 
 			$upload_error	=	true;
 
-			switch(Model_Files::addFile($this->_current_member, $_FILES['file'], $thumbnail_data_url, $name, $description, $parent))
+			switch(Model_Files::addFile($this->_current_member, $_FILES['file'], $thumbnail_data_url, $name, $description, $parent, $universe, $genre))
 			{
 				case Model_Files::ERROR_SIZE:
 					Library_Messages::add(Library_i18n::get('spritecomics.gallery.add.errors.file_too_big'));

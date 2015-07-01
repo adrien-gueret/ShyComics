@@ -14,11 +14,15 @@
 			  	ERROR_SIZE		=	2,
 				ERROR_TYPE		=	3,
 				ERROR_SAVE		=	4,
-				ERROR_THUMB		=	5;
+				ERROR_THUMB		=	5,
+				
+				DEFAULT_UNIVERSE_ID = 1,
+				DEFAULT_GENRE_ID = 1;
+				
 		
 		protected static $table_name = 'files';
 		
-		public function __construct($name = null, $description = null, $is_dir = null, $user = null, $parent_file = null)
+		public function __construct($name = null, $description = null, $is_dir = null, $user = null, $parent_file = null, $universe = null, $genre = null)
 		{
 			$this->name = $name;
 			$this->description = $description;
@@ -26,6 +30,8 @@
 			$this->user = $user;
 			$this->parent_file = $parent_file;
 			$this->liked_users = [];
+			$this->universe = $universe ?: Model_Universes::getById(self::DEFAULT_UNIVERSE_ID);
+			$this->genre = $genre ?: Model_Genres::getById(self::DEFAULT_GENRE_ID);
 		}
 		
 		public static function __structure()
@@ -37,6 +43,8 @@
 				'parent_file' => 'Model_Files',
 				'user' => 'Model_Users',
 				'liked_users' => ['Model_Users'],
+				'universe' => 'Model_Universes',
+				'genre' => 'Model_Genres',
 			];
 		}
 		

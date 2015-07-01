@@ -48,6 +48,22 @@
 			<input type="hidden" name="thumbnail_data_url" id="thumbnail-data-url" value="" />
 		</p>
 	</fieldset>
+	
+	<fieldset>
+		<legend><i class="fa fa-tags"></i></legend>
+
+		<div class="group-inputs">
+			<label for="form-universe" class="label-text"><?= Library_i18n::get('spritecomics.gallery.add.universe_selection'); ?></label>
+			<select id="form-universe" name="universe_id">
+				<?= $view->option_universes; ?>
+			</select>
+			<br />
+			<label for="form-genre" class="label-text"><?= Library_i18n::get('spritecomics.gallery.add.genre_selection'); ?></label>
+			<select id="form-genre" name="genre_id">
+				<?= $view->option_genres; ?>
+			</select>
+		</div>
+	</fieldset>
 	<p>
 		<?php if( ! empty($view->parent_file_id)) :?>
 			<input type="hidden" name="parent_file_id" value="<?= $view->parent_file_id; ?>" />

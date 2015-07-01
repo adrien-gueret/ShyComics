@@ -21,6 +21,8 @@
 	Model_Users::createTable();
 	Model_Files::createTable();
 	Model_Comments::createTable();
+	Model_Universes::createTable();
+	Model_Genres::createTable();
 
 	/*== Create data ==*/
 
