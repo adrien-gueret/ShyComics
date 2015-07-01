@@ -32,15 +32,16 @@
 			}
 		}
 		
-		public function post_index($username = null, $password = null, $email = null, $id_locale = 0)
+		public function post_index($username = null, $password = null, $passwordConfirm = null, $email = null, $id_locale = 0)
 		{
-			$username	=	trim($username);
-			$password	=	trim($password);
-			$email	=	trim($email);
+			$username			=	trim($username);
+			$password			=	trim($password);
+			$passwordConfirm	=	trim($passwordConfirm);
+			$email				=	trim($email);
 
 			try
 			{
-				if(empty($username) || empty($password) || empty($email) || empty($id_locale))
+				if(empty($username) || empty($password) || empty($email) || empty($id_locale) || empty($passwordConfirm))
 					throw new Exception(Library_i18n::get('login.register.errors.empty_fields'));
 
 				$locale	=	Model_Locales::getById($id_locale);
@@ -58,6 +59,9 @@
 
 				if( ! empty($existingMember))
 					throw new Exception(Library_i18n::get('login.register.errors.email_used', $email));
+				
+				if($passwordConfirm !== $password)
+					throw new Exception(Library_i18n::get('login.register.errors.not_same_password'));
 
 				// Date filtered: we can now save new user in database
 				$user = new Model_Users($username, $email, $password, $locale);

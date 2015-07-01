@@ -32,9 +32,18 @@
 				   type="password"
 				   required
 				   id="form-pass"
-				   name="password"
-				   class="last" />
+				   name="password" />
 			<label for="form-pass"><i class="fa fa-lock"></i></label>
+
+			<span class="separator"></span>
+
+			<input placeholder="<?= Library_i18n::get('login.register.helpers.passwordConfirm'); ?>"
+				   type="password"
+				   required
+				   id="form-pass-conf"
+				   name="passwordConfirm"
+				   class="last" />
+			<label for="form-pass-conf"><i class="fa fa-lock"></i></label>
 
 			<label class="label-full-line" for="form-locale"><?= Library_i18n::get('login.register.helpers.lang'); ?></label>
 			<p>
