@@ -21,8 +21,7 @@
 	Model_Users::createTable();
 	Model_Files::createTable();
 	Model_Comments::createTable();
-	Model_Universes::createTable();
-	Model_Genres::createTable();
+	Model_Tags::createTable();
 
 	/*== Create data ==*/
 
@@ -32,13 +31,6 @@
 		new Model_Locales('en_US')
 	];
 	Model_Locales::addMultiple($locales);
-
-	//Default universe and genre
-	$universe = new Model_Universes('Aucun/Autre');
-	$genre = new Model_Genres('Inconnu/Autre');
-	
-	Model_Universes::add($universe);
-	Model_Genres::add($genre);
 	
 	// Users groups
 	$groups	=	[

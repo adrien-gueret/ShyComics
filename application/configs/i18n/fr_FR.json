@@ -174,11 +174,10 @@
           },
           "helpers": {
             "doc_name": "Nom du document",
-            "description": "Une petite description ? (facultatif)"
+            "description": "Une petite description ? (facultatif)",
+		    "tags": "Liez des tags à votre document"
           },
           "file_selection": "Sélectionnez votre fichier",
-		  "universe_selection": "Sélectionnez l'univers :",
-		  "genre_selection": "Sélectionnez un genre :",
           "submit": "Confirmer l'ajout",
           "success": "Le document a bien été ajouté !",
           "errors": {

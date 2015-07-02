@@ -7,6 +7,7 @@
 		protected $user;
 		protected $parent_file;
 		protected $liked_users;
+		protected $tags;
 		
 		const 	SIZE_LIMIT		=	100000000,
 
@@ -14,15 +15,12 @@
 			  	ERROR_SIZE		=	2,
 				ERROR_TYPE		=	3,
 				ERROR_SAVE		=	4,
-				ERROR_THUMB		=	5,
-				
-				DEFAULT_UNIVERSE_ID = 1,
-				DEFAULT_GENRE_ID = 1;
+				ERROR_THUMB		=	5;
 				
 		
 		protected static $table_name = 'files';
 		
-		public function __construct($name = null, $description = null, $is_dir = null, $user = null, $parent_file = null, $universe = null, $genre = null)
+		public function __construct($name = null, $description = null, $is_dir = null, Model_Users $user = null, Model_Files $parent_file = null, $tags = null)
 		{
 			$this->name = $name;
 			$this->description = $description;
@@ -30,8 +28,7 @@
 			$this->user = $user;
 			$this->parent_file = $parent_file;
 			$this->liked_users = [];
-			$this->universe = $universe ?: Model_Universes::getById(self::DEFAULT_UNIVERSE_ID);
-			$this->genre = $genre ?: Model_Genres::getById(self::DEFAULT_GENRE_ID);
+			$this->tags = $tags;
 		}
 		
 		public static function __structure()
@@ -43,8 +40,7 @@
 				'parent_file' => 'Model_Files',
 				'user' => 'Model_Users',
 				'liked_users' => ['Model_Users'],
-				'universe' => 'Model_Universes',
-				'genre' => 'Model_Genres',
+				'tags' => ['Model_Tags'],
 			];
 		}
 		
@@ -75,15 +71,30 @@
 			return null;
 		}
 		
-		public static function addFile(Model_Users $user, Array $fileData, $thumbnail_data_url, $name, $description = null, Model_Files $parent = null)
+		public static function addFile(Model_Users $user, Array $fileData, $thumbnail_data_url, $name, $description = null, Model_Files $parent = null, $tags = null)
 		{
 			if($fileData['size'] > self::SIZE_LIMIT)
 				return self::ERROR_SIZE;
 
 			$user_id		=	$user->getId();
 			$is_dir			=	0;
-
-			$file 		=	new Model_Files($name, $description, $is_dir, $user, $parent);
+			
+			//We manage the tags
+			$arrayTags	=	explode(' ', $tags);
+			$arrayTagsInstances = [];
+			
+			foreach($arrayTags as $tagName)
+			{
+				$tag = Model_Tags::getTag($tagName);
+				if(!$tag)
+				{
+					$newTag = new Model_Tags($tagName);
+					$tag = Model_Tags::add($newTag);
+				}
+				
+				$arrayTagsInstances[] = $tag;
+			}
+			$file 		=	new Model_Files($name, $description, $is_dir, $user, $parent, $arrayTagsInstances);
 
 			$file 		=	Model_Files::add($file);
 			$file_id	=	$file->getId();
@@ -113,7 +124,7 @@
 				Model_Files::delete($file);
 				return self::ERROR_SAVE;
 			}
-
+			
 			//Now we can generate the thumbnail !
 			$image_data	=	substr($thumbnail_data_url, strpos($thumbnail_data_url, ',') + 1);
 			$resource	=	imagecreatefromstring(base64_decode($image_data));
