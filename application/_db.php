@@ -22,6 +22,7 @@
 	Model_Files::createTable();
 	Model_Comments::createTable();
 	Model_Tags::createTable();
+	Model_Views::createTable();
 
 	/*== Create data ==*/
 

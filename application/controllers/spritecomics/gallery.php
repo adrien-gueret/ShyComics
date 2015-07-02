@@ -117,6 +117,7 @@
 			{
 				$is_own_gallery	=	$this->_current_member->equals($owner);
 				$has_liked 		=	$document->isLikedByUser($this->_current_member);
+				$has_viewed		=	$this->_current_member->hasViewedFileToday($document);
 			}
 
 			if($document->prop('is_dir') == 1)
@@ -125,6 +126,14 @@
 			{
 				$tpl_delete	=	null;
 				$tpl_like	=	null;
+				
+				if($this->_current_member->isConnected() && ! $is_own_gallery && ! $has_viewed)
+				{
+					$datetime = date('Y-m-d H:i:s');
+					
+					$newView = new Model_Views($datetime, $this->_current_member, $document);
+					Model_Views::add($newView);
+				}
 				
 				$tpl_tags	=	\Eliya\Tpl::get('spritecomics/gallery/tags', ['tags' => $tags]);
 			
