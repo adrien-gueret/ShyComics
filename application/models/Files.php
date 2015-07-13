@@ -235,4 +235,24 @@
 							   ->exec();
 			return $results;
 		}
+		
+		public static function search($string)
+		{
+			if(empty($string))
+				return false;
+			
+			$searchArray = explode('+', $string);
+			
+			$regexp = '(' . current($searchArray) . ')';
+			$in = current($searchArray);
+			array_shift($searchArray);
+			foreach($searchArray as $search)
+			{
+				$regexp .= '|(' . $search . ')';
+				$in .= ',' . $search;
+			}
+			
+			$results = \EntityPHP\EntityRequest‏::executeSQL("SELECT * FROM files f INNER JOIN files2tags ft ON ft.id_files=f.id INNER JOIN tags t ON t.id=ft.id_tags WHERE f.name LIKE'%?%' OR t.name IN (?)", [$regexp, $in]);
+			return $results;
+		}
 	}

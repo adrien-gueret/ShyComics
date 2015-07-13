@@ -2,5 +2,5 @@
 <p><?= Library_i18n::get('spritecomics.index.desc'); ?></p>
 <form action="<?= $view->base_url; ?>search" method="post">
 	<input type="search" name="search" id="nav-search"/>
-	<input disabled type="submit" value="<?= Library_i18n::get('spritecomics.index.submit'); ?>" />
+	<input type="submit" value="<?= Library_i18n::get('spritecomics.index.submit'); ?>" />
 </form>
