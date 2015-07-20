@@ -241,18 +241,18 @@
 			if(empty($string))
 				return false;
 			
-			$searchArray = explode('+', $string);
+			$searchArray = explode(' ', htmlspecialchars($string));
 			
-			$regexp = '(' . current($searchArray) . ')';
+			$like = '%' . current($searchArray) . '';
 			$in = current($searchArray);
 			array_shift($searchArray);
 			foreach($searchArray as $search)
 			{
-				$regexp .= '|(' . $search . ')';
+				$like .= "OR f.name LIKE '" . $search . "'";
 				$in .= ',' . $search;
 			}
 			
-			$results = \EntityPHP\EntityRequest‏::executeSQL("SELECT * FROM files f INNER JOIN files2tags ft ON ft.id_files=f.id INNER JOIN tags t ON t.id=ft.id_tags WHERE f.name LIKE'%?%' OR t.name IN (?)", [$regexp, $in]);
+			$results = \EntityPHP\EntityRequest::executeSQL("SELECT DISTINCT f.* FROM files f LEFT JOIN files2tags ft ON ft.id_files=f.id LEFT JOIN tags t ON t.id=ft.id_tags WHERE f.name LIKE '" . $like . "' OR t.name IN ('" . $in . "')");
 			return $results;
 		}
 	}

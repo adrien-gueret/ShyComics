@@ -4,6 +4,10 @@
 		public function post_index($search = null)
 		{
 			$result = Model_Files::search($search);
-			var_dump($result);
+
+            $view	=	\Eliya\Tpl::get('search/index', [
+                'searchArray'		=> $result,
+            ]);
+            $this->response->set($view);
 		}
 	}

@@ -229,6 +229,9 @@
         }
       }
     },
+    "search": {
+      "index": "Résultats de la recherche :"
+    },
     "errors": {
       "title": "Erreur %d",
       "wild_error_desc": "Une <b>erreur %d</b> sauvage apparait !",
