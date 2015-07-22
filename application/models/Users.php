@@ -248,7 +248,7 @@
 				$dateView = new DateTime($view->prop('date'));
 				
 				$interval = $dateView->diff($dateNow)->format('%a');
-				return ($interval > 1) ? false : true;
+				return $interval <= 1;
 			}
 		}
 	}

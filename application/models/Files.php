@@ -242,17 +242,17 @@
 				return false;
 			
 			$searchArray = explode(' ', htmlspecialchars($string));
-			
-			$like = '%' . current($searchArray) . '';
-			$in = current($searchArray);
-			array_shift($searchArray);
-			foreach($searchArray as $search)
-			{
-				$like .= "OR f.name LIKE '" . $search . "'";
-				$in .= ',' . $search;
-			}
-			
-			$results = \EntityPHP\EntityRequest::executeSQL("SELECT DISTINCT f.* FROM files f LEFT JOIN files2tags ft ON ft.id_files=f.id LEFT JOIN tags t ON t.id=ft.id_tags WHERE f.name LIKE '" . $like . "' OR t.name IN ('" . $in . "')");
+
+			$like = implode("%' OR f.name LIKE '%", $searchArray);
+			$in = implode(',', $searchArray);
+
+			$results = \EntityPHP\EntityRequest::executeSQL("
+				SELECT DISTINCT f.*
+				FROM files f
+				LEFT JOIN files2tags ft ON ft.id_files=f.id
+				LEFT JOIN tags t ON t.id=ft.id_tags
+				WHERE f.name LIKE '%" . $like . "%' OR t.name IN ('" . $in . "')
+			");
 			return $results;
 		}
 	}
