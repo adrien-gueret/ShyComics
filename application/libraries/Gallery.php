@@ -12,6 +12,7 @@
 				$tpl_gallery	=	\Eliya\Tpl::get('spritecomics/gallery/empty');
 			else
 			{
+				
 				foreach($documents as $document)
 				{
 					$type			=	$document->prop('is_dir') ? 'folder' : 'file';

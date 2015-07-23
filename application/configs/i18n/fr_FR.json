@@ -85,6 +85,7 @@
           "email": "Quel est votre e-mail ?",
           "username": "Et votre pseudo ?",
           "password": "Choisissez un mot de passe",
+          "passwordConfirm": "Confirmez votre mot de passe",
           "lang": "En quelle langue voulez-vous voir le site ?"
         },
         "submit": "M'inscrire !",
@@ -92,7 +93,8 @@
         "errors": {
           "empty_fields": "Merci de renseigner tous les champs du formulaire.",
           "bad_email": "Veuillez indiquer une adresse email valide.",
-          "email_used": "L'adresse email <em>%s</em> est déjà utilisée."
+          "email_used": "L'adresse email <em>%s</em> est déjà utilisée.",
+          "not_same_password": "Le mot de passe n'a pas été confirmé."
         }
       },
       "register_success": {
@@ -172,7 +174,8 @@
           },
           "helpers": {
             "doc_name": "Nom du document",
-            "description": "Une petite description ? (facultatif)"
+            "description": "Une petite description ? (facultatif)",
+		    "tags": "Liez des tags à votre document"
           },
           "file_selection": "Sélectionnez votre fichier",
           "submit": "Confirmer l'ajout",
@@ -225,6 +228,9 @@
           "own_file": "Vous ne pouvez pas aimer vos propres planches."
         }
       }
+    },
+    "search": {
+      "index": "Résultats de la recherche :"
     },
     "errors": {
       "title": "Erreur %d",

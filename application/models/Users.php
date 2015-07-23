@@ -231,4 +231,24 @@
 				Model_Users::update($this);
 			}
 		}
+		
+		public function hasViewedFileToday(Model_Files $document)
+		{
+			$view = Model_Views::createRequest()
+					->where('document.id=? AND user.id=?', [$document->getId(), $this->getId()])
+					->getOnly(1)
+					->exec();
+			
+			if(!$view)
+				return false;
+			else
+			{
+				$date = date('Y-m-d H:i:s');
+				$dateNow = new DateTime($date);
+				$dateView = new DateTime($view->prop('date'));
+				
+				$interval = $dateView->diff($dateNow)->format('%a');
+				return $interval <= 1;
+			}
+		}
 	}

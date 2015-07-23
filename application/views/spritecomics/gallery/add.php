@@ -48,6 +48,14 @@
 			<input type="hidden" name="thumbnail_data_url" id="thumbnail-data-url" value="" />
 		</p>
 	</fieldset>
+	
+	<fieldset>
+		<legend><i class="fa fa-tags"></i></legend>
+
+			<textarea	placeholder="<?= Library_i18n::get('spritecomics.gallery.add.helpers.tags'); ?>"
+						id="form-tags"
+						name="tags"></textarea>
+	</fieldset>
 	<p>
 		<?php if( ! empty($view->parent_file_id)) :?>
 			<input type="hidden" name="parent_file_id" value="<?= $view->parent_file_id; ?>" />

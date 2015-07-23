@@ -7,6 +7,7 @@
 		protected $user;
 		protected $parent_file;
 		protected $liked_users;
+		protected $tags;
 		
 		const 	SIZE_LIMIT		=	100000000,
 
@@ -15,10 +16,11 @@
 				ERROR_TYPE		=	3,
 				ERROR_SAVE		=	4,
 				ERROR_THUMB		=	5;
+				
 		
 		protected static $table_name = 'files';
 		
-		public function __construct($name = null, $description = null, $is_dir = null, $user = null, $parent_file = null)
+		public function __construct($name = null, $description = null, $is_dir = null, Model_Users $user = null, Model_Files $parent_file = null, $tags = null)
 		{
 			$this->name = $name;
 			$this->description = $description;
@@ -26,6 +28,7 @@
 			$this->user = $user;
 			$this->parent_file = $parent_file;
 			$this->liked_users = [];
+			$this->tags = $tags;
 		}
 		
 		public static function __structure()
@@ -37,6 +40,7 @@
 				'parent_file' => 'Model_Files',
 				'user' => 'Model_Users',
 				'liked_users' => ['Model_Users'],
+				'tags' => ['Model_Tags'],
 			];
 		}
 		
@@ -67,15 +71,30 @@
 			return null;
 		}
 		
-		public static function addFile(Model_Users $user, Array $fileData, $thumbnail_data_url, $name, $description = null, Model_Files $parent = null)
+		public static function addFile(Model_Users $user, Array $fileData, $thumbnail_data_url, $name, $description = null, Model_Files $parent = null, $tags = null)
 		{
 			if($fileData['size'] > self::SIZE_LIMIT)
 				return self::ERROR_SIZE;
 
 			$user_id		=	$user->getId();
 			$is_dir			=	0;
-
-			$file 		=	new Model_Files($name, $description, $is_dir, $user, $parent);
+			
+			//We manage the tags
+			$arrayTags	=	explode(' ', $tags);
+			$arrayTagsInstances = [];
+			
+			foreach($arrayTags as $tagName)
+			{
+				$tag = Model_Tags::getTag($tagName);
+				if(!$tag)
+				{
+					$newTag = new Model_Tags($tagName);
+					$tag = Model_Tags::add($newTag);
+				}
+				
+				$arrayTagsInstances[] = $tag;
+			}
+			$file 		=	new Model_Files($name, $description, $is_dir, $user, $parent, $arrayTagsInstances);
 
 			$file 		=	Model_Files::add($file);
 			$file_id	=	$file->getId();
@@ -105,7 +124,7 @@
 				Model_Files::delete($file);
 				return self::ERROR_SAVE;
 			}
-
+			
 			//Now we can generate the thumbnail !
 			$image_data	=	substr($thumbnail_data_url, strpos($thumbnail_data_url, ',') + 1);
 			$resource	=	imagecreatefromstring(base64_decode($image_data));
@@ -214,6 +233,26 @@
 			$request = Model_Comments::createRequest();
 			$results = $request->where('file.id=?', [$this->getId()])
 							   ->exec();
+			return $results;
+		}
+		
+		public static function search($string)
+		{
+			if(empty($string))
+				return false;
+			
+			$searchArray = explode(' ', htmlspecialchars($string));
+
+			$like = implode("%' OR f.name LIKE '%", $searchArray);
+			$in = implode(',', $searchArray);
+
+			$results = \EntityPHP\EntityRequest::executeSQL("
+				SELECT DISTINCT f.*
+				FROM files f
+				LEFT JOIN files2tags ft ON ft.id_files=f.id
+				LEFT JOIN tags t ON t.id=ft.id_tags
+				WHERE f.name LIKE '%" . $like . "%' OR t.name IN ('" . $in . "')
+			");
 			return $results;
 		}
 	}

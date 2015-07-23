@@ -23,7 +23,7 @@
 			$this->response->set(Library_Gallery::getFolderTemplate($member, null, $is_own_gallery));
 		}
 
-		public function post_index($name = null, $description = null, $parent_file_id = null, $is_dir = 1, $thumbnail_data_url = null)
+		public function post_index($name = null, $description = null, $parent_file_id = null, $is_dir = 1, $thumbnail_data_url = null, $tags = null)
 		{
 			if( ! $this->_current_member->isConnected())
 			{
@@ -51,16 +51,16 @@
 					return;
 				}
 			}
-
+			
 			$success	=	false;
-
+			
 			if(empty($name))
 				Library_Messages::add(Library_i18n::get('spritecomics.gallery.add.errors.empty_name'));
 			else
 			{
 				if($is_dir)
 				{
-					Model_Files::addFolder($this->_current_member, $name, $description, $parent);
+					Model_Files::addFolder($this->_current_member, $name, $description, $parent, $tags);
 					$success	=	true;
 				}
 				else
@@ -68,7 +68,7 @@
 					if(empty($thumbnail_data_url))
 						Library_Messages::add(Library_i18n::get('spritecomics.gallery.add.errors.empty_thumbnail'));
 					else
-						$success	=	$this->_newFile($thumbnail_data_url, $name, $description, $parent);
+						$success	=	$this->_newFile($thumbnail_data_url, $name, $description, $parent, $tags);
 				}
 			}
 
@@ -95,6 +95,7 @@
 		public function get_details($id_document = null)
 		{
 			$document = Model_Files::getById($id_document);
+			$tags= $document->prop('tags');
 
 			if(empty($document))
 			{
@@ -116,6 +117,7 @@
 			{
 				$is_own_gallery	=	$this->_current_member->equals($owner);
 				$has_liked 		=	$document->isLikedByUser($this->_current_member);
+				$has_viewed		=	$this->_current_member->hasViewedFileToday($document);
 			}
 
 			if($document->prop('is_dir') == 1)
@@ -124,6 +126,17 @@
 			{
 				$tpl_delete	=	null;
 				$tpl_like	=	null;
+				
+				if($this->_current_member->isConnected() && ! $is_own_gallery && ! $has_viewed)
+				{
+					$datetime = date('Y-m-d H:i:s');
+					
+					$newView = new Model_Views($datetime, $this->_current_member, $document);
+					Model_Views::add($newView);
+				}
+				
+				$tpl_tags	=	\Eliya\Tpl::get('spritecomics/gallery/tags', ['tags' => $tags]);
+			
 				$can_remove_other_files	=	$this->_current_member->isConnected() &&
 											$this->_current_member->can(Model_UsersGroups::PERM_REMOVE_OTHERS_FILES);
 
@@ -151,13 +164,14 @@
 					'tpl_delete'	=>	$tpl_delete,
 					'tpl_like'		=>	$tpl_like,
 					'tpl_comment'	=>	$tpl_comment,
+					'tpl_tags'		=>	$tpl_tags,
 				]);
 			}
 			
 			$this->response->set($template);
 		}
 
-		protected function _newFile($thumbnail_data_url, $name, $description = null, Model_Files $parent = null)
+		protected function _newFile($thumbnail_data_url, $name, $description = null, Model_Files $parent = null, $tags = null)
 		{
 			if( ! isset($_FILES['file']) || $_FILES['file']['error'] != 0)
 			{
@@ -167,7 +181,7 @@
 
 			$upload_error	=	true;
 
-			switch(Model_Files::addFile($this->_current_member, $_FILES['file'], $thumbnail_data_url, $name, $description, $parent))
+			switch(Model_Files::addFile($this->_current_member, $_FILES['file'], $thumbnail_data_url, $name, $description, $parent, $tags))
 			{
 				case Model_Files::ERROR_SIZE:
 					Library_Messages::add(Library_i18n::get('spritecomics.gallery.add.errors.file_too_big'));

@@ -31,7 +31,7 @@
 						</a>
 					<?php endif; ?>
 				</li>
-				<li><input type="search" name="search" id="nav-search"/></li>
+				<li><form action="<?= $view->base_url; ?>search" method="post"><input type="search" name="search" id="nav-search"/></form></li>
 				<li>
 					<a href="<?= $view->base_url; ?>spritecomics">
 						<?= Library_i18n::get('index.header.navigation.spritecomics'); ?>
