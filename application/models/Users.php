@@ -10,7 +10,7 @@
 		protected $password;
 		protected $locale_website;
 		protected $user_group;
-		protected $friends;
+		protected $follows;
 		protected $locales_comics;
 		
 		const	DEFAULT_USERS_GROUP_ID		=	1,
@@ -176,6 +176,10 @@
 
 			Model_Files::update($file);
 
+			//Not forget to update the feed for followers
+			$feed = new Model_Feed($this, $file->prop('id'), 1);
+			Model_Feed::add($feed);
+
 			return self::LIKE_SUCCESS;
 		}
 		
@@ -250,5 +254,27 @@
 				$interval = $dateView->diff($dateNow)->format('%a');
 				return $interval <= 1;
 			}
+		}
+
+		public function getFeed()
+		{
+			$arrayFollows = [];
+			foreach($this->prop('follows') as $key => $follow)
+			{
+				$arrayFollows[] = $follow->prop('id');
+			}
+
+			$follows = implode(',', $arrayFollows);
+
+			$results = \EntityPHP\EntityRequest::executeSQL("
+				SELECT f.*, u.username
+				FROM feed f
+				LEFT JOIN users u ON f.id_author=u.id
+				WHERE f.id_author IN ('" . $follows . "')
+				ORDER BY f.id DESC
+				LIMIT 0,20
+			");
+
+			return is_array($results)?$results:null;
 		}
 	}
