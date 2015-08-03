@@ -177,7 +177,7 @@
 			Model_Files::update($file);
 
 			//Not forget to update the feed for followers
-			$feed = new Model_Feed($this, $file->prop('id'), 1);
+			$feed = new Model_Feed($this, $file->getId(), 1);
 			Model_Feed::add($feed);
 
 			return self::LIKE_SUCCESS;
@@ -261,7 +261,7 @@
 			$arrayFollows = [];
 			foreach($this->prop('follows') as $key => $follow)
 			{
-				$arrayFollows[] = $follow->prop('id');
+				$arrayFollows[] = $follow->getId();
 			}
 
 			$follows = implode(',', $arrayFollows);

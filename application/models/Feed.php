@@ -5,7 +5,7 @@
         protected $object;
         protected $types;
 
-        const 	OBJECT_IS_A_SEND_FILE   =   0,
+        const 	OBJECT_IS_A_SENT_FILE   =   0,
                 OBJECT_IS_A_LIKED_FILE  =   1,
                 OBJECT_IS_A_COMMENTARY  =   2;
 

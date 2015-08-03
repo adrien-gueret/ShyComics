@@ -21,7 +21,7 @@
 			Model_Comments::add($comment);
 
 			//Not forget to update the feed for followers
-			$feed = new Model_Feed($this->_current_member, intval($id_file), 2);
+			$feed = new Model_Feed($this->_current_member, $id_file, 2);
 			Model_Feed::add($feed);
 			
 			Library_Messages::store(Library_i18n::get('spritecomics.gallery.comments.success'), Library_Messages::TYPE_SUCCESS);

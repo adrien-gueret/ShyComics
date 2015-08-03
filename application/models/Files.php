@@ -145,7 +145,7 @@
 			$newFolder = Model_Files::add($folder);
 
 			//Not forget to update the feed for followers
-			$feed = new Model_Feed($user, $newFolder->prop('id'), 0);
+			$feed = new Model_Feed($user, $newFolder->getId(), 0);
 			Model_Feed::add($feed);
 
 			return self::PROCESS_OK;

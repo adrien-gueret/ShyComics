@@ -102,7 +102,7 @@
 				return;
 			}
 
-			$tags= $document->prop('tags');
+			$tags= $document->load('tags');
 
 			\Eliya\Tpl::set([
 				'page_title'	=>	$document->prop('name') ?: Library_i18n::get('spritecomics.gallery.details.default_page_title'),

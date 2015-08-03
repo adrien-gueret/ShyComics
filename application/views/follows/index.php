@@ -12,7 +12,7 @@
 	<?php else: ?>
 		<?php foreach($view->current_member->getFeed() as $feed): ?>
 			<li>
-				<?php if($feed->type == Model_Feed::OBJECT_IS_A_SEND_FILE): ?>
+				<?php if($feed->type == Model_Feed::OBJECT_IS_A_SENT_FILE): ?>
 					<?= $feed->username . Library_i18n::get('feed.sendFile'); ?>
 				<?php elseif($feed->type == Model_Feed::OBJECT_IS_A_LIKED_FILE): ?>
 					<?= $feed->username . Library_i18n::get('feed.likedFile'); ?>
