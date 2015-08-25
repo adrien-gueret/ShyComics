@@ -28,6 +28,14 @@
         "go_add_follows": "Parcourez la liste de nos membres et ajoutez-les en tant que membres à suivre pour les voir ici !"
       }
     },
+    "feed": {
+      "title": "Dernières actions des membres que vous suivez",
+      "sendFile": " a envoyé un nouveau document à sa galerie.",
+      "likedFile": " a aimé un document.",
+      "comment": " a laissé un commentaire sur un document.",
+      "empty": "Aucune action à vous faire part.",
+      "see": "Voir"
+    },
     "index": {
       "header": {
         "register": "Inscription",

@@ -95,13 +95,14 @@
 		public function get_details($id_document = null)
 		{
 			$document = Model_Files::getById($id_document);
-			$tags= $document->prop('tags');
 
 			if(empty($document))
 			{
 				$this->response->error(Library_i18n::get('spritecomics.gallery.details.not_found'), 404);
 				return;
 			}
+
+			$tags= $document->load('tags');
 
 			\Eliya\Tpl::set([
 				'page_title'	=>	$document->prop('name') ?: Library_i18n::get('spritecomics.gallery.details.default_page_title'),

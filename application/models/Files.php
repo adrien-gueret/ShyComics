@@ -132,13 +132,21 @@
 			if( ! imagepng($resource, $url_thumb))
 				return self::ERROR_THUMB;
 
+			//Not forget to update the feed for followers
+			$feed = new Model_Feed($user, $file_id, 0);
+			Model_Feed::add($feed);
+
 			return self::PROCESS_OK;
 		}
 		
 		public static function addFolder(Model_Users $user, $name = null, $description = null, Model_Files $parent = null)
 		{
 			$folder	=	new Model_Files($name, $description, 1, $user, $parent);
-			Model_Files::add($folder);
+			$newFolder = Model_Files::add($folder);
+
+			//Not forget to update the feed for followers
+			$feed = new Model_Feed($user, $newFolder->getId(), 0);
+			Model_Feed::add($feed);
 
 			return self::PROCESS_OK;
 		}
