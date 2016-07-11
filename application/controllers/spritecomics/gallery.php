@@ -158,10 +158,12 @@
 						'id_file'	=>	$document->getId(),
 						'comments'	=>	$comments->getArray(),
 					]);
+					$tpl_nbr_views = \Eliya\Tpl::get('spritecomics/gallery/details/nbr_views', ['nbr_views' => Model_Views::count('document.id=?', [$id_document])]);
 				}
 
 				$template	=	\Eliya\Tpl::get('spritecomics/gallery/details/file', [
 					'file'			=>	$document,
+					'tpl_nbr_views'	=>	$tpl_nbr_views,
 					'tpl_delete'	=>	$tpl_delete,
 					'tpl_like'		=>	$tpl_like,
 					'tpl_comment'	=>	$tpl_comment,
