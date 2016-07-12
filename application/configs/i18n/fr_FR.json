@@ -205,11 +205,15 @@
           "default_page_title": "Document sans nom",
           "not_found": "Ce document n'existe pas."
         },
-		"nbr_views": "Ce document a un total de %d vue(s).",
-		"like": {
-			"FB": {
-				"description": "Image de %s"
-			}
+        "nbr_views": {
+          "none": "Ce document n'a encore jamais été vu.",
+          "one": "Ce document a été vu une fois.",
+          "several": "Ce document a été vu {{total}} fois."
+        },
+	    "like": {
+		  "FB": {
+		    "description": "Image de %s"
+		  }
 		},
         "comments": {
 		  "send": "Envoyer le commentaire",

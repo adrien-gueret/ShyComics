@@ -145,12 +145,11 @@
 					'social_NW_meta'	=>	'<meta property="og:title" content="' . $page_title . '">
 											<meta property="og:type" content="article">
 											<meta property="og:site_name" content="Shy Comic\'s">
-											<meta property="fb:admins" content="100002337919179">
+											<meta property="fb:admins" content="81657339196">
 											<meta property="og:description" content="' . Library_i18n::get('spritecomics.gallery.like.FB.description', $owner->prop('username')) . '">
 											<meta property="og:image" content="' . $imagePath . '">
 											<meta property="og:url" content="' . $URL . '">'
 				]);
-				//IMPORTANT : <meta property="fb:admins" content="100002337919179"> à changer pour correspondre à la page FB de shyco
 			
 				$can_remove_other_files	=	$this->_current_member->isConnected() &&
 											$this->_current_member->can(Model_UsersGroups::PERM_REMOVE_OTHERS_FILES);
