@@ -240,6 +240,7 @@
 		{
 			$view = Model_Views::createRequest()
 					->where('document.id=? AND user.id=?', [$document->getId(), $this->getId()])
+					->orderBy('date DESC')
 					->getOnly(1)
 					->exec();
 			
