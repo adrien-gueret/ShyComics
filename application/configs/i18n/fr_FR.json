@@ -206,6 +206,11 @@
           "not_found": "Ce document n'existe pas."
         },
 		"nbr_views": "Ce document a un total de %d vue(s).",
+		"like": {
+			"FB": {
+				"description": "Image de %s"
+			}
+		},
         "comments": {
 		  "send": "Envoyer le commentaire",
 		  "none" : "Cette planche n'a reçu aucun commentaire. Soyez le premier à la commenter !",
