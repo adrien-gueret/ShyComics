@@ -210,11 +210,6 @@
           "one": "Ce document a été vu une fois.",
           "several": "Ce document a été vu {{total}} fois."
         },
-	    "like": {
-		  "FB": {
-		    "description": "Image de %s"
-		  }
-		},
         "comments": {
 		  "send": "Envoyer le commentaire",
 		  "none" : "Cette planche n'a reçu aucun commentaire. Soyez le premier à la commenter !",
@@ -244,7 +239,16 @@
           "not_found": "La planche que vous cherchez à aimer est introuvable.",
           "already_like": "Vous aimé déjà cette planche.",
           "own_file": "Vous ne pouvez pas aimer vos propres planches."
-        }
+        },
+		"FB": {
+		  "description": "Image de %s"
+		},
+		"like": "J'aime",
+		"unlike": {
+		  "unlike": "Je n'aime plus",
+		  "success": "Votre <em>like</em> a bien été supprimé.",
+		  "error": "Vous cherchez à supprimer un like à une image que vous n'avez pas aimée !"
+		}
       }
     },
     "search": {

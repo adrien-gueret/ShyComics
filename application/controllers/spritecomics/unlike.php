@@ -1,5 +1,5 @@
 <?php
-	class Controller_spritecomics_like extends Controller_main
+	class Controller_spritecomics_unlike extends Controller_main
 	{
 		public function post_index($id_file)
 		{
@@ -17,18 +17,14 @@
 				return;
 			}
 
-			switch($this->_current_member->like($file))
+			switch($this->_current_member->unlike($file))
 			{
-				case Model_Users::ERROR_LIKE_ALREADY_LIKE:
-					Library_Messages::store(Library_i18n::get('spritecomics.like.errors.already_like'));
+				case Model_Users::ERROR_LIKE_DOES_NOT_EXIST:
+					Library_Messages::store(Library_i18n::get('spritecomics.like.unlike.error'));
 				break;
 
-				case Model_Users::ERROR_LIKE_USER_IS_OWNER:
-					Library_Messages::store(Library_i18n::get('spritecomics.like.errors.own_file'));
-				break;
-
-				case Model_Users::LIKE_SUCCESS:
-					Library_Messages::store(Library_i18n::get('spritecomics.like.success'), Library_Messages::TYPE_SUCCESS);
+				case Model_Users::UNLIKE_SUCCESS:
+					Library_Messages::store(Library_i18n::get('spritecomics.like.unlike.success'), Library_Messages::TYPE_SUCCESS);
 				break;
 			}
 

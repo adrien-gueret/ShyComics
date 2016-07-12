@@ -146,7 +146,7 @@
 											<meta property="og:type" content="article">
 											<meta property="og:site_name" content="Shy Comic\'s">
 											<meta property="fb:admins" content="81657339196">
-											<meta property="og:description" content="' . Library_i18n::get('spritecomics.gallery.like.FB.description', $owner->prop('username')) . '">
+											<meta property="og:description" content="' . Library_i18n::get('spritecomics.like.FB.description', $owner->prop('username')) . '">
 											<meta property="og:image" content="' . $imagePath . '">
 											<meta property="og:url" content="' . $URL . '">'
 				]);
@@ -163,6 +163,7 @@
 						$tpl_like = \Eliya\Tpl::get('spritecomics/gallery/details/like', [
 							'has_liked'	=>	$has_liked,
 							'id_file'	=>	$document->getId(),
+							'nbr_likes'	=>	$document->getNbrOfLikes(),
 						]);
 					}
 					
