@@ -1,7 +1,7 @@
 <?php
 	class Controller_spritecomics_unlike extends Controller_main
 	{
-		public function post_index($id_file)
+		public function delete_index($id_file)
 		{
 			if( ! $this->_current_member->isConnected())
 			{

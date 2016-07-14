@@ -16,7 +16,7 @@
 			$this->response->redirect($redirect_url, 200);
 		}
 
-		public function post_unfollow($id_user = null)
+		public function delete_unfollow($id_user = null)
 		{
 			$member	=	Model_Users::getById($id_user);
 			$redirect_url	=	$this->request->getBaseURL().'profile/'.$member->getId();
