@@ -142,22 +142,22 @@
         "page_description": "Modifiez votre profil.",
         "title": "Modifier mon profil",
         "avatar_actual": "Votre avatar actuel :",
-		"avatar_change": "Changer d'avatar :",
-		"avatar": {
-			"errors": {
-            "file_too_big": "Le fichier est trop gros : il dépasse la limite de taille imposée.",
-            "bad_upload": "Le fichier n'a pas été uploadé correctement sur notre serveur.",
-            "bad_type": "Le fichier n'a pas été enregistré car son type n'est pas autorisé.",
-            "unknown": "Une erreur inconnue est survenue lors de la sauvegarde du fichier."
+        "avatar_change": "Changer d'avatar :",
+        "avatar": {
+          "errors": {
+          "file_too_big": "Le fichier est trop gros : il dépasse la limite de taille imposée.",
+          "bad_upload": "Le fichier n'a pas été uploadé correctement sur notre serveur.",
+          "bad_type": "Le fichier n'a pas été enregistré car son type n'est pas autorisé.",
+          "unknown": "Une erreur inconnue est survenue lors de la sauvegarde du fichier."
           },
-		  "success": "Votre avatar a bien été modifié"
-		}
+          "success": "Votre avatar a bien été modifié"
+    	}
       },
-	  "submit": "Enregistrer les modifications",
-	  "follow": {
+      "submit": "Enregistrer les modifications",
+      "follow": {
         "buttonFollow": "Suivre cet auteur",
         "buttonUnfollow": "Ne plus suivre cet auteur"
-	  }
+      }
     },
     "spritecomics": {
       "index": {
@@ -183,7 +183,7 @@
           "helpers": {
             "doc_name": "Nom du document",
             "description": "Une petite description ? (facultatif)",
-		    "tags": "Liez des tags à votre document"
+            "tags": "Liez des tags à votre document"
           },
           "file_selection": "Sélectionnez votre fichier",
           "submit": "Confirmer l'ajout",
@@ -211,14 +211,14 @@
           "several": "Ce document a été vu {{total}} fois."
         },
         "comments": {
-		  "send": "Envoyer le commentaire",
-		  "none" : "Cette planche n'a reçu aucun commentaire. Soyez le premier à la commenter !",
+          "send": "Envoyer le commentaire",
+          "none" : "Cette planche n'a reçu aucun commentaire. Soyez le premier à la commenter !",
           "success": "Le commentaire a bien été envoyé !",
-		  "helpers" : {
-		    "description": "Commenter cette planche :"
-		  },
-		  "errors": {
-		    "not_found": "La planche que vous cherchez à commenter est introuvable."
+          "helpers" : {
+            "description": "Commenter cette planche :"
+          },
+          "errors": {
+            "not_found": "La planche que vous cherchez à commenter est introuvable."
           }
         }
       },
@@ -240,15 +240,15 @@
           "already_like": "Vous aimé déjà cette planche.",
           "own_file": "Vous ne pouvez pas aimer vos propres planches."
         },
-		"FB": {
-		  "description": "Image de %s"
-		},
-		"like": "J'aime",
-		"unlike": {
-		  "unlike": "Je n'aime plus",
-		  "success": "Votre <em>like</em> a bien été supprimé.",
-		  "error": "Vous cherchez à supprimer un like à une image que vous n'avez pas aimée !"
-		}
+        "FB": {
+          "description": "Image de %s"
+        },
+        "like": "J'aime",
+        "unlike": {
+          "unlike": "Je n'aime plus",
+          "success": "Votre <em>like</em> a bien été supprimé.",
+          "error": "Vous cherchez à supprimer un like d'une image que vous n'avez pas aimée !"
+        }
       }
     },
     "search": {
