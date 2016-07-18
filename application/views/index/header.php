@@ -5,6 +5,7 @@
 		<title><?= $view->page_title; ?></title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta name="description" content="<?= $view->page_description; ?>" />
+		<?= isset($view->social_NW_meta) ? $view->social_NW_meta : ''; ?>
 		<link rel="stylesheet" type="text/css" href="<?= $view->base_url; ?>public/css/style.css" />
 		<link rel="stylesheet" type="text/css" href="<?= $view->base_url; ?>public/css/font-awesome.min.css" />
 		<link rel="shortcut icon" type="image/x-icon" href="<?= $view->base_url; ?>public/favicon.ico" />

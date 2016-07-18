@@ -9,7 +9,7 @@
 				return;
 			}
 
-			$file = Model_Files::getById(intval($id_file));
+			$file = Model_Files::getById($id_file);
 			
 			if(empty($file))
 			{

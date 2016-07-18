@@ -20,6 +20,9 @@
 				ERROR_LIKE_ALREADY_LIKE		=	2,
 				ERROR_LIKE_USER_IS_OWNER	=	3,
 				
+				UNLIKE_SUCCESS				=	1,
+				ERROR_LIKE_DOES_NOT_EXIST	=	2,
+				
 				WIDTH_LIMIT		=	130,
 				HEIGHT_LIMIT		=	150,
 
@@ -171,16 +174,33 @@
 
 			if($this->equals($file->getUser()))
 				return self::ERROR_LIKE_USER_IS_OWNER;
-
+			
 			$file->load('liked_users')->push($this);
-
+			$file->load('parent_file');
+			$file->load('tags');
+			
 			Model_Files::update($file);
-
+			
 			//Not forget to update the feed for followers
 			$feed = new Model_Feed($this, $file->getId(), 1);
 			Model_Feed::add($feed);
 
 			return self::LIKE_SUCCESS;
+		}
+
+		public function unlike(Model_Files $file)
+		{
+			if(!$file->isLikedByUser($this))
+				return self::ERROR_LIKE_DOES_NOT_EXIST;
+
+			$file->load('liked_users')->remove($this);
+			$file->load('parent_file');
+			$file->load('tags');
+			$file->load('user');
+
+			Model_Files::update($file);
+
+			return self::UNLIKE_SUCCESS;
 		}
 		
 		public function changeAvatar(Array $fileData)
@@ -240,6 +260,7 @@
 		{
 			$view = Model_Views::createRequest()
 					->where('document.id=? AND user.id=?', [$document->getId(), $this->getId()])
+					->orderBy('date DESC')
 					->getOnly(1)
 					->exec();
 			

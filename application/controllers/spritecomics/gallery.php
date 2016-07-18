@@ -103,9 +103,10 @@
 			}
 
 			$tags= $document->load('tags');
-
+			$page_title = $document->prop('name') ?: Library_i18n::get('spritecomics.gallery.details.default_page_title');
+			
 			\Eliya\Tpl::set([
-				'page_title'	=>	$document->prop('name') ?: Library_i18n::get('spritecomics.gallery.details.default_page_title'),
+				'page_title'	=>	$page_title,
 				'page_description'	=>	$document->prop('description') ?: null,
 			]);
 
@@ -137,6 +138,18 @@
 				}
 				
 				$tpl_tags	=	\Eliya\Tpl::get('spritecomics/gallery/tags', ['tags' => $tags]);
+				$imagePath = $this->request->getBaseURL() . $document->getPath();
+				$URL = $this->request->getBaseURL() . 'spritecomics/gallery/details/' . $id_document;
+				
+				\Eliya\Tpl::set([
+					'social_NW_meta'	=>	'<meta property="og:title" content="' . $page_title . '">
+											<meta property="og:type" content="article">
+											<meta property="og:site_name" content="Shy Comic\'s">
+											<meta property="fb:admins" content="81657339196">
+											<meta property="og:description" content="' . Library_i18n::get('spritecomics.like.FB.description', $owner->prop('username')) . '">
+											<meta property="og:image" content="' . $imagePath . '">
+											<meta property="og:url" content="' . $URL . '">'
+				]);
 			
 				$can_remove_other_files	=	$this->_current_member->isConnected() &&
 											$this->_current_member->can(Model_UsersGroups::PERM_REMOVE_OTHERS_FILES);
@@ -150,6 +163,7 @@
 						$tpl_like = \Eliya\Tpl::get('spritecomics/gallery/details/like', [
 							'has_liked'	=>	$has_liked,
 							'id_file'	=>	$document->getId(),
+							'nbr_likes'	=>	$document->getNbrOfLikes(),
 						]);
 					}
 					
@@ -158,10 +172,15 @@
 						'id_file'	=>	$document->getId(),
 						'comments'	=>	$comments->getArray(),
 					]);
+					$tpl_nbr_views = \Eliya\Tpl::get('spritecomics/gallery/details/nbr_views', ['nbr_views' => Model_Views::count('document.id=?', [$id_document])]);
+					$tpl_social_NW = \Eliya\Tpl::get('spritecomics/gallery/details/social_NW', ['URL' => $URL]);
 				}
 
 				$template	=	\Eliya\Tpl::get('spritecomics/gallery/details/file', [
 					'file'			=>	$document,
+					'imagePath'		=>	$imagePath,
+					'tpl_nbr_views'	=>	$tpl_nbr_views,
+					'tpl_social_NW'	=>	$tpl_social_NW,
 					'tpl_delete'	=>	$tpl_delete,
 					'tpl_like'		=>	$tpl_like,
 					'tpl_comment'	=>	$tpl_comment,

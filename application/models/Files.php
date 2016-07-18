@@ -232,6 +232,11 @@
 
 			return $liked_users->hasEntity($user);
 		}
+
+		public function getNbrOfLikes()
+		{
+			return $this->load('liked_users')->count();
+		}
 		
 		public function getComments()
 		{
