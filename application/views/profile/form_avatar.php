@@ -1,7 +1,7 @@
 <?= Library_i18n::get('profile.modify.avatar_change'); ?><br />
 <form id="form_avatar"
 	  class="form-line"
-	  action="<?= $view->base_url; ?>profile/modify"
+	  action="<?= $view->base_url; ?>profile/modify/avatar"
 	  method="post"
 	  enctype="multipart/form-data">
 	<fieldset id="form_file_part">
@@ -22,5 +22,3 @@
 		<button class="orange"><?= Library_i18n::get('profile.submit'); ?></button>
 	</p>
 </form>
-<script src="<?= $view->base_url; ?>public/javascript/vendors/promise.min.js"></script>
-<script src="<?= $view->base_url; ?>public/javascript/spritecomics/gallery/add.js"></script>

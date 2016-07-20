@@ -56,6 +56,7 @@
 				'is_email_verified' => 'BOOLEAN',
 				'password' => 'CHAR(40)',
 				'date_subscription' => 'DATETIME',
+				'about' => 'VARCHAR(255)',
 				'user_group' => 'Model_UsersGroups',
 				'locale_website' => 'Model_Locales',
 				'follows' => array('Model_Users'),
@@ -213,19 +214,27 @@
 			$infosfile			=	pathinfo($fileData['name']);
 			$extension_upload	=	strtolower($infosfile['extension']);
 			$extensions_granted	=	['jpg', 'jpeg', 'gif', 'png'];
-
+			
 			if( ! in_array($extension_upload, $extensions_granted))
 			{
 				return self::ERROR_TYPE;
 			}
-
+			
 			$url_file	=	'public/users_files/avatars/' . $this->getId() . '.' . $extension_upload;
-
+			
 			if( ! move_uploaded_file($fileData['tmp_name'], $url_file))
 			{
 				return self::ERROR_SAVE;
 			}
-
+			
+			return self::PROCESS_OK;
+		}
+		
+		public function changeAbout($content)
+		{
+			$this->prop('about', $content);
+			Model_Users::update($this);
+			
 			return self::PROCESS_OK;
 		}
 

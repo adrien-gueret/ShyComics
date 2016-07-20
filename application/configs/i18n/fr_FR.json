@@ -143,15 +143,19 @@
         "title": "Modifier mon profil",
         "avatar_actual": "Votre avatar actuel :",
         "avatar_change": "Changer d'avatar :",
+        "about_change": "Décrivez-vous brièvement :",
         "avatar": {
           "errors": {
-          "file_too_big": "Le fichier est trop gros : il dépasse la limite de taille imposée.",
-          "bad_upload": "Le fichier n'a pas été uploadé correctement sur notre serveur.",
-          "bad_type": "Le fichier n'a pas été enregistré car son type n'est pas autorisé.",
-          "unknown": "Une erreur inconnue est survenue lors de la sauvegarde du fichier."
+            "file_too_big": "Le fichier est trop gros : il dépasse la limite de taille imposée.",
+            "bad_upload": "Le fichier n'a pas été uploadé correctement sur notre serveur.",
+            "bad_type": "Le fichier n'a pas été enregistré car son type n'est pas autorisé.",
+            "unknown": "Une erreur inconnue est survenue lors de la sauvegarde du fichier."
           },
           "success": "Votre avatar a bien été modifié"
-    	}
+    	},
+		"about": {
+		  "success": "Votre description de profil a bien été modifiée"
+		}
       },
       "submit": "Enregistrer les modifications",
       "follow": {

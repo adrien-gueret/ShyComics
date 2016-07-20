@@ -34,6 +34,7 @@
 			$view	=	\Eliya\Tpl::get('profile/index', [
 				'user_id'		=> $member->getId(),
 				'user_name'		=> $member->prop('username'),
+				'user_avatar'	=> $member->getAvatarURL(),
 				'tpl_follow'	=> $tpl_follow,
 			]);
 			$this->response->set($view);
