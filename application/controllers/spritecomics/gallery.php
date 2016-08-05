@@ -166,15 +166,16 @@
 							'nbr_likes'	=>	$document->getNbrOfLikes(),
 						]);
 					}
-					
-					$comments = $document->getComments();
-					$tpl_comment = \Eliya\Tpl::get('spritecomics/gallery/details/comment', [
-						'id_file'	=>	$document->getId(),
-						'comments'	=>	$comments->getArray(),
-					]);
-					$tpl_nbr_views = \Eliya\Tpl::get('spritecomics/gallery/details/nbr_views', ['nbr_views' => Model_Views::count('document.id=?', [$id_document])]);
-					$tpl_social_NW = \Eliya\Tpl::get('spritecomics/gallery/details/social_NW', ['URL' => $URL]);
 				}
+				
+				$comments = $document->getComments();
+				$tpl_comment = \Eliya\Tpl::get('spritecomics/gallery/details/comment', [
+					'id_file'	=>	$document->getId(),
+					'comments'	=>	$comments->getArray(),
+				]);
+				
+				$tpl_nbr_views = \Eliya\Tpl::get('spritecomics/gallery/details/nbr_views', ['nbr_views' => Model_Views::count('document.id=?', [$id_document])]);
+				$tpl_social_NW = \Eliya\Tpl::get('spritecomics/gallery/details/social_NW', ['URL' => $URL]);
 
 				$template	=	\Eliya\Tpl::get('spritecomics/gallery/details/file', [
 					'file'			=>	$document,

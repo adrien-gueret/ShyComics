@@ -1,7 +1,7 @@
 {
     "global": {
       "default_page_title": "Shy'Comics",
-      "default_page_description": "La référence en Sprites Comics !",
+      "default_page_description": "La référence en Sprite Comics !",
       "db_connection_error": "Impossible de se connecter à la base de données : informations introuvables.",
       "langs": {
         "fr_FR": "Français",
@@ -135,7 +135,9 @@
         "page_title": "Profil de %s",
         "page_description": "Consultez le profil de %s et lisez ses sprite comics !",
         "title": "Profil de %s",
-        "go_to_gallery": "Accéder à sa galerie"
+        "go_to_gallery": "Accéder à sa galerie",
+		"sub_date": "Membre inscrit depuis le :",
+        "follows": "Cet auteur suit les membres :"
       },
       "modify": {
         "page_title": "Modifer mon profil",
@@ -143,7 +145,7 @@
         "title": "Modifier mon profil",
         "avatar_actual": "Votre avatar actuel :",
         "avatar_change": "Changer d'avatar :",
-        "about_change": "Décrivez-vous brièvement :",
+        "about_change": "Décrivez-vous brièvement (255 caractères):",
         "avatar": {
           "errors": {
             "file_too_big": "Le fichier est trop gros : il dépasse la limite de taille imposée.",
@@ -152,10 +154,10 @@
             "unknown": "Une erreur inconnue est survenue lors de la sauvegarde du fichier."
           },
           "success": "Votre avatar a bien été modifié"
-    	},
-		"about": {
-		  "success": "Votre description de profil a bien été modifiée"
-		}
+        },
+        "about": {
+          "success": "Votre description de profil a bien été modifiée"
+        }
       },
       "submit": "Enregistrer les modifications",
       "follow": {

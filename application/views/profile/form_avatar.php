@@ -22,3 +22,4 @@
 		<button class="orange"><?= Library_i18n::get('profile.submit'); ?></button>
 	</p>
 </form>
+<script src="<?= $view->base_url; ?>public/javascript/spritecomics/gallery/add.js"></script>

@@ -23,11 +23,11 @@
 			{
 				$is_own_profile		=	$this->_current_member->equals($member);
 				$has_followed 		=	$member->isFollowedByUser($this->_current_member);
-			
+				
 				$tpl_follow	=	\Eliya\Tpl::get('profile/details/follow', [
 					'is_own_profile'	=> $is_own_profile,
 					'has_followed'		=> $has_followed,
-					'user_id'		=> $member->getId(),
+					'user_id'			=> $member->getId(),
 				]);
 			}
 			
@@ -35,7 +35,10 @@
 				'user_id'		=> $member->getId(),
 				'user_name'		=> $member->prop('username'),
 				'user_avatar'	=> $member->getAvatarURL(),
+				'user_about'	=> $member->prop('about'),
+				'user_sub_date'	=> $member->getSubDate(),
 				'tpl_follow'	=> $tpl_follow,
+				'user_follows'	=> $member->prop('follows')
 			]);
 			$this->response->set($view);
 		}

@@ -307,4 +307,10 @@
 
 			return is_array($results)?$results:null;
 		}
+		
+		public function getSubDate()
+		{
+			$datetime = $this->prop('date_subscription');
+			return date_format(date_create($datetime), "d/m/Y"); 
+		}
 	}
