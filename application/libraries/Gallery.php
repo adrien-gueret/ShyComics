@@ -1,7 +1,7 @@
 <?php
 	abstract class Library_Gallery
 	{
-		public static function getFolderTemplate(Model_Users $owner, $id_parent = null, $on_own_gallery = false)
+		public static function getFolderTemplate(Model_Users $owner, $id_parent, $on_own_gallery = false, $name)
 		{
 			$tpl_gallery		=	null;
 			$tpl_delete			=	null;
@@ -12,7 +12,6 @@
 				$tpl_gallery	=	\Eliya\Tpl::get('spritecomics/gallery/empty');
 			else
 			{
-				
 				foreach($documents as $document)
 				{
 					$type			=	$document->prop('is_dir') ? 'folder' : 'file';
@@ -34,6 +33,7 @@
 				'tpl_adding_form' 	=>	$tpl_adding_form,
 				'on_own_gallery'	=>	$on_own_gallery,
 				'owner'				=>	$owner,
+				'folder_name'		=>	$name,
 			]);
 		}
 	}

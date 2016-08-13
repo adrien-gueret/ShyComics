@@ -6,6 +6,13 @@
 	{
 		public function get_index()
 		{
-			$this->response->set(\Eliya\Tpl::get('index/index'));
+			$documents = Model_Files::getLastBoards(10);
+			$tpl_last_boards = '';
+			foreach($documents as $document)
+			{
+				$tpl_last_boards	.=	\Eliya\Tpl::get('spritecomics/gallery/file', ['document' => $document]);
+			}
+			
+			$this->response->set(\Eliya\Tpl::get('index/index', ['tpl_last_boards' => $tpl_last_boards]));
 		}
 	}

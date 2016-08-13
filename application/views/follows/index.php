@@ -5,7 +5,7 @@
 	<?php endforeach; ?>
 </ul>
 <br />
-<h2><?= Library_i18n::get('feed.title'); ?></h2>
+<h2><i class="fa fa-rss" aria-hidden="true"></i> <?= Library_i18n::get('feed.title'); ?></h2>
 <ul>
 	<?php if(empty($view->current_member->getFeed())): ?>
 		<?= Library_i18n::get('feed.empty'); ?>

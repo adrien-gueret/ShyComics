@@ -268,4 +268,15 @@
 			");
 			return $results;
 		}
+		
+		public static function getLastBoards($number)
+		{
+			$request = Model_Files::createRequest();
+			$results = $request->select('*')
+							   ->where('is_dir=?', [false])
+							   ->getOnly($number)
+							   ->exec();
+			
+			return $results;
+		}
 	}

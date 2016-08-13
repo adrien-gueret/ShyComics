@@ -60,7 +60,6 @@
       },
       "index": {
         "title_last_uploads": "Dernières publications",
-        "desc_last_uploads": "TODO: Lorem ipsum dolor sit amet, consectetur adipisicing elit",
         "title_lost": "Vous êtes perdus ?",
         "desc_lost_1": "Vous ne savez pas où aller ? Vous ignorez même ce qu'est un <em>sprite comic</em> ?",
         "desc_lost_2": "Nous vous invitons a vous rendre sur <a href=\"{{base_url}}about\">la page \"A propos\"</a> afin d'en savoir plus sur le <em>sprite comic</em> et Shy'Comics. Vous pouvez également visiter <a href=\"{{base_url}}spritecomics\">les galeries de nos membres</a> pour lire leurs créations <strong>gratuitement</strong> !"
