@@ -139,9 +139,26 @@
 			return self::PROCESS_OK;
 		}
 		
-		public static function addFolder(Model_Users $user, $name = null, $description = null, Model_Files $parent = null)
+		public static function addFolder(Model_Users $user, $name = null, $description = null, Model_Files $parent = null, $tags = null)
 		{
-			$folder	=	new Model_Files($name, $description, 1, $user, $parent);
+			
+			//We manage the tags
+			$arrayTags	=	explode(' ', $tags);
+			$arrayTagsInstances = [];
+			
+			foreach($arrayTags as $tagName)
+			{
+				$tag = Model_Tags::getTag($tagName);
+				if(!$tag)
+				{
+					$newTag = new Model_Tags($tagName);
+					$tag = Model_Tags::add($newTag);
+				}
+				
+				$arrayTagsInstances[] = $tag;
+			}
+			
+			$folder	=	new Model_Files($name, $description, 1, $user, $parent, $arrayTagsInstances);
 			$newFolder = Model_Files::add($folder);
 
 			//Not forget to update the feed for followers
