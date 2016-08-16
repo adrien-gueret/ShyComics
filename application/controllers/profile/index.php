@@ -38,7 +38,7 @@
 				'user_about'	=> $member->prop('about'),
 				'user_sub_date'	=> $member->getSubDate(),
 				'tpl_follow'	=> $tpl_follow,
-				'user_follows'	=> $member->prop('follows')
+				'user_follows'	=> $member->load('follows')
 			]);
 			$this->response->set($view);
 		}

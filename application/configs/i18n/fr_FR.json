@@ -135,7 +135,7 @@
         "page_description": "Consultez le profil de %s et lisez ses sprite comics !",
         "title": "Profil de %s",
         "go_to_gallery": "Accéder à sa galerie",
-		"sub_date": "Membre inscrit depuis le :",
+        "sub_date": "Membre inscrit depuis le :",
         "follows": "Cet auteur suit les membres :"
       },
       "modify": {
