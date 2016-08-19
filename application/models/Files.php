@@ -296,4 +296,15 @@
 			
 			return $results;
 		}
+		
+		public static function getRandom()
+		{
+			$result = \EntityPHP\EntityRequest::executeSQL("
+				SELECT *
+				FROM files
+				WHERE is_dir = false
+				ORDER BY RAND() LIMIT 1
+			");
+			return Model_Files::getById($result[0]->id);
+		}
 	}
