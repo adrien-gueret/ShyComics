@@ -13,7 +13,7 @@
 		<?= $view->folder_name; ?>
 	<?php endif; ?></h2>
 </p>
-
+<div><?= $view->hierarchy; ?></div>
 <div class="gallery"><?= $view->tpl_gallery; ?></div>
 <?= $view->tpl_delete; ?>
 <?= $view->tpl_adding_form; ?>

@@ -307,4 +307,58 @@
 			");
 			return Model_Files::getById($result[0]->id);
 		}
+		
+		public function getPrevious()
+		{
+			$request = Model_Files::createRequest(true);
+			
+			$where		=	'id < ? AND is_dir=? AND parent_file.id';
+			$params		=	[$this->getId(), false];
+			$parentId = $this->getParentFileId();
+
+			if(empty($parentId))
+			{
+				$where	.=	' IS NULL AND user.id=?';
+				$params[]	=	$this->getUser()->getId();
+			}
+			else
+			{
+				$where		.=	'=?';
+				$params[]	=	$parentId;
+			}
+			
+			$result = $request->select('*')
+							  ->where($where, $params)
+						      ->orderBy('id DESC')
+						      ->getOnly(1)
+						      ->exec();
+			return $result;
+		}
+		
+		public function getNext()
+		{
+			$request = Model_Files::createRequest(true);
+			
+			$where		=	'id > ? AND is_dir=? AND parent_file.id';
+			$params		=	[$this->getId(), false];
+			$parentId = $this->getParentFileId();
+
+			if(empty($parentId))
+			{
+				$where	.=	' IS NULL AND user.id=?';
+				$params[]	=	$this->getUser()->getId();
+			}
+			else
+			{
+				$where		.=	'=?';
+				$params[]	=	$parentId;
+			}
+			
+			$result = $request->select('*')
+							  ->where($where, $params)
+						      ->orderBy('id')
+						      ->getOnly(1)
+						      ->exec();
+			return $result;
+		}
 	}

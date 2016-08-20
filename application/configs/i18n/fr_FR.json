@@ -215,6 +215,9 @@
           "default_page_title": "Document sans nom",
           "not_found": "Ce document n'existe pas.",
           "no_tag": "Ce document n'est lié à aucun tag."
+          "previous": "Planche précédente",
+          "next": "Planche suivante",
+          "root": "Racine de la galerie"
         },
         "nbr_views": {
           "none": "Ce document n'a encore jamais été vu.",
