@@ -1,18 +1,28 @@
 <?php
 	abstract class Library_Gallery
 	{
-		public static function getFolderTemplate(Model_Users $owner, $id_parent = null, $on_own_gallery = false)
+		public static function getFolderTemplate(Model_Users $owner, $id_parent, $on_own_gallery = false, $name, $tags = null, $baseURL = null)
 		{
 			$tpl_gallery		=	null;
 			$tpl_delete			=	null;
 			$tpl_adding_form	=	null;
 			$documents			=	$owner->getDocuments($id_parent); // Get folders AND files
-
+			
+			$hierarchy = '';
+			$parent = Model_Files::getById($id_parent);
+			if(!empty($parent))
+			{
+				while($parent = $parent->getParentFile())
+				{
+					$hierarchy = ' >> <a href="' . $baseURL . 'spritecomics/gallery/details/' . $parent->getId() . '">' . $parent->prop('name') . '</a>' . $hierarchy;
+				}
+				$hierarchy = '<a href="' . $baseURL . 'spritecomics/gallery/' . $owner->getId() . '">' . Library_i18n::get('spritecomics.gallery.details.root') . '</a>' . $hierarchy;
+			}
+			
 			if($documents->isEmpty())
 				$tpl_gallery	=	\Eliya\Tpl::get('spritecomics/gallery/empty');
 			else
 			{
-				
 				foreach($documents as $document)
 				{
 					$type			=	$document->prop('is_dir') ? 'folder' : 'file';
@@ -34,6 +44,8 @@
 				'tpl_adding_form' 	=>	$tpl_adding_form,
 				'on_own_gallery'	=>	$on_own_gallery,
 				'owner'				=>	$owner,
+				'folder_name'		=>	$name,
+				'hierarchy'			=>	$hierarchy,
 			]);
 		}
 	}

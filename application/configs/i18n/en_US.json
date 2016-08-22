@@ -97,7 +97,7 @@
     },
     "register_success": {
       "flash_message": "Registration successful! !",
-      "desc_1": "Votre inscription a bien été prise en compte. Your registration has been confirmed.",
+      "desc_1": "Your registration has been confirmed.",
       "desc_2": "For security purposes, we have sent a confirmation e-mail to the address you’ve given.(<b>{{email}}</b>).",
       "desc_3": "Please click the validation link found in this e-mail to finalize your registration!",
       "desc_4": "Si vous n'avez pas reçu d'e-mails, merci de vérifier votre boite de spams, il s'y trouve sûrement ;)"

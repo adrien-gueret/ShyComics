@@ -8,6 +8,6 @@
 	<?= Library_i18n::get('spritecomics.gallery.comments.none') ?>
 <?php else: ?>
 	<?php foreach($view->comments as $key=>$comment): ?>
-	<?= '<br />Par <b>' . $comment->getUser()->prop('username') . '</b> : ' . $comment->prop('content') ?>
+	<?= '<br />Par <b><a href="' . $view->base_url . 'profile/' . $comment->getUser()->getId() . '">' . $comment->getUser()->prop('username') . '</a></b> : ' . $comment->prop('content') ?>
 	<?php endforeach; ?>
 <?php endif; ?>

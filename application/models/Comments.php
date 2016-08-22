@@ -29,4 +29,19 @@
 		{
 			return $this->load('user');
 		}
+
+		public function getFile()
+		{
+			return $this->load('file');
+		}
+		
+		public static function getLastComments($number)
+		{
+			$request = Model_Comments::createRequest();
+			$results = $request->select('*')
+							   ->getOnly($number)
+							   ->exec();
+			
+			return $results;
+		}
 	}

@@ -2,7 +2,7 @@
 	class Controller_profile_modify extends Controller_index
 	{
 		use Trait_checkIdUser;
-
+		
 		public function get_index()
 		{
 			if( ! $this->_current_member->isConnected())
@@ -10,7 +10,7 @@
 				$this->response->error(Library_i18n::get('errors.global.need_connection'), 401);
 				return;
 			}
-
+			
 			\Eliya\Tpl::set([
 				'page_title'		=>	Library_i18n::get('profile.modify.page_title'),
 				'page_description'	=>	Library_i18n::get('profile.modify.page_description'),
@@ -19,13 +19,14 @@
 			$data = [
 				'avatarURL' => $this->_current_member->getAvatarURL(),
 				'tpl_form_avatar' => \Eliya\Tpl::get('profile/form_avatar'),
+				'tpl_form_about' => \Eliya\Tpl::get('profile/form_about', ['user_about' => $this->_current_member->prop('about')]),
 			];
 			
 			$view	=	\Eliya\Tpl::get('profile/modify', $data);
 			$this->response->set($view);
 		}
 		
-		public function post_index()
+		public function post_avatar()
 		{
 			if( ! $this->_current_member->isConnected())
 			{
@@ -57,7 +58,7 @@
 					Library_Messages::add(Library_i18n::get('profile.modify.avatar.success'), Library_Messages::TYPE_SUCCESS);
 				break;
 			}
-
+			
 			\Eliya\Tpl::set([
 				'page_title'		=>	Library_i18n::get('profile.modify.page_title'),
 				'page_description'	=>	Library_i18n::get('profile.modify.page_description'),
@@ -66,6 +67,37 @@
 			$data = [
 				'avatarURL' => $this->_current_member->getAvatarURL(),
 				'tpl_form_avatar' => \Eliya\Tpl::get('profile/form_avatar'),
+				'tpl_form_about' => \Eliya\Tpl::get('profile/form_about', ['user_about' => $this->_current_member->prop('about')]),
+			];
+			
+			$view	=	\Eliya\Tpl::get('profile/modify', $data);
+			$this->response->set($view);
+		}
+		
+		public function post_about($content)
+		{
+			if( ! $this->_current_member->isConnected())
+			{
+				$this->response->error(Library_i18n::get('errors.global.need_connection'), 401);
+				return;
+			}
+			
+			switch($this->_current_member->changeAbout($content))
+			{
+				case Model_Files::PROCESS_OK:
+					Library_Messages::add(Library_i18n::get('profile.modify.about.success'), Library_Messages::TYPE_SUCCESS);
+				break;
+			}
+			
+			\Eliya\Tpl::set([
+				'page_title'		=>	Library_i18n::get('profile.modify.page_title'),
+				'page_description'	=>	Library_i18n::get('profile.modify.page_description'),
+			]);
+			
+			$data = [
+				'avatarURL' => $this->_current_member->getAvatarURL(),
+				'tpl_form_avatar' => \Eliya\Tpl::get('profile/form_avatar'),
+				'tpl_form_about' => \Eliya\Tpl::get('profile/form_about', ['user_about' => $this->_current_member->prop('about')]),
 			];
 			
 			$view	=	\Eliya\Tpl::get('profile/modify', $data);

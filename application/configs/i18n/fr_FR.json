@@ -1,7 +1,7 @@
 {
     "global": {
       "default_page_title": "Shy'Comics",
-      "default_page_description": "La référence en Sprites Comics !",
+      "default_page_description": "La référence en Sprite Comics !",
       "db_connection_error": "Impossible de se connecter à la base de données : informations introuvables.",
       "langs": {
         "fr_FR": "Français",
@@ -52,6 +52,7 @@
             "facebook": "Devenez fans sur Facebook !",
             "twitter": "Suivez-nous sur Twitter !",
             "follows": "Gérer votre liste de membres suivis",
+            "gallery": "Accéder à ma galerie",
             "modify": "Gérer votre profil",
             "about": "A propos",
             "home": "Retour à l'accueil"
@@ -59,8 +60,12 @@
         }
       },
       "index": {
+	    "title" : "Bienvenue sur Shy'comics !",
+	    "presentation" : "Bonjour et bienvenue sur <b>la référence en Sprites Comics</b> ! (comprenez par là une BD avec des personnages et des décors de jeux vidéo). N'hésitez pas à <b>lire</b> les Sprite-Comics disponibles ou même à créer puis <b>partager</b> les vôtres ! <br /> Et si vous avez besoin de conseils ou simplement envie d'échanger avec les autres membres, le forum est fait pour vous ! <br /><br /> <b>Bonne lecture à tous :D</b>",
+        "update" : "<b>Mise-à-jour</b> : Shy'Comics Returns est encore une version bêta mais SM58 travaille d'arrache-pied pour l'améliorer !",
         "title_last_uploads": "Dernières publications",
-        "desc_last_uploads": "TODO: Lorem ipsum dolor sit amet, consectetur adipisicing elit",
+        "title_random": "Une planche au hasard",
+        "title_last_comments": "Derniers commentaires",
         "title_lost": "Vous êtes perdus ?",
         "desc_lost_1": "Vous ne savez pas où aller ? Vous ignorez même ce qu'est un <em>sprite comic</em> ?",
         "desc_lost_2": "Nous vous invitons a vous rendre sur <a href=\"{{base_url}}about\">la page \"A propos\"</a> afin d'en savoir plus sur le <em>sprite comic</em> et Shy'Comics. Vous pouvez également visiter <a href=\"{{base_url}}spritecomics\">les galeries de nos membres</a> pour lire leurs créations <strong>gratuitement</strong> !"
@@ -135,7 +140,9 @@
         "page_title": "Profil de %s",
         "page_description": "Consultez le profil de %s et lisez ses sprite comics !",
         "title": "Profil de %s",
-        "go_to_gallery": "Accéder à sa galerie"
+        "go_to_gallery": "Accéder à sa galerie",
+        "sub_date": "Membre inscrit depuis le :",
+        "follows": "Cet auteur suit les membres :"
       },
       "modify": {
         "page_title": "Modifer mon profil",
@@ -143,15 +150,19 @@
         "title": "Modifier mon profil",
         "avatar_actual": "Votre avatar actuel :",
         "avatar_change": "Changer d'avatar :",
+        "about_change": "Décrivez-vous brièvement (255 caractères):",
         "avatar": {
           "errors": {
-          "file_too_big": "Le fichier est trop gros : il dépasse la limite de taille imposée.",
-          "bad_upload": "Le fichier n'a pas été uploadé correctement sur notre serveur.",
-          "bad_type": "Le fichier n'a pas été enregistré car son type n'est pas autorisé.",
-          "unknown": "Une erreur inconnue est survenue lors de la sauvegarde du fichier."
+            "file_too_big": "Le fichier est trop gros : il dépasse la limite de taille imposée.",
+            "bad_upload": "Le fichier n'a pas été uploadé correctement sur notre serveur.",
+            "bad_type": "Le fichier n'a pas été enregistré car son type n'est pas autorisé.",
+            "unknown": "Une erreur inconnue est survenue lors de la sauvegarde du fichier."
           },
           "success": "Votre avatar a bien été modifié"
-    	}
+        },
+        "about": {
+          "success": "Votre description de profil a bien été modifiée"
+        }
       },
       "submit": "Enregistrer les modifications",
       "follow": {
@@ -183,7 +194,7 @@
           "helpers": {
             "doc_name": "Nom du document",
             "description": "Une petite description ? (facultatif)",
-            "tags": "Liez des tags à votre document"
+            "tags": "Liez des tags à votre document (séparez les par des espaces)"
           },
           "file_selection": "Sélectionnez votre fichier",
           "submit": "Confirmer l'ajout",
@@ -203,7 +214,11 @@
         "empty": "Ce dossier est vide.",
         "details": {
           "default_page_title": "Document sans nom",
-          "not_found": "Ce document n'existe pas."
+          "not_found": "Ce document n'existe pas.",
+          "no_tag": "Ce document n'est lié à aucun tag.",
+          "previous": "Planche précédente",
+          "next": "Planche suivante",
+          "root": "Racine de la galerie"
         },
         "nbr_views": {
           "none": "Ce document n'a encore jamais été vu.",

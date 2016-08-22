@@ -20,7 +20,7 @@
 				'page_description'	=>	Library_i18n::get('spritecomics.gallery.page_description', $member->prop('username')),
 			]);
 
-			$this->response->set(Library_Gallery::getFolderTemplate($member, null, $is_own_gallery));
+			$this->response->set(Library_Gallery::getFolderTemplate($member, null, $is_own_gallery, null, null, null));
 		}
 
 		public function post_index($name = null, $description = null, $parent_file_id = null, $is_dir = 1, $thumbnail_data_url = null, $tags = null)
@@ -123,7 +123,7 @@
 			}
 
 			if($document->prop('is_dir') == 1)
-				$template	=	Library_Gallery::getFolderTemplate($owner, $document->getId(), $is_own_gallery);
+				$template	=	Library_Gallery::getFolderTemplate($owner, $document->getId(), $is_own_gallery, $document->prop('name'), $tags, $this->request->getBaseURL());
 			else
 			{
 				$tpl_delete	=	null;
@@ -137,9 +137,20 @@
 					Model_Views::add($newView);
 				}
 				
-				$tpl_tags	=	\Eliya\Tpl::get('spritecomics/gallery/tags', ['tags' => $tags]);
+				$tpl_tags	=	\Eliya\Tpl::get('spritecomics/gallery/tags', ['tags' => $tags, 'is_index' => false]);
 				$imagePath = $this->request->getBaseURL() . $document->getPath();
 				$URL = $this->request->getBaseURL() . 'spritecomics/gallery/details/' . $id_document;
+				
+				$hierarchy = '';
+				$parent = $document;
+				while($parent = $parent->getParentFile())
+				{
+					$hierarchy = ' >> <a href="' . $this->request->getBaseURL() . 'spritecomics/gallery/details/' . $parent->getId() . '">' . $parent->prop('name') . '</a>' . $hierarchy;
+				}
+				$hierarchy = '<a href="' . $this->request->getBaseURL() . 'spritecomics/gallery/' . $owner->getId() . '">' . Library_i18n::get('spritecomics.gallery.details.root') . '</a>' . $hierarchy;
+				
+				$previous = $document->getPrevious();
+				$next 	  = $document->getNext();
 				
 				\Eliya\Tpl::set([
 					'social_NW_meta'	=>	'<meta property="og:title" content="' . $page_title . '">
@@ -166,25 +177,33 @@
 							'nbr_likes'	=>	$document->getNbrOfLikes(),
 						]);
 					}
-					
-					$comments = $document->getComments();
-					$tpl_comment = \Eliya\Tpl::get('spritecomics/gallery/details/comment', [
-						'id_file'	=>	$document->getId(),
-						'comments'	=>	$comments->getArray(),
-					]);
-					$tpl_nbr_views = \Eliya\Tpl::get('spritecomics/gallery/details/nbr_views', ['nbr_views' => Model_Views::count('document.id=?', [$id_document])]);
-					$tpl_social_NW = \Eliya\Tpl::get('spritecomics/gallery/details/social_NW', ['URL' => $URL]);
 				}
+				
+				$comments = $document->getComments();
+				$tpl_comment = \Eliya\Tpl::get('spritecomics/gallery/details/comment', [
+					'id_file'	=>	$document->getId(),
+					'comments'	=>	$comments->getArray(),
+				]);
+				$tpl_description = \Eliya\Tpl::get('spritecomics/gallery/details/description', [
+					'description'	=>	$document->prop('description'),
+				]);
+				
+				$tpl_nbr_views = \Eliya\Tpl::get('spritecomics/gallery/details/nbr_views', ['nbr_views' => Model_Views::count('document.id=?', [$id_document])]);
+				$tpl_social_NW = \Eliya\Tpl::get('spritecomics/gallery/details/social_NW', ['URL' => $URL]);
 
 				$template	=	\Eliya\Tpl::get('spritecomics/gallery/details/file', [
-					'file'			=>	$document,
-					'imagePath'		=>	$imagePath,
-					'tpl_nbr_views'	=>	$tpl_nbr_views,
-					'tpl_social_NW'	=>	$tpl_social_NW,
-					'tpl_delete'	=>	$tpl_delete,
-					'tpl_like'		=>	$tpl_like,
-					'tpl_comment'	=>	$tpl_comment,
-					'tpl_tags'		=>	$tpl_tags,
+					'file'				=>	$document,
+					'imagePath'			=>	$imagePath,
+					'tpl_nbr_views'		=>	$tpl_nbr_views,
+					'tpl_social_NW'		=>	$tpl_social_NW,
+					'tpl_delete'		=>	$tpl_delete,
+					'tpl_like'			=>	$tpl_like,
+					'tpl_comment'		=>	$tpl_comment,
+					'tpl_tags'			=>	$tpl_tags,
+					'tpl_description'	=>	$tpl_description,
+					'previous'			=>	$previous,
+					'next'				=>	$next,
+					'hierarchy'			=>	$hierarchy,
 				]);
 			}
 			

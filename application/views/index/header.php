@@ -66,6 +66,11 @@
 			<ul>
 				<?php if($view->current_member->isConnected()): ?>
 					<li>
+						<a href="<?= $view->base_url; ?>spritecomics/gallery" class="leftnav_button" title="<?= Library_i18n::get('index.header.navigation.helpers.gallery'); ?>">
+							<i class="fa fa-picture-o" aria-hidden="true"></i>
+						</a>
+					</li>
+					<li>
 						<a href="<?= $view->base_url; ?>follows" class="leftnav_button" title="<?= Library_i18n::get('index.header.navigation.helpers.follows'); ?>">
 							<i class="fa fa-users"></i>
 						</a>

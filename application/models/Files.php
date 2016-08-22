@@ -80,20 +80,38 @@
 			$is_dir			=	0;
 			
 			//We manage the tags
-			$arrayTags	=	explode(' ', $tags);
-			$arrayTagsInstances = [];
-			
-			foreach($arrayTags as $tagName)
+			if(!empty($tags))
 			{
-				$tag = Model_Tags::getTag($tagName);
-				if(!$tag)
-				{
-					$newTag = new Model_Tags($tagName);
-					$tag = Model_Tags::add($newTag);
-				}
+				$arrayTags	=	explode(' ', $tags);
+				$arrayNewTags = [];
 				
-				$arrayTagsInstances[] = $tag;
+				if(strpos($tags, ' ') === false)//Only 1 tag
+				{
+					$tagAlreadyExist = Model_Tags::getTag($tags);
+					if(empty($tagAlreadyExist))
+					{
+						$newTag = new Model_Tags($tags);
+						Model_Tags::add($newTag);
+						$arrayTagsInstances = [$newTag];
+					}
+					else
+						$arrayTagsInstances = [$tagAlreadyExist];
+				}
+				else//More than 1 tag
+				{
+					$tagsAlreadyExist = Model_Tags::getExistingTags($tags);
+					$namesTagsAlreadyExist = (is_array($tagsAlreadyExist)) ? array_map(function($tag){return $tag->name;}, $tagsAlreadyExist) : [];
+					$instancesTagsAlreadyExist = (is_array($tagsAlreadyExist)) ? array_map(function($tag){return Model_Tags::getTag($tag->name);}, $tagsAlreadyExist) : [];
+					
+					$tagsDontExist = array_diff($arrayTags, $namesTagsAlreadyExist);
+					$instancesTagsDontExist = array_map(function($tagName){return new Model_Tags($tagName);}, $tagsDontExist);
+					if(!empty($tagsDontExist))
+						(count($tagsDontExist) == 1) ? Model_Tags::add(reset($instancesTagsDontExist)) : Model_Tags::addMultiple($instancesTagsDontExist);
+					
+					$arrayTagsInstances = array_merge($instancesTagsAlreadyExist, $instancesTagsDontExist);
+				}
 			}
+			
 			$file 		=	new Model_Files($name, $description, $is_dir, $user, $parent, $arrayTagsInstances);
 
 			$file 		=	Model_Files::add($file);
@@ -139,9 +157,42 @@
 			return self::PROCESS_OK;
 		}
 		
-		public static function addFolder(Model_Users $user, $name = null, $description = null, Model_Files $parent = null)
+		public static function addFolder(Model_Users $user, $name = null, $description = null, Model_Files $parent = null, $tags = null)
 		{
-			$folder	=	new Model_Files($name, $description, 1, $user, $parent);
+			//We manage the tags
+			if(!empty($tags))
+			{
+				$arrayTags	=	explode(' ', $tags);
+				$arrayNewTags = [];
+				
+				if(strpos($tags, ' ') === false)//Only 1 tag
+				{
+					$tagAlreadyExist = Model_Tags::getTag($tags);
+					if(empty($tagAlreadyExist))
+					{
+						$newTag = new Model_Tags($tags);
+						Model_Tags::add($newTag);
+						$arrayTagsInstances = [$newTag];
+					}
+					else
+						$arrayTagsInstances = [$tagAlreadyExist];
+				}
+				else//More than 1 tag
+				{
+					$tagsAlreadyExist = Model_Tags::getExistingTags($tags);
+					$namesTagsAlreadyExist = (is_array($tagsAlreadyExist)) ? array_map(function($tag){return $tag->name;}, $tagsAlreadyExist) : [];
+					$instancesTagsAlreadyExist = (is_array($tagsAlreadyExist)) ? array_map(function($tag){return Model_Tags::getTag($tag->name);}, $tagsAlreadyExist) : [];
+					
+					$tagsDontExist = array_diff($arrayTags, $namesTagsAlreadyExist);
+					$instancesTagsDontExist = array_map(function($tagName){return new Model_Tags($tagName);}, $tagsDontExist);
+					if(!empty($tagsDontExist))
+						(count($tagsDontExist) == 1) ? Model_Tags::add(reset($instancesTagsDontExist)) : Model_Tags::addMultiple($instancesTagsDontExist);
+					
+					$arrayTagsInstances = array_merge($instancesTagsAlreadyExist, $instancesTagsDontExist);
+				}
+			}
+			
+			$folder	=	new Model_Files($name, $description, 1, $user, $parent, $arrayTagsInstances);
 			$newFolder = Model_Files::add($folder);
 
 			//Not forget to update the feed for followers
@@ -267,5 +318,81 @@
 				WHERE f.name LIKE '%" . $like . "%' OR t.name IN ('" . $in . "')
 			");
 			return $results;
+		}
+		
+		public static function getLastBoards($number)
+		{
+			$request = Model_Files::createRequest();
+			$results = $request->select('*')
+							   ->where('is_dir=?', [false])
+							   ->getOnly($number)
+							   ->exec();
+			
+			return $results;
+		}
+		
+		public static function getRandom()
+		{
+			$result = \EntityPHP\EntityRequest::executeSQL("
+				SELECT *
+				FROM files
+				WHERE is_dir = false
+				ORDER BY RAND() LIMIT 1
+			");
+			return Model_Files::getById($result[0]->id);
+		}
+		
+		public function getPrevious()
+		{
+			$request = Model_Files::createRequest(true);
+			
+			$where		=	'id < ? AND is_dir=? AND parent_file.id';
+			$params		=	[$this->getId(), false];
+			$parentId = $this->getParentFileId();
+
+			if(empty($parentId))
+			{
+				$where	.=	' IS NULL AND user.id=?';
+				$params[]	=	$this->getUser()->getId();
+			}
+			else
+			{
+				$where		.=	'=?';
+				$params[]	=	$parentId;
+			}
+			
+			$result = $request->select('*')
+							  ->where($where, $params)
+						      ->orderBy('id DESC')
+						      ->getOnly(1)
+						      ->exec();
+			return $result;
+		}
+		
+		public function getNext()
+		{
+			$request = Model_Files::createRequest(true);
+			
+			$where		=	'id > ? AND is_dir=? AND parent_file.id';
+			$params		=	[$this->getId(), false];
+			$parentId = $this->getParentFileId();
+
+			if(empty($parentId))
+			{
+				$where	.=	' IS NULL AND user.id=?';
+				$params[]	=	$this->getUser()->getId();
+			}
+			else
+			{
+				$where		.=	'=?';
+				$params[]	=	$parentId;
+			}
+			
+			$result = $request->select('*')
+							  ->where($where, $params)
+						      ->orderBy('id')
+						      ->getOnly(1)
+						      ->exec();
+			return $result;
 		}
 	}
