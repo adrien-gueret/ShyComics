@@ -302,8 +302,9 @@
 		
 		public static function search($string)
 		{
+			$string = trim($string);
 			if(empty($string))
-				return false;
+				return '';//Returns string so it activates is_array() in the view (empty request)
 			
 			$searchArray = explode(' ', htmlspecialchars($string));
 
