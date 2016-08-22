@@ -340,7 +340,7 @@
 				WHERE is_dir = false
 				ORDER BY RAND() LIMIT 1
 			");
-			return Model_Files::getById($result[0]->id);
+			return (is_array($result)) ? Model_Files::getById($result[0]->id) : null;
 		}
 		
 		public function getPrevious()
