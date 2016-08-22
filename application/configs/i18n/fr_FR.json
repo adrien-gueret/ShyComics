@@ -267,7 +267,8 @@
       }
     },
     "search": {
-      "index": "Résultats de la recherche :"
+      "index": "Résultats de la recherche :",
+      "none": "Aucun résultat disponible pour la recherche effectuée."
     },
     "errors": {
       "title": "Erreur %d",
