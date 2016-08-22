@@ -80,20 +80,38 @@
 			$is_dir			=	0;
 			
 			//We manage the tags
-			$arrayTags	=	explode(' ', $tags);
-			$arrayTagsInstances = [];
-			
-			foreach($arrayTags as $tagName)
+			if(!empty($tags))
 			{
-				$tag = Model_Tags::getTag($tagName);
-				if(!$tag)
-				{
-					$newTag = new Model_Tags($tagName);
-					$tag = Model_Tags::add($newTag);
-				}
+				$arrayTags	=	explode(' ', $tags);
+				$arrayNewTags = [];
 				
-				$arrayTagsInstances[] = $tag;
+				if(strpos($tags, ' ') === false)//Only 1 tag
+				{
+					$tagAlreadyExist = Model_Tags::getTag($tags);
+					if(empty($tagAlreadyExist))
+					{
+						$newTag = new Model_Tags($tags);
+						Model_Tags::add($newTag);
+						$arrayTagsInstances = [$newTag];
+					}
+					else
+						$arrayTagsInstances = [$tagAlreadyExist];
+				}
+				else//More than 1 tag
+				{
+					$tagsAlreadyExist = Model_Tags::getExistingTags($tags);
+					$namesTagsAlreadyExist = (is_array($tagsAlreadyExist)) ? array_map(function($tag){return $tag->name;}, $tagsAlreadyExist) : [];
+					$instancesTagsAlreadyExist = (is_array($tagsAlreadyExist)) ? array_map(function($tag){return Model_Tags::getTag($tag->name);}, $tagsAlreadyExist) : [];
+					
+					$tagsDontExist = array_diff($arrayTags, $namesTagsAlreadyExist);
+					$instancesTagsDontExist = array_map(function($tagName){return new Model_Tags($tagName);}, $tagsDontExist);
+					if(!empty($tagsDontExist))
+						(count($tagsDontExist) == 1) ? Model_Tags::add(reset($instancesTagsDontExist)) : Model_Tags::addMultiple($instancesTagsDontExist);
+					
+					$arrayTagsInstances = array_merge($instancesTagsAlreadyExist, $instancesTagsDontExist);
+				}
 			}
+			
 			$file 		=	new Model_Files($name, $description, $is_dir, $user, $parent, $arrayTagsInstances);
 
 			$file 		=	Model_Files::add($file);
@@ -141,21 +159,37 @@
 		
 		public static function addFolder(Model_Users $user, $name = null, $description = null, Model_Files $parent = null, $tags = null)
 		{
-			
 			//We manage the tags
-			$arrayTags	=	explode(' ', $tags);
-			$arrayTagsInstances = [];
-			
-			foreach($arrayTags as $tagName)
+			if(!empty($tags))
 			{
-				$tag = Model_Tags::getTag($tagName);
-				if(!$tag)
-				{
-					$newTag = new Model_Tags($tagName);
-					$tag = Model_Tags::add($newTag);
-				}
+				$arrayTags	=	explode(' ', $tags);
+				$arrayNewTags = [];
 				
-				$arrayTagsInstances[] = $tag;
+				if(strpos($tags, ' ') === false)//Only 1 tag
+				{
+					$tagAlreadyExist = Model_Tags::getTag($tags);
+					if(empty($tagAlreadyExist))
+					{
+						$newTag = new Model_Tags($tags);
+						Model_Tags::add($newTag);
+						$arrayTagsInstances = [$newTag];
+					}
+					else
+						$arrayTagsInstances = [$tagAlreadyExist];
+				}
+				else//More than 1 tag
+				{
+					$tagsAlreadyExist = Model_Tags::getExistingTags($tags);
+					$namesTagsAlreadyExist = (is_array($tagsAlreadyExist)) ? array_map(function($tag){return $tag->name;}, $tagsAlreadyExist) : [];
+					$instancesTagsAlreadyExist = (is_array($tagsAlreadyExist)) ? array_map(function($tag){return Model_Tags::getTag($tag->name);}, $tagsAlreadyExist) : [];
+					
+					$tagsDontExist = array_diff($arrayTags, $namesTagsAlreadyExist);
+					$instancesTagsDontExist = array_map(function($tagName){return new Model_Tags($tagName);}, $tagsDontExist);
+					if(!empty($tagsDontExist))
+						(count($tagsDontExist) == 1) ? Model_Tags::add(reset($instancesTagsDontExist)) : Model_Tags::addMultiple($instancesTagsDontExist);
+					
+					$arrayTagsInstances = array_merge($instancesTagsAlreadyExist, $instancesTagsDontExist);
+				}
 			}
 			
 			$folder	=	new Model_Files($name, $description, 1, $user, $parent, $arrayTagsInstances);
