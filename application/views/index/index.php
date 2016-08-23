@@ -5,6 +5,8 @@
 </p>
 <h2><?= Library_i18n::get('index.index.title_last_uploads'); ?></h2>
 <p><?= $view->tpl_last_boards; ?></p>
+<h2><?= Library_i18n::get('index.index.title_populars'); ?></h2>
+<p><?= $view->tpl_populars; ?></p>
 <h2><?= Library_i18n::get('index.index.title_random'); ?></h2>
 <p><?= $view->tpl_random; ?></p>
 <h2><?= Library_i18n::get('index.index.title_last_comments'); ?></h2>

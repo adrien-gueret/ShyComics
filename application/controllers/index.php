@@ -19,8 +19,19 @@
 			$comments = Model_Comments::getLastComments(10);
 			$tpl_last_comments = \Eliya\Tpl::get('index/last_comments', ['comments' => $comments]);
 			
-			$this->response->set(\Eliya\Tpl::get('index/index', ['tpl_last_boards' => $tpl_last_boards,
+			$populars = Model_Files::getPopulars();
+			$tpl_populars = '';
+			if(is_array($populars))
+			{
+				foreach($populars as $popular)
+				{
+					$tpl_populars	.=	\Eliya\Tpl::get('spritecomics/gallery/file', ['document' => Model_Files::getById($popular->id)]);
+				}
+			}
+			
+			$this->response->set(\Eliya\Tpl::get('index/index', ['tpl_last_boards'	=> $tpl_last_boards,
 																'tpl_last_comments' => $tpl_last_comments,
-																'tpl_random' => $tpl_random]));
+																'tpl_random'		=> $tpl_random,
+																'tpl_populars'		=> $tpl_populars,]));
 		}
 	}
