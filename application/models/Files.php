@@ -399,4 +399,18 @@
 						      ->exec();
 			return $result;
 		}
+		
+		public static function getPopulars($nbr = 10)
+		{
+			$result = \EntityPHP\EntityRequest::executeSQL("
+				SELECT id, DATEDIFF(NOW(), sub_date) AS sub_datediff, (SELECT COUNT(*) FROM comments c WHERE c.id_file = f.id) AS nbr_comms,
+					(SELECT COUNT(*) FROM views v WHERE v.id_document = f.id) AS nbr_views, (SELECT COUNT(*) FROM files2liked_users f2l WHERE f2l.id_files = f.id) AS nbr_likes
+				FROM files f
+				WHERE is_dir = false
+				ORDER BY (1000 - sub_datediff * 100) + nbr_comms * 10 + (nbr_views + nbr_likes) * 5 DESC
+				LIMIT 10
+			");
+			
+			return $result;
+		}
 	}
