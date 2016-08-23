@@ -14,7 +14,7 @@
 			}
 			
 			$random = Model_Files::getRandom();
-			(!empty($random)) ? $tpl_random = \Eliya\Tpl::get('spritecomics/gallery/file', ['document' => $random]) : '';
+			(!empty($random)) ? $tpl_random = \Eliya\Tpl::get('spritecomics/gallery/file', ['document' => $random]) : $tpl_random = '';
 			
 			$comments = Model_Comments::getLastComments(10);
 			$tpl_last_comments = \Eliya\Tpl::get('index/last_comments', ['comments' => $comments]);
