@@ -316,7 +316,8 @@
 				FROM files f
 				LEFT JOIN files2tags ft ON ft.id_files=f.id
 				LEFT JOIN tags t ON t.id=ft.id_tags
-				WHERE f.name LIKE '%" . $like . "%' OR t.name IN ('" . $in . "')
+				JOIN users u ON u.id=f.id_user
+				WHERE f.name LIKE '%" . $like . "%' OR t.name IN ('" . $in . "') OR u.username IN ('" . $in . "')
 			");
 			return $results;
 		}
