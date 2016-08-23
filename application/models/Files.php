@@ -8,6 +8,7 @@
 		protected $parent_file;
 		protected $liked_users;
 		protected $tags;
+		protected $sub_date;
 		
 		const 	SIZE_LIMIT		=	100000000,
 
@@ -20,7 +21,7 @@
 		
 		protected static $table_name = 'files';
 		
-		public function __construct($name = null, $description = null, $is_dir = null, Model_Users $user = null, Model_Files $parent_file = null, $tags = null)
+		public function __construct($name = null, $description = null, $is_dir = null, Model_Users $user = null, Model_Files $parent_file = null, $tags = null, $sub_date = null)
 		{
 			$this->name = $name;
 			$this->description = $description;
@@ -29,6 +30,7 @@
 			$this->parent_file = $parent_file;
 			$this->liked_users = [];
 			$this->tags = $tags;
+			$this->sub_date = $sub_date;
 		}
 		
 		public static function __structure()
@@ -41,6 +43,7 @@
 				'user' => 'Model_Users',
 				'liked_users' => ['Model_Users'],
 				'tags' => ['Model_Tags'],
+				'sub_date' => 'DATE',
 			];
 		}
 		
@@ -112,7 +115,7 @@
 				}
 			}
 			
-			$file 		=	new Model_Files($name, $description, $is_dir, $user, $parent, $arrayTagsInstances);
+			$file 		=	new Model_Files($name, $description, $is_dir, $user, $parent, $arrayTagsInstances, date('Y-m-d'));
 
 			$file 		=	Model_Files::add($file);
 			$file_id	=	$file->getId();
@@ -192,7 +195,7 @@
 				}
 			}
 			
-			$folder	=	new Model_Files($name, $description, 1, $user, $parent, $arrayTagsInstances);
+			$folder	=	new Model_Files($name, $description, 1, $user, $parent, $arrayTagsInstances, date('Y-m-d'));
 			$newFolder = Model_Files::add($folder);
 
 			//Not forget to update the feed for followers
@@ -340,7 +343,7 @@
 				WHERE is_dir = false
 				ORDER BY RAND() LIMIT 1
 			");
-			return Model_Files::getById($result[0]->id);
+			return (is_array($result)) ? Model_Files::getById($result[0]->id) : null;
 		}
 		
 		public function getPrevious()
