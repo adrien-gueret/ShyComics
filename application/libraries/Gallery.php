@@ -37,11 +37,14 @@
 				if( ! empty($id_parent))
 					$tpl_delete			=	\Eliya\Tpl::get('spritecomics/gallery/delete', ['id_to_delete' => $id_parent]);
 			}
+			
+			$tpl_tags	=	\Eliya\Tpl::get('spritecomics/gallery/tags', ['tags' => $tags, 'is_index' => empty($id_parent)]);
 
 			return \Eliya\Tpl::get('spritecomics/gallery', [
 				'tpl_gallery' 		=>	$tpl_gallery,
 				'tpl_delete'	 	=>	$tpl_delete,
 				'tpl_adding_form' 	=>	$tpl_adding_form,
+				'tpl_tags'			=>	$tpl_tags,
 				'on_own_gallery'	=>	$on_own_gallery,
 				'owner'				=>	$owner,
 				'folder_name'		=>	$name,
