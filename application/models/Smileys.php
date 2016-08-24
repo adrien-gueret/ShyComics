@@ -19,6 +19,6 @@
 		
 		public function getPath()
 		{
-			return 'public/images/smileys/' . $this->getId() . '.png';
+			return 'public/images/smileys/' . $this->getId() . '.gif';
 		}
 	}
