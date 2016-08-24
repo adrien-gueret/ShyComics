@@ -40,6 +40,11 @@
 			$string = preg_replace('#\[b\](.*)\[/b\]#isU', '<strong>$1</strong>', $string);
 			$string = preg_replace('#\[i\](.*)\[/i\]#isU', '<i>$1</i>', $string);
 			$string = preg_replace('#\[u\](.*)\[/u\]#isU', '<u>$1</u>', $string);
+			$string = preg_replace_callback('#\[size=(50|85|150|200)\](.*)\[/size\]#isU', function ($matches) {
+				return '<span style="font-size: ' . $matches[1]/100 . 'em;">' . $matches[2] . '</span>';
+			}, $string);
+			$string = preg_replace('#\[url\](.*)\[/url\]#isU', '<a href="$1">$1</a>', $string);
+			$string = preg_replace('#\[url=(.+)\](.*)\[/url\]#isU', '<a href="$1">$2</a>', $string);
 			
 			$string = self::parseQuotesRecursive($string); //Parsing quotes (possibility of quotes in quotes)
 			

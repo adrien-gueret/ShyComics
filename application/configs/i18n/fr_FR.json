@@ -276,7 +276,15 @@
         "bold": "Gras",
         "italic": "Italique",
         "underlined": "Souligné",
-        "quote": "Citer"
+        "link": "Lien",
+        "quote": "Citer",
+        "size": {
+          "50": "Très petit",
+          "85": "Petit",
+          "100": "Normal",
+          "150": "Grand",
+          "200": "Très grand"
+		}
       },
       "quote": {
         "quote": "Citation",
