@@ -282,7 +282,7 @@
 				$dateView = new DateTime($view->prop('date'));
 				
 				$interval = $dateView->diff($dateNow)->format('%a');
-				return $interval <= 1;
+				return $interval == 0;
 			}
 		}
 
