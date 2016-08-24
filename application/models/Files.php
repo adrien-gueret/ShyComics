@@ -21,7 +21,7 @@
 		
 		protected static $table_name = 'files';
 		
-		public function __construct($name = null, $description = null, $is_dir = null, Model_Users $user = null, Model_Files $parent_file = null, $tags = null, $sub_date = null)
+		public function __construct($name = null, $description = null, $is_dir = null, Model_Users $user = null, Model_Files $parent_file = null, $tags = null)
 		{
 			$this->name = $name;
 			$this->description = $description;
@@ -30,7 +30,7 @@
 			$this->parent_file = $parent_file;
 			$this->liked_users = [];
 			$this->tags = $tags;
-			$this->sub_date = $sub_date;
+			$this->sub_date = date('Y-m-d');
 		}
 		
 		public static function __structure()
@@ -115,7 +115,7 @@
 				}
 			}
 			
-			$file 		=	new Model_Files($name, $description, $is_dir, $user, $parent, $arrayTagsInstances, date('Y-m-d'));
+			$file 		=	new Model_Files($name, $description, $is_dir, $user, $parent, $arrayTagsInstances);
 
 			$file 		=	Model_Files::add($file);
 			$file_id	=	$file->getId();
@@ -195,7 +195,7 @@
 				}
 			}
 			
-			$folder	=	new Model_Files($name, $description, 1, $user, $parent, $arrayTagsInstances, date('Y-m-d'));
+			$folder	=	new Model_Files($name, $description, 1, $user, $parent, $arrayTagsInstances);
 			$newFolder = Model_Files::add($folder);
 
 			//Not forget to update the feed for followers
