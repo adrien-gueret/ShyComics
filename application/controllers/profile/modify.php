@@ -19,7 +19,10 @@
 			$data = [
 				'avatarURL' => $this->_current_member->getAvatarURL(),
 				'tpl_form_avatar' => \Eliya\Tpl::get('profile/form_avatar'),
-				'tpl_form_about' => \Eliya\Tpl::get('profile/form_about', ['user_about' => $this->_current_member->prop('about')]),
+				'tpl_form_about' => \Eliya\Tpl::get('profile/form_about', [
+					'user_about' => $this->_current_member->prop('about'),
+					'tpl_buttons' => Library_Parser::getButtons($this->request->getBaseURL(), 'content-about')
+				]),
 			];
 			
 			$view	=	\Eliya\Tpl::get('profile/modify', $data);
@@ -67,7 +70,10 @@
 			$data = [
 				'avatarURL' => $this->_current_member->getAvatarURL(),
 				'tpl_form_avatar' => \Eliya\Tpl::get('profile/form_avatar'),
-				'tpl_form_about' => \Eliya\Tpl::get('profile/form_about', ['user_about' => $this->_current_member->prop('about')]),
+				'tpl_form_about' => \Eliya\Tpl::get('profile/form_about', [
+					'user_about' => $this->_current_member->prop('about'),
+					'tpl_buttons' => Library_Parser::getButtons($this->request->getBaseURL(), 'content-about')
+				]),
 			];
 			
 			$view	=	\Eliya\Tpl::get('profile/modify', $data);
@@ -97,7 +103,10 @@
 			$data = [
 				'avatarURL' => $this->_current_member->getAvatarURL(),
 				'tpl_form_avatar' => \Eliya\Tpl::get('profile/form_avatar'),
-				'tpl_form_about' => \Eliya\Tpl::get('profile/form_about', ['user_about' => $this->_current_member->prop('about')]),
+				'tpl_form_about' => \Eliya\Tpl::get('profile/form_about', [
+					'user_about' => $this->_current_member->prop('about'),
+					'tpl_buttons' => Library_Parser::getButtons($this->request->getBaseURL(), 'content-about')
+				]),
 			];
 			
 			$view	=	\Eliya\Tpl::get('profile/modify', $data);

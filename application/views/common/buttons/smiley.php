@@ -1,0 +1,1 @@
+<a href="#" onclick="insertTag(' <?= $view->smiley->prop('tag'); ?>','','<?= $view->textareaId; ?>'); return false;" ><img src="<?= $view->base_url . $view->smiley->getPath(); ?>" /></a>
