@@ -275,8 +275,13 @@
       "buttons": {
         "bold": "Gras",
         "italic": "Italique",
-        "underlined": "Souligné"
-      }
+        "underlined": "Souligné",
+        "quote": "Citer"
+      },
+      "quote": {
+        "quote": "Citation",
+		"said": "a écrit"
+	  }
     },
     "errors": {
       "title": "Erreur %d",
