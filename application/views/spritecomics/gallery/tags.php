@@ -1,7 +1,7 @@
 <div>
 	<?php if(!$view->is_index): ?>
 		<legend><i class="fa fa-tags"></i></legend>
-		<?php if(!empty($view->tags[0])): ?>
+		<?php if(!$view->tags->isEmpty()): ?>
 			<?php foreach($view->tags as $tag) : ?>
 				<?= $tag->prop('name'); ?> 
 			<?php endforeach; ?>
