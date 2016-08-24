@@ -35,7 +35,7 @@
 				'user_id'		=> $member->getId(),
 				'user_name'		=> $member->prop('username'),
 				'user_avatar'	=> $member->getAvatarURL(),
-				'user_about'	=> $member->prop('about'),
+				'user_about'	=> Library_Parser::parse($member->prop('about'), $this->request->getBaseURL()),
 				'user_sub_date'	=> $member->getSubDate(),
 				'tpl_follow'	=> $tpl_follow,
 				'user_follows'	=> $member->load('follows')
