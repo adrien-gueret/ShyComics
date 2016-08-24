@@ -271,6 +271,13 @@
       "index": "Résultats de la recherche :",
       "none": "Aucun résultat disponible pour la recherche effectuée."
     },
+    "parser": {
+      "buttons": {
+        "bold": "Gras",
+        "italic": "Italique",
+        "underlined": "Souligné"
+      }
+    },
     "errors": {
       "title": "Erreur %d",
       "wild_error_desc": "Une <b>erreur %d</b> sauvage apparait !",
