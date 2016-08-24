@@ -37,9 +37,9 @@
 				$string = preg_replace('#' . str_replace('?', '\?', $smiley->prop('tag')) . '#isU', '<img src="' . $baseURL . $smiley->getPath() . '" alt="' . $smiley->prop('tag') . '" />', $string);
 			}
 			
-			$string = preg_replace('#\[b\](.+)\[/b\]#isU', '<strong>$1</strong>', $string);
-			$string = preg_replace('#\[i\](.+)\[/i\]#isU', '<i>$1</i>', $string);
-			$string = preg_replace('#\[u\](.+)\[/u\]#isU', '<u>$1</u>', $string);
+			$string = preg_replace('#\[b\](.*)\[/b\]#isU', '<strong>$1</strong>', $string);
+			$string = preg_replace('#\[i\](.*)\[/i\]#isU', '<i>$1</i>', $string);
+			$string = preg_replace('#\[u\](.*)\[/u\]#isU', '<u>$1</u>', $string);
 			
 			$string = self::parseQuotesRecursive($string); //Parsing quotes (possibility of quotes in quotes)
 			
