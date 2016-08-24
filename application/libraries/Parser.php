@@ -34,7 +34,7 @@
 			$smileys = Model_Smileys::getAll();
 			foreach($smileys as $smiley)
 			{
-				$string = preg_replace('#' . $smiley->prop('tag') . '#isU', '<img src="' . $baseURL . $smiley->getPath() . '" alt="' . $smiley->prop('tag') . '" />', $string);
+				$string = preg_replace('#' . str_replace('?', '\?', $smiley->prop('tag')) . '#isU', '<img src="' . $baseURL . $smiley->getPath() . '" alt="' . $smiley->prop('tag') . '" />', $string);
 			}
 			
 			$string = preg_replace('#\[b\](.+)\[/b\]#isU', '<strong>$1</strong>', $string);
