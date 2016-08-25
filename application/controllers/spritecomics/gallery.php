@@ -131,9 +131,7 @@
 				
 				if($this->_current_member->isConnected() && ! $is_own_gallery && ! $has_viewed)
 				{
-					$datetime = date('Y-m-d H:i:s');
-					
-					$newView = new Model_Views($datetime, $this->_current_member, $document);
+					$newView = new Model_Views($this->_current_member, $document);
 					Model_Views::add($newView);
 				}
 				
