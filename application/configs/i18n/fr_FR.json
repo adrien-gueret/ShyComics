@@ -108,6 +108,7 @@
           "empty_fields": "Merci de renseigner tous les champs du formulaire.",
           "bad_email": "Veuillez indiquer une adresse email valide.",
           "email_used": "L'adresse email <em>%s</em> est déjà utilisée.",
+          "username_used": "Le pseudo <em>%s</em> est déjà utilisé.",
           "not_same_password": "Le mot de passe n'a pas été confirmé."
         }
       },

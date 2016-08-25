@@ -54,12 +54,17 @@
 
 				if( ! filter_var($email, FILTER_VALIDATE_EMAIL))
 					throw new Exception(Library_i18n::get('login.register.errors.bad_email'));
+				
+				$existEmail = Model_Users::getByEmail($email);
 
-				$existingMember = Model_Users::getByEmail($email);
-
-				if( ! empty($existingMember))
+				if( ! empty($existEmail))
 					throw new Exception(Library_i18n::get('login.register.errors.email_used', $email));
 				
+				$existUsername = Model_Users::getByUsername($username);
+
+				if( ! empty($existUsername))
+					throw new Exception(Library_i18n::get('login.register.errors.username_used', $username));
+
 				if($passwordConfirm !== $password)
 					throw new Exception(Library_i18n::get('login.register.errors.not_same_password'));
 

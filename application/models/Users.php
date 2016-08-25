@@ -72,6 +72,15 @@
 							   ->exec();
 			return $results;
 		}
+
+		public static function getByUsername($username)
+		{
+			$request = Model_Users::createRequest();
+			$results = $request->where('username=?', [$username])
+							   ->getOnly(1)
+							   ->exec();
+			return $results;
+		}
 		
 		public static function emailVerified($id)
 		{
