@@ -9,7 +9,7 @@
 			<a href="<?= $view->base_url . 'spritecomics/gallery/details/' . $view->next->getId();?>"><?= Library_i18n::get('spritecomics.gallery.details.next'); ?></a><br />
 		<?php endif; ?>
 	</div>
-	<img src="<?= $view->imagePath; ?>" alt="<?= $view->file->prop('name'); ?>" title="<?= $view->file->prop('name'); ?>" />
+	<div id="detail-image-div"><img id="detail-image" src="<?= $view->imagePath; ?>" alt="<?= $view->file->prop('name'); ?>" title="<?= $view->file->prop('name'); ?>" /></div>
 	<?= $view->tpl_description; ?>
 	<?= $view->tpl_nbr_views; ?>
 	<?= $view->tpl_social_NW; ?>
@@ -18,3 +18,4 @@
 	<?= $view->tpl_like; ?>
 	<?= $view->tpl_comment; ?>
 </div>
+<script src="<?= $view->base_url; ?>public/javascript/spritecomics/gallery/scroll.js"></script>

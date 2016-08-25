@@ -466,3 +466,12 @@ button.orange, input[type="button"].orange, .button.orange {
 .gallery-link:hover figcaption {
 	opacity: 1;
 }
+
+#detail-image-div {
+	width: 100%;
+	overflow: hidden;
+}
+
+#detail-image {
+	position: relative;
+}
