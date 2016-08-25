@@ -7,9 +7,9 @@
 		protected $user;
 		protected $document;
 		
-		public function __construct($date = null, Model_Users $user = null, Model_Files $document = null)
+		public function __construct(Model_Users $user = null, Model_Files $document = null)
 		{
-			$this->date = $date;
+			$this->date = date('Y-m-d H:i:s');
 			$this->user = $user;
 			$this->document = $document;
 		}

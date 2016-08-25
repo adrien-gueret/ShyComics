@@ -17,7 +17,7 @@
 				<li>
 					<?php if($view->current_member->isConnected()): ?>
 						<?= Library_i18n::get('index.header.welcome_name', $view->current_member->prop('username')); ?> &bull;
-						<a href="<?= $view->base_url; ?>profile" title="Mon profil">
+						<a href="<?= $view->base_url; ?>profile" title="<?= Library_i18n::get('index.header.my_profile'); ?>">
 							<?= Library_i18n::get('index.header.my_profile'); ?>
 						</a> &bull;
 						<a href="<?= $view->base_url; ?>logout?token=<?= $_SESSION['token_logout']; ?>">

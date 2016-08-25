@@ -15,5 +15,6 @@
 </p>
 <div><?= $view->hierarchy; ?></div>
 <div class="gallery"><?= $view->tpl_gallery; ?></div>
+<div><?= $view->tpl_tags; ?></div>
 <?= $view->tpl_delete; ?>
 <?= $view->tpl_adding_form; ?>
