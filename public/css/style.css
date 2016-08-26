@@ -301,6 +301,16 @@ form .group-inputs select:focus + label {
 	border: 3px solid #000;
 }
 
+form.delete {
+	display: inline-block;
+}
+
+form.delete button {
+	font-size: 1em;
+	margin-bottom: 15px;
+	padding: 5px;
+}
+
 /* Buttons */
 button, input[type="button"], .button {
 	position: relative;

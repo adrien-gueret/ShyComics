@@ -232,6 +232,7 @@
           "send": "Envoyer le commentaire",
           "none" : "Cette planche n'a reçu aucun commentaire. Soyez le premier à la commenter !",
           "success": "Le commentaire a bien été envoyé !",
+		  "by": "Par",
           "helpers" : {
             "description": "Commenter cette planche :"
           },
@@ -241,14 +242,24 @@
         }
       },
       "delete": {
-        "success": "Le document a été correctement supprimé.",
-        "errors": {
-          "not_found_in_db": "Le document à supprimer n'existe pas.",
-          "forbidden": "Vous n'avez pas les permissions nécessaires pour supprimer ce document.",
-          "not_found": "Le document n'a pas pu être trouvé. Veuillez réessayer ou prévenir un administrateur.",
-          "unlink_failed": "Erreur lors de la suppresion du document. Veuillez réessayer ou prévenir un administrateur.",
-          "thumb_not_found": "La miniature de la planche n'a pas été trouvée. Veuillez réessayer ou prévenir un administrateur.",
-          "thumb_unlink_failed": "Erreur lors de la suppresion de la miniature de la planche. Veuillez réessayer ou prévenir un administrateur."
+        "file": {
+          "success": "Le document a été correctement supprimé.",
+          "errors": {
+            "not_found_in_db": "Le document à supprimer n'existe pas.",
+            "forbidden": "Vous n'avez pas les permissions nécessaires pour supprimer ce document.",
+            "not_found": "Le document n'a pas pu être trouvé. Veuillez réessayer ou prévenir un administrateur.",
+            "unlink_failed": "Erreur lors de la suppresion du document. Veuillez réessayer ou prévenir un administrateur.",
+            "thumb_not_found": "La miniature de la planche n'a pas été trouvée. Veuillez réessayer ou prévenir un administrateur.",
+            "thumb_unlink_failed": "Erreur lors de la suppresion de la miniature de la planche. Veuillez réessayer ou prévenir un administrateur."
+          }
+        },
+        "comment": {
+          "success": "Le commentaire a été correctement supprimé.",
+          "confirm": "Etes-vous sûr(e) de vouloir supprimer ce commentaire ?",
+          "errors": {
+            "not_found_in_db": "Le commentaire à supprimer n'existe pas.",
+            "forbidden": "Vous n'avez pas les permissions nécessaires pour supprimer ce commentaire."
+          }
         }
       },
       "like": {
