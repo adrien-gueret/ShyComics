@@ -6,8 +6,14 @@
 		protected $name;
 		/* Permissions */
 		protected $can_remove_other_files = 0;
+		protected $can_edit_other_file_s_tags = 0;
+		protected $can_remove_other_comments = 0;
+		protected $can_edit_other_comments = 0;
 
-		const PERM_REMOVE_OTHERS_FILES	=	'can_remove_other_files';
+		const PERM_REMOVE_OTHERS_FILES		=	'can_remove_other_files';
+		const PERM_EDIT_OTHERS_TAGS		=	'can_edit_other_file_s_tags';
+		const PERM_REMOVE_OTHERS_COMMENTS	=	'can_remove_other_comments';
+		const PERM_EDIT_OTHERS_COMMENTS	=	'can_edit_other_comments';
 
 		public function __construct($name = null, Array $permissions = [])
 		{
@@ -24,7 +30,10 @@
 		{
 			return [
 				'name' => 'VARCHAR(255)',
-				'can_remove_other_files' => 'TINYINT(1)'
+				'can_remove_other_files' => 'TINYINT(1)',
+				'can_edit_other_file_s_tags' => 'TINYINT(1)',
+				'can_remove_other_comments' => 'TINYINT(1)',
+				'can_edit_other_comments' => 'TINYINT(1)'
 			];
 		}
 

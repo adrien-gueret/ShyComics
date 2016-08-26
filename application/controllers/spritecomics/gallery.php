@@ -177,11 +177,15 @@
 					}
 				}
 				
+				$can_remove_other_comments = $this->_current_member->can(Model_UsersGroups::PERM_REMOVE_OTHERS_COMMENTS);
 				$comments = $document->getComments();
+				
 				$tpl_comment = \Eliya\Tpl::get('spritecomics/gallery/details/comment', [
-					'id_file'	=>	$document->getId(),
-					'comments'	=>	$comments->getArray(),
+					'id_file'	 => $document->getId(),
+					'comments'	 => $comments->getArray(),
+					'can_remove'  => $can_remove_other_comments
 				]);
+				
 				$tpl_description = \Eliya\Tpl::get('spritecomics/gallery/details/description', [
 					'description'	=>	$document->prop('description'),
 				]);
