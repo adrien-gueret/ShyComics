@@ -1,7 +1,7 @@
 <?php
 	abstract class Library_Gallery
 	{
-		public static function getFolderTemplate(Model_Users $owner, $id_parent, $on_own_gallery = false, $name, $tags = null, $baseURL = null)
+		public static function getFolderTemplate(Model_Users $owner, $id_parent, $on_own_gallery = false, $name, $tags = null, $baseURL = null, $can_edit_tags = false, $can_delete_file = false)
 		{
 			$tpl_gallery		=	null;
 			$tpl_delete			=	null;
@@ -41,7 +41,16 @@
 					]);
 			}
 			
-			$tpl_tags	=	\Eliya\Tpl::get('spritecomics/gallery/tags', ['tags' => $tags, 'is_index' => empty($id_parent)]);
+			$tpl_tags = '';
+			if(!empty($id_parent))
+			{
+				$tpl_tags = \Eliya\Tpl::get('spritecomics/gallery/tags', [
+					'id' => $id_parent,
+					'tags' => $tags,
+					'is_index' => empty($id_parent),
+					'can_edit' => $can_edit_tags || $on_own_gallery
+				]);
+			}
 
 			return \Eliya\Tpl::get('spritecomics/gallery', [
 				'tpl_gallery'		=>	$tpl_gallery,
