@@ -309,7 +309,7 @@
 			if(empty($string))
 				return '';//Returns string so it activates is_array() in the view (empty request)
 			
-			$searchArray = explode(' ', htmlspecialchars($string));
+			$searchArray = explode(' ', htmlspecialchars($string, ENT_QUOTES));
 
 			$like = implode("%' OR f.name LIKE '%", $searchArray);
 			$in = implode(',', $searchArray);
