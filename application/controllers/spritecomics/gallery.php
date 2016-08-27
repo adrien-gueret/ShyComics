@@ -186,8 +186,11 @@
 					'can_remove'  => $can_remove_other_comments
 				]);
 				
+				$can_edit_desc	=	$this->_current_member->can(Model_UsersGroups::PERM_EDIT_OTHERS_DESCS) || $is_own_gallery;
 				$tpl_description = \Eliya\Tpl::get('spritecomics/gallery/details/description', [
+					'id'			=>	$document->getId(),
 					'description'	=>	$document->prop('description'),
+					'can_edit'	=>	$can_edit_desc
 				]);
 				
 				$tpl_nbr_views = \Eliya\Tpl::get('spritecomics/gallery/details/nbr_views', ['nbr_views' => Model_Views::count('document.id=?', [$id_document])]);
