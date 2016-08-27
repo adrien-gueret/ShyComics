@@ -42,7 +42,7 @@
         "connect": "Connexion",
         "welcome_name": "Bienvenue %s",
         "my_profile": "Votre profil",
-        "logout": "Me déconnecter",
+        "logout": "Vous déconnecter",
         "register_yourself": "Inscrivez-vous !",
         "navigation": {
           "spritecomics": "Sprite Comics",
@@ -52,7 +52,7 @@
             "facebook": "Devenez fans sur Facebook !",
             "twitter": "Suivez-nous sur Twitter !",
             "follows": "Gérer votre liste de membres suivis",
-            "gallery": "Accéder à ma galerie",
+            "gallery": "Accéder à votre galerie",
             "modify": "Gérer votre profil",
             "about": "A propos",
             "home": "Retour à l'accueil"
