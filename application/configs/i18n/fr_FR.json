@@ -144,7 +144,8 @@
         "title": "Profil de %s",
         "go_to_gallery": "Accéder à sa galerie",
         "sub_date": "Membre inscrit depuis le :",
-        "follows": "Cet auteur suit les membres :"
+        "follows": "Cet auteur suit les membres :",
+        "no_follows": "Cet auteur ne suit aucun membre."
       },
       "modify": {
         "page_title": "Modifer mon profil",

@@ -6,6 +6,7 @@
 		protected $username;
 		protected $email;
 		protected $date_subscription;
+		protected $about;
 		protected $is_email_verified;
 		protected $password;
 		protected $locale_website;
@@ -32,14 +33,12 @@
 				ERROR_SAVE		=	4;
 				
 
-		public function __construct(
-			$username = null, $email = null, $password = null,
-			Model_Locales $locale_website = null,
-			Model_UsersGroups $user_group = null
-		) {
+		public function __construct($username = null, $email = null, $password = null, Model_Locales $locale_website = null, Model_UsersGroups $user_group = null)
+		{
 			$this->username = $username;
 			$this->email = $email;
 			$this->date_subscription = $_SERVER['REQUEST_TIME'];
+			$this->about = '';
 			$this->is_email_verified = false;
 			$this->password = Library_String::hash($password);
 			$this->locale_website = $locale_website ?: Model_Locales::getById(self::DEFAULT_LOCALE_WEBSITE_ID);
@@ -87,6 +86,8 @@
 			$user = Model_Users::getById($id);
 			$user->prop('is_email_verified', 1);
 			
+			$this->load('user_group');
+			$this->load('locale_website');
 			Model_Users::update($user);
 		}
 		
@@ -242,6 +243,9 @@
 		public function changeAbout($content)
 		{
 			$this->prop('about', $content);
+			
+			$this->load('user_group');
+			$this->load('locale_website');
 			Model_Users::update($this);
 			
 			return self::PROCESS_OK;
@@ -260,6 +264,8 @@
 			{
 				$this->load('follows')->push($user);
 				
+				$this->load('user_group');
+				$this->load('locale_website');
 				Model_Users::update($this);
 			}
 		}
@@ -270,6 +276,8 @@
 			{
 				$this->load('follows')->remove($user);
 				
+				$this->load('user_group');
+				$this->load('locale_website');
 				Model_Users::update($this);
 			}
 		}

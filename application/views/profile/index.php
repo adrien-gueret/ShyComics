@@ -8,8 +8,12 @@
 	</a><br />
 	<?= $view->tpl_follow; ?>
 	
-	<?= Library_i18n::get('profile.index.follows'); ?>
-	<?php foreach($view->user_follows as $key=>$followed): ?>
-		<?= '<br /><img src="' . $followed->getAvatarURL() . '" alt="' . $followed->prop('username') . '" /><b>' . $followed->prop('username') . '</b> '?>
-	<?php endforeach; ?>
+	<?php if(!$view->user_follows->isEmpty()): ?>
+		<?= Library_i18n::get('profile.index.follows'); ?>
+		<?php foreach($view->user_follows as $followed): ?>
+			<?= '<br /><img src="' . $followed->getAvatarURL() . '" alt="' . $followed->prop('username') . '" /><b>' . $followed->prop('username') . '</b> '?>
+		<?php endforeach; ?>
+	<?php else: ?>
+		<?= Library_i18n::get('profile.index.no_follows'); ?>
+	<?php endif; ?>
 </p>
