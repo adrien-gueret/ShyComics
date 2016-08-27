@@ -18,3 +18,4 @@
 <div><?= $view->tpl_tags; ?></div>
 <?= $view->tpl_delete; ?>
 <?= $view->tpl_adding_form; ?>
+<script src="<?= $view->base_url; ?>public/javascript/spritecomics/gallery/moderation.js"></script>
