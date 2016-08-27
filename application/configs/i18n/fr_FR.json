@@ -272,6 +272,26 @@
       "index": "Résultats de la recherche :",
       "none": "Aucun résultat disponible pour la recherche effectuée."
     },
+    "parser": {
+      "buttons": {
+        "bold": "Gras",
+        "italic": "Italique",
+        "underlined": "Souligné",
+        "link": "Lien",
+        "quote": "Citer",
+        "size": {
+          "50": "Très petit",
+          "85": "Petit",
+          "100": "Normal",
+          "150": "Grand",
+          "200": "Très grand"
+		}
+      },
+      "quote": {
+        "quote": "Citation",
+		"said": "a écrit"
+	  }
+    },
     "errors": {
       "title": "Erreur %d",
       "wild_error_desc": "Une <b>erreur %d</b> sauvage apparait !",

@@ -181,6 +181,7 @@
 				$tpl_comment = \Eliya\Tpl::get('spritecomics/gallery/details/comment', [
 					'id_file'	=>	$document->getId(),
 					'comments'	=>	$comments->getArray(),
+					'tpl_buttons' => Library_Parser::getButtons($this->request->getBaseURL(), 'content-comment')
 				]);
 				$tpl_description = \Eliya\Tpl::get('spritecomics/gallery/details/description', [
 					'description'	=>	$document->prop('description'),
