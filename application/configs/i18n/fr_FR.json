@@ -263,6 +263,16 @@
           }
         }
       },
+      "edit": {
+        "comment": {
+          "success": "Le commentaire a été correctement édité.",
+          "errors": {
+            "not_found_in_db": "Le commentaire à éditer n'existe pas.",
+            "empty_edit": "Inutile de créer un commentaire vide, veuillez simplement le supprimer.",
+            "forbidden": "Vous n'avez pas les permissions nécessaires pour éditer ce commentaire."
+          }
+        }
+      },
       "like": {
         "success": "Votre <em>like</em> a bien été pris en compte.",
         "errors": {
