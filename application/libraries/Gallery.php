@@ -31,14 +31,14 @@
 			}
 
 			if($on_own_gallery)
-			{
 				$tpl_adding_form	=	\Eliya\Tpl::get('spritecomics/gallery/add', ['parent_file_id' => $id_parent]);
-
-				if( ! empty($id_parent))
-					$tpl_delete			=	\Eliya\Tpl::get('spritecomics/gallery/delete', [
-						'id_to_delete' => $id_parent,
-						'message' => addslashes(Library_i18n::get('spritecomics.gallery.details.delete'))
-					]);
+			
+			if(($on_own_gallery || $can_delete_file) && !empty($id_parent))
+			{
+				$tpl_delete			=	\Eliya\Tpl::get('spritecomics/gallery/delete', [
+					'id_to_delete' => $id_parent,
+					'message' => addslashes(Library_i18n::get('spritecomics.gallery.details.delete'))
+				]);
 			}
 			
 			$tpl_tags = '';
