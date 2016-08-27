@@ -77,6 +77,8 @@
 			$user = Model_Users::getById($id);
 			$user->prop('is_email_verified', 1);
 			
+			$this->load('user_group');
+			$this->load('locale_website');
 			Model_Users::update($user);
 		}
 		
@@ -232,6 +234,9 @@
 		public function changeAbout($content)
 		{
 			$this->prop('about', $content);
+			
+			$this->load('user_group');
+			$this->load('locale_website');
 			Model_Users::update($this);
 			
 			return self::PROCESS_OK;
@@ -250,6 +255,8 @@
 			{
 				$this->load('follows')->push($user);
 				
+				$this->load('user_group');
+				$this->load('locale_website');
 				Model_Users::update($this);
 			}
 		}
@@ -260,6 +267,8 @@
 			{
 				$this->load('follows')->remove($user);
 				
+				$this->load('user_group');
+				$this->load('locale_website');
 				Model_Users::update($this);
 			}
 		}
