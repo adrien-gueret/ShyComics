@@ -17,4 +17,5 @@
 	<?= $view->tpl_delete; ?>
 	<?= $view->tpl_like; ?>
 	<?= $view->tpl_comment; ?>
+	<script src="<?= $view->base_url; ?>public/javascript/spritecomics/gallery/moderation.js"></script>
 </div>
