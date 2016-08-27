@@ -301,11 +301,12 @@ form .group-inputs select:focus + label {
 	border: 3px solid #000;
 }
 
-form.delete {
+form.moderation {
 	display: inline-block;
 }
 
-form.delete button {
+form.moderation button {
+	vertical-align: initial;
 	font-size: 1em;
 	margin-bottom: 15px;
 	padding: 5px;
@@ -475,4 +476,8 @@ button.orange, input[type="button"].orange, .button.orange {
 
 .gallery-link:hover figcaption {
 	opacity: 1;
+}
+
+.commentDiv {
+	display: inline-block;
 }
