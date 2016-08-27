@@ -280,6 +280,13 @@
         }
       },
       "edit": {
+        "file": {
+          "success": "Le document a été correctement édité.",
+          "errors": {
+            "not_found_in_db": "Le document à éditer n'existe pas.",
+            "forbidden": "Vous n'avez pas les permissions nécessaires pour éditer ce document."
+          }
+        },
         "comment": {
           "success": "Le commentaire a été correctement édité.",
           "errors": {
