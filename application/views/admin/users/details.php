@@ -1,4 +1,5 @@
 <h2><?= $view->user->prop('username'); ?></h2>
+<a href="<?= $view->base_url; ?>admin/users"><?= Library_i18n::get('admin.users.return'); ?></a>
 <p>
 	<form action="<?= $view->base_url; ?>admin/users" method="post">
 		<fieldset>

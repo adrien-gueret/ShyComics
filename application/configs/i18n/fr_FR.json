@@ -352,6 +352,7 @@
       },
       "users": {
         "title": "Gestion des membres",
+        "return": "Retour à la liste des membres",
         "ban" : "Bannir le membre ?",
         "group" : "Il appartient au groupe :",
         "about" : "Son \"A propos\" :"
