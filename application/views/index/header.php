@@ -86,6 +86,14 @@
 						<i class="fa fa-question"></i>
 					</a>
 				</li>
+				<?php if($view->current_member->load('user_group')->equals(Model_UsersGroups::getById(Model_UsersGroups::ADMINS_ID))): ?>
+					<li>
+						<hr />
+						<a href="<?= $view->base_url; ?>admin" class="leftnav_button" title="<?= Library_i18n::get('index.header.navigation.helpers.admin'); ?>">
+							<i class="fa fa-desktop"></i>
+						</a>
+					</li>
+				<?php endif; ?>
 			</ul>
 		</nav>
 		<header>
