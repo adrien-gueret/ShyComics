@@ -89,8 +89,8 @@
 			$user = Model_Users::getById($id);
 			$user->prop('is_email_verified', 1);
 			
-			$this->load('user_group');
-			$this->load('locale_website');
+			$user->load('user_group');
+			$user->load('locale_website');
 			Model_Users::update($user);
 		}
 		
