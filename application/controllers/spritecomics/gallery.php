@@ -164,7 +164,10 @@
 											$this->_current_member->can(Model_UsersGroups::PERM_REMOVE_OTHERS_FILES);
 
 				if($is_own_gallery || $can_remove_other_files)
-					$tpl_delete	=	\Eliya\Tpl::get('spritecomics/gallery/delete', ['id_to_delete' => $document->getId()]);
+					$tpl_delete	=	\Eliya\Tpl::get('spritecomics/gallery/delete', [
+						'id_to_delete' => $document->getId(),
+						'message' => addslashes(Library_i18n::get('spritecomics.gallery.details.delete'))
+					]);
 				if($this->_current_member->isConnected())
 				{
 					if(! $this->_current_member->equals($owner))

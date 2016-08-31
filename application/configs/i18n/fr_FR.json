@@ -221,7 +221,8 @@
           "no_tag": "Ce document n'est lié à aucun tag.",
           "previous": "Planche précédente",
           "next": "Planche suivante",
-          "root": "Racine de la galerie"
+          "root": "Racine de la galerie",
+          "delete": "Voulez vous vraiment supprimer ce document ?"
         },
         "nbr_views": {
           "none": "Ce document n'a encore jamais été vu.",
