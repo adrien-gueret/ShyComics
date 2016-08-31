@@ -68,8 +68,8 @@
 				if($passwordConfirm !== $password)
 					throw new Exception(Library_i18n::get('login.register.errors.not_same_password'));
 
-				// Date filtered: we can now save new user in database
-				$user = new Model_Users($username, $email, $password, $locale);
+				// Data filtered: we can now save new user in database
+				$user = new Model_Users($username, $email, $password, $locale, Model_UsersGroups::MEMBERS_ID);
 				Model_Users::add($user);
 
 				// Send verification email
