@@ -80,7 +80,7 @@
 				$url	.=	'login/verifyAccount?m='.$email.'&h='.$hashVerif;
 
 				$mail_content = Eliya\Tpl::get('login/mail_confirm', ['url_confirm' => $url, 'pseudo' => $username, 'password' => $password]);
-				Library_Email::send($email, $subject, $mail_content);
+				Library_Email::sendFromShyComics($email, $subject, $mail_content);
 
 				// Display page confirmation
 				Library_Messages::add(Library_i18n::get('login.register_success.flash_message'), Library_Messages::TYPE_SUCCESS);
