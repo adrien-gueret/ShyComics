@@ -1,7 +1,7 @@
 <h2><?= Library_i18n::get('index.index.title'); ?></h2>
 <p>
 	<?= Library_i18n::get('index.index.presentation'); ?><br /><br />
-	<?= Library_i18n::get('index.index.update'); ?>
+	<?= Library_i18n::get('index.index.update'); ?> <?= $view->news; ?>
 </p>
 <h2><?= Library_i18n::get('index.index.title_last_uploads'); ?></h2>
 <p><?= $view->tpl_last_boards; ?></p>

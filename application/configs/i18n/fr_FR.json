@@ -81,7 +81,7 @@
       "index": {
 	    "title" : "Bienvenue sur Shy'comics !",
 	    "presentation" : "Bonjour et bienvenue sur <b>la référence en Sprites Comics</b> ! (comprenez par là une BD avec des personnages et des décors de jeux vidéo). N'hésitez pas à <b>lire</b> les Sprite-Comics disponibles ou même à créer puis <b>partager</b> les vôtres ! <br /> Et si vous avez besoin de conseils ou simplement envie d'échanger avec les autres membres, le forum est fait pour vous ! <br /><br /> <b>Bonne lecture à tous :D</b>",
-        "update" : "<b>Mise-à-jour</b> : Shy'Comics Returns est encore une version bêta mais SM58 travaille d'arrache-pied pour l'améliorer !",
+        "update" : "<b>Mise-à-jour</b> :",
         "title_last_uploads": "Dernières publications",
         "title_populars": "Planches populaires du moment",
         "title_random": "Une planche au hasard",
@@ -348,7 +348,8 @@
       "index": {
         "title": "Panneau d'administration",
         "presentation": "Bienvenue sur le panneau d'administration de Shy Co Returns !",
-        "members_management": "Gérer les membres"
+        "members_management": "Gérer les membres",
+        "news": "Modifier le \"mise à jour\""
       },
       "users": {
         "title": "Gestion des membres",

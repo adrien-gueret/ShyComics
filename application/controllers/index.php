@@ -6,6 +6,9 @@
 	{
 		public function get_index()
 		{
+			$adresse = $this->request->getBaseURL() . 'public/txt/news.txt';
+			$news = file_get_contents($adresse);
+			
 			$documents = Model_Files::getLastBoards(10);
 			$tpl_last_boards = '';
 			foreach($documents as $document)
@@ -29,9 +32,12 @@
 				}
 			}
 			
-			$this->response->set(\Eliya\Tpl::get('index/index', ['tpl_last_boards'	=> $tpl_last_boards,
-																'tpl_last_comments' => $tpl_last_comments,
-																'tpl_random'		=> $tpl_random,
-																'tpl_populars'		=> $tpl_populars,]));
+			$this->response->set(\Eliya\Tpl::get('index/index', [
+				'tpl_last_boards'	=> $tpl_last_boards,
+				'tpl_last_comments' => $tpl_last_comments,
+				'tpl_random'		=> $tpl_random,
+				'tpl_populars'		=> $tpl_populars,
+				'news'				=> Library_Parser::parse($news, $this->request->getBaseURL())
+			]));
 		}
 	}
