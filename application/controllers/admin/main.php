@@ -11,9 +11,4 @@
 				return;
 			}
 		}
-
-		public function __destruct()
-		{
-			parent::__destruct();
-		}
 	}
