@@ -21,7 +21,7 @@
 					'global topic' => $contact_list,
 					'message' => $contact_message
 				]);
-				Library_Email::receive($contact_email, $contact_subject, $mailContent, $contact_username);
+				Library_Email::sendMail('Shylink <guignard.morgan@gmail.com>', $contact_username, $contact_email, $contact_subject, $mailContent, ['Reply-to: ' . $contact_username . ' <' . $contact_email . '>']);
 				
 				Library_Messages::add(Library_i18n::get('about.contact_success'), Library_Messages::TYPE_SUCCESS);
 			}
