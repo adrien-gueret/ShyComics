@@ -105,10 +105,10 @@
 		
 		public static function getAllSorted()
 		{
-			$user = Model_Users::createRequest();
-			$results = $user->OrderBy('username')
-							->exec();
-			return $results;		}
+			$usersArray = Model_Users::getAll();
+			$results = $usersArray->sort(function($a, $b){ return strcasecmp($a->prop('username'), $b->prop('username')); });
+			return $results;
+		}
 
 		public function isConnected()
 		{

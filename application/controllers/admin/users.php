@@ -11,7 +11,7 @@
 		{
 			$user = Model_Users::getById($id_user);
 			$groups = Model_UsersGroups::getAll();
-			if($user)
+			if(!empty($user))
 				$this->response->set(\Eliya\Tpl::get('admin/users/details', ['user' => $user, 'groups' => $groups]));
 			else
 			{
@@ -24,7 +24,7 @@
 		{
 			$user = Model_Users::getById($id_user);
 			$newGroup = Model_UsersGroups::getById($id_group);
-			if($user && $newGroup)
+			if(!empty($user) && !empty($newGroup))
 			{
 				$user->prop('user_group', $newGroup);
 				$user->prop('is_banned', $banned);

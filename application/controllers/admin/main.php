@@ -4,7 +4,7 @@
 	{
 		public function __init()
 		{
-			$this->_checkCurrentMember();
+			parent::__init();
 			if(!$this->_current_member->load('user_group')->equals(Model_UsersGroups::getById(Model_UsersGroups::ADMINS_ID)))
 			{
 				$this->response->error(Library_i18n::get('admin.forbidden_access'), 403);
@@ -13,5 +13,7 @@
 		}
 
 		public function __destruct()
-		{}
+		{
+			parent::__destruct();
+		}
 	}

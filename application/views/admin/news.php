@@ -1,5 +1,4 @@
 <h2><?= Library_i18n::get('admin.index.news'); ?></h2>
-<a href="<?= $view->base_url; ?>admin/users"><?= Library_i18n::get('admin.users.return'); ?></a>
 <p>
 	<form action="<?= $view->base_url; ?>admin/news" method="post">
 		<fieldset>
