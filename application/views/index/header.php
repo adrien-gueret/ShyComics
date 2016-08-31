@@ -86,7 +86,7 @@
 						<i class="fa fa-question"></i>
 					</a>
 				</li>
-				<?php if($view->current_member->load('user_group')->equals(Model_UsersGroups::getById(Model_UsersGroups::ADMINS_ID))): ?>
+				<?php if($view->current_member->can_access_admin_panel) : ?>
 					<li>
 						<hr />
 						<a href="<?= $view->base_url; ?>admin" class="leftnav_button" title="<?= Library_i18n::get('index.header.navigation.helpers.admin'); ?>">

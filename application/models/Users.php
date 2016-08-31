@@ -185,7 +185,7 @@
 				return false;
 			}
 
-			return $this->user_group->getPermission($permission);
+			return $this->load('user_group')->getPermission($permission);
 		}
 
 		public function like(Model_Files $file)
