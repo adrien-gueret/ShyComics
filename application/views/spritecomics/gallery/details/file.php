@@ -18,4 +18,3 @@
 	<?= $view->tpl_like; ?>
 	<?= $view->tpl_comment; ?>
 </div>
-<script src="<?= $view->base_url; ?>public/javascript/spritecomics/gallery/scroll.js"></script>
