@@ -1,26 +1,19 @@
 <?php
 	abstract class Library_Email
 	{
-		const MIME = "MIME-Version: 1.0\r\n",
-			  CONTENT_TYPE = "Content-Type: text/html; charset=UTF-8\r\n";
-		
-		public static function send($to, $subject, $message)
-		{
-			$expediteur = 'no-reply@shycomics.fr';
-			$headers = 'From: Shy\'Comics <' . $expediteur . '>' . "\r\n";
-			$headers .= MIME;
-			$headers .= CONTENT_TYPE;
+		const MIME = 'MIME-Version: 1.0',
+              CONTENT_TYPE = 'Content-Type: text/html; charset=UTF-8';
 
-			mail($to, $subject, $message, $headers);
-		}
-		
-		public static function receive($from, $subject, $message, $pseudo)
-		{
-			$headers = 'From: ' . $pseudo . ' <' . $from . '>' . "\r\n";
-			$headers .= 'Reply-to: ' . $pseudo . ' <' . $from . '>' . "\r\n";
-			$headers .= MIME;
-			$headers .= CONTENT_TYPE;
+        public static function sendMail($to, $fromName = '', $fromEmail = '', $subject = '', $message = '', $extraHeaders = [])
+        {
+            $headers = ['From: ' . $fromName . ' <' . $fromEmail . '>', self::MIME, self::CONTENT_TYPE];
+            $headers = array_merge($headers, $extraHeaders);
 
-			mail('Shylink <guignard.morgan@gmail.com>', $subject, $message, $headers);
-		}
-	}
+            return mail($to, $subject, $message, implode($headers, "\r\n");
+        }
+
+        public static function sendFromShyComics($to, $subject, $message)
+        {
+            return self::sendMail($to, 'Shy\'Comics', 'no-reply@shycomics.fr', $subject, $message);
+        }
+    }
