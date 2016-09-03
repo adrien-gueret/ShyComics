@@ -35,14 +35,11 @@
 			return [
 				'name' => 'VARCHAR(255)',
 				'can_remove_other_files' => 'TINYINT(1)',
-<<<<<<< HEAD
 				'can_edit_other_file_s_tags' => 'TINYINT(1)',
 				'can_edit_other_file_s_desc' => 'TINYINT(1)',
 				'can_remove_other_comments' => 'TINYINT(1)',
 				'can_edit_other_comments' => 'TINYINT(1)'
-=======
 				'can_access_admin_panel' => 'TINYINT(1)'
->>>>>>> 22dcabb... Add a permission to access the admin panel
 			];
 		}
 
