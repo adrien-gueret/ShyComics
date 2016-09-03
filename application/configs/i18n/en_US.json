@@ -100,11 +100,11 @@
       "desc_1": "Your registration has been confirmed.",
       "desc_2": "For security purposes, we have sent a confirmation e-mail to the address you’ve given.(<b>{{email}}</b>).",
       "desc_3": "Please click the validation link found in this e-mail to finalize your registration!",
-      "desc_4": "Si vous n'avez pas reçu d'e-mails, merci de vérifier votre boite de spams, il s'y trouve sûrement ;)"
+      "desc_4": "If you didn't receive our e-mail, please verify your junk box."
     },
     "mail_confirm": {
       "subject": "Your registration on Shy’Comics!",
-      "message": "Vous vous êtes inscrit avec succès sur <b>Shy'Comics</b> !<br />Veuillez cliquer sur le lien ci-dessous pour valider votre inscription :"
+      "message": "You successfully signed in to <b>Shy'Comics</b>!<br />Please click on this link to validate your registration:"
     },
     "verify_account": {
       "success": "Your account is now validated!<br />Note that you’ve been automatically logged in.",
@@ -117,7 +117,7 @@
     }
   },
   "logout": {
-    "success": "Vous vous êtes correctement déconnecté. A très bientôt ! You have successfully logged out. See you later!",
+    "success": "You have successfully logged out. See you later!",
     "error": "Your attempt to log out has failed."
   },
   "profile": {
@@ -146,51 +146,51 @@
         "desc": "Utilisez le formulaire ci-dessous pour ajouter du contenu à ce dossier.",
         "type_of_doc": {
           "title": "What do you want to add?",
-          "image": "A SC page",
-          "folder": "Un sous-dossier"
+          "image": "Sprite Comic",
+          "folder": "Subfolder"
         },
         "helpers": {
-          "doc_name": "Nom du document",
-          "description": "Une petite description ? (facultatif)"
+          "doc_name": "Document's name",
+          "description": "Small description? (optional)"
         },
-        "file_selection": "Sélectionnez votre fichier",
-        "submit": "Confirmer l'ajout",
-        "success": "Le document a bien été ajouté !",
+        "file_selection": "Select your file",
+        "submit": "Submit your file",
+        "success": "The document has been successfully added!",
         "errors": {
-          "empty_name": "Veuillez indiquer un nom à votre document.",
-          "empty_thumbnail": "La miniature de votre planche n'a pas pu être récupérée.",
-          "file_too_big": "Le fichier est trop gros : il dépasse la limite de taille imposée.",
-          "bad_upload": "Le fichier n'a pas été uploadé correctement sur notre serveur.",
-          "bad_type": "Le fichier n'a pas été enregistré car son type n'est pas autorisé.",
-          "unknown": "Une erreur inconnue est survenue lors de la sauvegarde du fichier.",
-          "thumb": "Une erreur est survenue lors de l'enregistrement de la miniature.",
-          "parent_not_found": "Le dossier où créer le nouveau document ne semble pas exister.",
-          "forbidden": "Vous ne pouvez pas ajouter de contenu dans ce dossier."
+          "empty_name": "Please give a name to your document.",
+          "empty_thumbnail": "Your comic's thumbnail couldn't be retrieved.",
+          "file_too_big": "The file is too big: it exceeds the size limit.",
+          "bad_upload": "The file couldn't be correctly uploaded on our server.",
+          "bad_type": "The file couldn't be uploade becauseit's type is not permitted.",
+          "unknown": "Unknown error at the time of the comic's upload.",
+          "thumb": "Unknown error at the time of the thumbnail's upload.",
+          "parent_not_found": "The folder where you're trying to add your document doesn't exist.",
+          "forbidden": "You cannot add your document to this folder."
         }
       },
-      "empty": "Ce dossier est vide.",
+      "empty": "This folder is empty.",
       "details": {
-        "default_page_title": "Document sans nom",
-        "not_found": "Ce document n'existe pas."
+        "default_page_title": "No Name",
+        "not_found": "The document doesn't exist."
       }
     },
     "delete": {
-      "success": "Le document a été correctement supprimé.",
+      "success": "The document has been efficiently deleted.",
       "errors": {
-        "not_found_in_db": "Le document à supprimer n'existe pas.",
-        "forbidden": "Vous n'avez pas les permissions nécessaires pour supprimer ce document.",
-        "not_found": "Le document n'a pas pu être trouvé. Veuillez réessayer ou prévenir un administrateur.",
-        "unlink_failed": "Erreur lors de la suppresion du document. Veuillez réessayer ou prévenir un administrateur.",
-        "thumb_not_found": "La miniature de la planche n'a pas été trouvée. Veuillez réessayer ou prévenir un administrateur.",
-        "thumb_unlink_failed": "Erreur lors de la suppresion de la miniature de la planche. Veuillez réessayer ou prévenir un administrateur."
+        "not_found_in_db": "The document you're trying to delete doesn't exist.",
+        "forbidden": "You don't have the necessary permissions to delete this document.",
+        "not_found": "The document cannot be found. Please try again or contact an administrator.",
+        "unlink_failed": "Error at the time of comic's deletion. Please try again or contact an administrator.",
+        "thumb_not_found": "The comic's thumbnail cannot be found. Please try again or contact an administrator.",
+        "thumb_unlink_failed": "Error at the time of thumbnail's deletion. Please try again or contact an administrator."
       }
     },
     "like": {
       "success": "Your <em>like</em> has been saved.",
       "errors": {
-        "not_found": "La planche que vous cherchez à aimer est introuvable.",
-        "already_like": "Vous aimé déjà cette planche.",
-        "own_file": "Vous ne pouvez pas aimer vos propres planches."
+        "not_found": "The comic you're trying to like doesn't exist.",
+        "already_like": "You already like this comic.",
+        "own_file": "You cannot like your own comic."
       }
     }
   },
