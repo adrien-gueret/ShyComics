@@ -1,7 +1,7 @@
 <?php
 	abstract class Library_Gallery
 	{
-		public static function getFolderTemplate(Model_Users $owner, $id_parent, $on_own_gallery = false, $name, $tags = null, $baseURL = null)
+		public static function getFolderTemplate(Model_Users $owner, $id_parent, $on_own_gallery = false, $name, $tags = null, $baseURL = null, $can_edit_tags = false, $can_delete_file = false)
 		{
 			$tpl_gallery		=	null;
 			$tpl_delete			=	null;
@@ -31,17 +31,26 @@
 			}
 
 			if($on_own_gallery)
-			{
 				$tpl_adding_form	=	\Eliya\Tpl::get('spritecomics/gallery/add', ['parent_file_id' => $id_parent]);
-
-				if( ! empty($id_parent))
-					$tpl_delete			=	\Eliya\Tpl::get('spritecomics/gallery/delete', [
-						'id_to_delete' => $id_parent,
-						'message' => addslashes(Library_i18n::get('spritecomics.gallery.details.delete'))
-					]);
+			
+			if(($on_own_gallery || $can_delete_file) && !empty($id_parent))
+			{
+				$tpl_delete			=	\Eliya\Tpl::get('spritecomics/gallery/delete', [
+					'id_to_delete' => $id_parent,
+					'message' => addslashes(Library_i18n::get('spritecomics.gallery.details.delete'))
+				]);
 			}
 			
-			$tpl_tags	=	\Eliya\Tpl::get('spritecomics/gallery/tags', ['tags' => $tags, 'is_index' => empty($id_parent)]);
+			$tpl_tags = '';
+			if(!empty($id_parent))
+			{
+				$tpl_tags = \Eliya\Tpl::get('spritecomics/gallery/tags', [
+					'id' => $id_parent,
+					'tags' => $tags,
+					'is_index' => empty($id_parent),
+					'can_edit' => $can_edit_tags || $on_own_gallery
+				]);
+			}
 
 			return \Eliya\Tpl::get('spritecomics/gallery', [
 				'tpl_gallery'		=>	$tpl_gallery,

@@ -44,4 +44,14 @@
 			
 			return $results;
 		}
+		
+		public function remove()
+		{
+			$request = Model_Comments::createRequest();
+			$results = $request->select('*')
+							   ->getOnly($number)
+							   ->exec();
+			
+			return $results;
+		}
 	}

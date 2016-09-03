@@ -20,7 +20,7 @@
 				'page_description'	=>	Library_i18n::get('spritecomics.gallery.page_description', $member->prop('username')),
 			]);
 
-			$this->response->set(Library_Gallery::getFolderTemplate($member, null, $is_own_gallery, null, null, null));
+			$this->response->set(Library_Gallery::getFolderTemplate($member, null, $is_own_gallery, null, null, null, false, false));
 		}
 
 		public function post_index($name = null, $description = null, $parent_file_id = null, $is_dir = 1, $thumbnail_data_url = null, $tags = null)
@@ -102,7 +102,7 @@
 				return;
 			}
 
-			$tags= $document->load('tags');
+			$tags = $document->load('tags');
 			$page_title = $document->prop('name') ?: Library_i18n::get('spritecomics.gallery.details.default_page_title');
 			
 			\Eliya\Tpl::set([
@@ -121,9 +121,9 @@
 				$has_liked 		=	$document->isLikedByUser($this->_current_member);
 				$has_viewed		=	$this->_current_member->hasViewedFileToday($document);
 			}
-
+			
 			if($document->prop('is_dir') == 1)
-				$template	=	Library_Gallery::getFolderTemplate($owner, $document->getId(), $is_own_gallery, $document->prop('name'), $tags, $this->request->getBaseURL());
+				$template	=	Library_Gallery::getFolderTemplate($owner, $document->getId(), $is_own_gallery, $document->prop('name'), $tags, $this->request->getBaseURL(), $this->_current_member->can(Model_UsersGroups::PERM_EDIT_OTHERS_TAGS), $this->_current_member->can(Model_UsersGroups::PERM_REMOVE_OTHERS_FILES));
 			else
 			{
 				$tpl_delete	=	null;
@@ -135,7 +135,6 @@
 					Model_Views::add($newView);
 				}
 				
-				$tpl_tags	=	\Eliya\Tpl::get('spritecomics/gallery/tags', ['tags' => $tags, 'is_index' => false]);
 				$imagePath = $this->request->getBaseURL() . $document->getPath();
 				$URL = $this->request->getBaseURL() . 'spritecomics/gallery/details/' . $id_document;
 				
@@ -159,7 +158,8 @@
 											<meta property="og:image" content="' . $imagePath . '">
 											<meta property="og:url" content="' . $URL . '">'
 				]);
-			
+				
+				//Delete file
 				$can_remove_other_files	=	$this->_current_member->isConnected() &&
 											$this->_current_member->can(Model_UsersGroups::PERM_REMOVE_OTHERS_FILES);
 
@@ -168,6 +168,8 @@
 						'id_to_delete' => $document->getId(),
 						'message' => addslashes(Library_i18n::get('spritecomics.gallery.details.delete'))
 					]);
+				
+				//Likes
 				if($this->_current_member->isConnected())
 				{
 					if(! $this->_current_member->equals($owner))
@@ -180,17 +182,38 @@
 					}
 				}
 				
-				$comments = $document->getComments();
-				$tpl_comment = \Eliya\Tpl::get('spritecomics/gallery/details/comment', [
-					'id_file'	=>	$document->getId(),
-					'comments'	=>	$comments->getArray(),
-					'tpl_buttons' => Library_Parser::getButtons($this->request->getBaseURL(), 'content-comment')
-				]);
-				$tpl_description = \Eliya\Tpl::get('spritecomics/gallery/details/description', [
-					'description'	=>	$document->prop('description'),
+				//Tags
+				$can_edit_tags = $this->_current_member->can(Model_UsersGroups::PERM_EDIT_OTHERS_TAGS) || $is_own_gallery;
+				$tpl_tags = \Eliya\Tpl::get('spritecomics/gallery/tags', [
+					'id' => $document->getId(),
+					'tags' => $tags,
+					'is_index' => false,
+					'can_edit' => $can_edit_tags
 				]);
 				
+				//Comments
+				$can_remove_other_comments = $this->_current_member->can(Model_UsersGroups::PERM_REMOVE_OTHERS_COMMENTS);
+				$comments = $document->getComments();
+				
+				$tpl_comment = \Eliya\Tpl::get('spritecomics/gallery/details/comment', [
+					'id_file'	 => $document->getId(),
+					'comments'	 => $comments->getArray(),
+					'can_remove'  => $can_remove_other_comments,
+					'tpl_buttons' => Library_Parser::getButtons($this->request->getBaseURL(), 'content-comment')
+				]);
+				
+				//Description
+				$can_edit_desc	=	$this->_current_member->can(Model_UsersGroups::PERM_EDIT_OTHERS_DESCS) || $is_own_gallery;
+				$tpl_description = \Eliya\Tpl::get('spritecomics/gallery/details/description', [
+					'id'			=>	$document->getId(),
+					'description'	=>	$document->prop('description'),
+					'can_edit'	=>	$can_edit_desc
+				]);
+				
+				//Views
 				$tpl_nbr_views = \Eliya\Tpl::get('spritecomics/gallery/details/nbr_views', ['nbr_views' => Model_Views::count('document.id=?', [$id_document])]);
+				
+				//Social Networks
 				$tpl_social_NW = \Eliya\Tpl::get('spritecomics/gallery/details/social_NW', ['URL' => $URL]);
 
 				$template	=	\Eliya\Tpl::get('spritecomics/gallery/details/file', [

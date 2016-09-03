@@ -301,6 +301,17 @@ form .group-inputs select:focus + label {
 	border: 3px solid #000;
 }
 
+form.moderation {
+	display: inline-block;
+}
+
+form.moderation button {
+	vertical-align: initial;
+	font-size: 1em;
+	margin-bottom: 15px;
+	padding: 5px;
+}
+
 /* Buttons */
 button, input[type="button"], .button {
 	position: relative;
@@ -474,4 +485,8 @@ button.orange, input[type="button"].orange, .button.orange {
 
 #detail-image {
 	position: relative;
+}
+
+.commentDiv {
+	display: inline-block;
 }
