@@ -5,7 +5,7 @@
 		public function __init()
 		{
 			parent::__init();
-			if(!$this->_current_member->load('user_group')->equals(Model_UsersGroups::getById(Model_UsersGroups::ADMINS_ID)))
+			if(!$this->_current_member->can_access_admin_panel)
 			{
 				$this->response->error(Library_i18n::get('admin.forbidden_access'), 403);
 				return;
