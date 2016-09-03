@@ -18,7 +18,7 @@
 				<input type="hidden" name="__method__" value="delete" />
 				<input type="hidden" name="id" value="<?= $comment->getId(); ?>" />
 				<button onclick="return confirm('<?= Library_i18n::get('spritecomics.delete.comment.confirm'); ?>');"><i class="fa fa-trash"></i></button>
-				<button onclick="turnCommentIntoForm(<?= $comment->getId(); ?>, '<?= $view->base_url; ?>', '<?= $comment->prop('content'); ?>'); return false;"><i class="fa fa-pencil-square-o"></i></button>
+				<button onclick="turnCommentIntoForm(<?= $comment->getId(); ?>, '<?= $view->base_url; ?>', '<?= htmlspecialchars($comment->prop('content'), ENT_QUOTES); ?>'); return false;"><i class="fa fa-pencil-square-o"></i></button>
 			</form> | 
 		<?php endif; ?>
 		<?= Library_i18n::get('spritecomics.gallery.comments.by') . ' <b><a href="' . $view->base_url . 'profile/' . $comment->getUser()->getId() . '">' . $comment->getUser()->prop('username') . '</a></b> : <div id="comment' . $comment->getId() . '" class="commentDiv">' . Library_Parser::parse($comment->prop('content'), $view->base_url); ?></div>
