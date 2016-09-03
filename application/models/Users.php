@@ -8,6 +8,7 @@
 		protected $date_subscription;
 		protected $about;
 		protected $is_email_verified;
+		protected $is_banned;
 		protected $password;
 		protected $locale_website;
 		protected $user_group;
@@ -40,6 +41,7 @@
 			$this->date_subscription = $_SERVER['REQUEST_TIME'];
 			$this->about = '';
 			$this->is_email_verified = false;
+			$this->is_banned = false;
 			$this->password = Library_String::hash($password);
 			$this->locale_website = $locale_website ?: Model_Locales::getById(self::DEFAULT_LOCALE_WEBSITE_ID);
 			$this->user_group = $user_group ?: Model_UsersGroups::getById(self::DEFAULT_USERS_GROUP_ID);
@@ -53,6 +55,7 @@
 				'username' => 'VARCHAR(255)',
 				'email' => 'VARCHAR(254)',
 				'is_email_verified' => 'BOOLEAN',
+				'is_banned' => 'BOOLEAN',
 				'password' => 'CHAR(40)',
 				'date_subscription' => 'DATETIME',
 				'about' => 'VARCHAR(255)',
@@ -86,8 +89,8 @@
 			$user = Model_Users::getById($id);
 			$user->prop('is_email_verified', 1);
 			
-			$this->load('user_group');
-			$this->load('locale_website');
+			$user->load('user_group');
+			$user->load('locale_website');
 			Model_Users::update($user);
 		}
 		
@@ -97,6 +100,13 @@
 			$results = $user->where('username=? AND password=? AND is_email_verified=?', [$username, $password, 1])
 							->getOnly(1)
 							->exec();
+			return $results;
+		}
+		
+		public static function getAllSorted()
+		{
+			$usersArray = Model_Users::getAll();
+			$results = $usersArray->sort(function($a, $b){ return strcasecmp($a->prop('username'), $b->prop('username')); });
 			return $results;
 		}
 
@@ -175,7 +185,7 @@
 				return false;
 			}
 
-			return $this->user_group->getPermission($permission);
+			return $this->load('user_group')->getPermission($permission);
 		}
 
 		public function like(Model_Files $file)

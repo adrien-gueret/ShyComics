@@ -7,11 +7,13 @@ trait Trait_currentMember
 	protected function _checkCurrentMember()
 	{
 		if(isset($_SESSION['connected_user_id']))
+		{
 			$this->_current_member = Model_Users::getById($_SESSION['connected_user_id']);
+			
+			if($this->_current_member->prop('is_banned'))
+				$this->_current_member = new Model_Users();
+		}
 		else
-			$this->_current_member = new Model_Users();
-
-		if(empty($this->_current_member))
 			$this->_current_member = new Model_Users();
 
 		Library_i18n::defineLocale($this->_current_member);

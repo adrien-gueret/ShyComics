@@ -10,12 +10,14 @@
 		protected $can_edit_other_file_s_tags = 0;
 		protected $can_remove_other_comments = 0;
 		protected $can_edit_other_comments = 0;
+		protected $can_access_admin_panel = 0;
 
 		const PERM_REMOVE_OTHERS_FILES		=	'can_remove_other_files';
 		const PERM_EDIT_OTHERS_TAGS		=	'can_edit_other_file_s_tags';
 		const PERM_EDIT_OTHERS_DESCS		=	'can_edit_other_file_s_desc';
 		const PERM_REMOVE_OTHERS_COMMENTS	=	'can_remove_other_comments';
 		const PERM_EDIT_OTHERS_COMMENTS	=	'can_edit_other_comments';
+		const PERM_ACCESS_ADMIN_PANEL	=	'can_access_admin_panel';
 
 		public function __construct($name = null, Array $permissions = [])
 		{
@@ -33,10 +35,14 @@
 			return [
 				'name' => 'VARCHAR(255)',
 				'can_remove_other_files' => 'TINYINT(1)',
+<<<<<<< HEAD
 				'can_edit_other_file_s_tags' => 'TINYINT(1)',
 				'can_edit_other_file_s_desc' => 'TINYINT(1)',
 				'can_remove_other_comments' => 'TINYINT(1)',
 				'can_edit_other_comments' => 'TINYINT(1)'
+=======
+				'can_access_admin_panel' => 'TINYINT(1)'
+>>>>>>> 22dcabb... Add a permission to access the admin panel
 			];
 		}
 
