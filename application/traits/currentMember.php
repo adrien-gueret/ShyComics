@@ -15,8 +15,6 @@ trait Trait_currentMember
 		}
 		else
 			$this->_current_member = new Model_Users();
-		
-		$this->_current_member->can_access_admin_panel = $this->_current_member->can(Model_UsersGroups::PERM_ACCESS_ADMIN_PANEL);
 
 		Library_i18n::defineLocale($this->_current_member);
 
