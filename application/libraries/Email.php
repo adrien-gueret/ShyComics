@@ -9,7 +9,7 @@
             $headers = ['From: ' . $fromName . ' <' . $fromEmail . '>', self::MIME, self::CONTENT_TYPE];
             $headers = array_merge($headers, $extraHeaders);
 
-            return mail($to, $subject, $message, implode($headers, "\r\n");
+            return mail($to, $subject, $message, implode($headers, "\r\n"));
         }
 
         public static function sendFromShyComics($to, $subject, $message)
