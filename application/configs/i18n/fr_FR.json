@@ -12,12 +12,28 @@
       "page_title": "A propos",
       "page_description": "Vous êtes perdu sur Shy'Comics ? Vous ne savez pas ce qu'est un Sprite Comics ? Apprenez tout ce que vous devez savoir !",
       "title_what_is_shycomics": "Qu'est-ce que Shy'Comics ?",
-      "desc_what_is_shycomics": "TODO: Lorem ipsum dolor sit amet, consectetur adipisicing elit",
+      "desc_what_is_shycomics": "C'est une galerie regroupant la plupart des Sprite Comics francophones !",
       "title_what_is_spritecomic": "Qu'est-ce qu'un <em>Sprite Comic</em> ?",
-      "desc_what_is_spritecomic": "TODO: Lorem ipsum dolor sit amet, consectetur adipisicing elit",
+      "desc_what_is_spritecomic": "Un Sprite Comic (abrégé en SC) reprend les grands principes de la bande dessinée, mais utilise essentiellement les sprites et les décors issus de jeux-vidéo. Vous pouvez dès à présent consulter <a href=\"{{base_url}}spritecomics\">les galeries de nos membres</a> afin de lire leurs <em>sprite comics</em>.",
       "title_lets_go": "A vous de jouer !",
-      "desc_lets_go_1": "Vous pouvez dès à présent consulter <a href=\"{{base_url}}spritecomics\">les galeries de nos membres</a> afin de lire leurs <em>sprite comics</em>.",
-      "desc_lets_go_2": "Vous avez l'âme d'un artiste ? Ou vous souhaitez simplement participer à notre communauté ? N'hésitez pas à <a href=\"{{base_url}}login/register\">vous incrire</a> et à publier vos propres créations !"
+      "desc_lets_go": "Vous avez l'âme d'un artiste ? Ou vous souhaitez simplement participer à notre communauté ? N'hésitez pas à <a href=\"{{base_url}}login/register\">vous incrire</a> et à publier vos propres créations ! Les Sprite Comics se réalisent grâce à divers logiciels disponibles gratuitement (Paint, Gimp, …) et des <a href=\"{{base_url}}tutorials\">tutoriels</a> sont à votre dispositions pour apprendre les nombreuses techniques pour en créer simplement !",
+      "title_staff": "Equipe",
+      "desc_staff": "<b><em>Fondateur</em></b> : Shylink<br/><b><em>Développeurs web</em></b> : KorHosik, SM58<br /><b><em>Designer</em></b> : Noc<br /><b><em>Traducteur</em></b> : Nanard (Anglais)",
+      "contact": "Nous contacter",
+      "contact_success": "Votre mail a bien été envoyé.",
+      "end": "<a href=\"https://github.com/adrien-gueret/ShyComics\">Shy'Comics</a> est un projet open source, basé sur le framework PHP <a href=\"https://github.com/adrien-gueret/Eliya\">Eliya</a>.<br />Tous les droits appartiennent à leurs auteurs respectifs.<br />2006-2016 Shy'Comics & Shy'Ressources.",
+      "form": {
+        "general_topic": "Sujet général :",
+        "bug": "Signaler un bug ou un problème",
+        "suggestion": "Idées & Suggestions pour le site",
+        "partnership": "Demande de partenariat",
+        "other": "Autre",
+        "username": "Pseudo :",
+        "topic": "Sujet :",
+        "message": "Message :",
+        "submit": "Envoyer",
+        "reset": "Effacer"
+      }
     },
     "follows": {
       "page_title": "Gestion des membres suivis",
