@@ -69,7 +69,8 @@
 					throw new Exception(Library_i18n::get('login.register.errors.not_same_password'));
 
 				// Data filtered: we can now save new user in database
-				$user = new Model_Users($username, $email, $password, $locale, Model_UsersGroups::MEMBERS_ID);
+                $groupMember = Model_UsersGroups::getById(Model_UsersGroups::GROUP_MEMBERS_ID);
+				$user = new Model_Users($username, $email, $password, $locale, $groupMember);
 				Model_Users::add($user);
 
 				// Send verification email

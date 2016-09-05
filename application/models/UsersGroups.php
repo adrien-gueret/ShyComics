@@ -3,6 +3,8 @@
 	{
 		protected static $table_name = 'users_groups';
 
+        const GROUP_MEMBERS_ID = 1;
+
 		protected $name;
 		/* Permissions */
 		protected $can_remove_other_files = 0;
