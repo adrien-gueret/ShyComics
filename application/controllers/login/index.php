@@ -32,9 +32,10 @@
 						$_SESSION['connected_user_id'] = $resultMember->prop('id');
 						$this->_current_member = Model_Users::getById($_SESSION['connected_user_id']);
 
+                        Library_i18n::defineLocale($this->_current_member);
 						Library_Messages::store(Library_i18n::get('login.success', $resultMember->prop('username')), Library_Messages::TYPE_SUCCESS);
 
-						$this->_redirectToCurrentMemberProfile('login');
+						$this->_redirectToCurrentMemberProfile();
 					}
 					else
 					{
