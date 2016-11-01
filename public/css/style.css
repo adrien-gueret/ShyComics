@@ -490,3 +490,9 @@ button.orange, input[type="button"].orange, .button.orange {
 .commentDiv {
 	display: inline-block;
 }
+
+/* Avatars */
+.mini_avatar {
+    width: 40px;
+    height: 40px;
+}

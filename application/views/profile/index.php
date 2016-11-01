@@ -9,9 +9,9 @@
 	<?= $view->tpl_follow; ?>
 	
 	<?php if(!$view->user_follows->isEmpty()): ?>
-		<?= Library_i18n::get('profile.index.follows'); ?>
+		<?= Library_i18n::get('profile.index.follows'); ?><br />
 		<?php foreach($view->user_follows as $followed): ?>
-			<?= '<a href="' . $followed->getId() . '"><img width="40px" height="40px" src="' . $followed->getAvatarURL() . '" alt="' . $followed->prop('username') . '" title="' . $followed->prop('username') . '" alt="' . $followed->prop('username') . '" /></a> '?>
+			<?= '<a href="' . $followed->getId() . '"><img class="mini_avatar" src="' . $followed->getAvatarURL() . '" alt="' . $followed->prop('username') . '" title="' . $followed->prop('username') . '" alt="' . $followed->prop('username') . '" /></a> '?>
 		<?php endforeach; ?>
 	<?php else: ?>
 		<?= Library_i18n::get('profile.index.no_follows'); ?>
