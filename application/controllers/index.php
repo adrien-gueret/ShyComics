@@ -33,7 +33,7 @@
 			}
             
 			\Eliya\Tpl::set([
-				'additional_style'	=> '<link rel="stylesheet" type="text/css" href="' . $this->request->getBaseURL() . 'public/css/index.css" />"',
+				'additional_style'	=> '<link rel="stylesheet" type="text/css" href="' . $this->request->getBaseURL() . 'public/css/index.css" />',
             ]);
             
 			$this->response->set(\Eliya\Tpl::get('index/index', [
