@@ -31,7 +31,11 @@
 					$tpl_populars	.=	\Eliya\Tpl::get('spritecomics/gallery/file', ['document' => Model_Files::getById($popular->id)]);
 				}
 			}
-			
+            
+			\Eliya\Tpl::set([
+				'additional_style'	=> '<link rel="stylesheet" type="text/css" href="' . $this->request->getBaseURL() . 'public/css/index.css" />"',
+            ]);
+            
 			$this->response->set(\Eliya\Tpl::get('index/index', [
 				'tpl_last_boards'	=> $tpl_last_boards,
 				'tpl_last_comments' => $tpl_last_comments,
