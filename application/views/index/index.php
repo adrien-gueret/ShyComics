@@ -1,4 +1,3 @@
-<link rel="stylesheet" type="text/css" href="<?= $view->base_url; ?>public/css/index.css" />
 <div>
     <div class="sub-container sub-container-a">
         <h2><?= Library_i18n::get('index.index.title'); ?></h2>
