@@ -8,7 +8,8 @@
         "en_US": "Anglais"
       },
 	  "yes": "Oui",
-	  "no": "Non"
+	  "no": "Non",
+      "never": "Jamais"
     },
     "about": {
       "page_title": "A propos",
@@ -172,6 +173,7 @@
         "age": "%d ans",
         "go_to_gallery": "Accéder à sa galerie",
         "sub_date": "Membre inscrit depuis le :",
+        "last_login": "Dernière connexion le :",
         "follows": "Cet auteur suit les membres :",
         "no_follows": "Cet auteur ne suit aucun membre."
       },

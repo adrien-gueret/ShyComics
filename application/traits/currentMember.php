@@ -9,7 +9,9 @@ trait Trait_currentMember
 		if(isset($_SESSION['connected_user_id']))
 		{
 			$this->_current_member = Model_Users::getById($_SESSION['connected_user_id']);
-			
+			$this->_current_member->prop('last_login', date('Y-m-d H:i:s'));
+            Model_Users::update($this->_current_member);
+            
 			if($this->_current_member->prop('is_banned'))
 				$this->_current_member = new Model_Users();
 		}

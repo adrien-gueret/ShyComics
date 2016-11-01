@@ -43,6 +43,7 @@
 			$this->username = $username;
 			$this->email = $email;
 			$this->date_subscription = $_SERVER['REQUEST_TIME'];
+			$this->last_login = "0000-00-00 00:00:00";
 			$this->birthdate = $birthdate;
 			$this->about = '';
 			$this->interest = '';
@@ -65,6 +66,7 @@
 				'is_banned' => 'BOOLEAN',
 				'password' => 'CHAR(40)',
 				'date_subscription' => 'DATETIME',
+				'last_login' => 'DATETIME',
 				'birthdate' => 'DATE',
 				'about' => 'VARCHAR(255)',
 				'interest' => 'VARCHAR(100)',
@@ -376,5 +378,17 @@
 		{
 			$datetime = $this->prop('date_subscription');
 			return date_format(date_create($datetime), "d/m/Y"); 
+		}
+		
+		public function getLastLogin()
+		{
+			$datetime = $this->prop('last_login');
+            if($datetime == "0000-00-00 00:00:00")
+                return Library_i18n::get('global.never');
+            else
+            {
+                $date_formated = date_format(date_create($datetime), "d/m/Y");
+                return $date_formated;
+            }
 		}
 	}
