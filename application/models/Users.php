@@ -31,15 +31,22 @@
 				PROCESS_OK		=	1,
 			  	ERROR_SIZE		=	2,
 				ERROR_TYPE		=	3,
-				ERROR_SAVE		=	4;
+				ERROR_SAVE		=	4,
+
+				GENDER_MALE		=	0,
+			  	GENDER_FEMALE	=	1,
+				GENDER_OTHER	=	2;
 				
 
-		public function __construct($username = null, $email = null, $password = null, Model_Locales $locale_website = null, Model_UsersGroups $user_group = null)
+		public function __construct($username = null, $email = null, $password = null, $birthdate = "1900-01-01", $sexe = self::GENDER_OTHER, Model_Locales $locale_website = null, Model_UsersGroups $user_group = null)
 		{
 			$this->username = $username;
 			$this->email = $email;
 			$this->date_subscription = $_SERVER['REQUEST_TIME'];
+			$this->birthdate = $birthdate;
 			$this->about = '';
+			$this->interest = '';
+			$this->sexe = ($sexe >= 0 && $sexe <= 2) ? $sexe : Model_Users::GENDER_OTHER;
 			$this->is_email_verified = false;
 			$this->is_banned = false;
 			$this->password = Library_String::hash($password);
@@ -58,7 +65,10 @@
 				'is_banned' => 'BOOLEAN',
 				'password' => 'CHAR(40)',
 				'date_subscription' => 'DATETIME',
+				'birthdate' => 'DATE',
 				'about' => 'VARCHAR(255)',
+				'interest' => 'VARCHAR(100)',
+				'sexe' => 'TINYINT(1)',
 				'user_group' => 'Model_UsersGroups',
 				'locale_website' => 'Model_Locales',
 				'follows' => array('Model_Users'),
@@ -178,6 +188,15 @@
 
 			return 'public/users_files/avatars/default.png';
 		}
+        
+        public function getAge()
+        {
+            return \EntityPHP\EntityRequest::executeSQL("
+				SELECT TIMESTAMPDIFF(YEAR, u.birthdate, CURDATE()) AS age
+				FROM users u
+				WHERE u.id = " . $this->getId() . "
+			");
+        }
 
 		public function can($permission)
 		{
@@ -250,10 +269,26 @@
 			return self::PROCESS_OK;
 		}
 		
-		public function changeAbout($content)
+		public function updateAbout($content, $YOB, $MOB, $DOB, $sexe, $interest)
 		{
 			$this->prop('about', $content);
+            
+			$sexe = intval($sexe);
+            $this->prop('sexe', $sexe);
+            
+			$this->prop('interest', $interest);
 			
+			$DOB = intval($DOB);
+			$MOB = intval($MOB);
+			$YOB = intval($YOB);
+            
+            if(checkdate($MOB, $DOB, $YOB))
+                $birthdate = $YOB . '-' . str_pad($MOB, 2, "0", STR_PAD_LEFT) . '-' . str_pad($DOB, 2, "0", STR_PAD_LEFT);
+            else
+                $birthdate = '1900-01-01';
+            
+            $this->prop('birthdate', $birthdate);
+            
 			$this->load('user_group');
 			$this->load('locale_website');
 			$this->load('locales_comics');

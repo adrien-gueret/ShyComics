@@ -28,16 +28,20 @@
 
 				$this->response->set(\Eliya\Tpl::get('login/register', [
 					'tpl_locales_options'	=>	$tpl_locales_options,
+                    'year_now' => date('Y'),
 				]));
 			}
 		}
 		
-		public function post_index($username = null, $password = null, $passwordConfirm = null, $email = null, $id_locale = 0)
+		public function post_index($username = null, $password = null, $passwordConfirm = null, $email = null, $id_locale = 0, $DOB = 1, $MOB = 1, $YOB = 1900, $sexe = Model_Users::GENDER_OTHER)
 		{
 			$username			=	trim($username);
 			$password			=	trim($password);
 			$passwordConfirm	=	trim($passwordConfirm);
 			$email				=	trim($email);
+			$DOB				=	intval($DOB);
+			$MOB				=	intval($MOB);
+			$YOB				=	intval($YOB);
 
 			try
 			{
@@ -67,10 +71,17 @@
 
 				if($passwordConfirm !== $password)
 					throw new Exception(Library_i18n::get('login.register.errors.not_same_password'));
-
+                
+                if(checkdate($MOB, $DOB, $YOB))
+                    $birthdate = $YOB . '-' . str_pad($MOB, 2, "0", STR_PAD_LEFT) . '-' . str_pad($DOB, 2, "0", STR_PAD_LEFT);
+                else
+                    $birthdate = '1900-01-01';
+                
+                $sexe = intval($sexe);
+                
 				// Data filtered: we can now save new user in database
                 $groupMember = Model_UsersGroups::getById(Model_UsersGroups::GROUP_MEMBERS_ID);
-				$user = new Model_Users($username, $email, $password, $locale, $groupMember);
+				$user = new Model_Users($username, $email, $password, $birthdate, $sexe, $locale, $groupMember);
 				Model_Users::add($user);
 
 				// Send verification email
