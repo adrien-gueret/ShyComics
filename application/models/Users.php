@@ -256,6 +256,8 @@
 			
 			$this->load('user_group');
 			$this->load('locale_website');
+			$this->load('locales_comics');
+			$this->load('follows');
 			Model_Users::update($this);
 			
 			return self::PROCESS_OK;
