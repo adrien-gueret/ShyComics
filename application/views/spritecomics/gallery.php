@@ -9,7 +9,7 @@
 <p class="folder-name">
 	<?php if(empty($view->folder_name)) : ?>
 		<h2><?= Library_i18n::get('spritecomics.gallery.roost'); ?></h2>
-        <a href="<?= $view->base_url; ?>profile<?= $view->owner->getId(); ?>"><?= Library_i18n::get('spritecomics.gallery.return_to_profile'); ?></a>
+        <a href="<?= $view->base_url; ?>profile/<?= $view->owner->getId(); ?>"><?= Library_i18n::get('spritecomics.gallery.return_to_profile'); ?></a>
 	<?php else : ?>
 		<h2><?= $view->folder_name; ?></h2>
 	<?php endif; ?></h2>
