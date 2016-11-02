@@ -146,10 +146,18 @@
 				}
 				$hierarchy = '<a href="' . $this->request->getBaseURL() . 'spritecomics/gallery/' . $owner->getId() . '">' . Library_i18n::get('spritecomics.gallery.details.root') . '</a>' . $hierarchy;
 				
+                //Navigation arrows
+                $tpl_arrows = '';
+				
 				$previous = $document->getPrevious();
 				$next 	  = $document->getNext();
+                
+                if(!empty($previous))
+                    $tpl_arrows .= '<div class="left-nav"><a href="' . $this->request->getBaseURL() . 'spritecomics/gallery/details/' . $previous->getId() . '"><button class="orange"><i class="fa fa-arrow-left" aria-hidden="true"></i>  ' .Library_i18n::get('spritecomics.gallery.details.previous') . '</button></a></div><br />';
+                if(!empty($next))
+                    $tpl_arrows .= '<div class="right-nav"><a href="' . $this->request->getBaseURL() . 'spritecomics/gallery/details/' . $next->getId() . '"><button class="orange right-nav"><i class="fa fa-arrow-right" aria-hidden="true"></i>  ' . Library_i18n::get('spritecomics.gallery.details.next') . '</button></a></div><br />';
 				
-				\Eliya\Tpl::set([
+                \Eliya\Tpl::set([
 					'social_NW_meta'	=>	'<meta property="og:title" content="' . $page_title . '">
 											<meta property="og:type" content="article">
 											<meta property="og:site_name" content="Shy Comic\'s">
@@ -226,9 +234,10 @@
 					'tpl_comment'		=>	$tpl_comment,
 					'tpl_tags'			=>	$tpl_tags,
 					'tpl_description'	=>	$tpl_description,
-					'previous'			=>	$previous,
-					'next'				=>	$next,
+					'tpl_arrows'		=>	$tpl_arrows,
 					'hierarchy'			=>	$hierarchy,
+                    'on_own_gallery'	=>	$is_own_gallery,
+                    'owner' 			=>	$owner,
 				]);
 			}
 			
