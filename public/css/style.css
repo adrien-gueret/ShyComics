@@ -491,6 +491,7 @@ button.orange, input[type="button"].orange, .button.orange {
 #detail-image-div {
 	width: 100%;
 	overflow-x: auto;
+    text-align: center;
 }
 
 #detail-image {
