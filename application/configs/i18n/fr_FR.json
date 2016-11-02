@@ -203,6 +203,8 @@
       },
       "gallery": {
         "page_title": "Galerie de %s",
+        "roost": "Racine de la galerie",
+        "return_to_profile": "Retour au profil de l'auteur",
         "page_description": "Découvrez la galerie de %s et lisez tous ses sprite comics !",
         "own_gallery_title": "Votre galerie",
         "other_gallery_title": "Galerie de %s",
