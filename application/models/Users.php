@@ -315,6 +315,7 @@
 				
 				$this->load('user_group');
 				$this->load('locale_website');
+                $this->load('locales_comics');
 				Model_Users::update($this);
 			}
 		}
@@ -327,6 +328,7 @@
 				
 				$this->load('user_group');
 				$this->load('locale_website');
+                $this->load('locales_comics');
 				Model_Users::update($this);
 			}
 		}
