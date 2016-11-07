@@ -1,9 +1,10 @@
 <h2><?= Library_i18n::get('profile.index.title', $view->user_name); ?></h2>
 <p>
-	<div style="display: flex;">
+	<div class="profile">
         <div><img src="<?= $view->user_avatar; ?>" alt="<?= $view->user_name; ?>" style="float: left;"/></div>
-        <div style="padding-left: 10px;">
+        <div class="details">
             <?= Library_i18n::get('profile.index.sub_date') . " " . $view->user_sub_date; ?><br />
+            <?= Library_i18n::get('profile.index.last_login') . " " . $view->user_last_login; ?><br />
             <i class="fa fa-birthday-cake" aria-hidden="true"></i>  <?= Library_i18n::get('profile.index.age', $view->user_age); ?>&nbsp;
             <i class="fa fa-venus-mars" aria-hidden="true"></i>  <?= $view->user_sexe; ?>&nbsp;
             <i class="fa fa-dot-circle-o" aria-hidden="true"></i>  <?= $view->user_interest; ?><br />
