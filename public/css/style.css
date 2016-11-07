@@ -399,11 +399,11 @@ button.orange, input[type="button"].orange, .button.orange {
 .info_messages.warning {
 	color: #579932;
 	border-color: #579932;
-	background-color: #FAECD2;
+	background-color: #d6fad2;
 }
 
 .info_messages.warning .fa-stack {
-	background-color: #FAECD2;
+	background-color: #d6fad2;
 }
 
 .info_messages.warning .fa-flash {
