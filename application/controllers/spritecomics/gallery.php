@@ -153,9 +153,13 @@
 				$next 	  = $document->getNext();
                 
                 if(!empty($previous))
-                    $tpl_arrows .= '<div class="left-nav"><a href="' . $this->request->getBaseURL() . 'spritecomics/gallery/details/' . $previous->getId() . '"><button class="orange"><i class="fa fa-arrow-left" aria-hidden="true"></i>  ' .Library_i18n::get('spritecomics.gallery.details.previous') . '</button></a></div><br />';
+                    $tpl_arrows .= \Eliya\Tpl::get('spritecomics/gallery/details/prev_arrow', [
+						'previous' => $previous->getId()
+					]);
                 if(!empty($next))
-                    $tpl_arrows .= '<div class="right-nav"><a href="' . $this->request->getBaseURL() . 'spritecomics/gallery/details/' . $next->getId() . '"><button class="orange right-nav"><i class="fa fa-arrow-right" aria-hidden="true"></i>  ' . Library_i18n::get('spritecomics.gallery.details.next') . '</button></a></div><br />';
+                    $tpl_arrows .= \Eliya\Tpl::get('spritecomics/gallery/details/next_arrow', [
+						'next' => $next->getId()
+					]);
 				
                 \Eliya\Tpl::set([
 					'social_NW_meta'	=>	'<meta property="og:title" content="' . $page_title . '">
