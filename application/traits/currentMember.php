@@ -10,6 +10,12 @@ trait Trait_currentMember
 		{
 			$this->_current_member = Model_Users::getById($_SESSION['connected_user_id']);
 			$this->_current_member->prop('last_login', date('Y-m-d H:i:s'));
+            
+            $this->_current_member->load('user_group');
+            $this->_current_member->load('locale_website');
+            $this->_current_member->load('locales_comics');
+			$this->_current_member->load('follows');
+            
             Model_Users::update($this->_current_member);
             
 			if($this->_current_member->prop('is_banned'))
