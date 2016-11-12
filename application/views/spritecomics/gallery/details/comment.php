@@ -1,13 +1,15 @@
-<?= Library_i18n::get('spritecomics.gallery.comments.helpers.description') ?>
-<form action="<?= $view->base_url; ?>spritecomics/comment" method="post">
-	<input type="hidden" name="id_file" value="<?= $view->id_file; ?>" />
-	<fieldset id="form_comment_part">
-		<textarea id="content-comment" name="content"></textarea>
-		<p><?= $view->tpl_buttons; ?></p>
-	</fieldset>
-	<p><button class="orange"><?= Library_i18n::get('spritecomics.gallery.comments.send'); ?></button></p>
-</form>
-<script src="<?= $view->base_url; ?>public/javascript/parser.js"></script>
+<?php if($view->can_post): ?>
+    <?= Library_i18n::get('spritecomics.gallery.comments.helpers.description') ?>
+    <form action="<?= $view->base_url; ?>spritecomics/comment" method="post">
+        <input type="hidden" name="id_file" value="<?= $view->id_file; ?>" />
+        <fieldset id="form_comment_part">
+            <textarea id="content-comment" name="content"></textarea>
+            <p><?= $view->tpl_buttons; ?></p>
+        </fieldset>
+        <p><button class="orange"><?= Library_i18n::get('spritecomics.gallery.comments.send'); ?></button></p>
+    </form>
+    <script src="<?= $view->base_url; ?>public/javascript/parser.js"></script>
+<?php endif; ?>
 <?php if(empty($view->comments)): ?>
 	<?= Library_i18n::get('spritecomics.gallery.comments.none') ?>
 <?php else: ?>
