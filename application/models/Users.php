@@ -60,7 +60,7 @@
 		public static function __structure()
 		{
 			return [
-				'username' => 'VARCHAR(255)',
+				'username' => 'VARCHAR(20)',
 				'email' => 'VARCHAR(254)',
 				'is_email_verified' => 'BOOLEAN',
 				'is_banned' => 'BOOLEAN',
