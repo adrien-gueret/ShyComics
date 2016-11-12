@@ -40,6 +40,7 @@
 			$request = Model_Comments::createRequest();
 			$results = $request->select('*')
 							   ->getOnly($number)
+                               ->orderBy('id DESC')
 							   ->exec();
 			
 			return $results;
