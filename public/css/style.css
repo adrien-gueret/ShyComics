@@ -214,7 +214,7 @@ form.form-line fieldset {
 }
 
 .main-container form textarea {
-	height: 64px;
+	height: 150px;
 	resize: none;
 }
 
