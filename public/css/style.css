@@ -519,6 +519,10 @@ button.orange, input[type="button"].orange, .button.orange {
     justify-content: space-around;
 }
 
+.file-infos .likes{
+    text-align: center;
+}
+
 /* Avatars */
 .mini_avatar {
     width: 40px;

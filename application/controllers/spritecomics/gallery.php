@@ -189,7 +189,6 @@
 						$tpl_like = \Eliya\Tpl::get('spritecomics/gallery/details/like', [
 							'has_liked'	=>	$has_liked,
 							'id_file'	=>	$document->getId(),
-							'nbr_likes'	=>	$document->getNbrOfLikes(),
 						]);
 					}
 				}
@@ -243,6 +242,7 @@
 					'hierarchy'			=>	$hierarchy,
                     'on_own_gallery'	=>	$is_own_gallery,
                     'owner' 			=>	$owner,
+                    'nbr_likes'         =>	$document->getNbrOfLikes(),
 				]);
 			}
 			

@@ -17,7 +17,10 @@
 	<div class="file-infos">
         <div><?= $view->tpl_nbr_views; ?></div>
         <div><?= $view->tpl_social_NW; ?></div>
-        <div><?= $view->tpl_like; ?></div>
+        <div class="likes">
+            <?= $view->tpl_like; ?>
+            <br /><?= $view->nbr_likes; ?>  <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+        </div>
         <div><?= $view->tpl_tags; ?></div>
     </div>
     <hr />
