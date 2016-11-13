@@ -196,6 +196,18 @@
         },
         "about": {
           "success": "Votre description de profil a bien été modifiée"
+        },
+        "pass": {
+          "help": "Changer de mot de passe",
+          "enter_actual": "Votre mot de passe actuel",
+          "enter_new": "Votre nouveau mot de passe",
+          "enter_confirm": "Confirmez votre nouveau mot de passe",
+          "success": "Votre mot de passe a bien été modifié. Un mail vous a été envoyé.",
+          "error": "Vous avez mal rempli le formulaire, veuillez recommencer.",
+          "mail_confirm": {
+            "subject": "Changement de mot de passe sur Shy'Comics !",
+            "message": "Ce mail vous est envoyé car vous avez changé de mot de passe sur <b>Shy'Comics</b>. Votre nouveau mot de passe est : <b>{{password}}</b><br />Ils vous sera demandé à chaque connexion, veuillez ne pas l'oublier. A très bientôt sur Shy'Comics !"
+          }
         }
       },
       "submit": "Enregistrer les modifications",
