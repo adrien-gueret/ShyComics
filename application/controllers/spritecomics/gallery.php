@@ -20,7 +20,7 @@
 				'page_description'	=>	Library_i18n::get('spritecomics.gallery.page_description', $member->prop('username')),
 			]);
 
-			$this->response->set(Library_Gallery::getFolderTemplate($member, null, $is_own_gallery, null, null, null, false, false));
+			$this->response->set(Library_Gallery::getFolderTemplate($member, null, $is_own_gallery, null, null, null, null, false, false, false));
 		}
 
 		public function post_index($name = null, $description = null, $parent_file_id = null, $is_dir = 1, $thumbnail_data_url = null, $tags = null)
@@ -123,7 +123,7 @@
 			}
 			
 			if($document->prop('is_dir') == 1)
-				$template	=	Library_Gallery::getFolderTemplate($owner, $document->getId(), $is_own_gallery, $document->prop('name'), $tags, $this->request->getBaseURL(), $this->_current_member->can(Model_UsersGroups::PERM_EDIT_OTHERS_TAGS), $this->_current_member->can(Model_UsersGroups::PERM_REMOVE_OTHERS_FILES));
+				$template	=	Library_Gallery::getFolderTemplate($owner, $document->getId(), $is_own_gallery, $document->prop('name'), $document->prop('description'), $tags, $this->request->getBaseURL(), $this->_current_member->can(Model_UsersGroups::PERM_EDIT_OTHERS_DESCS), $this->_current_member->can(Model_UsersGroups::PERM_EDIT_OTHERS_TAGS), $this->_current_member->can(Model_UsersGroups::PERM_REMOVE_OTHERS_FILES));
 			else
 			{
 				$tpl_delete	=	null;
