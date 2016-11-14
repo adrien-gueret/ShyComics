@@ -6,7 +6,8 @@
 			$result = Model_Files::search($search);
 
             $view	=	\Eliya\Tpl::get('search/index', [
-                'searchArray'		=> $result,
+                'resultsUsers' => $result[0],
+                'resultsFiles' => $result[1],
             ]);
             $this->response->set($view);
 		}

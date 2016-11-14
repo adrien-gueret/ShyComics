@@ -346,22 +346,30 @@
 		{
 			$string = trim($string);
 			if(empty($string))
-				return '';//Returns string so it activates is_array() in the view (empty request)
+				return ['', ''];//Returns empty strings so it activates is_array() in the view (empty request)
 			
 			$searchArray = explode(' ', htmlspecialchars($string, ENT_QUOTES));
+            $searchArray = array_filter($searchArray, 'strlen');
 
 			$like = implode("%' OR f.name LIKE '%", $searchArray);
-			$in = implode(',', $searchArray);
+			$in = implode("', '", $searchArray);
 
-			$results = \EntityPHP\EntityRequest::executeSQL("
+			$resultsUsers = \EntityPHP\EntityRequest::executeSQL("
+				SELECT id, username
+				FROM users
+				WHERE username LIKE '%" . $like . "%'
+			");
+
+			$resultsFiles = \EntityPHP\EntityRequest::executeSQL("
 				SELECT DISTINCT f.*
 				FROM files f
 				LEFT JOIN files2tags ft ON ft.id_files=f.id
 				LEFT JOIN tags t ON t.id=ft.id_tags
 				JOIN users u ON u.id=f.id_user
-				WHERE f.name LIKE '%" . $like . "%' OR t.name IN ('" . $in . "') OR u.username IN ('" . $in . "')
+				WHERE f.name LIKE '%" . $like . "%' OR t.name IN ('" . $in . "')
 			");
-			return $results;
+            
+			return [$resultsUsers, $resultsFiles];
 		}
 		
 		public static function getLastBoards($number)
