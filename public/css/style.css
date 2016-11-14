@@ -214,7 +214,7 @@ form.form-line fieldset {
 }
 
 .main-container form textarea {
-	height: 64px;
+	height: 150px;
 	resize: none;
 }
 
@@ -529,6 +529,10 @@ button.orange, input[type="button"].orange, .button.orange {
 .file-infos {
     display: flex;
     justify-content: space-around;
+}
+
+.file-infos .likes{
+    text-align: center;
 }
 
 /* Avatars */

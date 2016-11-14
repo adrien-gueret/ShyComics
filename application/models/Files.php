@@ -370,6 +370,7 @@
 			$results = $request->select('*')
 							   ->where('is_dir=?', [false])
 							   ->getOnly($number)
+                               ->orderBy('id DESC')
 							   ->exec();
 			
 			return $results;
