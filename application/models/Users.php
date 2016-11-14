@@ -60,7 +60,7 @@
 		public static function __structure()
 		{
 			return [
-				'username' => 'VARCHAR(255)',
+				'username' => 'VARCHAR(20)',
 				'email' => 'VARCHAR(254)',
 				'is_email_verified' => 'BOOLEAN',
 				'is_banned' => 'BOOLEAN',
@@ -298,6 +298,34 @@
 			Model_Users::update($this);
 			
 			return self::PROCESS_OK;
+		}
+		
+		public function updatePassword($pass_actual, $pass_new, $pass_confirm)
+		{
+			$pass_actual = Library_String::hash(trim($pass_actual));
+			$pass_new = trim($pass_new);
+			$pass_confirm = trim($pass_confirm);
+            
+            if($pass_confirm !== $pass_new || $pass_actual !== $this->prop('password'))
+            {
+				return self::ERROR_SAVE;
+            }
+            elseif( ! empty($pass_new) && ! empty($pass_confirm))
+            {
+                $this->prop('password', Library_String::hash($pass_new));
+                
+                $this->load('user_group');
+                $this->load('locale_website');
+                $this->load('locales_comics');
+                $this->load('follows');
+                Model_Users::update($this);
+                
+                $subject = Library_i18n::get('profile.modify.pass.mail_confirm.subject');
+				$mail_content = Library_i18n::get('profile.modify.pass.mail_confirm.message', ['password' => $pass_new]);
+				Library_Email::sendFromShyComics($this->prop('email'), $subject, $mail_content);
+                
+                return self::PROCESS_OK;
+			}
 		}
 
 		public function isFollowedByUser(Model_Users $user)
