@@ -15,7 +15,7 @@
 		protected $follows;
 		protected $locales_comics;
 		
-		const	DEFAULT_USERS_GROUP_ID		=	1,
+		const	DEFAULT_USERS_GROUP_ID		=	2,
 				DEFAULT_LOCALE_WEBSITE_ID	=	1,
 
 				LIKE_SUCCESS				=	1,
