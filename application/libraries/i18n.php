@@ -64,7 +64,7 @@
 			$lang	=	null;
 
 			if($user->isConnected())
-				$lang	=	$user->prop('locale_website')->prop('name');
+				$lang	=	$user->load('locale_website')->prop('name');
 			else
 				$lang	=	self::_getLangFromBrowser();
 

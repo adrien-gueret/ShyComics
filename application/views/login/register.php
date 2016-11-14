@@ -45,6 +45,35 @@
 				   class="last" />
 			<label for="form-pass-conf"><i class="fa fa-lock"></i></label>
 
+			<span class="separator"></span>
+
+            <label class="label-full-line" for="form-DOB"><?= Library_i18n::get('login.register.helpers.birthdate'); ?></label>
+			<p>
+                <select name="DOB" id="form-DOB" style="width: auto;">
+                    <?php for($i = 1; $i <= 31; $i++): ?>
+                        <option value="<?= $i; ?>"><?= str_pad($i, 2, "0", STR_PAD_LEFT); ?></option>
+                    <?php endfor; ?>
+                </select>/
+                <select name="MOB" id="form-MOB" style="width: auto;">
+                    <?php for($i = 1; $i <= 12; $i++): ?>
+                        <option value="<?= $i; ?>"><?= str_pad($i, 2, "0", STR_PAD_LEFT); ?></option>
+                    <?php endfor; ?>
+                </select>/
+                <select name="YOB" id="form-YOB" style="width: auto;">
+                    <?php for($i = $view->year_now; $i >= 1900; $i--): ?>
+                        <option value="<?= $i; ?>"><?= $i; ?></option>
+                    <?php endfor; ?>
+                </select>
+                <label for="form-DOB"><i class="fa fa-calendar"></i></label>
+            </p>
+
+            <label class="label-full-line" for="form-sexe"><i class="fa fa-venus-mars" aria-hidden="true"></i>  <?= Library_i18n::get('login.register.helpers.sexe.sexe'); ?></label>
+			<p>
+                <input type="radio" name="sexe" value="0"><?= Library_i18n::get('login.register.helpers.sexe.male'); ?><br />
+                <input type="radio" name="sexe" value="1"><?= Library_i18n::get('login.register.helpers.sexe.female'); ?><br />
+                <input type="radio" name="sexe" value="2"><?= Library_i18n::get('login.register.helpers.sexe.undefined'); ?><br />
+            </p>
+            
 			<label class="label-full-line" for="form-locale"><?= Library_i18n::get('login.register.helpers.lang'); ?></label>
 			<p>
 				<select id="form-locale"

@@ -1,13 +1,19 @@
 <?php
 	abstract class Library_Email
 	{
-		public static function send($to, $subject, $message)
-		{
-			$expediteur = 'no-reply@shycomics.fr';
-			$headers = 'From: Shy\'Comics <' . $expediteur . '>' . "\r\n";
-			$headers .= "MIME-Version: 1.0\r\n";
-			$headers .= "Content-Type: text/html; charset=UTF-8\r\n";
+		const MIME = 'MIME-Version: 1.0',
+              CONTENT_TYPE = 'Content-Type: text/html; charset=UTF-8';
 
-			mail($to, $subject, $message, $headers);
-		}
-	}
+        public static function sendMail($to, $fromName = '', $fromEmail = '', $subject = '', $message = '', $extraHeaders = [])
+        {
+            $headers = ['From: ' . $fromName . ' <' . $fromEmail . '>', self::MIME, self::CONTENT_TYPE];
+            $headers = array_merge($headers, $extraHeaders);
+
+            return mail($to, $subject, $message, implode($headers, "\r\n"));
+        }
+
+        public static function sendFromShyComics($to, $subject, $message)
+        {
+            return self::sendMail($to, 'Shy\'Comics', 'no-reply@shycomics.fr', $subject, $message);
+        }
+    }
