@@ -27,20 +27,29 @@
 
 				if(!empty($resultMember))
 				{
-					$_SESSION['connected_user_id'] = $resultMember->prop('id');
-					$this->_current_member = Model_Users::getById($_SESSION['connected_user_id']);
+					if(!$resultMember->prop('is_banned'))
+					{
+						$_SESSION['connected_user_id'] = $resultMember->prop('id');
+						$this->_current_member = Model_Users::getById($_SESSION['connected_user_id']);
 
-					Library_Messages::store(Library_i18n::get('login.success', $resultMember->prop('username')), Library_Messages::TYPE_SUCCESS);
+                        Library_i18n::defineLocale($this->_current_member);
+						Library_Messages::store(Library_i18n::get('login.success', $resultMember->prop('username')), Library_Messages::TYPE_SUCCESS);
 
-					$this->_redirectToCurrentMemberProfile('login');
-					exit;
+						$this->_redirectToCurrentMemberProfile();
+					}
+					else
+					{
+						Library_Messages::add(Library_i18n::get('login.errors.banned'), Library_Messages::TYPE_ERROR);
+					}
 				}
-
-				Library_Messages::add(Library_i18n::get('login.errors.bad_credentials'));
+				else
+				{
+					Library_Messages::add(Library_i18n::get('login.errors.bad_credentials'), Library_Messages::TYPE_ERROR);
+				}
 			}
 			else
 			{
-				Library_Messages::add(Library_i18n::get('login.errors.empty_fields'));
+				Library_Messages::add(Library_i18n::get('login.errors.empty_fields'), Library_Messages::TYPE_WARNING);
 			}
 
 			$this->response->set(\Eliya\Tpl::get('login/index'));
