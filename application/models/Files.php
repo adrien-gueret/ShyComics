@@ -46,6 +46,59 @@
 				'sub_date' => 'DATE',
 			];
 		}
+
+		public function getUser()
+		{
+			return $this->load('user');
+		}
+
+		public function getChildren()
+		{
+			if( ! $this->is_dir)
+				return [];
+
+			return self::createRequest()
+					->where('parent_file.id=?', [$this->getId()])
+					->exec();
+		}
+		
+		public function getParentFile()
+		{
+			return $this->load('parent_file');
+		}
+		
+		public function getParentFileId()
+		{
+			$request = Model_Files::createRequest();
+			$results = $request->select('parent_file.id')
+							   ->where('id=?', [$this->getId()])
+							   ->getOnly(1)
+							   ->exec();
+
+			return empty($results->parent_file_id) ? null : $results->parent_file_id;
+		}
+		
+		public function getComments()
+		{
+			if($this->is_dir)
+				return [];
+
+			$request = Model_Comments::createRequest();
+			$results = $request->where('file.id=?', [$this->getId()])
+							   ->exec();
+			return $results;
+		}
+		
+		public function getViews()
+		{
+			if($this->is_dir)
+				return [];
+
+			$request = Model_Views::createRequest();
+			$results = $request->where('document.id=?', [$this->getId()])
+							   ->exec();
+			return $results;
+		}
 		
 		public function getPath()
 		{
@@ -213,19 +266,24 @@
 				$path	=	$this->getPath();
 
 				if( ! is_file($path))
-					throw new Exception(Library_i18n::get('spritecomics.delete.errors.not_found'), 404);
+				{
+					$this->response->error(Library_i18n::get('spritecomics.delete.file.errors.not_found'), 404);
+					return;
+				}
 
 				if( ! unlink($path))
-					throw new Exception(Library_i18n::get('spritecomics.delete.errors.unlink_failed'), 500);
+				{
+					$this->response->error(Library_i18n::get('spritecomics.delete.file.errors.unlink_failed'), 500);
+					return;
+				}
 
 				//And remove its thumbnail
 				$path	=	$this->getThumbPath();
 				
 				//Remove likes
-				$this->liked_users = [];
-				Model_Files::update($this);
+				$this->prop('liked_users', []);
 				
-				//And remove comments
+				//Remove comments
 				$comments	=	$this->getComments();
 
 				foreach($comments as $comment)
@@ -237,15 +295,38 @@
 				foreach($feeds as $feed)
 					Model_Feed::delete($feed);
 
+				//Remove views
+				$views = $this->getViews();
+
+				foreach($views as $view)
+					Model_Views::delete($view);
+					
+				//And remove tags
+				$this->prop('tags', []);
+
+				Model_Files::update($this);
+
 				if( ! is_file($path))
-					throw new Exception(Library_i18n::get('spritecomics.delete.errors.thumb_not_found'), 404);
+				{
+					$this->response->error(Library_i18n::get('spritecomics.delete.file.errors.thumb_not_found'), 404);
+					return;
+				}
 
 				if( ! unlink($path))
-					throw new Exception(Library_i18n::get('spritecomics.delete.errors.thumb_unlink_failed'), 500);
+				{
+					$this->response->error(Library_i18n::get('spritecomics.delete.file.errors.thumb_unlink_failed'), 500);
+					return;
+				}
 
 			}
 			else
 			{
+				//Remove tags
+				$this->prop('tags', []);
+
+				Model_Files::update($this);
+				
+				//And remove all children of this dir
 				$children	=	$this->getChildren();
 
 				foreach($children as $child)
@@ -253,37 +334,6 @@
 			}
 
 			self::delete($this);
-		}
-
-		public function getUser()
-		{
-			return $this->load('user');
-		}
-
-		public function getChildren()
-		{
-			if( ! $this->is_dir)
-				return [];
-
-			return self::createRequest()
-					->where('parent_file.id=?', [$this->getId()])
-					->exec();
-		}
-		
-		public function getParentFile()
-		{
-			return $this->load('parent_file');
-		}
-		
-		public function getParentFileId()
-		{
-			$request = Model_Files::createRequest();
-			$results = $request->select('parent_file.id')
-							   ->where('id=?', [$this->getId()])
-							   ->getOnly(1)
-							   ->exec();
-
-			return empty($results->parent_file_id) ? null : $results->parent_file_id;
 		}
 
 		public function isLikedByUser(Model_Users $user)
@@ -319,27 +369,35 @@
 							   ->exec();
 			return $results;
 		}
-		
+        
 		public static function search($string)
 		{
 			$string = trim($string);
 			if(empty($string))
-				return '';//Returns string so it activates is_array() in the view (empty request)
+				return ['', ''];//Returns empty strings so it activates is_array() in the view (empty request)
 			
-			$searchArray = explode(' ', htmlspecialchars($string));
+			$searchArray = explode(' ', htmlspecialchars($string, ENT_QUOTES));
+            $searchArray = array_filter($searchArray, 'strlen');
 
 			$like = implode("%' OR f.name LIKE '%", $searchArray);
-			$in = implode(',', $searchArray);
+			$in = implode("', '", $searchArray);
 
-			$results = \EntityPHP\EntityRequest::executeSQL("
+			$resultsUsers = \EntityPHP\EntityRequest::executeSQL("
+				SELECT id, username
+				FROM users
+				WHERE username LIKE '%" . $like . "%'
+			");
+
+			$resultsFiles = \EntityPHP\EntityRequest::executeSQL("
 				SELECT DISTINCT f.*
 				FROM files f
 				LEFT JOIN files2tags ft ON ft.id_files=f.id
 				LEFT JOIN tags t ON t.id=ft.id_tags
 				JOIN users u ON u.id=f.id_user
-				WHERE f.name LIKE '%" . $like . "%' OR t.name IN ('" . $in . "') OR u.username IN ('" . $in . "')
+				WHERE f.name LIKE '%" . $like . "%' OR t.name IN ('" . $in . "')
 			");
-			return $results;
+            
+			return [$resultsUsers, $resultsFiles];
 		}
 		
 		public static function getLastBoards($number)
@@ -348,6 +406,7 @@
 			$results = $request->select('*')
 							   ->where('is_dir=?', [false])
 							   ->getOnly($number)
+                               ->orderBy('id DESC')
 							   ->exec();
 			
 			return $results;

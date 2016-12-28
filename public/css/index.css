@@ -1,0 +1,44 @@
+.main-container {
+	background-color: transparent;
+	-webkit-box-shadow:  none;
+	-moz-box-shadow:  none;
+	-o-box-shadow:  none;
+	-ms-box-shadow:  none;
+	box-shadow:  none;
+}
+
+.main-container>div {
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+    margin-bottom: 15px;
+}
+
+.sub-container {
+    background-color: #fff;
+	padding: 10px;
+	-webkit-box-shadow:  0 0 4px #8d8d8d;
+	-moz-box-shadow:  0 0 4px #8d8d8d;
+	-o-box-shadow:  0 0 4px #8d8d8d;
+	-ms-box-shadow:  0 0 4px #8d8d8d;
+	box-shadow:  0 0 4px #8d8d8d;
+}
+
+.sub-container-a {
+    flex: 2;
+}
+
+.sub-container-b {
+    margin-left: 15px;
+}
+
+.sub-container-c {
+    align-self: flex-start;
+    flex: 2;
+}
+
+.sub-container-d {
+    align-self: flex-start;
+    flex: 1;
+    margin-left: 15px;
+}

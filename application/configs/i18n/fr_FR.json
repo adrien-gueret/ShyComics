@@ -6,18 +6,37 @@
       "langs": {
         "fr_FR": "Français",
         "en_US": "Anglais"
-      }
+      },
+	  "yes": "Oui",
+	  "no": "Non",
+      "never": "Jamais"
     },
     "about": {
       "page_title": "A propos",
       "page_description": "Vous êtes perdu sur Shy'Comics ? Vous ne savez pas ce qu'est un Sprite Comics ? Apprenez tout ce que vous devez savoir !",
       "title_what_is_shycomics": "Qu'est-ce que Shy'Comics ?",
-      "desc_what_is_shycomics": "TODO: Lorem ipsum dolor sit amet, consectetur adipisicing elit",
+      "desc_what_is_shycomics": "C'est une galerie regroupant la plupart des Sprite Comics francophones !",
       "title_what_is_spritecomic": "Qu'est-ce qu'un <em>Sprite Comic</em> ?",
-      "desc_what_is_spritecomic": "TODO: Lorem ipsum dolor sit amet, consectetur adipisicing elit",
+      "desc_what_is_spritecomic": "Un Sprite Comic (abrégé en SC) reprend les grands principes de la bande dessinée, mais utilise essentiellement les sprites et les décors issus de jeux-vidéo. Vous pouvez dès à présent consulter <a href=\"{{base_url}}spritecomics\">les galeries de nos membres</a> afin de lire leurs <em>sprite comics</em>.",
       "title_lets_go": "A vous de jouer !",
-      "desc_lets_go_1": "Vous pouvez dès à présent consulter <a href=\"{{base_url}}spritecomics\">les galeries de nos membres</a> afin de lire leurs <em>sprite comics</em>.",
-      "desc_lets_go_2": "Vous avez l'âme d'un artiste ? Ou vous souhaitez simplement participer à notre communauté ? N'hésitez pas à <a href=\"{{base_url}}login/register\">vous incrire</a> et à publier vos propres créations !"
+      "desc_lets_go": "Vous avez l'âme d'un artiste ? Ou vous souhaitez simplement participer à notre communauté ? N'hésitez pas à <a href=\"{{base_url}}login/register\">vous incrire</a> et à publier vos propres créations ! Les Sprite Comics se réalisent grâce à divers logiciels disponibles gratuitement (Paint, Gimp, …) et des <a href=\"{{base_url}}tutorials\">tutoriels</a> sont à votre dispositions pour apprendre les nombreuses techniques pour en créer simplement !",
+      "title_staff": "Equipe",
+      "desc_staff": "<b><em>Fondateur</em></b> : Shylink<br/><b><em>Développeurs web</em></b> : KorHosik, SM58<br /><b><em>Designer</em></b> : Noc<br /><b><em>Traducteur</em></b> : Nanard (Anglais)",
+      "contact": "Nous contacter",
+      "contact_success": "Votre mail a bien été envoyé.",
+      "end": "<a href=\"https://github.com/adrien-gueret/ShyComics\">Shy'Comics</a> est un projet open source, basé sur le framework PHP <a href=\"https://github.com/adrien-gueret/Eliya\">Eliya</a>.<br />Tous les droits appartiennent à leurs auteurs respectifs.<br />2006-2016 Shy'Comics & Shy'Ressources.",
+      "form": {
+        "general_topic": "Sujet général :",
+        "bug": "Signaler un bug ou un problème",
+        "suggestion": "Idées & Suggestions pour le site",
+        "partnership": "Demande de partenariat",
+        "other": "Autre",
+        "username": "Pseudo :",
+        "topic": "Sujet :",
+        "message": "Message :",
+        "submit": "Envoyer",
+        "reset": "Effacer"
+      }
     },
     "follows": {
       "page_title": "Gestion des membres suivis",
@@ -42,7 +61,7 @@
         "connect": "Connexion",
         "welcome_name": "Bienvenue %s",
         "my_profile": "Votre profil",
-        "logout": "Me déconnecter",
+        "logout": "Vous déconnecter",
         "register_yourself": "Inscrivez-vous !",
         "navigation": {
           "spritecomics": "Sprite Comics",
@@ -52,17 +71,18 @@
             "facebook": "Devenez fans sur Facebook !",
             "twitter": "Suivez-nous sur Twitter !",
             "follows": "Gérer votre liste de membres suivis",
-            "gallery": "Accéder à ma galerie",
+            "gallery": "Accéder à votre galerie",
             "modify": "Gérer votre profil",
             "about": "A propos",
-            "home": "Retour à l'accueil"
+            "home": "Retour à l'accueil",
+            "admin": "Panneau d'administration"
           }
         }
       },
       "index": {
 	    "title" : "Bienvenue sur Shy'comics !",
 	    "presentation" : "Bonjour et bienvenue sur <b>la référence en Sprites Comics</b> ! (comprenez par là une BD avec des personnages et des décors de jeux vidéo). N'hésitez pas à <b>lire</b> les Sprite-Comics disponibles ou même à créer puis <b>partager</b> les vôtres ! <br /> Et si vous avez besoin de conseils ou simplement envie d'échanger avec les autres membres, le forum est fait pour vous ! <br /><br /> <b>Bonne lecture à tous :D</b>",
-        "update" : "<b>Mise-à-jour</b> : Shy'Comics Returns est encore une version bêta mais SM58 travaille d'arrache-pied pour l'améliorer !",
+        "update" : "<b>Mise-à-jour</b> :",
         "title_last_uploads": "Dernières publications",
         "title_populars": "Planches populaires du moment",
         "title_random": "Une planche au hasard",
@@ -88,6 +108,7 @@
       "success": "Bon retour parmi nous %s !",
       "errors": {
         "bad_credentials": "Vos informations de connexion sont incorrectes.",
+        "banned": "Vous ne pouvez pas vous connecter car vous avez été banni.",
         "empty_fields": "Merci de renseigner tous les champs du formulaire."
       },
       "register": {
@@ -100,7 +121,14 @@
           "username": "Et votre pseudo ?",
           "password": "Choisissez un mot de passe",
           "passwordConfirm": "Confirmez votre mot de passe",
-          "lang": "En quelle langue voulez-vous voir le site ?"
+          "lang": "En quelle langue voulez-vous voir le site ?",
+          "birthdate": "Quelle est votre date de naissance ?",
+          "sexe": {
+            "sexe": "Quelle est votre genre ?",
+            "male": "Masculin",
+            "female": "Féminin",
+            "undefined": "Autre/indéfini"
+          }
         },
         "submit": "M'inscrire !",
         "has_account": "Déjà inscrit ? <a href=\"{{base_url}}login\">Connectez-vous !</a>",
@@ -142,9 +170,12 @@
         "page_title": "Profil de %s",
         "page_description": "Consultez le profil de %s et lisez ses sprite comics !",
         "title": "Profil de %s",
+        "age": "%d ans",
         "go_to_gallery": "Accéder à sa galerie",
         "sub_date": "Membre inscrit depuis le :",
-        "follows": "Cet auteur suit les membres :"
+        "last_login": "Dernière connexion le :",
+        "follows": "Cet auteur suit les membres :",
+        "no_follows": "Cet auteur ne suit aucun membre."
       },
       "modify": {
         "page_title": "Modifer mon profil",
@@ -153,6 +184,7 @@
         "avatar_actual": "Votre avatar actuel :",
         "avatar_change": "Changer d'avatar :",
         "about_change": "Décrivez-vous brièvement (255 caractères):",
+        "interest": "Vos centres d'intérêt (100 caractères):",
         "avatar": {
           "errors": {
             "file_too_big": "Le fichier est trop gros : il dépasse la limite de taille imposée.",
@@ -164,6 +196,18 @@
         },
         "about": {
           "success": "Votre description de profil a bien été modifiée"
+        },
+        "pass": {
+          "help": "Changer de mot de passe",
+          "enter_actual": "Votre mot de passe actuel",
+          "enter_new": "Votre nouveau mot de passe",
+          "enter_confirm": "Confirmez votre nouveau mot de passe",
+          "success": "Votre mot de passe a bien été modifié. Un mail vous a été envoyé.",
+          "error": "Vous avez mal rempli le formulaire, veuillez recommencer.",
+          "mail_confirm": {
+            "subject": "Changement de mot de passe sur Shy'Comics !",
+            "message": "Ce mail vous est envoyé car vous avez changé de mot de passe sur <b>Shy'Comics</b>. Votre nouveau mot de passe est : <b>{{password}}</b><br />Ils vous sera demandé à chaque connexion, veuillez ne pas l'oublier. A très bientôt sur Shy'Comics !"
+          }
         }
       },
       "submit": "Enregistrer les modifications",
@@ -182,6 +226,8 @@
       },
       "gallery": {
         "page_title": "Galerie de %s",
+        "roost": "Racine de la galerie",
+        "return_to_profile": "Retour au profil de l'auteur",
         "page_description": "Découvrez la galerie de %s et lisez tous ses sprite comics !",
         "own_gallery_title": "Votre galerie",
         "other_gallery_title": "Galerie de %s",
@@ -220,7 +266,8 @@
           "no_tag": "Ce document n'est lié à aucun tag.",
           "previous": "Planche précédente",
           "next": "Planche suivante",
-          "root": "Racine de la galerie"
+          "root": "Racine de la galerie",
+          "delete": "Voulez vous vraiment supprimer ce document ?"
         },
         "nbr_views": {
           "none": "Ce document n'a encore jamais été vu.",
@@ -231,6 +278,7 @@
           "send": "Envoyer le commentaire",
           "none" : "Cette planche n'a reçu aucun commentaire. Soyez le premier à la commenter !",
           "success": "Le commentaire a bien été envoyé !",
+		  "by": "Par",
           "helpers" : {
             "description": "Commenter cette planche :"
           },
@@ -240,14 +288,41 @@
         }
       },
       "delete": {
-        "success": "Le document a été correctement supprimé.",
-        "errors": {
-          "not_found_in_db": "Le document à supprimer n'existe pas.",
-          "forbidden": "Vous n'avez pas les permissions nécessaires pour supprimer ce document.",
-          "not_found": "Le document n'a pas pu être trouvé. Veuillez réessayer ou prévenir un administrateur.",
-          "unlink_failed": "Erreur lors de la suppresion du document. Veuillez réessayer ou prévenir un administrateur.",
-          "thumb_not_found": "La miniature de la planche n'a pas été trouvée. Veuillez réessayer ou prévenir un administrateur.",
-          "thumb_unlink_failed": "Erreur lors de la suppresion de la miniature de la planche. Veuillez réessayer ou prévenir un administrateur."
+        "file": {
+          "success": "Le document a été correctement supprimé.",
+          "errors": {
+            "not_found_in_db": "Le document à supprimer n'existe pas.",
+            "forbidden": "Vous n'avez pas les permissions nécessaires pour supprimer ce document.",
+            "not_found": "Le document n'a pas pu être trouvé. Veuillez réessayer ou prévenir un administrateur.",
+            "unlink_failed": "Erreur lors de la suppresion du document. Veuillez réessayer ou prévenir un administrateur.",
+            "thumb_not_found": "La miniature de la planche n'a pas été trouvée. Veuillez réessayer ou prévenir un administrateur.",
+            "thumb_unlink_failed": "Erreur lors de la suppresion de la miniature de la planche. Veuillez réessayer ou prévenir un administrateur."
+          }
+        },
+        "comment": {
+          "success": "Le commentaire a été correctement supprimé.",
+          "confirm": "Etes-vous sûr(e) de vouloir supprimer ce commentaire ?",
+          "errors": {
+            "not_found_in_db": "Le commentaire à supprimer n'existe pas.",
+            "forbidden": "Vous n'avez pas les permissions nécessaires pour supprimer ce commentaire."
+          }
+        }
+      },
+      "edit": {
+        "file": {
+          "success": "Le document a été correctement édité.",
+          "errors": {
+            "not_found_in_db": "Le document à éditer n'existe pas.",
+            "forbidden": "Vous n'avez pas les permissions nécessaires pour éditer ce document."
+          }
+        },
+        "comment": {
+          "success": "Le commentaire a été correctement édité.",
+          "errors": {
+            "not_found_in_db": "Le commentaire à éditer n'existe pas.",
+            "empty_edit": "Inutile de créer un commentaire vide, veuillez simplement le supprimer.",
+            "forbidden": "Vous n'avez pas les permissions nécessaires pour éditer ce commentaire."
+          }
         }
       },
       "like": {
@@ -271,6 +346,49 @@
     "search": {
       "index": "Résultats de la recherche :",
       "none": "Aucun résultat disponible pour la recherche effectuée."
+    },
+    "parser": {
+      "buttons": {
+        "bold": "Gras",
+        "italic": "Italique",
+        "underlined": "Souligné",
+        "link": "Lien",
+        "quote": "Citer",
+        "size": {
+          "50": "Très petit",
+          "85": "Petit",
+          "100": "Normal",
+          "150": "Grand",
+          "200": "Très grand"
+		}
+      },
+      "quote": {
+        "quote": "Citation",
+        "said": "a écrit"
+      }
+    },
+    "admin": {
+      "forbidden_access": "Vous n'avez pas les droits nécessaires pour accéder à ce panneau.",
+      "users_success": "Le membre a bien été modifié.",
+      "index": {
+        "title": "Panneau d'administration",
+        "presentation": "Bienvenue sur le panneau d'administration de Shy Co Returns !",
+        "members_management": "Gérer les membres",
+        "news": "Modifier le \"mise à jour\""
+      },
+      "users": {
+        "title": "Gestion des membres",
+        "return": "Retour à la liste des membres",
+        "ban" : "Bannir le membre ?",
+        "group" : "Il appartient au groupe :",
+        "about" : "Son \"A propos\" :"
+      },
+      "errors" : {
+        "users": {
+          "doesnt_exist": "Le membre que vous cherchez à modifier n'existe pas. Etrange...",
+          "bad_informations" : "Vous essayez de modifier le membre avec des informations corrompues."
+        }
+      }
     },
     "errors": {
       "title": "Erreur %d",

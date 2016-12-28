@@ -6,14 +6,16 @@
 		protected $username;
 		protected $email;
 		protected $date_subscription;
+		protected $about;
 		protected $is_email_verified;
+		protected $is_banned;
 		protected $password;
 		protected $locale_website;
 		protected $user_group;
 		protected $follows;
 		protected $locales_comics;
 		
-		const	DEFAULT_USERS_GROUP_ID		=	1,
+		const	DEFAULT_USERS_GROUP_ID		=	2,
 				DEFAULT_LOCALE_WEBSITE_ID	=	1,
 
 				LIKE_SUCCESS				=	1,
@@ -29,18 +31,25 @@
 				PROCESS_OK		=	1,
 			  	ERROR_SIZE		=	2,
 				ERROR_TYPE		=	3,
-				ERROR_SAVE		=	4;
+				ERROR_SAVE		=	4,
+
+				GENDER_MALE		=	0,
+			  	GENDER_FEMALE	=	1,
+				GENDER_OTHER	=	2;
 				
 
-		public function __construct(
-			$username = null, $email = null, $password = null,
-			Model_Locales $locale_website = null,
-			Model_UsersGroups $user_group = null
-		) {
+		public function __construct($username = null, $email = null, $password = null, $birthdate = "1900-01-01", $sexe = self::GENDER_OTHER, Model_Locales $locale_website = null, Model_UsersGroups $user_group = null)
+		{
 			$this->username = $username;
 			$this->email = $email;
 			$this->date_subscription = $_SERVER['REQUEST_TIME'];
+			$this->last_login = "0000-00-00 00:00:00";
+			$this->birthdate = $birthdate;
+			$this->about = '';
+			$this->interest = '';
+			$this->sexe = ($sexe >= 0 && $sexe <= 2) ? $sexe : Model_Users::GENDER_OTHER;
 			$this->is_email_verified = false;
+			$this->is_banned = false;
 			$this->password = Library_String::hash($password);
 			$this->locale_website = $locale_website ?: Model_Locales::getById(self::DEFAULT_LOCALE_WEBSITE_ID);
 			$this->user_group = $user_group ?: Model_UsersGroups::getById(self::DEFAULT_USERS_GROUP_ID);
@@ -51,12 +60,17 @@
 		public static function __structure()
 		{
 			return [
-				'username' => 'VARCHAR(255)',
+				'username' => 'VARCHAR(20)',
 				'email' => 'VARCHAR(254)',
 				'is_email_verified' => 'BOOLEAN',
+				'is_banned' => 'BOOLEAN',
 				'password' => 'CHAR(40)',
 				'date_subscription' => 'DATETIME',
+				'last_login' => 'DATETIME',
+				'birthdate' => 'DATE',
 				'about' => 'VARCHAR(255)',
+				'interest' => 'VARCHAR(100)',
+				'sexe' => 'TINYINT(1)',
 				'user_group' => 'Model_UsersGroups',
 				'locale_website' => 'Model_Locales',
 				'follows' => array('Model_Users'),
@@ -87,6 +101,8 @@
 			$user = Model_Users::getById($id);
 			$user->prop('is_email_verified', 1);
 			
+			$user->load('user_group');
+			$user->load('locale_website');
 			Model_Users::update($user);
 		}
 		
@@ -96,6 +112,13 @@
 			$results = $user->where('username=? AND password=? AND is_email_verified=?', [$username, $password, 1])
 							->getOnly(1)
 							->exec();
+			return $results;
+		}
+		
+		public static function getAllSorted()
+		{
+			$usersArray = Model_Users::getAll();
+			$results = $usersArray->sort(function($a, $b){ return strcasecmp($a->prop('username'), $b->prop('username')); });
 			return $results;
 		}
 
@@ -167,6 +190,15 @@
 
 			return 'public/users_files/avatars/default.png';
 		}
+        
+        public function getAge()
+        {
+            return \EntityPHP\EntityRequest::executeSQL("
+				SELECT TIMESTAMPDIFF(YEAR, u.birthdate, CURDATE()) AS age
+				FROM users u
+				WHERE u.id = " . $this->getId() . "
+			");
+        }
 
 		public function can($permission)
 		{
@@ -174,7 +206,7 @@
 				return false;
 			}
 
-			return $this->user_group->getPermission($permission);
+			return $this->load('user_group')->getPermission($permission);
 		}
 
 		public function like(Model_Files $file)
@@ -247,12 +279,61 @@
 			return self::PROCESS_OK;
 		}
 		
-		public function changeAbout($content)
+		public function updateAbout($content, $YOB, $MOB, $DOB, $sexe, $interest)
 		{
 			$this->prop('about', $content);
+            
+			$sexe = intval($sexe);
+            $this->prop('sexe', $sexe);
+            
+			$this->prop('interest', $interest);
+			
+			$DOB = intval($DOB);
+			$MOB = intval($MOB);
+			$YOB = intval($YOB);
+            
+            if(checkdate($MOB, $DOB, $YOB))
+                $birthdate = $YOB . '-' . str_pad($MOB, 2, "0", STR_PAD_LEFT) . '-' . str_pad($DOB, 2, "0", STR_PAD_LEFT);
+            else
+                $birthdate = '1900-01-01';
+            
+            $this->prop('birthdate', $birthdate);
+            
+			$this->load('user_group');
+			$this->load('locale_website');
+			$this->load('locales_comics');
+			$this->load('follows');
 			Model_Users::update($this);
 			
 			return self::PROCESS_OK;
+		}
+		
+		public function updatePassword($pass_actual, $pass_new, $pass_confirm)
+		{
+			$pass_actual = Library_String::hash(trim($pass_actual));
+			$pass_new = trim($pass_new);
+			$pass_confirm = trim($pass_confirm);
+            
+            if($pass_confirm !== $pass_new || $pass_actual !== $this->prop('password'))
+            {
+				return self::ERROR_SAVE;
+            }
+            elseif( ! empty($pass_new) && ! empty($pass_confirm))
+            {
+                $this->prop('password', Library_String::hash($pass_new));
+                
+                $this->load('user_group');
+                $this->load('locale_website');
+                $this->load('locales_comics');
+                $this->load('follows');
+                Model_Users::update($this);
+                
+                $subject = Library_i18n::get('profile.modify.pass.mail_confirm.subject');
+				$mail_content = Library_i18n::get('profile.modify.pass.mail_confirm.message', ['password' => $pass_new]);
+				Library_Email::sendFromShyComics($this->prop('email'), $subject, $mail_content);
+                
+                return self::PROCESS_OK;
+			}
 		}
 
 		public function isFollowedByUser(Model_Users $user)
@@ -268,6 +349,9 @@
 			{
 				$this->load('follows')->push($user);
 				
+				$this->load('user_group');
+				$this->load('locale_website');
+                $this->load('locales_comics');
 				Model_Users::update($this);
 			}
 		}
@@ -278,6 +362,9 @@
 			{
 				$this->load('follows')->remove($user);
 				
+				$this->load('user_group');
+				$this->load('locale_website');
+                $this->load('locales_comics');
 				Model_Users::update($this);
 			}
 		}
@@ -329,5 +416,17 @@
 		{
 			$datetime = $this->prop('date_subscription');
 			return date_format(date_create($datetime), "d/m/Y"); 
+		}
+		
+		public function getLastLogin()
+		{
+			$datetime = $this->prop('last_login');
+            if($datetime == "0000-00-00 00:00:00")
+                return Library_i18n::get('global.never');
+            else
+            {
+                $date_formated = date_format(date_create($datetime), "d/m/Y");
+                return $date_formated;
+            }
 		}
 	}
