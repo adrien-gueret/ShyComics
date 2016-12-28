@@ -209,6 +209,14 @@
 			$file->load('user');
 
 			Model_Files::update($file);
+			
+			//Not forget to update the feed for followers
+			$request = Model_Feed::createRequest();
+			$feeds = $request->where('author.id=? AND object=? AND type=?', [$this->getId(), $file->getId(), Model_Feed::OBJECT_IS_A_LIKED_FILE])
+							   ->exec();
+                               
+            foreach($feeds as $feed)
+					Model_Feed::delete($feed);
 
 			return self::UNLIKE_SUCCESS;
 		}
