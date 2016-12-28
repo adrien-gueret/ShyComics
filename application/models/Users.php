@@ -311,7 +311,7 @@
 				LEFT JOIN users u ON f.id_author=u.id
 				WHERE f.id_author IN ('" . $follows . "')
 				ORDER BY f.id DESC
-				LIMIT 0,20
+				LIMIT 0,50
 			");
 
 			return is_array($results)?$results:null;
