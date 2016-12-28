@@ -1,0 +1,1 @@
+<div class="left-nav"><a href="<?= $view->base_url; ?>spritecomics/gallery/details/<?= $view->previous; ?>"><button class="orange"><i class="fa fa-arrow-left" aria-hidden="true"></i>  <?= Library_i18n::get('spritecomics.gallery.details.previous'); ?></button></a></div><br />

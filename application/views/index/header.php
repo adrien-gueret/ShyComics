@@ -8,6 +8,7 @@
 		<?= isset($view->social_NW_meta) ? $view->social_NW_meta : ''; ?>
 		<link rel="stylesheet" type="text/css" href="<?= $view->base_url; ?>public/css/style.css" />
 		<link rel="stylesheet" type="text/css" href="<?= $view->base_url; ?>public/css/font-awesome.min.css" />
+		<?= isset($view->additional_style) ? $view->additional_style : ''; ?>
 		<link rel="shortcut icon" type="image/x-icon" href="<?= $view->base_url; ?>public/favicon.ico" />
 	</head>
 	<body>
@@ -86,6 +87,14 @@
 						<i class="fa fa-question"></i>
 					</a>
 				</li>
+				<?php if($view->current_member->can(Model_UsersGroups::PERM_ACCESS_ADMIN_PANEL)) : ?>
+					<li>
+						<hr />
+						<a href="<?= $view->base_url; ?>admin" class="leftnav_button" title="<?= Library_i18n::get('index.header.navigation.helpers.admin'); ?>">
+							<i class="fa fa-desktop"></i>
+						</a>
+					</li>
+				<?php endif; ?>
 			</ul>
 		</nav>
 		<header>

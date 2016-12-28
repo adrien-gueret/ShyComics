@@ -1,21 +1,29 @@
+<h1>
+	<?php if($view->on_own_gallery) :?>
+		<?= Library_i18n::get('spritecomics.gallery.own_gallery_title'); ?>
+	<?php else: ?>
+		<?= Library_i18n::get('spritecomics.gallery.other_gallery_title', $view->owner->prop('username')); ?>
+	<?php endif; ?>
+</h1>
 <div>
-	<h1><?= $view->file->prop('name'); ?></h1>
-	<div><?= $view->hierarchy; ?></div>
-	<div>
-		<?php if(!empty($view->previous)): ?>
-			<a href="<?= $view->base_url . 'spritecomics/gallery/details/' . $view->previous->getId();?>"><?= Library_i18n::get('spritecomics.gallery.details.previous'); ?></a><br />
-		<?php endif; ?>
-		<?php if(!empty($view->next)): ?>
-			<a href="<?= $view->base_url . 'spritecomics/gallery/details/' . $view->next->getId();?>"><?= Library_i18n::get('spritecomics.gallery.details.next'); ?></a><br />
-		<?php endif; ?>
-	</div>
-	<div id="detail-image-div"><img id="detail-image" src="<?= $view->imagePath; ?>" alt="<?= $view->file->prop('name'); ?>" title="<?= $view->file->prop('name'); ?>" /></div>
-	<?= $view->tpl_description; ?>
-	<?= $view->tpl_delete; ?>
-	<?= $view->tpl_nbr_views; ?>
-	<?= $view->tpl_social_NW; ?>
-	<?= $view->tpl_tags; ?>
-	<?= $view->tpl_like; ?>
+	<h2><?= $view->file->prop('name'); ?></h2>
+	<div><?= $view->hierarchy; ?></div><br />
+	<div class="nav-arrows"><?= $view->tpl_arrows; ?></div><br /><br />
+	<div id="detail-image-div"><img id="detail-image" src="<?= $view->imagePath; ?>" alt="<?= $view->file->prop('name'); ?>" title="<?= $view->file->prop('name'); ?>" /></div><br />
+	<div class="nav-arrows"><?= $view->tpl_arrows; ?></div><br />
+    <div><?= $view->hierarchy; ?></div><br />
+	<?= $view->tpl_description; ?><br />
+	<?= $view->tpl_delete; ?><br />
+	<div class="file-infos">
+        <div><?= $view->tpl_nbr_views; ?></div>
+        <div><?= $view->tpl_social_NW; ?></div>
+        <div class="likes">
+            <?= $view->tpl_like; ?>
+            <br /><?= $view->nbr_likes; ?>  <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+        </div>
+        <div><?= $view->tpl_tags; ?></div>
+    </div>
+    <hr />
 	<?= $view->tpl_comment; ?>
 	<script src="<?= $view->base_url; ?>public/javascript/spritecomics/gallery/moderation.js"></script>
 </div>

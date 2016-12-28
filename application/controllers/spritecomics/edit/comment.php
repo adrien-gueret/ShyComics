@@ -28,6 +28,7 @@
 			$file = $comment->getFile();
 
 			$owner						=	$comment->getUser();
+
 			$can_remove_other_comments	=	$this->_current_member->can(Model_UsersGroups::PERM_REMOVE_OTHERS_COMMENTS);
 
 			if( ! $this->_current_member->equals($owner) && ! $can_remove_other_comments)

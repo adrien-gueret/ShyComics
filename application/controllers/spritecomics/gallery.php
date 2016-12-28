@@ -20,7 +20,7 @@
 				'page_description'	=>	Library_i18n::get('spritecomics.gallery.page_description', $member->prop('username')),
 			]);
 
-			$this->response->set(Library_Gallery::getFolderTemplate($member, null, $is_own_gallery, null, null, null, false, false));
+			$this->response->set(Library_Gallery::getFolderTemplate($member, null, $is_own_gallery, null, null, null, null, false, false, false));
 		}
 
 		public function post_index($name = null, $description = null, $parent_file_id = null, $is_dir = 1, $thumbnail_data_url = null, $tags = null)
@@ -123,7 +123,7 @@
 			}
 			
 			if($document->prop('is_dir') == 1)
-				$template	=	Library_Gallery::getFolderTemplate($owner, $document->getId(), $is_own_gallery, $document->prop('name'), $tags, $this->request->getBaseURL(), $this->_current_member->can(Model_UsersGroups::PERM_EDIT_OTHERS_TAGS), $this->_current_member->can(Model_UsersGroups::PERM_REMOVE_OTHERS_FILES));
+				$template	=	Library_Gallery::getFolderTemplate($owner, $document->getId(), $is_own_gallery, $document->prop('name'), $document->prop('description'), $tags, $this->request->getBaseURL(), $this->_current_member->can(Model_UsersGroups::PERM_EDIT_OTHERS_DESCS), $this->_current_member->can(Model_UsersGroups::PERM_EDIT_OTHERS_TAGS), $this->_current_member->can(Model_UsersGroups::PERM_REMOVE_OTHERS_FILES));
 			else
 			{
 				$tpl_delete	=	null;
@@ -146,10 +146,22 @@
 				}
 				$hierarchy = '<a href="' . $this->request->getBaseURL() . 'spritecomics/gallery/' . $owner->getId() . '">' . Library_i18n::get('spritecomics.gallery.details.root') . '</a>' . $hierarchy;
 				
+                //Navigation arrows
+                $tpl_arrows = '';
+				
 				$previous = $document->getPrevious();
 				$next 	  = $document->getNext();
+                
+                if(!empty($previous))
+                    $tpl_arrows .= \Eliya\Tpl::get('spritecomics/gallery/details/prev_arrow', [
+						'previous' => $previous->getId()
+					]);
+                if(!empty($next))
+                    $tpl_arrows .= \Eliya\Tpl::get('spritecomics/gallery/details/next_arrow', [
+						'next' => $next->getId()
+					]);
 				
-				\Eliya\Tpl::set([
+                \Eliya\Tpl::set([
 					'social_NW_meta'	=>	'<meta property="og:title" content="' . $page_title . '">
 											<meta property="og:type" content="article">
 											<meta property="og:site_name" content="Shy Comic\'s">
@@ -177,7 +189,6 @@
 						$tpl_like = \Eliya\Tpl::get('spritecomics/gallery/details/like', [
 							'has_liked'	=>	$has_liked,
 							'id_file'	=>	$document->getId(),
-							'nbr_likes'	=>	$document->getNbrOfLikes(),
 						]);
 					}
 				}
@@ -199,6 +210,7 @@
 					'id_file'	 => $document->getId(),
 					'comments'	 => $comments->getArray(),
 					'can_remove'  => $can_remove_other_comments,
+					'can_post'    => $this->_current_member->isConnected(),
 					'tpl_buttons' => Library_Parser::getButtons($this->request->getBaseURL(), 'content-comment')
 				]);
 				
@@ -226,9 +238,11 @@
 					'tpl_comment'		=>	$tpl_comment,
 					'tpl_tags'			=>	$tpl_tags,
 					'tpl_description'	=>	$tpl_description,
-					'previous'			=>	$previous,
-					'next'				=>	$next,
+					'tpl_arrows'		=>	$tpl_arrows,
 					'hierarchy'			=>	$hierarchy,
+                    'on_own_gallery'	=>	$is_own_gallery,
+                    'owner' 			=>	$owner,
+                    'nbr_likes'         =>	$document->getNbrOfLikes(),
 				]);
 			}
 			

@@ -34,7 +34,8 @@
 			$file->unlink();
 
 			if(empty($parent_id))
-				$redirect_url	.=	''.$owner->getId();
+				$redirect_url	.=	$owner->getId();
+      
 			else
 				$redirect_url	.=	'details/'.$parent_id;
 
