@@ -303,7 +303,7 @@
 				$arrayFollows[] = $follow->getId();
 			}
 
-			$follows = implode(',', $arrayFollows);
+			$follows = implode("', '", $arrayFollows);
 
 			$results = \EntityPHP\EntityRequest::executeSQL("
 				SELECT f.*, u.username
