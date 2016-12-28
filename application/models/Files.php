@@ -230,6 +230,12 @@
 
 				foreach($comments as $comment)
 					Model_Comments::delete($comment);
+				
+				//And remove feed
+				$feeds	=	$this->getFeed();
+
+				foreach($feeds as $feed)
+					Model_Feed::delete($feed);
 
 				if( ! is_file($path))
 					throw new Exception(Library_i18n::get('spritecomics.delete.errors.thumb_not_found'), 404);
@@ -299,6 +305,17 @@
 
 			$request = Model_Comments::createRequest();
 			$results = $request->where('file.id=?', [$this->getId()])
+							   ->exec();
+			return $results;
+		}
+		
+		public function getFeed()
+		{
+			if($this->is_dir)
+				return [];
+
+			$request = Model_Feed::createRequest();
+			$results = $request->where('object=? AND (type=? OR type=? OR type=?)', [$this->getId(), Model_Feed::OBJECT_IS_A_SENT_FILE, Model_Feed::OBJECT_IS_A_LIKED_FILE, Model_Feed::OBJECT_IS_A_COMMENTARY])
 							   ->exec();
 			return $results;
 		}
