@@ -2,7 +2,7 @@
 <form action="<?= $view->base_url; ?>spritecomics/comment" method="post">
 	<input type="hidden" name="id_file" value="<?= $view->id_file; ?>" />
 	<fieldset id="form_comment_part">
-		<textarea id="content-comment" name="content"></textarea>
+		<textarea id="content-comment" name="content" maxlength="1000"></textarea>
 		<p><?= $view->tpl_buttons; ?></p>
 	</fieldset>
 	<p><button class="orange"><?= Library_i18n::get('spritecomics.gallery.comments.send'); ?></button></p>

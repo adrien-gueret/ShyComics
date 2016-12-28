@@ -20,7 +20,7 @@
 		{
 			return [
 				'user' => 'Model_Users',
-				'content' => 'VARCHAR(255)',
+				'content' => 'VARCHAR(1000)',
 				'file' => 'Model_Files',
 			];
 		}
