@@ -30,6 +30,15 @@
 				return;
 			}
 			
+			//Not forget to update the feed for followers
+			$request = Model_Feed::createRequest();
+			$feeds = $request->where('author.id=? AND object=? AND type=?', [$this->getId(), $file->getId(), Model_Feed::OBJECT_IS_A_COMMENTARY])
+                               ->getOnly(1)
+							   ->exec();
+            
+            foreach($feeds as $feed)
+					Model_Feed::delete($feed);
+			
 			Model_Comments::delete($comment);
 			
 			$redirect_url .= 'details/'.$file->getId();
