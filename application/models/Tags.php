@@ -24,5 +24,14 @@
 					->getOnly(1)
 					->exec();
 		}
+		
+		public static function getExistingTags($names)
+		{
+			return \EntityPHP\EntityRequest::executeSQL("
+				SELECT name
+				FROM tags
+				WHERE name IN ('" . str_replace(" ", "','", htmlspecialchars($names, ENT_QUOTES)) . "')
+			");
+		}
 	}
 ?>

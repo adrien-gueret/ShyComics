@@ -8,6 +8,7 @@
 		protected $parent_file;
 		protected $liked_users;
 		protected $tags;
+		protected $sub_date;
 		
 		const 	SIZE_LIMIT		=	100000000,
 
@@ -29,6 +30,7 @@
 			$this->parent_file = $parent_file;
 			$this->liked_users = [];
 			$this->tags = $tags;
+			$this->sub_date = date('Y-m-d');
 		}
 		
 		public static function __structure()
@@ -41,7 +43,61 @@
 				'user' => 'Model_Users',
 				'liked_users' => ['Model_Users'],
 				'tags' => ['Model_Tags'],
+				'sub_date' => 'DATE',
 			];
+		}
+
+		public function getUser()
+		{
+			return $this->load('user');
+		}
+
+		public function getChildren()
+		{
+			if( ! $this->is_dir)
+				return [];
+
+			return self::createRequest()
+					->where('parent_file.id=?', [$this->getId()])
+					->exec();
+		}
+		
+		public function getParentFile()
+		{
+			return $this->load('parent_file');
+		}
+		
+		public function getParentFileId()
+		{
+			$request = Model_Files::createRequest();
+			$results = $request->select('parent_file.id')
+							   ->where('id=?', [$this->getId()])
+							   ->getOnly(1)
+							   ->exec();
+
+			return empty($results->parent_file_id) ? null : $results->parent_file_id;
+		}
+		
+		public function getComments()
+		{
+			if($this->is_dir)
+				return [];
+
+			$request = Model_Comments::createRequest();
+			$results = $request->where('file.id=?', [$this->getId()])
+							   ->exec();
+			return $results;
+		}
+		
+		public function getViews()
+		{
+			if($this->is_dir)
+				return [];
+
+			$request = Model_Views::createRequest();
+			$results = $request->where('document.id=?', [$this->getId()])
+							   ->exec();
+			return $results;
 		}
 		
 		public function getPath()
@@ -210,33 +266,61 @@
 				$path	=	$this->getPath();
 
 				if( ! is_file($path))
-					throw new Exception(Library_i18n::get('spritecomics.delete.errors.not_found'), 404);
+				{
+					$this->response->error(Library_i18n::get('spritecomics.delete.file.errors.not_found'), 404);
+					return;
+				}
 
 				if( ! unlink($path))
-					throw new Exception(Library_i18n::get('spritecomics.delete.errors.unlink_failed'), 500);
+				{
+					$this->response->error(Library_i18n::get('spritecomics.delete.file.errors.unlink_failed'), 500);
+					return;
+				}
 
 				//And remove its thumbnail
 				$path	=	$this->getThumbPath();
 				
 				//Remove likes
-				$this->liked_users = [];
-				Model_Files::update($this);
+				$this->prop('liked_users', []);
 				
-				//And remove comments
+				//Remove comments
 				$comments	=	$this->getComments();
 
 				foreach($comments as $comment)
 					Model_Comments::delete($comment);
+				
+				//Remove views
+				$views = $this->getViews();
+
+				foreach($views as $view)
+					Model_Views::delete($view);
+					
+				//And remove tags
+				$this->prop('tags', []);
+
+				Model_Files::update($this);
 
 				if( ! is_file($path))
-					throw new Exception(Library_i18n::get('spritecomics.delete.errors.thumb_not_found'), 404);
+				{
+					$this->response->error(Library_i18n::get('spritecomics.delete.file.errors.thumb_not_found'), 404);
+					return;
+				}
 
 				if( ! unlink($path))
-					throw new Exception(Library_i18n::get('spritecomics.delete.errors.thumb_unlink_failed'), 500);
+				{
+					$this->response->error(Library_i18n::get('spritecomics.delete.file.errors.thumb_unlink_failed'), 500);
+					return;
+				}
 
 			}
 			else
 			{
+				//Remove tags
+				$this->prop('tags', []);
+
+				Model_Files::update($this);
+				
+				//And remove all children of this dir
 				$children	=	$this->getChildren();
 
 				foreach($children as $child)
@@ -244,37 +328,6 @@
 			}
 
 			self::delete($this);
-		}
-
-		public function getUser()
-		{
-			return $this->load('user');
-		}
-
-		public function getChildren()
-		{
-			if( ! $this->is_dir)
-				return [];
-
-			return self::createRequest()
-					->where('parent_file.id=?', [$this->getId()])
-					->exec();
-		}
-		
-		public function getParentFile()
-		{
-			return $this->load('parent_file');
-		}
-		
-		public function getParentFileId()
-		{
-			$request = Model_Files::createRequest();
-			$results = $request->select('parent_file.id')
-							   ->where('id=?', [$this->getId()])
-							   ->getOnly(1)
-							   ->exec();
-
-			return empty($results->parent_file_id) ? null : $results->parent_file_id;
 		}
 
 		public function isLikedByUser(Model_Users $user)
@@ -361,6 +414,7 @@
 			$results = $request->select('*')
 							   ->where('is_dir=?', [false])
 							   ->getOnly($number)
+                               ->orderBy('id DESC')
 							   ->exec();
 			
 			return $results;
@@ -374,7 +428,7 @@
 				WHERE is_dir = false
 				ORDER BY RAND() LIMIT 1
 			");
-			return Model_Files::getById($result[0]->id);
+			return (is_array($result)) ? Model_Files::getById($result[0]->id) : null;
 		}
 		
 		public function getPrevious()
@@ -428,6 +482,20 @@
 						      ->orderBy('id')
 						      ->getOnly(1)
 						      ->exec();
+			return $result;
+		}
+		
+		public static function getPopulars($nbr = 10)
+		{
+			$result = \EntityPHP\EntityRequest::executeSQL("
+				SELECT id, DATEDIFF(NOW(), sub_date) AS sub_datediff, (SELECT COUNT(*) FROM comments c WHERE c.id_file = f.id) AS nbr_comms,
+					(SELECT COUNT(*) FROM views v WHERE v.id_document = f.id) AS nbr_views, (SELECT COUNT(*) FROM files2liked_users f2l WHERE f2l.id_files = f.id) AS nbr_likes
+				FROM files f
+				WHERE is_dir = false
+				ORDER BY (1000 - sub_datediff * 100) + nbr_comms * 10 + (nbr_views + nbr_likes) * 5 DESC
+				LIMIT 10
+			");
+			
 			return $result;
 		}
 	}
