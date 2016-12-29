@@ -309,13 +309,14 @@
 			$searchArray = explode(' ', htmlspecialchars($string, ENT_QUOTES));
             $searchArray = array_filter($searchArray, 'strlen');
 
-			$like = implode("%' OR f.name LIKE '%", $searchArray);
+			$flike = implode("%' OR f.name LIKE '%", $searchArray);
+			$ulike = implode("%' OR username LIKE '%", $searchArray);
 			$in = implode("', '", $searchArray);
 
 			$resultsUsers = \EntityPHP\EntityRequest::executeSQL("
 				SELECT id, username
 				FROM users
-				WHERE username LIKE '%" . $like . "%'
+				WHERE username LIKE '%" . $ulike . "%'
 			");
 
 			$resultsFiles = \EntityPHP\EntityRequest::executeSQL("
@@ -324,7 +325,7 @@
 				LEFT JOIN files2tags ft ON ft.id_files=f.id
 				LEFT JOIN tags t ON t.id=ft.id_tags
 				JOIN users u ON u.id=f.id_user
-				WHERE f.name LIKE '%" . $like . "%' OR t.name IN ('" . $in . "')
+				WHERE f.name LIKE '%" . $flike . "%' OR t.name IN ('" . $in . "')
 			");
             
 			return [$resultsUsers, $resultsFiles];
