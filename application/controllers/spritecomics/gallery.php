@@ -210,8 +210,7 @@
 					'id_file'	 => $document->getId(),
 					'comments'	 => $comments->getArray(),
 					'can_remove'  => $can_remove_other_comments,
-					'can_post'    => $this->_current_member->isConnected(),
-					'tpl_buttons' => Library_Parser::getButtons($this->request->getBaseURL(), 'content-comment')
+					'can_post'    => $this->_current_member->isConnected()
 				]);
 				
 				//Description

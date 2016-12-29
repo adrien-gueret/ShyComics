@@ -36,6 +36,7 @@
 						name="description"
 						class="last"></textarea>
 			<label for="form-description"><i class="fa fa-quote-left"></i></label>
+            <p><?= $view->tpl_buttons; ?></p>
 		</div>
 	</fieldset>
 	<br />
@@ -64,4 +65,5 @@
 	</p>
 </form>
 <script src="<?= $view->base_url; ?>public/javascript/vendors/promise.min.js"></script>
+<script src="<?= $view->base_url; ?>public/javascript/parser.js"></script>
 <script src="<?= $view->base_url; ?>public/javascript/spritecomics/gallery/add.js"></script>
