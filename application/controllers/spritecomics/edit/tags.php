@@ -31,11 +31,11 @@
 			$arrayTags	=	explode(' ', $content);
 			$arrayNewTags = [];
 			
-			if(empty($content))//0 tags
+			if(empty($content)) //0 tags
 			{
 				$arrayTagsInstances = [];
 			}
-			elseif(strpos($content, ' ') === false)//Only 1 tag
+			else if(strpos($content, ' ') === false) //Only 1 tag
 			{
 				$tagAlreadyExist = Model_Tags::getTag($content);
 				if(empty($tagAlreadyExist))
@@ -47,8 +47,7 @@
 				else
 					$arrayTagsInstances = [$tagAlreadyExist];
 			}
-
-			else//More than 1 tag
+            else //More than 1 tag
 			{
 				$tagsAlreadyExist = Model_Tags::getExistingTags($content);
 				$namesTagsAlreadyExist = (is_array($tagsAlreadyExist)) ? array_map(function($tag){return $tag->name;}, $tagsAlreadyExist) : [];
