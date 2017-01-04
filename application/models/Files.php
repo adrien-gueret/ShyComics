@@ -289,6 +289,12 @@
 				foreach($comments as $comment)
 					Model_Comments::delete($comment);
 				
+				//And remove feed
+				$feeds	=	$this->getFeeds();
+
+				foreach($feeds as $feed)
+					Model_Feed::delete($feed);
+
 				//Remove views
 				$views = $this->getViews();
 
@@ -346,13 +352,23 @@
 		{
 			if($this->is_dir)
 				return [];
-
 			$request = Model_Comments::createRequest();
 			$results = $request->where('file.id=?', [$this->getId()])
 							   ->exec();
 			return $results;
 		}
-		
+
+		public function getFeeds()
+		{
+			if($this->is_dir)
+				return [];
+  
+			$request = Model_Feed::createRequest();
+			$results = $request->where('object=? AND type IN (?, ,?, ?)', [$this->getId(), Model_Feed::OBJECT_IS_A_SENT_FILE, Model_Feed::OBJECT_IS_A_LIKED_FILE, Model_Feed::OBJECT_IS_A_COMMENTARY])
+							   ->exec();
+			return $results;
+		}
+    
 		public static function search($string, $search_files = false, $search_dirs = false, $search_users = false)
 		{
 			$string = trim($string);
