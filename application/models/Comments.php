@@ -20,7 +20,7 @@
 		{
 			return [
 				'user' => 'Model_Users',
-				'content' => 'TEXT(1000)',
+				'content' => 'TEXT',
 				'file' => 'Model_Files',
 			];
 		}
