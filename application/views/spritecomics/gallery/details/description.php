@@ -2,7 +2,7 @@
 	<div class="file-description">
         <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
         <div id="descDIV">
-            <em><?= $view->description; ?></em>
+            <em><?= Library_Parser::parse($view->description, $view->base_url); ?></em>
         </div>
 	</div>
 	<?php if($view->can_edit): ?>

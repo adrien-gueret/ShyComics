@@ -241,6 +241,12 @@
 			$file->load('user');
 
 			Model_Files::update($file);
+			
+			//Not forget to update the feed for followers
+			$feeds = Model_Feed::getGalleryFeed($this->getId(), $file->getId(), Model_Feed::OBJECT_IS_A_LIKED_FILE);
+            
+            foreach($feeds as $feed)
+					Model_Feed::delete($feed);
 
 			return self::UNLIKE_SUCCESS;
 		}
@@ -390,7 +396,7 @@
 				$arrayFollows[] = $follow->getId();
 			}
 
-			$follows = implode(',', $arrayFollows);
+			$follows = implode("', '", $arrayFollows);
 
 			$results = \EntityPHP\EntityRequest::executeSQL("
 				SELECT f.*, u.username
@@ -398,7 +404,7 @@
 				LEFT JOIN users u ON f.id_author=u.id
 				WHERE f.id_author IN ('" . $follows . "')
 				ORDER BY f.id DESC
-				LIMIT 0,20
+				LIMIT 0,50
 			");
 
 			return is_array($results)?$results:null;

@@ -31,6 +31,10 @@
 				return;
 			}
 			
+			//Not forget to update the feed for followers
+            $feed = Model_Feed::getGalleryFeed($this->_current_member->getId(), $file->getId(), Model_Feed::OBJECT_IS_A_COMMENTARY);
+            Model_Feed::delete($feed);
+			
 			Model_Comments::delete($comment);
 			
 			$redirect_url .= 'details/'.$file->getId();
