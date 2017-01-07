@@ -47,7 +47,7 @@
 				else
 					$arrayTagsInstances = [$tagAlreadyExist];
 			}
-			else //More than 1 tag
+            else //More than 1 tag
 			{
 				$tagsAlreadyExist = Model_Tags::getExistingTags($content);
 				$namesTagsAlreadyExist = (is_array($tagsAlreadyExist)) ? array_map(function($tag){return $tag->name;}, $tagsAlreadyExist) : [];

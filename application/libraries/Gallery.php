@@ -57,7 +57,7 @@
             
             //Description
             $tpl_description = '';
-            if(!empty($id_parent))
+           if(!empty($id_parent))
 			{
 				$can_edit_desc	=	$can_edit_desc || $on_own_gallery;
                 $tpl_description = \Eliya\Tpl::get('spritecomics/gallery/details/description', [
@@ -66,7 +66,7 @@
                     'can_edit'	=>	$can_edit_desc
                 ]);
             }
-            
+
 			return \Eliya\Tpl::get('spritecomics/gallery', [
 				'tpl_gallery'		=>	$tpl_gallery,
 				'tpl_description'	=>	$tpl_description,
