@@ -348,45 +348,80 @@
 			return $this->load('liked_users')->count();
 		}
 		
+		public function getComments()
+		{
+			if($this->is_dir)
+				return [];
+			$request = Model_Comments::createRequest();
+			$results = $request->where('file.id=?', [$this->getId()])
+							   ->exec();
+			return $results;
+		}
+
 		public function getFeeds()
 		{
 			if($this->is_dir)
 				return [];
-
+  
 			$request = Model_Feed::createRequest();
 			$results = $request->where('object=? AND type IN (?, ,?, ?)', [$this->getId(), Model_Feed::OBJECT_IS_A_SENT_FILE, Model_Feed::OBJECT_IS_A_LIKED_FILE, Model_Feed::OBJECT_IS_A_COMMENTARY])
 							   ->exec();
 			return $results;
 		}
-        
-		public static function search($string)
+    
+		public static function search($string, $search_files = false, $search_dirs = false, $search_users = false)
 		{
 			$string = trim($string);
 			if(empty($string))
-				return ['', ''];//Returns empty strings so it activates is_array() in the view (empty request)
+				return ['', '', ''];//Returns empty strings so it activates is_array() in the view (empty request)
 			
 			$searchArray = explode(' ', htmlspecialchars($string, ENT_QUOTES));
             $searchArray = array_filter($searchArray, 'strlen');
 
-			$like = implode("%' OR f.name LIKE '%", $searchArray);
+			$flike = implode("%' OR f.name LIKE '%", $searchArray);
+			$ulike = implode("%' OR username LIKE '%", $searchArray);
 			$in = implode("', '", $searchArray);
-
-			$resultsUsers = \EntityPHP\EntityRequest::executeSQL("
-				SELECT id, username
-				FROM users
-				WHERE username LIKE '%" . $like . "%'
-			");
-
-			$resultsFiles = \EntityPHP\EntityRequest::executeSQL("
-				SELECT DISTINCT f.*
-				FROM files f
-				LEFT JOIN files2tags ft ON ft.id_files=f.id
-				LEFT JOIN tags t ON t.id=ft.id_tags
-				JOIN users u ON u.id=f.id_user
-				WHERE f.name LIKE '%" . $like . "%' OR t.name IN ('" . $in . "')
-			");
             
-			return [$resultsUsers, $resultsFiles];
+            if($search_users)
+            {
+                $resultsUsers = \EntityPHP\EntityRequest::executeSQL("
+                    SELECT id, username
+                    FROM users
+                    WHERE username LIKE '%" . $ulike . "%'
+                ");
+            }
+            else
+                $resultsUsers = "";
+
+			if($search_dirs)
+            {
+                $resultsDirs = \EntityPHP\EntityRequest::executeSQL("
+                    SELECT DISTINCT f.*
+                    FROM files f
+                    LEFT JOIN files2tags ft ON ft.id_files=f.id
+                    LEFT JOIN tags t ON t.id=ft.id_tags
+                    JOIN users u ON u.id=f.id_user
+                    WHERE f.is_dir = true AND (f.name LIKE '%" . $flike . "%' OR t.name IN ('" . $in . "'))
+                ");
+            }
+            else
+                $resultsDirs = "";
+            
+			if($search_files)
+            {
+                $resultsFiles = \EntityPHP\EntityRequest::executeSQL("
+                    SELECT DISTINCT f.*
+                    FROM files f
+                    LEFT JOIN files2tags ft ON ft.id_files=f.id
+                    LEFT JOIN tags t ON t.id=ft.id_tags
+                    JOIN users u ON u.id=f.id_user
+                    WHERE f.is_dir = false AND (f.name LIKE '%" . $flike . "%' OR t.name IN ('" . $in . "'))
+                ");
+            }
+            else
+                $resultsFiles = "";
+            
+			return [$resultsUsers, $resultsFiles, $resultsDirs];
 		}
 		
 		public static function getLastBoards($number)

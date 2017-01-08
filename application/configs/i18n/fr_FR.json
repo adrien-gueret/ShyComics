@@ -345,6 +345,9 @@
     },
     "search": {
       "index": "Résultats de la recherche :",
+      "users": "Auteurs :",
+      "dirs": "Dossiers :",
+      "pages": "Pages :",
       "none": "Aucun résultat disponible pour la recherche effectuée."
     },
     "parser": {

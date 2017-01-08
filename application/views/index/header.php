@@ -33,7 +33,14 @@
 						</a>
 					<?php endif; ?>
 				</li>
-				<li><form action="<?= $view->base_url; ?>search" method="post"><input type="search" name="search" id="nav-search"/></form></li>
+				<li>
+                    <form action="<?= $view->base_url; ?>search" method="post">
+                        <input type="search" name="search" id="nav-search"/>
+                        <input type="hidden" name="search_files" value="on" />
+                        <input type="hidden" name="search_dirs" value="on" />
+                        <input type="hidden" name="search_users" value="on" /> 
+                    </form>
+                </li>
 				<li>
 					<a href="<?= $view->base_url; ?>spritecomics">
 						<?= Library_i18n::get('index.header.navigation.spritecomics'); ?>
