@@ -347,16 +347,6 @@
 		{
 			return $this->load('liked_users')->count();
 		}
-		
-		public function getComments()
-		{
-			if($this->is_dir)
-				return [];
-			$request = Model_Comments::createRequest();
-			$results = $request->where('file.id=?', [$this->getId()])
-							   ->exec();
-			return $results;
-		}
 
 		public function getFeeds()
 		{
