@@ -21,7 +21,8 @@
 			
 			$file = $comment->getFile();
 
-			$owner						=	$file->getUser();
+			$owner						=	$comment->getUser();
+      
 			$can_remove_other_comments	=	$this->_current_member->can(Model_UsersGroups::PERM_REMOVE_OTHERS_COMMENTS);
 
 			if( ! $this->_current_member->equals($owner) && ! $can_remove_other_comments)
@@ -29,6 +30,10 @@
 				$this->response->error(Library_i18n::get('spritecomics.delete.comment.errors.forbidden'), 403);
 				return;
 			}
+			
+			//Not forget to update the feed for followers
+            $feed = Model_Feed::getGalleryFeed($this->_current_member->getId(), $file->getId(), Model_Feed::OBJECT_IS_A_COMMENTARY);
+            Model_Feed::delete($feed);
 			
 			Model_Comments::delete($comment);
 			

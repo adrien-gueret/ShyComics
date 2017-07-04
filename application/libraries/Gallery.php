@@ -31,7 +31,10 @@
 			}
 
 			if($on_own_gallery)
-				$tpl_adding_form	=	\Eliya\Tpl::get('spritecomics/gallery/add', ['parent_file_id' => $id_parent]);
+				$tpl_adding_form	=	\Eliya\Tpl::get('spritecomics/gallery/add', [
+                    'parent_file_id' => $id_parent,
+					'tpl_buttons' => Library_Parser::getButtons($baseURL, 'form-description')
+                ]);
 			
 			if(($on_own_gallery || $can_delete_file) && !empty($id_parent))
 			{
@@ -54,7 +57,7 @@
             
             //Description
             $tpl_description = '';
-            if(!empty($id_parent))
+           if(!empty($id_parent))
 			{
 				$can_edit_desc	=	$can_edit_desc || $on_own_gallery;
                 $tpl_description = \Eliya\Tpl::get('spritecomics/gallery/details/description', [
@@ -63,7 +66,7 @@
                     'can_edit'	=>	$can_edit_desc
                 ]);
             }
-            
+
 			return \Eliya\Tpl::get('spritecomics/gallery', [
 				'tpl_gallery'		=>	$tpl_gallery,
 				'tpl_description'	=>	$tpl_description,
