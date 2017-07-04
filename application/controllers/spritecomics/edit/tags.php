@@ -56,7 +56,7 @@
 				$tagsDontExist = array_diff($arrayTags, $namesTagsAlreadyExist);
 				$instancesTagsDontExist = array_map(function($tagName){return new Model_Tags($tagName);}, $tagsDontExist);
 				if(!empty($tagsDontExist))
-					(count($tagsDontExist) == 1) ? Model_Tags::add(reset($instancesTagsDontExist)) : Model_Tags::addMultiple($instancesTagsDontExist);
+					(count($tagsDontExist) == 1) ? Model_Tags::add(reset($instancesTagsDontExist)) : Model_Tags::addMultiple(array_values($instancesTagsDontExist));
 				
 				$arrayTagsInstances = array_merge($instancesTagsAlreadyExist, $instancesTagsDontExist);
 			}
