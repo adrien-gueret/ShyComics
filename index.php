@@ -1,4 +1,6 @@
 <?php
+    require_once 'vendor/autoload.php';
+
 	//Require framework core
 	require_once 'system/Core.class.php';
 	
@@ -7,9 +9,6 @@
 	
 	//Activate the session
 	session_start();
-
-	//Init DB
-	require_once 'application/vendors/EntityPHP/EntityPHP.php';
 
 	$sql	=	\Eliya\Config('main')->SQL;
 
