@@ -20,7 +20,7 @@
 		{
 			return [
 				'user' => 'Model_Users',
-				'content' => 'VARCHAR(255)',
+				'content' => 'TEXT',
 				'file' => 'Model_Files',
 			];
 		}
@@ -36,6 +36,17 @@
 		}
 		
 		public static function getLastComments($number)
+		{
+			$request = Model_Comments::createRequest();
+			$results = $request->select('*')
+							   ->getOnly($number)
+                               ->orderBy('id DESC')
+							   ->exec();
+			
+			return $results;
+		}
+		
+		public function remove()
 		{
 			$request = Model_Comments::createRequest();
 			$results = $request->select('*')
