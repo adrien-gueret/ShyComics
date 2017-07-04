@@ -40,7 +40,7 @@ final class EntityArray implements \SeekableIterator, \ArrayAccess, \Countable
 		$old		=	$this->i;
 		$this->i	=	$i;
 
-		if(!$this->valid())
+		if( ! $this->valid())
 			$this->i	=	$old;
 	}
 
@@ -141,10 +141,10 @@ final class EntityArray implements \SeekableIterator, \ArrayAccess, \Countable
 	{
 		$total	=	max(1,min(count($this->array),intval($total)));
 
-		if($total == 1)
+		if($total === 1)
 			return $this->offsetGet(rand(0,$this->count()-1));
 
-		if($total == $this->count())
+		if($total === $this->count())
 		{
 			$return	=	new EntityArray($this->entity, $this->array);
 			return $return->shuffle();
@@ -280,7 +280,7 @@ final class EntityArray implements \SeekableIterator, \ArrayAccess, \Countable
 		$tempEntity	=	new EntityArray($this->entity);
 
 		foreach($this->array as $obj)
-			if(!$tempEntity->hasEntity($obj))
+			if( ! $tempEntity->hasEntity($obj))
 				$tempEntity->array[]	=	$obj;
 
 		if($set)
@@ -306,7 +306,7 @@ final class EntityArray implements \SeekableIterator, \ArrayAccess, \Countable
 	/**
 	 * Check if EntityArray is empty or not
 	 * @access public
-	 * @return EntityArray The calling EntityArray.
+	 * @return boolean True if the EntityArray is empty, False otherwise.
 	 */
 	public function isEmpty()
 	{
