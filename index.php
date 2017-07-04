@@ -1,5 +1,5 @@
 <?php
-    require_once 'vendor/autoload.php';
+    require_once 'vendor/entityphp/entityphp/src/EntityPHP.php';
 
 	//Require framework core
 	require_once 'system/Core.class.php';
