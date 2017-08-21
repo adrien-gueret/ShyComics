@@ -35,19 +35,7 @@
 			{
 				$arrayTagsInstances = [];
 			}
-			else if(strpos($content, ' ') === false) //Only 1 tag
-			{
-				$tagAlreadyExist = Model_Tags::getTag($content);
-				if(empty($tagAlreadyExist))
-				{
-					$newTag = new Model_Tags($content);
-					Model_Tags::add($newTag);
-					$arrayTagsInstances = [$newTag];
-				}
-				else
-					$arrayTagsInstances = [$tagAlreadyExist];
-			}
-            else //More than 1 tag
+			else
 			{
 				$tagsAlreadyExist = Model_Tags::getExistingTags($content);
 				$namesTagsAlreadyExist = (is_array($tagsAlreadyExist)) ? array_map(function($tag){return $tag->name;}, $tagsAlreadyExist) : [];
@@ -56,7 +44,7 @@
 				$tagsDontExist = array_diff($arrayTags, $namesTagsAlreadyExist);
 				$instancesTagsDontExist = array_map(function($tagName){return new Model_Tags($tagName);}, $tagsDontExist);
 				if(!empty($tagsDontExist))
-					(count($tagsDontExist) == 1) ? Model_Tags::add(reset($instancesTagsDontExist)) : Model_Tags::addMultiple($instancesTagsDontExist);
+					Model_Tags::addMultiple($instancesTagsDontExist);
 				
 				$arrayTagsInstances = array_merge($instancesTagsAlreadyExist, $instancesTagsDontExist);
 			}
