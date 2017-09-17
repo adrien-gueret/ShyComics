@@ -1,0 +1,5 @@
+{
+  "require": {
+    "entityphp/entityphp": "dev-master"
+  }
+}
