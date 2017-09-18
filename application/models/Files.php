@@ -249,6 +249,18 @@
 
 				//And remove its thumbnail
 				$path	=	$this->getThumbPath();
+
+				if( ! is_file($path))
+				{
+					$this->response->error(Library_i18n::get('spritecomics.delete.file.errors.thumb_not_found'), 404);
+					return;
+				}
+
+				if( ! unlink($path))
+				{
+					$this->response->error(Library_i18n::get('spritecomics.delete.file.errors.thumb_unlink_failed'), 500);
+					return;
+				}
 				
 				//Remove likes
 				$this->prop('liked_users', []);
@@ -275,18 +287,6 @@
 				$this->prop('tags', []);
 
 				Model_Files::update($this);
-
-				if( ! is_file($path))
-				{
-					$this->response->error(Library_i18n::get('spritecomics.delete.file.errors.thumb_not_found'), 404);
-					return;
-				}
-
-				if( ! unlink($path))
-				{
-					$this->response->error(Library_i18n::get('spritecomics.delete.file.errors.thumb_unlink_failed'), 500);
-					return;
-				}
 
 			}
 			else
@@ -324,7 +324,7 @@
 				return [];
   
 			$request = Model_Feed::createRequest();
-			$results = $request->where('object=? AND type IN (?, ,?, ?)', [$this->getId(), Model_Feed::OBJECT_IS_A_SENT_FILE, Model_Feed::OBJECT_IS_A_LIKED_FILE, Model_Feed::OBJECT_IS_A_COMMENTARY])
+			$results = $request->where('object=? AND type IN (?, ?, ?)', [$this->getId(), Model_Feed::OBJECT_IS_A_SENT_FILE, Model_Feed::OBJECT_IS_A_LIKED_FILE, Model_Feed::OBJECT_IS_A_COMMENTARY])
 							   ->exec();
 			return $results;
 		}
