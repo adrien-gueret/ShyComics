@@ -264,23 +264,33 @@
 			{
 				//Unlink physical file
 				$path	=	$this->getPath();
-
+                
+                if($path != null)
+                {
+                    unlink($path);
+                }
+                
+				/*
 				if( ! is_file($path))
 				{
 					$this->response->error(Library_i18n::get('spritecomics.delete.file.errors.not_found'), 404);
 					return;
 				}
-
-				if( ! unlink($path))
+                if( ! unlink($path))
 				{
 					$this->response->error(Library_i18n::get('spritecomics.delete.file.errors.unlink_failed'), 500);
 					return;
-				}
+				}*/
 
 				//And remove its thumbnail
 				$path	=	$this->getThumbPath();
+                
+                if($path != null)
+                {
+                    unlink($path);
+                }
 
-				if( ! is_file($path))
+				/*if( ! is_file($path))
 				{
 					$this->response->error(Library_i18n::get('spritecomics.delete.file.errors.thumb_not_found'), 404);
 					return;
@@ -290,7 +300,7 @@
 				{
 					$this->response->error(Library_i18n::get('spritecomics.delete.file.errors.thumb_unlink_failed'), 500);
 					return;
-				}
+				}*/
 				
 				//Remove likes
 				$this->prop('liked_users', []);
