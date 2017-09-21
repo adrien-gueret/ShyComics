@@ -265,7 +265,7 @@
 				//Unlink physical file
 				$path	=	$this->getPath();
                 
-                if($path != null)
+                if(file_exists($path))
                 {
                     unlink($path);
                 }
@@ -285,7 +285,7 @@
 				//And remove its thumbnail
 				$path	=	$this->getThumbPath();
                 
-                if($path != null)
+                if(file_exists($path))
                 {
                     unlink($path);
                 }
