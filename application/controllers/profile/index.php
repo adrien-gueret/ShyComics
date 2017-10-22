@@ -30,15 +30,26 @@
 					'user_id'			=> $member->getId(),
 				]);
 			}
-			
+            
+            if($member->prop('sexe') == Model_Users::GENDER_MALE)
+                $sexe = Library_i18n::get('login.register.helpers.sexe.male');
+            elseif($member->prop('sexe') == Model_Users::GENDER_FEMALE)
+                $sexe = Library_i18n::get('login.register.helpers.sexe.female');
+            else
+                $sexe = Library_i18n::get('login.register.helpers.sexe.undefined');
+            
 			$view	=	\Eliya\Tpl::get('profile/index', [
-				'user_id'		=> $member->getId(),
-				'user_name'		=> $member->prop('username'),
-				'user_avatar'	=> $member->getAvatarURL(),
-				'user_about'	=> Library_Parser::parse($member->prop('about'), $this->request->getBaseURL()),
-				'user_sub_date'	=> $member->getSubDate(),
-				'tpl_follow'	=> $tpl_follow,
-				'user_follows'	=> $member->load('follows')
+				'user_id'		    => $member->getId(),
+				'user_name'		    => $member->prop('username'),
+				'user_avatar'	    => $member->getAvatarURL(),
+				'user_age'	        => $member->getAge()[0]->age,
+				'user_sexe'	        => $sexe,
+				'user_interest'	    => $member->prop('interest'),
+				'user_about'	    => Library_Parser::parse($member->prop('about'), $this->request->getBaseURL()),
+				'user_sub_date'	    => $member->getSubDate(),
+				'user_last_login'	=> $member->getLastLogin(),
+				'tpl_follow'	    => $tpl_follow,
+				'user_follows'	    => $member->load('follows')
 			]);
 			$this->response->set($view);
 		}

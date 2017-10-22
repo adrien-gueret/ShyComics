@@ -3,7 +3,7 @@
     {
         protected $author;
         protected $object;
-        protected $types;
+        protected $type;
 
         const 	OBJECT_IS_A_SENT_FILE   =   0,
                 OBJECT_IS_A_LIKED_FILE  =   1,
@@ -25,5 +25,22 @@
                 'object' => 'TINYINT(1)',
                 'type' => 'TINYINT(1)',
             ];
+        }
+        
+        public static function getGalleryFeed($userId, $fileId, $type = null)
+        {
+            if($type == self::OBJECT_IS_A_COMMENTARY)
+            {
+                $request = self::createRequest();
+                return $request->where('author.id=? AND object=? AND type=?', [$userId, $fileId, $type])
+                               ->getOnly(1)
+							   ->exec();
+            }
+            elseif($type == self::OBJECT_IS_A_LIKED_FILE)
+            {
+                $request = self::createRequest();
+                return $request->where('author.id=? AND object=? AND type=?', [$userId, $fileId, $type])
+                       ->exec();
+            }
         }
     }

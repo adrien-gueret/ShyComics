@@ -424,6 +424,18 @@ button.orange, input[type="button"].orange, .button.orange {
 	display: inline;
 }
 
+/*Profile*/
+.profile {
+    display: flex;
+}
+
+.profile .details {
+    padding: 5px 5px 0px 5px;
+    margin-left: 10px;
+    border: 3px dashed #579932;
+    border-radius: 10px;
+}
+
 /*Gallery*/
 .gallery {
 	text-align: center;

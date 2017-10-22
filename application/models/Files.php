@@ -141,31 +141,16 @@
 				$arrayTags	=	explode(' ', $tags);
 				$arrayNewTags = [];
 				
-				if(strpos($tags, ' ') === false)//Only 1 tag
-				{
-					$tagAlreadyExist = Model_Tags::getTag($tags);
-					if(empty($tagAlreadyExist))
-					{
-						$newTag = new Model_Tags($tags);
-						Model_Tags::add($newTag);
-						$arrayTagsInstances = [$newTag];
-					}
-					else
-						$arrayTagsInstances = [$tagAlreadyExist];
-				}
-				else//More than 1 tag
-				{
-					$tagsAlreadyExist = Model_Tags::getExistingTags($tags);
-					$namesTagsAlreadyExist = (is_array($tagsAlreadyExist)) ? array_map(function($tag){return $tag->name;}, $tagsAlreadyExist) : [];
-					$instancesTagsAlreadyExist = (is_array($tagsAlreadyExist)) ? array_map(function($tag){return Model_Tags::getTag($tag->name);}, $tagsAlreadyExist) : [];
-					
-					$tagsDontExist = array_diff($arrayTags, $namesTagsAlreadyExist);
-					$instancesTagsDontExist = array_map(function($tagName){return new Model_Tags($tagName);}, $tagsDontExist);
-					if(!empty($tagsDontExist))
-						(count($tagsDontExist) == 1) ? Model_Tags::add(reset($instancesTagsDontExist)) : Model_Tags::addMultiple($instancesTagsDontExist);
-					
-					$arrayTagsInstances = array_merge($instancesTagsAlreadyExist, $instancesTagsDontExist);
-				}
+				$tagsAlreadyExist = Model_Tags::getExistingTags($tags);
+                $namesTagsAlreadyExist = (is_array($tagsAlreadyExist)) ? array_map(function($tag){return $tag->name;}, $tagsAlreadyExist) : [];
+                $instancesTagsAlreadyExist = (is_array($tagsAlreadyExist)) ? array_map(function($tag){return Model_Tags::getTag($tag->name);}, $tagsAlreadyExist) : [];
+                
+                $tagsDontExist = array_diff($arrayTags, $namesTagsAlreadyExist);
+                $instancesTagsDontExist = array_map(function($tagName){return new Model_Tags($tagName);}, $tagsDontExist);
+                if(!empty($tagsDontExist))
+                    Model_Tags::addMultiple($instancesTagsDontExist);
+                
+                $arrayTagsInstances = array_merge($instancesTagsAlreadyExist, $instancesTagsDontExist);
 			}
 			
 			$file 		=	new Model_Files($name, $description, $is_dir, $user, $parent, $arrayTagsInstances);
@@ -221,31 +206,16 @@
 				$arrayTags	=	explode(' ', $tags);
 				$arrayNewTags = [];
 				
-				if(strpos($tags, ' ') === false)//Only 1 tag
-				{
-					$tagAlreadyExist = Model_Tags::getTag($tags);
-					if(empty($tagAlreadyExist))
-					{
-						$newTag = new Model_Tags($tags);
-						Model_Tags::add($newTag);
-						$arrayTagsInstances = [$newTag];
-					}
-					else
-						$arrayTagsInstances = [$tagAlreadyExist];
-				}
-				else//More than 1 tag
-				{
-					$tagsAlreadyExist = Model_Tags::getExistingTags($tags);
-					$namesTagsAlreadyExist = (is_array($tagsAlreadyExist)) ? array_map(function($tag){return $tag->name;}, $tagsAlreadyExist) : [];
-					$instancesTagsAlreadyExist = (is_array($tagsAlreadyExist)) ? array_map(function($tag){return Model_Tags::getTag($tag->name);}, $tagsAlreadyExist) : [];
-					
-					$tagsDontExist = array_diff($arrayTags, $namesTagsAlreadyExist);
-					$instancesTagsDontExist = array_map(function($tagName){return new Model_Tags($tagName);}, $tagsDontExist);
-					if(!empty($tagsDontExist))
-						(count($tagsDontExist) == 1) ? Model_Tags::add(reset($instancesTagsDontExist)) : Model_Tags::addMultiple($instancesTagsDontExist);
-					
-					$arrayTagsInstances = array_merge($instancesTagsAlreadyExist, $instancesTagsDontExist);
-				}
+				$tagsAlreadyExist = Model_Tags::getExistingTags($tags);
+                $namesTagsAlreadyExist = (is_array($tagsAlreadyExist)) ? array_map(function($tag){return $tag->name;}, $tagsAlreadyExist) : [];
+                $instancesTagsAlreadyExist = (is_array($tagsAlreadyExist)) ? array_map(function($tag){return Model_Tags::getTag($tag->name);}, $tagsAlreadyExist) : [];
+                
+                $tagsDontExist = array_diff($arrayTags, $namesTagsAlreadyExist);
+                $instancesTagsDontExist = array_map(function($tagName){return new Model_Tags($tagName);}, $tagsDontExist);
+                if(!empty($tagsDontExist))
+                    Model_Tags::addMultiple($instancesTagsDontExist);
+                
+                $arrayTagsInstances = array_merge($instancesTagsAlreadyExist, $instancesTagsDontExist);
 			}
 			
 			$folder	=	new Model_Files($name, $description, 1, $user, $parent, $arrayTagsInstances);
@@ -279,26 +249,6 @@
 
 				//And remove its thumbnail
 				$path	=	$this->getThumbPath();
-				
-				//Remove likes
-				$this->prop('liked_users', []);
-				
-				//Remove comments
-				$comments	=	$this->getComments();
-
-				foreach($comments as $comment)
-					Model_Comments::delete($comment);
-				
-				//Remove views
-				$views = $this->getViews();
-
-				foreach($views as $view)
-					Model_Views::delete($view);
-					
-				//And remove tags
-				$this->prop('tags', []);
-
-				Model_Files::update($this);
 
 				if( ! is_file($path))
 				{
@@ -311,6 +261,32 @@
 					$this->response->error(Library_i18n::get('spritecomics.delete.file.errors.thumb_unlink_failed'), 500);
 					return;
 				}
+				
+				//Remove likes
+				$this->prop('liked_users', []);
+				
+				//Remove comments
+				$comments	=	$this->getComments();
+
+				foreach($comments as $comment)
+					Model_Comments::delete($comment);
+				
+				//And remove feed
+				$feeds	=	$this->getFeeds();
+
+				foreach($feeds as $feed)
+					Model_Feed::delete($feed);
+
+				//Remove views
+				$views = $this->getViews();
+
+				foreach($views as $view)
+					Model_Views::delete($view);
+					
+				//And remove tags
+				$this->prop('tags', []);
+
+				Model_Files::update($this);
 
 			}
 			else
@@ -341,27 +317,71 @@
 		{
 			return $this->load('liked_users')->count();
 		}
-		
-		public static function search($string)
+
+		public function getFeeds()
+		{
+			if($this->is_dir)
+				return [];
+  
+			$request = Model_Feed::createRequest();
+			$results = $request->where('object=? AND type IN (?, ?, ?)', [$this->getId(), Model_Feed::OBJECT_IS_A_SENT_FILE, Model_Feed::OBJECT_IS_A_LIKED_FILE, Model_Feed::OBJECT_IS_A_COMMENTARY])
+							   ->exec();
+			return $results;
+		}
+    
+		public static function search($string, $search_files = false, $search_dirs = false, $search_users = false)
 		{
 			$string = trim($string);
 			if(empty($string))
-				return '';//Returns string so it activates is_array() in the view (empty request)
+				return ['', '', ''];//Returns empty strings so it activates is_array() in the view (empty request)
 			
 			$searchArray = explode(' ', htmlspecialchars($string, ENT_QUOTES));
+            $searchArray = array_filter($searchArray, 'strlen');
 
-			$like = implode("%' OR f.name LIKE '%", $searchArray);
-			$in = implode(',', $searchArray);
+			$flike = implode("%' OR f.name LIKE '%", $searchArray);
+			$ulike = implode("%' OR username LIKE '%", $searchArray);
+			$in = implode("', '", $searchArray);
+            
+            if($search_users)
+            {
+                $resultsUsers = \EntityPHP\EntityRequest::executeSQL("
+                    SELECT id, username
+                    FROM users
+                    WHERE username LIKE '%" . $ulike . "%'
+                ");
+            }
+            else
+                $resultsUsers = "";
 
-			$results = \EntityPHP\EntityRequest::executeSQL("
-				SELECT DISTINCT f.*
-				FROM files f
-				LEFT JOIN files2tags ft ON ft.id_files=f.id
-				LEFT JOIN tags t ON t.id=ft.id_tags
-				JOIN users u ON u.id=f.id_user
-				WHERE f.name LIKE '%" . $like . "%' OR t.name IN ('" . $in . "') OR u.username IN ('" . $in . "')
-			");
-			return $results;
+			if($search_dirs)
+            {
+                $resultsDirs = \EntityPHP\EntityRequest::executeSQL("
+                    SELECT DISTINCT f.*
+                    FROM files f
+                    LEFT JOIN files2tags ft ON ft.id_files=f.id
+                    LEFT JOIN tags t ON t.id=ft.id_tags
+                    JOIN users u ON u.id=f.id_user
+                    WHERE f.is_dir = true AND (f.name LIKE '%" . $flike . "%' OR t.name IN ('" . $in . "'))
+                ");
+            }
+            else
+                $resultsDirs = "";
+            
+			if($search_files)
+            {
+                $resultsFiles = \EntityPHP\EntityRequest::executeSQL("
+                    SELECT DISTINCT f.*
+                    FROM files f
+                    LEFT JOIN files2tags ft ON ft.id_files=f.id
+                    LEFT JOIN tags t ON t.id=ft.id_tags
+                    JOIN users u ON u.id=f.id_user
+                    WHERE f.is_dir = false AND (f.name LIKE '%" . $flike . "%' OR t.name IN ('" . $in . "'))
+                ");
+            }
+            else
+                $resultsFiles = "";
+            
+			return [$resultsUsers, $resultsFiles, $resultsDirs];
 		}
 		
 		public static function getLastBoards($number)

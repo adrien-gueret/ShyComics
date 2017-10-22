@@ -1,0 +1,61 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "This file is @generated automatically"
+    ],
+    "content-hash": "ba6e86cb915cd25e1bf2b424712d6f48",
+    "packages": [
+        {
+            "name": "entityphp/entityphp",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/adrien-gueret/EntityPHP.git",
+                "reference": "16f48828c6fddb6aae5633f8ec27d97d9b5fafe1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/adrien-gueret/EntityPHP/zipball/16f48828c6fddb6aae5633f8ec27d97d9b5fafe1",
+                "reference": "16f48828c6fddb6aae5633f8ec27d97d9b5fafe1",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "EntityPHP\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Adrien Guéret",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A basic and easy to use ORM built with and for PHP.",
+            "homepage": "https://github.com/adrien-gueret/EntityPHP",
+            "keywords": [
+                "mysql",
+                "orm"
+            ],
+            "time": "2017-07-11 19:34:46"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": {
+        "entityphp/entityphp": 20
+    },
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": [],
+    "platform-dev": []
+}

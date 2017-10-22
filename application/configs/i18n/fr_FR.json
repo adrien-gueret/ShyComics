@@ -8,7 +8,8 @@
         "en_US": "Anglais"
       },
 	  "yes": "Oui",
-	  "no": "Non"
+	  "no": "Non",
+      "never": "Jamais"
     },
     "about": {
       "page_title": "A propos",
@@ -120,7 +121,14 @@
           "username": "Et votre pseudo ?",
           "password": "Choisissez un mot de passe",
           "passwordConfirm": "Confirmez votre mot de passe",
-          "lang": "En quelle langue voulez-vous voir le site ?"
+          "lang": "En quelle langue voulez-vous voir le site ?",
+          "birthdate": "Quelle est votre date de naissance ?",
+          "sexe": {
+            "sexe": "Quelle est votre genre ?",
+            "male": "Masculin",
+            "female": "Féminin",
+            "undefined": "Autre/indéfini"
+          }
         },
         "submit": "M'inscrire !",
         "has_account": "Déjà inscrit ? <a href=\"{{base_url}}login\">Connectez-vous !</a>",
@@ -162,8 +170,10 @@
         "page_title": "Profil de %s",
         "page_description": "Consultez le profil de %s et lisez ses sprite comics !",
         "title": "Profil de %s",
+        "age": "%d ans",
         "go_to_gallery": "Accéder à sa galerie",
         "sub_date": "Membre inscrit depuis le :",
+        "last_login": "Dernière connexion le :",
         "follows": "Cet auteur suit les membres :",
         "no_follows": "Cet auteur ne suit aucun membre."
       },
@@ -174,6 +184,7 @@
         "avatar_actual": "Votre avatar actuel :",
         "avatar_change": "Changer d'avatar :",
         "about_change": "Décrivez-vous brièvement (255 caractères):",
+        "interest": "Vos centres d'intérêt (100 caractères):",
         "avatar": {
           "errors": {
             "file_too_big": "Le fichier est trop gros : il dépasse la limite de taille imposée.",
@@ -185,6 +196,18 @@
         },
         "about": {
           "success": "Votre description de profil a bien été modifiée"
+        },
+        "pass": {
+          "help": "Changer de mot de passe",
+          "enter_actual": "Votre mot de passe actuel",
+          "enter_new": "Votre nouveau mot de passe",
+          "enter_confirm": "Confirmez votre nouveau mot de passe",
+          "success": "Votre mot de passe a bien été modifié. Un mail vous a été envoyé.",
+          "error": "Vous avez mal rempli le formulaire, veuillez recommencer.",
+          "mail_confirm": {
+            "subject": "Changement de mot de passe sur Shy'Comics !",
+            "message": "Ce mail vous est envoyé car vous avez changé de mot de passe sur <b>Shy'Comics</b>. Votre nouveau mot de passe est : <b>{{password}}</b><br />Ils vous sera demandé à chaque connexion, veuillez ne pas l'oublier. A très bientôt sur Shy'Comics !"
+          }
         }
       },
       "submit": "Enregistrer les modifications",
@@ -322,6 +345,9 @@
     },
     "search": {
       "index": "Résultats de la recherche :",
+      "users": "Auteurs :",
+      "dirs": "Dossiers :",
+      "pages": "Pages :",
       "none": "Aucun résultat disponible pour la recherche effectuée."
     },
     "parser": {
