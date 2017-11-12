@@ -213,6 +213,7 @@ b {
     height: 240px;
     width: 160px;
     background-color: orange;
+    background-position: center;
     
     flex-shrink: 0;
     
@@ -267,6 +268,7 @@ b {
     font-size: 15px;
     
     display: flex;
+    justify-content: space-between;
 }
 
 .main-container > .grid > .content > .element > div > .title > div {

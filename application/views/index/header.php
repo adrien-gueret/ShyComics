@@ -14,7 +14,7 @@
 	<body>
 		<nav>
 			<div>
-                <a href="<?= $view->base_url; ?>"><img src="<?= $view->base_url; ?>public/images/logoWhite.svg" alt="Shy'Comics" title="<?= Library_i18n::get('index.header.navigation.helpers.home'); ?>" /></a>
+                <a href="<?= $view->base_url; ?>"><img src="<?= $view->base_url; ?>public/images/logoWhite.svg" alt="Shy'Comics" title="<?= Library_i18n::get('index.header.navigation.helpers.home'); ?>" style="width: 225px;" /></a>
             </div>
         </nav>
 		<header>

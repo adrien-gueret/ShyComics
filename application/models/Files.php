@@ -78,6 +78,17 @@
 			return empty($results->parent_file_id) ? null : $results->parent_file_id;
 		}
 		
+		public function getParentFileName()
+		{
+			$request = Model_Files::createRequest();
+			$results = $request->select('parent_file.name')
+							   ->where('id=?', [$this->getId()])
+							   ->getOnly(1)
+							   ->exec();
+
+			return empty($results->parent_file_name) ? null : $results->parent_file_name;
+		}
+		
 		public function getComments()
 		{
 			if($this->is_dir)
