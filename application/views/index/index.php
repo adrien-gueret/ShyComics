@@ -1,7 +1,7 @@
     <div class="grid">
         <div class="cat">
-            <div>Catégorie</div>
-            <div class="legend">TOUT VOIR</div>
+            <div><?= Library_i18n::get('index.index.title_last_uploads'); ?></div>
+            <div class="legend"><?= Library_i18n::get('global.see_all'); ?></div>
         </div>
         <div class="content">
             <?= $view->tpl_last_boards; ?>
@@ -11,12 +11,12 @@
 <div class="featured">
     <div>
         <div>
-            <h1>En vedette</h1>
+            <h1><?= Library_i18n::get('index.index.featured'); ?></h1>
             
-            Découvrez les meilleurs sprite-comics du moment, sélectionnés par l'équipe.
+            <?= Library_i18n::get('index.index.featured_desc'); ?>
             <br />
             <br />
-            <a href="#" class="roundedWhite">TOUT VOIR</a>
+            <a href="#" class="roundedWhite"><?= Library_i18n::get('global.see_all'); ?></a>
         </div>
         <div></div><div></div><div></div>
     </div>
