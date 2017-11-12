@@ -23,8 +23,8 @@
 		thumbnailDataUrl	=	document.getElementById('thumbnail-data-url'),
 		ctx					=	canvas.getContext('2d');
 
-	canvas.width	=	150;
-	canvas.height	=	250;
+	canvas.width	=	200;
+	canvas.height	=	300;
 	ctx.fillStyle	=	'#fff';
 
 	form_file.onchange	=	function()
