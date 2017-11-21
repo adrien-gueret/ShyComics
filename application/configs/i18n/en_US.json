@@ -8,7 +8,9 @@
         "en_US": "English"
       },
 	  "yes": "Yes",
-	  "no": "No"
+	  "no": "No",
+      "never": "Never",
+      "see_all": "SEE ALL"
     },
     "about": {
       "page_title": "About",
@@ -87,6 +89,8 @@
         "title_random": "Random comic",
         "title_last_comments": "Latest comments",
         "title_lost": "You're lost?",
+        "featured": "Featured",
+        "featured_desc": "Discover the best Sprite Comics of the moment, chosen by the staff.",
         "desc_lost_1": "You don't know where to go? You don't even know what a <em>Sprite Comic</em> is?",
         "desc_lost_2": "We invite you to visit <a href=\"{{base_url}}about\">the page \"About\"</a> to learn everything you need to know about <em>Sprite Comics</em> and Shy'Comics. You can also visit <a href=\"{{base_url}}spritecomics\">our members galleries</a> to read their creations <strong>for free</strong>!"
       }

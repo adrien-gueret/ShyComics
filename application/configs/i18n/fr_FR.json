@@ -9,7 +9,8 @@
       },
 	  "yes": "Oui",
 	  "no": "Non",
-      "never": "Jamais"
+      "never": "Jamais",
+      "see_all": "TOUT VOIR"
     },
     "about": {
       "page_title": "A propos",
@@ -88,6 +89,8 @@
         "title_random": "Une planche au hasard",
         "title_last_comments": "Derniers commentaires",
         "title_lost": "Vous êtes perdus ?",
+        "featured": "En vedette",
+        "featured_desc": "Découvrez les meilleurs Sprite Comics du moment, sélectionnés par l'équipe.",
         "desc_lost_1": "Vous ne savez pas où aller ? Vous ignorez même ce qu'est un <em>sprite comic</em> ?",
         "desc_lost_2": "Nous vous invitons a vous rendre sur <a href=\"{{base_url}}about\">la page \"A propos\"</a> afin d'en savoir plus sur le <em>sprite comic</em> et Shy'Comics. Vous pouvez également visiter <a href=\"{{base_url}}spritecomics\">les galeries de nos membres</a> pour lire leurs créations <strong>gratuitement</strong> !"
       }

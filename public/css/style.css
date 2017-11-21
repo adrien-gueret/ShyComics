@@ -1,4 +1,7 @@
 @import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro&subset=latin-ext);
+@font-face { font-family: "MontserratBold"; src: url('../fonts/Montserrat-Bold.ttf');}
+@font-face { font-family: "MontserratSemiBold"; src: url('../fonts/Montserrat-SemiBold.ttf');}
+@font-face { font-family: "Montserrat"; src: url('../fonts/Montserrat-Regular.ttf'); font-weight: normal; font-style: normal; font-variant: normal; }
 
 html, body {
 	margin: 0;
@@ -8,125 +11,290 @@ html, body {
 	top: 0;
 	position: absolute;
 	min-height: 100%;
-	min-width: 1090px;
-	font-family: 'Source Sans Pro', sans-serif;
-}
-
-html {
-	background-image: url(../images/style/background_body.png);
+    
+	font-family: "Montserrat";
+    line-height: 1.5;
 }
 
 /*Navigation bars*/
 body > nav {
-	background-color: #2b2b2b;
-	color: #c7c7c7;
-	height: 40px;
-	min-width: 930px;
-	line-height: 40px;
-	padding-left: 40px;
+    position: relative;
+    z-index: 2;
+    
+	height: 72px;
+    
+    background: orange;
+    background: -webkit-linear-gradient(left, #f09819, #ff5858);
+    background: -o-linear-gradient(left, #f09819, #ff5858);
+    background: -moz-linear-gradient(left, #f09819, #ff5858);
+    background: linear-gradient(left, #f09819, #ff5858);
+    
+	box-shadow:  0px -5px 10px 10px rgba(0, 0, 0, 0.32);
+	-webkit-box-shadow:  0px -5px 10px 10px rgba(0, 0, 0, 0.32);
+	-moz-box-shadow:  0px -5px 10px 10px rgba(0, 0, 0, 0.32);
+	-o-box-shadow:  0px -5px 10px 10px rgba(0, 0, 0, 0.32);
+	-ms-box-shadow:  0px -5px 10px 10px rgba(0, 0, 0, 0.32);
 }
 
-/*Left bar*/
-body > nav + nav {
-	position: absolute;
-	left: 0;
-	top: 40px;
-	padding: 0;
-	bottom: 0;
-	width: 40px;
-	min-width: 40px;
-	height: auto;
-	text-align: center;
+body > nav > div {
+    width: 832px;
+    margin: auto;
 }
 
 /*Top left logo*/
-body > nav > a {
+body > nav > div > a {
 	float: left;
+    margin-top: 18px;
 }
 
 body > nav ul {
-	margin: 0;
-	padding: 0;
-	list-style: none;
-	float: right;
 }
 
 body > nav + nav ul {
-	float: none;
 }
 
 body > nav ul li {
-	margin: 0 5px 0 5px;
-	padding: 0;
-	list-style: none;
-	display: inline-block;
 }
 
 body > nav a, body > nav a:visited {
-	color: inherit;
-	text-decoration: none;
-	transition: color 200ms;
 }
 
 body > nav a:hover {
-	color: #579932;
-}
-
-.leftnav_button {
-	font-size: 1.5em;
 }
 
 body > nav input {
-	background-color: #c8c8c8;
-	color: #2b2b2b;
-	border-radius: 25px;
-	border: 0;
-	padding: 2px;
 }
 
 /*Main header*/
 body > header {
-	background-color: #70c641;
-	height: 145px;
-	padding-top: 60px;
-	margin-left: 40px;
-	text-align: center;
-	color: #fff;
-	font-size: 1.5em;
+    height: 144px;
+    background-color: #ff5858;
+    
+    font-family: "MontserratBold";
+    font-size: 48pt;
+    color: white;
+}
+
+body > header > div {
+    width: 832px;
+    margin: auto;
+    
+    padding-top: 20px;
 }
 
 body > header a, body > header a:visited {
-	color: inherit;
-	text-decoration: none;
-	display: inline-block;
-	padding: 10px;
-	border: 1px solid #fff;
-	border-radius: 25px;
 }
 
 body > header a:hover {
-	background-color: #fff;
-	color: #70c641;
 }
 
 /*Main container*/
 body > section {
-	margin-left: 40px;
-	position: relative;
-	top: -15px;
 }
+
 .main-container {
 	background-color: #fff;
-	padding: 10px;
-	min-width: 780px;
-	width: 80%;
+    
+    width: 832px;
+    
 	margin: auto;
-	min-height: 350px;
-	-webkit-box-shadow:  0 0 4px #8d8d8d;
-	-moz-box-shadow:  0 0 4px #8d8d8d;
-	-o-box-shadow:  0 0 4px #8d8d8d;
-	-ms-box-shadow:  0 0 4px #8d8d8d;
-	box-shadow:  0 0 4px #8d8d8d;
+    
+    font-size: 16pt;
+}
+
+.featured {
+    width: 100%;
+    background-color: #f09819;
+    
+    padding-top: 48px;
+    padding-bottom: 48px;
+}
+
+.featured h1 {
+    margin-top: 24px;
+    margin-bottom: 18px;
+    
+    font-size: 25pt;
+}
+
+.featured > div {
+    width: 832px;
+    margin: auto;
+    
+    display: flex;
+}
+
+.featured > div > div ~ div {
+    flex-shrink: 1;
+    background-color: #fff;
+    width: 240px;
+    height: 240px;
+    margin-left: 8px;
+}
+
+.featured > div > div:first-child {
+    flex-grow: 1;
+    color: white;
+    font-size: 1.3em;
+}
+
+h1 {
+    font-family: "MontserratBold";
+    font-size: 32pt;
+}
+
+h2 {
+    font-family: "MontserratBold";
+    font-size: 24pt;
+}
+
+h3 {
+    font-size: 24pt;
+}
+
+b {
+    font-family: "MontserratBold";
+}
+
+.legend {
+    font-size: 14pt;
+}
+
+.roundedWhite {
+    border: 1px solid white;
+    padding: 10px;
+    border-radius: 25px;
+    width: fit-content;
+    color: #fff;
+    text-decoration: none;
+}
+
+.roundedWhite:hover {
+    background-color: white;
+    color: #f09819;
+}
+
+/*Grids*/
+.main-container > .grid {
+    width: 100%;
+    padding-bottom: 48px;
+    overflow: hidden;
+}
+
+.main-container > .grid > .cat {
+    width: 100%;
+    height: 48px;
+    vertical-align: bottom;
+    
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.main-container > .grid > .cat > div ~ div{
+    text-align: right;
+}
+
+.main-container > .grid > .cat > div:first-child {
+    font-family: "MontserratBold";
+}
+
+.main-container > .grid > .content {
+    width: 100%;
+    display: flex;
+    padding-top: 24px;
+}
+
+.main-container > .grid > .content > .element {
+    display: block;
+    text-decoration: none;
+    border: none;
+    
+    height: 240px;
+    width: 160px;
+    background-color: orange;
+    background-position: center;
+    
+    flex-shrink: 0;
+    
+	box-shadow:  0px 1px 4.9px 0.1px rgba(0, 0, 0, 0.16);
+	-webkit-box-shadow:  0px 1px 4.9px 0.1px rgba(0, 0, 0, 0.16);
+	-moz-box-shadow:  0px 1px 4.9px 0.1px rgba(0, 0, 0, 0.16);
+	-o-box-shadow:  0px 1px 4.9px 0.1px rgba(0, 0, 0, 0.16);
+	-ms-box-shadow:  0px 1px 4.9px 0.1px rgba(0, 0, 0, 0.16);
+    
+    -webkit-transition: -webkit-box-shadow 0.5s;
+    transition: box-shadow 0.5s;
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.main-container > .grid > .content > .element:hover {
+    box-shadow:  0px 4px 19.6px 0.4px rgba(0, 0, 0, 0.16);
+	-webkit-box-shadow:  0px 4px 19.6px 0.4px rgba(0, 0, 0, 0.16);
+	-moz-box-shadow:  0px 4px 19.6px 0.4px rgba(0, 0, 0, 0.16);
+	-o-box-shadow:  0px 4px 19.6px 0.4px rgba(0, 0, 0, 0.16);
+	-ms-box-shadow:  0px 4px 19.6px 0.4px rgba(0, 0, 0, 0.16);
+}
+
+.main-container > .grid > .content > .element ~ div {
+    margin-left: 8px;
+}
+
+.main-container > .grid > .content > .element > div ~ div {
+    height: 56px;
+    background-color: #ff5858;
+    color: #fff;
+    
+    background-clip: content-box;
+    padding-top: 184px;
+    
+    -webkit-transition: height 0.5s;
+    transition: height 0.5s;
+}
+
+.main-container > .grid > .content > .element > div ~ div:hover {
+    height: 68px;
+    padding-top: 172px;
+}
+
+.main-container > .grid > .content > .element > div > .title {
+    padding-left: 16px;
+    padding-right: 16px;
+    padding-top: 7px;
+    
+    font-size: 15px;
+    
+    display: flex;
+    justify-content: space-between;
+}
+
+.main-container > .grid > .content > .element > div > .title > div {
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.main-container > .grid > .content > .element > div > .title > div > div ~ div {
+    font-size: 12px;
+}
+
+.main-container > .grid > .content > .element > div > .title > .heart {
+    width: 50px;
+    text-align: right;
+    padding-top: 7px;
+    font-size: 20px;
+}
+
+.main-container > .grid > .content > .element > div > .title a {
+    text-decoration: none;
+    border: none;
+    color: #fff;
+}
+
+.main-container > .grid > .content > .element > div > .title a:hover {
+    border: none;
 }
 
 /*Links*/
@@ -314,11 +482,13 @@ form.moderation button {
 
 /* Buttons */
 button, input[type="button"], .button {
+	font-size: 16pt;
+    font-weight: semiBold;
+	color: #333;
+    
 	position: relative;
 	vertical-align: top;
 	display: inline-block;
-	font-size: 1.4em;
-	color: #333;
 	text-align: center;
 	padding: 10px;
 	border: 0;
@@ -539,4 +709,124 @@ button.orange, input[type="button"].orange, .button.orange {
 .mini_avatar {
     width: 40px;
     height: 40px;
+}
+
+/* Responsive design*/
+
+@media only screen and (min-width: 1280px) {
+    body > nav > div {
+        width: 1000px;
+    }
+
+    body > header > div {
+        width: 1000px;
+    }
+
+    .main-container {
+        width: 1000px;
+    }
+
+    .featured > div {
+        width: 1000px;
+    }
+
+    .featured > div > div ~ div {
+        flex-shrink: 0;
+    }
+}
+
+@media only screen and (min-width: 1440px) {
+    body > nav > div {
+        width: 1240px;
+    }
+
+    body > header > div {
+        width: 1240px;
+    }
+
+    .main-container {
+        width: 1240px;
+    }
+
+    .featured {
+        padding-top: 56px;
+        padding-bottom: 56px;
+    }
+
+    .featured h1 {
+        margin-bottom: 36px;
+        font-size: 32pt;
+    }
+
+    .featured > div {
+        width: 1240px;
+    }
+
+    .featured > div > div ~ div {
+        width: 300px;
+        height: 300px;
+    }
+    
+    .main-container > .grid {
+        padding-bottom: 56px;
+    }
+
+    .main-container > .grid > .cat {
+        height: 72px;
+    }
+
+    .main-container > .grid > .content > .element {
+        height: 300px;
+        width: 200px;
+    
+        box-shadow:  0px 2px 3.76px 0.24px rgba(0, 0, 0, 0.24);
+        -webkit-box-shadow:  0px 2px 3.76px 0.24px rgba(0, 0, 0, 0.24);
+        -moz-box-shadow:  0px 2px 3.76px 0.24px rgba(0, 0, 0, 0.24);
+        -o-box-shadow:  0px 2px 3.76px 0.24px rgba(0, 0, 0, 0.24);
+        -ms-box-shadow:  0px 2px 3.76px 0.24px rgba(0, 0, 0, 0.24);
+    }
+
+    .main-container > .grid > .content > .element:hover {
+        box-shadow:  0px 10px 14.1px 0.9px rgba(0, 0, 0, 0.24);
+        -webkit-box-shadow:  0px 10px 14.1px 0.9px rgba(0, 0, 0, 0.24);
+        -moz-box-shadow:  0px 10px 14.1px 0.9px rgba(0, 0, 0, 0.24);
+        -o-box-shadow:  0px 10px 14.1px 0.9px rgba(0, 0, 0, 0.24);
+        -ms-box-shadow:  0px 10px 14.1px 0.9px rgba(0, 0, 0, 0.24);
+    }
+
+    .main-container > .grid > .content > .element > div ~ div{
+        height: 72px;
+        padding-top: 228px;
+    }
+
+    .main-container > .grid > .content > .element > div ~ div:hover {
+        height: 84px;
+        padding-top: 216px;
+    }
+
+    .main-container > .grid > .content > .element > div > .title {
+        padding-top: 15px;
+    }
+
+    .main-container > .grid > .content > .element > div > .title > .heart {
+        width: 40px;
+    }
+}
+
+@media only screen and (min-width: 1920px) {
+    body > nav > div {
+        width: 1656px;
+    }
+
+    body > header > div {
+        width: 1656px;
+    }
+
+    .main-container {
+        width: 1656px;
+    }
+
+    .featured > div {
+        width: 1656px;
+    }
 }
